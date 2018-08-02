@@ -1,7 +1,7 @@
 
 .PHONY: generate
 generate:
-	./script/generate.sh
+	./scripts/generate.sh
 
 .PHONY: clean
 clean:
@@ -9,4 +9,4 @@ clean:
 
 .PHONY: run_swagger_server
 run_swagger_server:
-	./script/run_swagger_server.sh
+	./scripts/run_swagger_server.sh
