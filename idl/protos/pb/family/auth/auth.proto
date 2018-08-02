@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package pb.taeho.auth;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/taeho-io/family/idl/generated/go/pb/family/auth;auth";
+
+service AuthService {
+    rpc Auth (AuthRequest) returns (AuthResponse) {}
+    rpc Validate (ValidateRequest) returns (ValidateResponse) {}
+    rpc Refresh (RefreshRequest) returns (RefreshResponse) {
+        option (google.api.http) = {
+            post: "/v1/auth/refreshToken"
+            body: "*"
+        };
+    }
+    rpc Parse (ParseRequest) returns (ParseResponse) {}
+}
+
+message AuthRequest {
+    string account_id = 1;
+}
+
+message AuthResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+    string account_id = 3;
+    int64 expires_in = 5;
+}
+
+message ValidateRequest {
+    string access_token = 1;
+}
+
+message ValidateResponse {
+    bool is_valid = 1;
+}
+
+message RefreshRequest {
+    string refresh_token = 1;
+}
+
+message RefreshResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+    string account_id = 3;
+    int64 expires_in = 5;
+}
+
+message ParseRequest {
+    string access_token = 1;
+}
+
+message ParseResponse {
+    string account_id = 1;
+}
