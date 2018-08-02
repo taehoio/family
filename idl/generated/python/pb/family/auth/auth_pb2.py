@@ -18,9 +18,9 @@ from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='pb/family/auth/auth.proto',
-  package='pb.taeho.auth',
+  package='pb.family.auth',
   syntax='proto3',
-  serialized_pb=_b('\n\x19pb/family/auth/auth.proto\x12\rpb.taeho.auth\x1a\x1cgoogle/api/annotations.proto\"!\n\x0b\x41uthRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\"c\n\x0c\x41uthResponse\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t\x12\x12\n\naccount_id\x18\x03 \x01(\t\x12\x12\n\nexpires_in\x18\x05 \x01(\x03\"\'\n\x0fValidateRequest\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\"$\n\x10ValidateResponse\x12\x10\n\x08is_valid\x18\x01 \x01(\x08\"\'\n\x0eRefreshRequest\x12\x15\n\rrefresh_token\x18\x01 \x01(\t\"f\n\x0fRefreshResponse\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t\x12\x12\n\naccount_id\x18\x03 \x01(\t\x12\x12\n\nexpires_in\x18\x05 \x01(\x03\"$\n\x0cParseRequest\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\"#\n\rParseResponse\x12\x12\n\naccount_id\x18\x01 \x01(\t2\xd1\x02\n\x0b\x41uthService\x12\x41\n\x04\x41uth\x12\x1a.pb.taeho.auth.AuthRequest\x1a\x1b.pb.taeho.auth.AuthResponse\"\x00\x12M\n\x08Validate\x12\x1e.pb.taeho.auth.ValidateRequest\x1a\x1f.pb.taeho.auth.ValidateResponse\"\x00\x12j\n\x07Refresh\x12\x1d.pb.taeho.auth.RefreshRequest\x1a\x1e.pb.taeho.auth.RefreshResponse\" \x82\xd3\xe4\x93\x02\x1a\"\x15/v1/auth/refreshToken:\x01*\x12\x44\n\x05Parse\x12\x1b.pb.taeho.auth.ParseRequest\x1a\x1c.pb.taeho.auth.ParseResponse\"\x00\x42\x41Z?github.com/taeho-io/family/idl/generated/go/pb/family/auth;authb\x06proto3')
+  serialized_pb=_b('\n\x19pb/family/auth/auth.proto\x12\x0epb.family.auth\x1a\x1cgoogle/api/annotations.proto\"!\n\x0b\x41uthRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\"c\n\x0c\x41uthResponse\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t\x12\x12\n\naccount_id\x18\x03 \x01(\t\x12\x12\n\nexpires_in\x18\x05 \x01(\x03\"\'\n\x0fValidateRequest\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\"$\n\x10ValidateResponse\x12\x10\n\x08is_valid\x18\x01 \x01(\x08\"\'\n\x0eRefreshRequest\x12\x15\n\rrefresh_token\x18\x01 \x01(\t\"f\n\x0fRefreshResponse\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x15\n\rrefresh_token\x18\x02 \x01(\t\x12\x12\n\naccount_id\x18\x03 \x01(\t\x12\x12\n\nexpires_in\x18\x05 \x01(\x03\"$\n\x0cParseRequest\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\"#\n\rParseResponse\x12\x12\n\naccount_id\x18\x01 \x01(\t2\xd9\x02\n\x0b\x41uthService\x12\x43\n\x04\x41uth\x12\x1b.pb.family.auth.AuthRequest\x1a\x1c.pb.family.auth.AuthResponse\"\x00\x12O\n\x08Validate\x12\x1f.pb.family.auth.ValidateRequest\x1a .pb.family.auth.ValidateResponse\"\x00\x12l\n\x07Refresh\x12\x1e.pb.family.auth.RefreshRequest\x1a\x1f.pb.family.auth.RefreshResponse\" \x82\xd3\xe4\x93\x02\x1a\"\x15/v1/auth/refreshToken:\x01*\x12\x46\n\x05Parse\x12\x1c.pb.family.auth.ParseRequest\x1a\x1d.pb.family.auth.ParseResponse\"\x00\x42\x41Z?github.com/taeho-io/family/idl/generated/go/pb/family/auth;authb\x06proto3')
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -29,13 +29,13 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _AUTHREQUEST = _descriptor.Descriptor(
   name='AuthRequest',
-  full_name='pb.taeho.auth.AuthRequest',
+  full_name='pb.family.auth.AuthRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='account_id', full_name='pb.taeho.auth.AuthRequest.account_id', index=0,
+      name='account_id', full_name='pb.family.auth.AuthRequest.account_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -53,41 +53,41 @@ _AUTHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=74,
-  serialized_end=107,
+  serialized_start=75,
+  serialized_end=108,
 )
 
 
 _AUTHRESPONSE = _descriptor.Descriptor(
   name='AuthResponse',
-  full_name='pb.taeho.auth.AuthResponse',
+  full_name='pb.family.auth.AuthResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='access_token', full_name='pb.taeho.auth.AuthResponse.access_token', index=0,
+      name='access_token', full_name='pb.family.auth.AuthResponse.access_token', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='refresh_token', full_name='pb.taeho.auth.AuthResponse.refresh_token', index=1,
+      name='refresh_token', full_name='pb.family.auth.AuthResponse.refresh_token', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='account_id', full_name='pb.taeho.auth.AuthResponse.account_id', index=2,
+      name='account_id', full_name='pb.family.auth.AuthResponse.account_id', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='expires_in', full_name='pb.taeho.auth.AuthResponse.expires_in', index=3,
+      name='expires_in', full_name='pb.family.auth.AuthResponse.expires_in', index=3,
       number=5, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -105,20 +105,20 @@ _AUTHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=109,
-  serialized_end=208,
+  serialized_start=110,
+  serialized_end=209,
 )
 
 
 _VALIDATEREQUEST = _descriptor.Descriptor(
   name='ValidateRequest',
-  full_name='pb.taeho.auth.ValidateRequest',
+  full_name='pb.family.auth.ValidateRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='access_token', full_name='pb.taeho.auth.ValidateRequest.access_token', index=0,
+      name='access_token', full_name='pb.family.auth.ValidateRequest.access_token', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -136,20 +136,20 @@ _VALIDATEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=210,
-  serialized_end=249,
+  serialized_start=211,
+  serialized_end=250,
 )
 
 
 _VALIDATERESPONSE = _descriptor.Descriptor(
   name='ValidateResponse',
-  full_name='pb.taeho.auth.ValidateResponse',
+  full_name='pb.family.auth.ValidateResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='is_valid', full_name='pb.taeho.auth.ValidateResponse.is_valid', index=0,
+      name='is_valid', full_name='pb.family.auth.ValidateResponse.is_valid', index=0,
       number=1, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -167,20 +167,20 @@ _VALIDATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=251,
-  serialized_end=287,
+  serialized_start=252,
+  serialized_end=288,
 )
 
 
 _REFRESHREQUEST = _descriptor.Descriptor(
   name='RefreshRequest',
-  full_name='pb.taeho.auth.RefreshRequest',
+  full_name='pb.family.auth.RefreshRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='refresh_token', full_name='pb.taeho.auth.RefreshRequest.refresh_token', index=0,
+      name='refresh_token', full_name='pb.family.auth.RefreshRequest.refresh_token', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -198,41 +198,41 @@ _REFRESHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=289,
-  serialized_end=328,
+  serialized_start=290,
+  serialized_end=329,
 )
 
 
 _REFRESHRESPONSE = _descriptor.Descriptor(
   name='RefreshResponse',
-  full_name='pb.taeho.auth.RefreshResponse',
+  full_name='pb.family.auth.RefreshResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='access_token', full_name='pb.taeho.auth.RefreshResponse.access_token', index=0,
+      name='access_token', full_name='pb.family.auth.RefreshResponse.access_token', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='refresh_token', full_name='pb.taeho.auth.RefreshResponse.refresh_token', index=1,
+      name='refresh_token', full_name='pb.family.auth.RefreshResponse.refresh_token', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='account_id', full_name='pb.taeho.auth.RefreshResponse.account_id', index=2,
+      name='account_id', full_name='pb.family.auth.RefreshResponse.account_id', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='expires_in', full_name='pb.taeho.auth.RefreshResponse.expires_in', index=3,
+      name='expires_in', full_name='pb.family.auth.RefreshResponse.expires_in', index=3,
       number=5, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -250,20 +250,20 @@ _REFRESHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=330,
-  serialized_end=432,
+  serialized_start=331,
+  serialized_end=433,
 )
 
 
 _PARSEREQUEST = _descriptor.Descriptor(
   name='ParseRequest',
-  full_name='pb.taeho.auth.ParseRequest',
+  full_name='pb.family.auth.ParseRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='access_token', full_name='pb.taeho.auth.ParseRequest.access_token', index=0,
+      name='access_token', full_name='pb.family.auth.ParseRequest.access_token', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -281,20 +281,20 @@ _PARSEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=434,
-  serialized_end=470,
+  serialized_start=435,
+  serialized_end=471,
 )
 
 
 _PARSERESPONSE = _descriptor.Descriptor(
   name='ParseResponse',
-  full_name='pb.taeho.auth.ParseResponse',
+  full_name='pb.family.auth.ParseResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='account_id', full_name='pb.taeho.auth.ParseResponse.account_id', index=0,
+      name='account_id', full_name='pb.family.auth.ParseResponse.account_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -312,8 +312,8 @@ _PARSERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=472,
-  serialized_end=507,
+  serialized_start=473,
+  serialized_end=508,
 )
 
 DESCRIPTOR.message_types_by_name['AuthRequest'] = _AUTHREQUEST
@@ -329,56 +329,56 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 AuthRequest = _reflection.GeneratedProtocolMessageType('AuthRequest', (_message.Message,), dict(
   DESCRIPTOR = _AUTHREQUEST,
   __module__ = 'pb.family.auth.auth_pb2'
-  # @@protoc_insertion_point(class_scope:pb.taeho.auth.AuthRequest)
+  # @@protoc_insertion_point(class_scope:pb.family.auth.AuthRequest)
   ))
 _sym_db.RegisterMessage(AuthRequest)
 
 AuthResponse = _reflection.GeneratedProtocolMessageType('AuthResponse', (_message.Message,), dict(
   DESCRIPTOR = _AUTHRESPONSE,
   __module__ = 'pb.family.auth.auth_pb2'
-  # @@protoc_insertion_point(class_scope:pb.taeho.auth.AuthResponse)
+  # @@protoc_insertion_point(class_scope:pb.family.auth.AuthResponse)
   ))
 _sym_db.RegisterMessage(AuthResponse)
 
 ValidateRequest = _reflection.GeneratedProtocolMessageType('ValidateRequest', (_message.Message,), dict(
   DESCRIPTOR = _VALIDATEREQUEST,
   __module__ = 'pb.family.auth.auth_pb2'
-  # @@protoc_insertion_point(class_scope:pb.taeho.auth.ValidateRequest)
+  # @@protoc_insertion_point(class_scope:pb.family.auth.ValidateRequest)
   ))
 _sym_db.RegisterMessage(ValidateRequest)
 
 ValidateResponse = _reflection.GeneratedProtocolMessageType('ValidateResponse', (_message.Message,), dict(
   DESCRIPTOR = _VALIDATERESPONSE,
   __module__ = 'pb.family.auth.auth_pb2'
-  # @@protoc_insertion_point(class_scope:pb.taeho.auth.ValidateResponse)
+  # @@protoc_insertion_point(class_scope:pb.family.auth.ValidateResponse)
   ))
 _sym_db.RegisterMessage(ValidateResponse)
 
 RefreshRequest = _reflection.GeneratedProtocolMessageType('RefreshRequest', (_message.Message,), dict(
   DESCRIPTOR = _REFRESHREQUEST,
   __module__ = 'pb.family.auth.auth_pb2'
-  # @@protoc_insertion_point(class_scope:pb.taeho.auth.RefreshRequest)
+  # @@protoc_insertion_point(class_scope:pb.family.auth.RefreshRequest)
   ))
 _sym_db.RegisterMessage(RefreshRequest)
 
 RefreshResponse = _reflection.GeneratedProtocolMessageType('RefreshResponse', (_message.Message,), dict(
   DESCRIPTOR = _REFRESHRESPONSE,
   __module__ = 'pb.family.auth.auth_pb2'
-  # @@protoc_insertion_point(class_scope:pb.taeho.auth.RefreshResponse)
+  # @@protoc_insertion_point(class_scope:pb.family.auth.RefreshResponse)
   ))
 _sym_db.RegisterMessage(RefreshResponse)
 
 ParseRequest = _reflection.GeneratedProtocolMessageType('ParseRequest', (_message.Message,), dict(
   DESCRIPTOR = _PARSEREQUEST,
   __module__ = 'pb.family.auth.auth_pb2'
-  # @@protoc_insertion_point(class_scope:pb.taeho.auth.ParseRequest)
+  # @@protoc_insertion_point(class_scope:pb.family.auth.ParseRequest)
   ))
 _sym_db.RegisterMessage(ParseRequest)
 
 ParseResponse = _reflection.GeneratedProtocolMessageType('ParseResponse', (_message.Message,), dict(
   DESCRIPTOR = _PARSERESPONSE,
   __module__ = 'pb.family.auth.auth_pb2'
-  # @@protoc_insertion_point(class_scope:pb.taeho.auth.ParseResponse)
+  # @@protoc_insertion_point(class_scope:pb.family.auth.ParseResponse)
   ))
 _sym_db.RegisterMessage(ParseResponse)
 
@@ -388,16 +388,16 @@ DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b
 
 _AUTHSERVICE = _descriptor.ServiceDescriptor(
   name='AuthService',
-  full_name='pb.taeho.auth.AuthService',
+  full_name='pb.family.auth.AuthService',
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=510,
-  serialized_end=847,
+  serialized_start=511,
+  serialized_end=856,
   methods=[
   _descriptor.MethodDescriptor(
     name='Auth',
-    full_name='pb.taeho.auth.AuthService.Auth',
+    full_name='pb.family.auth.AuthService.Auth',
     index=0,
     containing_service=None,
     input_type=_AUTHREQUEST,
@@ -406,7 +406,7 @@ _AUTHSERVICE = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='Validate',
-    full_name='pb.taeho.auth.AuthService.Validate',
+    full_name='pb.family.auth.AuthService.Validate',
     index=1,
     containing_service=None,
     input_type=_VALIDATEREQUEST,
@@ -415,7 +415,7 @@ _AUTHSERVICE = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='Refresh',
-    full_name='pb.taeho.auth.AuthService.Refresh',
+    full_name='pb.family.auth.AuthService.Refresh',
     index=2,
     containing_service=None,
     input_type=_REFRESHREQUEST,
@@ -424,7 +424,7 @@ _AUTHSERVICE = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='Parse',
-    full_name='pb.taeho.auth.AuthService.Parse',
+    full_name='pb.family.auth.AuthService.Parse',
     index=3,
     containing_service=None,
     input_type=_PARSEREQUEST,

@@ -15,22 +15,22 @@ class AuthServiceStub(object):
       channel: A grpc.Channel.
     """
     self.Auth = channel.unary_unary(
-        '/pb.taeho.auth.AuthService/Auth',
+        '/pb.family.auth.AuthService/Auth',
         request_serializer=pb_dot_family_dot_auth_dot_auth__pb2.AuthRequest.SerializeToString,
         response_deserializer=pb_dot_family_dot_auth_dot_auth__pb2.AuthResponse.FromString,
         )
     self.Validate = channel.unary_unary(
-        '/pb.taeho.auth.AuthService/Validate',
+        '/pb.family.auth.AuthService/Validate',
         request_serializer=pb_dot_family_dot_auth_dot_auth__pb2.ValidateRequest.SerializeToString,
         response_deserializer=pb_dot_family_dot_auth_dot_auth__pb2.ValidateResponse.FromString,
         )
     self.Refresh = channel.unary_unary(
-        '/pb.taeho.auth.AuthService/Refresh',
+        '/pb.family.auth.AuthService/Refresh',
         request_serializer=pb_dot_family_dot_auth_dot_auth__pb2.RefreshRequest.SerializeToString,
         response_deserializer=pb_dot_family_dot_auth_dot_auth__pb2.RefreshResponse.FromString,
         )
     self.Parse = channel.unary_unary(
-        '/pb.taeho.auth.AuthService/Parse',
+        '/pb.family.auth.AuthService/Parse',
         request_serializer=pb_dot_family_dot_auth_dot_auth__pb2.ParseRequest.SerializeToString,
         response_deserializer=pb_dot_family_dot_auth_dot_auth__pb2.ParseResponse.FromString,
         )
@@ -93,5 +93,5 @@ def add_AuthServiceServicer_to_server(servicer, server):
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'pb.taeho.auth.AuthService', rpc_method_handlers)
+      'pb.family.auth.AuthService', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))
