@@ -1,21 +1,61 @@
 package config
 
+import (
+	"os"
+	"strings"
+)
+
+const (
+	productName = "family"
+)
+
 type IFace interface {
-	Namespace() string
+	ProductName() string
+	SvcName() string
+	Env() string
 }
 
 type Config struct {
 	IFace
 
-	namespace string
+	productName string
+	svcName     string
+	env         string
 }
 
-func New(namespace string) (cfg *Config) {
+func New(srvName string) (cfg *Config) {
+	env := os.Getenv("env")
+	if env == "" {
+		env = "development"
+	}
+
 	return &Config{
-		namespace: namespace,
+		productName: productName,
+		svcName:     srvName,
+		env:         env,
 	}
 }
 
-func (c *Config) Namespace() string {
-	return c.namespace
+func NewMock(srvName string) (cfg *Config) {
+	return &Config{
+		productName: productName,
+		svcName:     srvName,
+		env:         "testing",
+	}
+}
+
+func (c *Config) ProductName() string {
+	return c.productName
+}
+
+func (c *Config) SrvName() string {
+	return c.svcName
+}
+
+func (c *Config) Env() string {
+	return c.env
+}
+
+func (c *Config) Prefix() string {
+	return strings.Join([]string{c.ProductName(), c.Env(), c.SrvName(), ""}, "-")
 }

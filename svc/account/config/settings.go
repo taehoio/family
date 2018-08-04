@@ -3,21 +3,24 @@ package config
 import "os"
 
 const (
-	namespace = "account"
+	srvName = "account"
 )
 
 type Settings struct {
-	AwsDynamodbRegion string
+	AwsDynamodbRegion        string
+	DynamodbAccountTableName string
 }
 
 func NewSettings() Settings {
 	return Settings{
-		AwsDynamodbRegion: os.Getenv("AWS_DEFAULT_REGION"),
+		AwsDynamodbRegion:        os.Getenv("AWS_DEFAULT_REGION"),
+		DynamodbAccountTableName: os.Getenv("DynamoDbAccountTableName"),
 	}
 }
 
 func NewMockSettings() Settings {
 	return Settings{
-		AwsDynamodbRegion: "us-west-2",
+		AwsDynamodbRegion:        "us-west-2",
+		DynamodbAccountTableName: "account",
 	}
 }

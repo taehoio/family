@@ -16,7 +16,7 @@ type AccountSvcConfig struct {
 
 func New(settings Settings) (cfg IFace) {
 	return &AccountSvcConfig{
-		IFace:    srvConfig.New(namespace),
+		IFace:    srvConfig.New(srvName),
 		settings: settings,
 	}
 }

@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	namespace = "auth"
+	srvName = "auth"
 )
 
 type Settings struct {
