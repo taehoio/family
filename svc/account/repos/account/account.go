@@ -5,7 +5,7 @@ import (
 )
 
 type Account struct {
-	AccountID      string    `dynamo:"account_id"`
+	AccountID      string    `dynamo:"account_id,hash"`
 	Type           string    `dynamo:"type"`
 	Email          string    `dynamo:"email"`
 	HashedPassword string    `dynamo:"hashed_password"`

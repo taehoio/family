@@ -23,7 +23,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestFullTableName(t *testing.T) {
-	assert.Equal(t, "family-testing-account-account_email", accountEmailTable.Table().Name())
+	assert.Equal(t, "family-development-account-account_email", accountEmailTable.Table().Name())
 }
 
 func TestPut(t *testing.T) {
