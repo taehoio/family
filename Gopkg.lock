@@ -196,6 +196,14 @@
   version = "v1.2.2"
 
 [[projects]]
+  digest = "1:55d27b8732fb1d1e5fdac6cde719dff565983ef2cebf5db5bdce2d75caafd8bc"
+  name = "github.com/taeho-io/idl"
+  packages = ["generated/go/pb/taeho/account"]
+  pruneopts = "UT"
+  revision = "ccc016362b300ead9d70daba8f53b3f9f23fd9a7"
+  version = "v0.0.2"
+
+[[projects]]
   digest = "1:01cf2a7ef8d0cf0f4ed39d39334ba243a7c845e01f7af2c2e7b64dca5a522a5f"
   name = "github.com/xissy/logrus"
   packages = ["."]
@@ -349,6 +357,7 @@
     "github.com/sirupsen/logrus",
     "github.com/stretchr/testify/assert",
     "github.com/stretchr/testify/mock",
+    "github.com/taeho-io/idl/generated/go/pb/taeho/account",
     "github.com/xissy/logrus",
     "go.uber.org/multierr",
     "golang.org/x/crypto/bcrypt",

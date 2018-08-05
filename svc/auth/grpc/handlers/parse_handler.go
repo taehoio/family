@@ -15,6 +15,7 @@ func Parse(tkn token.IFace) ParseHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
+
 		return &auth.ParseResponse{
 			AccountId: claims.Audience,
 		}, nil

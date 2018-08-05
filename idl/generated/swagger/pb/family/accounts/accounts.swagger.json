@@ -1,0 +1,144 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/family/accounts/accounts.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/accounts/logIn": {
+      "post": {
+        "operationId": "LogIn",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsLogInResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsLogInRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountsService"
+        ]
+      }
+    },
+    "/v1/accounts/register": {
+      "post": {
+        "operationId": "Register",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/accountsRegisterResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsRegisterRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AccountsService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "accountsAuthType": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "EMAIL"
+      ],
+      "default": "NONE"
+    },
+    "accountsLogInRequest": {
+      "type": "object",
+      "properties": {
+        "auth_type": {
+          "$ref": "#/definitions/accountsAuthType"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsLogInResponse": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string"
+        },
+        "refresh_token": {
+          "type": "string"
+        },
+        "account_id": {
+          "type": "string"
+        },
+        "token_type": {
+          "type": "string"
+        },
+        "expires_in": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "accountsRegisterRequest": {
+      "type": "object",
+      "properties": {
+        "auth_type": {
+          "$ref": "#/definitions/accountsAuthType"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        }
+      }
+    },
+    "accountsRegisterResponse": {
+      "type": "object",
+      "properties": {
+        "auth_type": {
+          "$ref": "#/definitions/accountsAuthType"
+        },
+        "account_id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

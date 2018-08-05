@@ -20,10 +20,10 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
 
-	accountGateway "github.com/taeho-io/family/idl/generated/go/pb/family/account"
+	accountsGateway "github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
 	authGateway "github.com/taeho-io/family/idl/generated/go/pb/family/auth"
-	accountConfig "github.com/taeho-io/family/svc/account/config"
-	accountGRPC "github.com/taeho-io/family/svc/account/grpc"
+	accountsConfig "github.com/taeho-io/family/svc/accounts/config"
+	accountsGRPC "github.com/taeho-io/family/svc/accounts/grpc"
 	authConfig "github.com/taeho-io/family/svc/auth/config"
 	authGRPC "github.com/taeho-io/family/svc/auth/grpc"
 )
@@ -70,7 +70,7 @@ func serveGateway() error {
 	if err := authGateway.RegisterAuthServiceHandlerFromEndpoint(ctx, mux, *authServerEndpoint, opts); err != nil {
 		return err
 	}
-	if err := accountGateway.RegisterAccountServiceHandlerFromEndpoint(ctx, mux, *accountServerEndpoint, opts); err != nil {
+	if err := accountsGateway.RegisterAccountsServiceHandlerFromEndpoint(ctx, mux, *accountServerEndpoint, opts); err != nil {
 		return err
 	}
 
@@ -125,8 +125,8 @@ func serveGRPCServers() error {
 	authService := authGRPC.New(authCfg)
 	authService.RegisterService(grpcServer)
 
-	accountCfg := accountConfig.New(accountConfig.NewSettings())
-	accountService, err := accountGRPC.New(accountCfg)
+	accountCfg := accountsConfig.New(accountsConfig.NewSettings())
+	accountService, err := accountsGRPC.New(accountCfg)
 	if err != nil {
 		return err
 	}

@@ -3,7 +3,7 @@ package discovery
 import (
 	"google.golang.org/grpc"
 
-	"github.com/taeho-io/family/idl/generated/go/pb/family/account"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
 )
@@ -26,10 +26,10 @@ func NewAuthServiceClient() (auth.AuthServiceClient, error) {
 	return auth.NewAuthServiceClient(clientConn), nil
 }
 
-func NewAccountServiceClient() (account.AccountServiceClient, error) {
+func NewAccountServiceClient() (accounts.AccountsServiceClient, error) {
 	clientConn, err := getGRPCConnection(discovery.Service_ACCOUNT)
 	if err != nil {
 		return nil, err
 	}
-	return account.NewAccountServiceClient(clientConn), nil
+	return accounts.NewAccountsServiceClient(clientConn), nil
 }

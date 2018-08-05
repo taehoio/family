@@ -17,10 +17,12 @@ func Refresh(cfg config.IFace, tkn token.IFace) RefreshHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
+
 		accessTokenString, err := tkn.NewAccessToken(claims.Audience)
 		if err != nil {
 			return nil, err
 		}
+
 		return &auth.RefreshResponse{
 			AccessToken: accessTokenString,
 			ExpiresIn:   int64(cfg.Settings().AccessTokenExpiringDuration.Seconds()),

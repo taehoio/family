@@ -16,10 +16,12 @@ func Auth(cfg config.IFace, tkn token.IFace) AuthHandlerFunc {
 		if err != nil {
 			return nil, err
 		}
+
 		refreshTokenString, err := tkn.NewRefreshToken(req.AccountId)
 		if err != nil {
 			return nil, err
 		}
+
 		return &auth.AuthResponse{
 			AccountId:    req.AccountId,
 			AccessToken:  accessTokenString,

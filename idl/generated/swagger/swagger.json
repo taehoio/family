@@ -15,7 +15,7 @@
     "application/json"
   ],
   "paths": {
-    "/v1/account/logIn": {
+    "/v1/accounts/logIn": {
       "post": {
         "operationId": "LogIn",
         "parameters": [
@@ -24,7 +24,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/accountLogInRequest"
+              "$ref": "#/definitions/accountsLogInRequest"
             }
           }
         ],
@@ -32,16 +32,16 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/accountLogInResponse"
+              "$ref": "#/definitions/accountsLogInResponse"
             }
           }
         },
         "tags": [
-          "AccountService"
+          "AccountsService"
         ]
       }
     },
-    "/v1/account/register": {
+    "/v1/accounts/register": {
       "post": {
         "operationId": "Register",
         "parameters": [
@@ -50,7 +50,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/accountRegisterRequest"
+              "$ref": "#/definitions/accountsRegisterRequest"
             }
           }
         ],
@@ -58,12 +58,12 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/accountRegisterResponse"
+              "$ref": "#/definitions/accountsRegisterResponse"
             }
           }
         },
         "tags": [
-          "AccountService"
+          "AccountsService"
         ]
       }
     },
@@ -95,7 +95,7 @@
     }
   },
   "definitions": {
-    "accountAuthType": {
+    "accountsAuthType": {
       "default": "NONE",
       "enum": [
         "NONE",
@@ -103,10 +103,10 @@
       ],
       "type": "string"
     },
-    "accountLogInRequest": {
+    "accountsLogInRequest": {
       "properties": {
         "auth_type": {
-          "$ref": "#/definitions/accountAuthType"
+          "$ref": "#/definitions/accountsAuthType"
         },
         "email": {
           "type": "string"
@@ -117,7 +117,7 @@
       },
       "type": "object"
     },
-    "accountLogInResponse": {
+    "accountsLogInResponse": {
       "properties": {
         "access_token": {
           "type": "string"
@@ -138,10 +138,10 @@
       },
       "type": "object"
     },
-    "accountRegisterRequest": {
+    "accountsRegisterRequest": {
       "properties": {
         "auth_type": {
-          "$ref": "#/definitions/accountAuthType"
+          "$ref": "#/definitions/accountsAuthType"
         },
         "email": {
           "type": "string"
@@ -155,13 +155,13 @@
       },
       "type": "object"
     },
-    "accountRegisterResponse": {
+    "accountsRegisterResponse": {
       "properties": {
         "account_id": {
           "type": "string"
         },
         "auth_type": {
-          "$ref": "#/definitions/accountAuthType"
+          "$ref": "#/definitions/accountsAuthType"
         }
       },
       "type": "object"
