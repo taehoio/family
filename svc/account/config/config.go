@@ -21,6 +21,13 @@ func New(settings Settings) (cfg IFace) {
 	}
 }
 
+func NewMock() (cfg IFace) {
+	return &AccountSvcConfig{
+		IFace:    srvConfig.New(srvName),
+		settings: NewMockSettings(),
+	}
+}
+
 func (c *AccountSvcConfig) Settings() Settings {
 	return c.settings
 }

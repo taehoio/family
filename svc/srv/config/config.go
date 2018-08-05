@@ -7,26 +7,27 @@ import (
 
 const (
 	productName = "family"
+	defaultENV  = "testing"
 )
 
 type IFace interface {
 	ProductName() string
 	SvcName() string
 	Env() string
+	Prefix() string
 }
 
 type Config struct {
 	IFace
-
 	productName string
 	svcName     string
 	env         string
 }
 
 func New(srvName string) (cfg *Config) {
-	env := os.Getenv("env")
+	env := os.Getenv("ENV")
 	if env == "" {
-		env = "development"
+		env = defaultENV
 	}
 
 	return &Config{
@@ -57,5 +58,5 @@ func (c *Config) Env() string {
 }
 
 func (c *Config) Prefix() string {
-	return strings.Join([]string{c.ProductName(), c.Env(), c.SrvName(), ""}, "-")
+	return strings.Join([]string{c.ProductName(), c.Env(), c.SrvName()}, "-")
 }
