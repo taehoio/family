@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "pb/family/auth/account.proto",
+    "title": "pb/family/account/account.proto",
     "version": "version not set"
   },
   "schemes": [
