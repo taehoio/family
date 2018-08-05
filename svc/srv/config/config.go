@@ -6,8 +6,12 @@ import (
 )
 
 const (
-	productName = "family"
-	defaultENV  = "testing"
+	productName        = "family"
+	defaultEnvironment = "testing"
+)
+
+var (
+	environmentKeys = []string{"ENV", "APP_ENV", "NODE_ENV", "UP_STAGE"}
 )
 
 type IFace interface {
@@ -25,9 +29,13 @@ type Config struct {
 }
 
 func New(srvName string) (cfg *Config) {
-	env := os.Getenv("ENV")
-	if env == "" {
-		env = defaultENV
+	env := defaultEnvironment
+	for _, key := range environmentKeys {
+		value := os.Getenv(key)
+		if value != "" {
+			env = value
+			break
+		}
 	}
 
 	return &Config{

@@ -1,0 +1,24 @@
+{
+  "name": "family-app",
+  "profile": "taeho-io",
+  "regions": [
+    "us-west-2"
+  ],
+  "logs": {
+    "stdout": "info",
+    "stderr": "debug"
+  },
+  "stages": {
+    "development": {
+    },
+    "staging": {
+      "domain": "family-staging.taeho.io"
+    },
+    "production": {
+      "domain": "family.taeho.io"
+    }
+  },
+  "error_pages": {
+    "disable": true
+  }
+}

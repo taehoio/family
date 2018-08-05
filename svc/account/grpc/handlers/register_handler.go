@@ -7,8 +7,6 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"fmt"
-
 	"github.com/rs/xid"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/account"
 	"github.com/taeho-io/family/svc/account/crypt"
@@ -31,8 +29,6 @@ func Register(accountTable *accountRepo.Table, accountEmailTable *accountEmailRe
 		if err != nil {
 			return nil, err
 		}
-
-		fmt.Println(accountEmailTable.Table().Name())
 
 		accountID, err := accountEmailTable.GetAccountIDByEmail(req.Email)
 		if accountID != "" {
