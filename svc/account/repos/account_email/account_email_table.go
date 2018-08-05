@@ -48,24 +48,24 @@ func (t *Table) Table() *dynamo.Table {
 
 func (t *Table) Get(email string) (*AccountEmail, error) {
 	var accountEmail AccountEmail
-	if err := t.Table().Get(emailFieldKey, email).One(&accountEmail); err != nil {
+	if err := t.Table().
+		Get(emailFieldKey, email).
+		One(&accountEmail); err != nil {
 		return nil, err
 	}
 	return &accountEmail, nil
 }
 
 func (t *Table) Put(accountEmail *AccountEmail) error {
-	if err := t.Table().Put(accountEmail).Run(); err != nil {
-		return err
-	}
-	return nil
+	return t.Table().
+		Put(accountEmail).
+		Run()
 }
 
 func (t *Table) Delete(email string) error {
-	if err := t.Table().Delete(emailFieldKey, email).Run(); err != nil {
-		return err
-	}
-	return nil
+	return t.Table().
+		Delete(emailFieldKey, email).
+		Run()
 }
 
 func (t *Table) GetAccountIDByEmail(email string) (string, error) {

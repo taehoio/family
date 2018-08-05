@@ -3,6 +3,8 @@ package account_email
 import (
 	"testing"
 
+	"os"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -11,15 +13,21 @@ const (
 	testAccountID = "test_account_id"
 )
 
-func TestFullTableName(t *testing.T) {
-	accountEmailTable := NewMock()
+var (
+	accountEmailTable *Table
+)
 
+func TestMain(m *testing.M) {
+	accountEmailTable = NewMock()
+	retCode := m.Run()
+	os.Exit(retCode)
+}
+
+func TestFullTableName(t *testing.T) {
 	assert.Equal(t, "family-testing-account-account_email", accountEmailTable.Table().Name())
 }
 
 func TestPut(t *testing.T) {
-	accountEmailTable := NewMock()
-
 	accountEmail := &AccountEmail{
 		Email:     testEmail,
 		AccountID: testAccountID,
@@ -29,16 +37,13 @@ func TestPut(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
-	accountEmailTable := NewMock()
-
 	accountEmail, err := accountEmailTable.Get(testEmail)
 	assert.Nil(t, err)
 	assert.NotNil(t, accountEmail)
+	assert.Equal(t, testAccountID, accountEmail.AccountID)
 }
 
 func TestGetAccountIDByEmail(t *testing.T) {
-	accountEmailTable := NewMock()
-
 	accountID, err := accountEmailTable.GetAccountIDByEmail(testEmail)
 	assert.Nil(t, err)
 	assert.Equal(t, testAccountID, accountID)
