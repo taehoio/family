@@ -7,7 +7,7 @@ import (
 
 const (
 	productName        = "family"
-	defaultEnvironment = "testing"
+	defaultEnvironment = "development"
 )
 
 var (
@@ -49,7 +49,7 @@ func NewMock(srvName string) (cfg *Config) {
 	return &Config{
 		productName: productName,
 		svcName:     srvName,
-		env:         "testing",
+		env:         defaultEnvironment,
 	}
 }
 

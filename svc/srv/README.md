@@ -1,0 +1,2 @@
+# srv
+> a service template
