@@ -20,5 +20,17 @@
   },
   "error_pages": {
     "disable": true
+  },
+  "lambda": {
+    "memory": 512,
+    "policy": [
+      {
+        "Effect": "Allow",
+        "Resource": "*",
+        "Action": [
+          "dynamodb:*"
+        ]
+      }
+    ]
   }
 }
