@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"time"
+
 	"github.com/pkg/errors"
 	"go.uber.org/multierr"
 	"golang.org/x/net/context"
@@ -36,12 +38,15 @@ func Register(accountTable *accountRepo.Table, accountEmailTable *accountEmailRe
 		}
 
 		accountID = xid.New().String()
+		currTime := time.Now()
 		if err := accountTable.Put(&accountRepo.Account{
 			AccountID:      accountID,
 			Type:           account.AuthType_EMAIL.String(),
 			Email:          req.Email,
 			HashedPassword: hashedPassword,
 			FullName:       req.FullName,
+			CreateAt:       currTime,
+			UpdatedAt:      currTime,
 		}); err != nil {
 			return nil, err
 		}
