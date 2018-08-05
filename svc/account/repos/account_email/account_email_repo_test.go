@@ -1,9 +1,8 @@
 package account_email
 
 import (
-	"testing"
-
 	"os"
+	"testing"
 
 	"github.com/stretchr/testify/assert"
 )

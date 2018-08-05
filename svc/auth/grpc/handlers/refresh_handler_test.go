@@ -1,12 +1,11 @@
 package handlers
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/net/context"
-
-	"errors"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/svc/auth/config"

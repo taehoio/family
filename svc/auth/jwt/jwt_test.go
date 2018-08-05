@@ -2,7 +2,6 @@ package jwt
 
 import (
 	"testing"
-
 	"time"
 
 	"github.com/dgrijalva/jwt-go"

@@ -2,7 +2,6 @@ package account
 
 import (
 	"strings"
-
 	"time"
 
 	"github.com/guregu/dynamo"

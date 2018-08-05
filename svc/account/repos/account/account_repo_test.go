@@ -1,11 +1,9 @@
 package account
 
 import (
-	"testing"
-
-	"time"
-
 	"os"
+	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
