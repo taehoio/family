@@ -9,9 +9,9 @@ import (
 
 type ValidateHandlerFunc func(context.Context, *auth.ValidateRequest) (*auth.ValidateResponse, error)
 
-func Validate(tokenSrv token.Token) ValidateHandlerFunc {
+func Validate(tkn token.IFace) ValidateHandlerFunc {
 	return func(ctx context.Context, req *auth.ValidateRequest) (*auth.ValidateResponse, error) {
-		err := tokenSrv.ValidateToken(req.AccessToken)
+		err := tkn.ValidateToken(req.AccessToken)
 		isValid := err != nil
 		return &auth.ValidateResponse{
 			IsValid: isValid,

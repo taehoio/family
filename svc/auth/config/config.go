@@ -21,6 +21,10 @@ func New(settings Settings) (cfg IFace) {
 	}
 }
 
+func NewMock() (cfg IFace) {
+	return New(NewMockSettings())
+}
+
 func (c *AuthSvcConfig) Settings() Settings {
 	return c.settings
 }

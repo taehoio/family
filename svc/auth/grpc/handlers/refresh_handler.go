@@ -11,13 +11,13 @@ import (
 
 type RefreshHandlerFunc func(context.Context, *auth.RefreshRequest) (*auth.RefreshResponse, error)
 
-func Refresh(cfg config.IFace, tokenSrv token.Token) RefreshHandlerFunc {
+func Refresh(cfg config.IFace, tkn token.IFace) RefreshHandlerFunc {
 	return func(ctx context.Context, req *auth.RefreshRequest) (*auth.RefreshResponse, error) {
 		claims, err := jwt.ParseToken(req.RefreshToken)
 		if err != nil {
 			return nil, err
 		}
-		accessTokenString, err := tokenSrv.NewAccessToken(claims.Audience)
+		accessTokenString, err := tkn.NewAccessToken(claims.Audience)
 		if err != nil {
 			return nil, err
 		}

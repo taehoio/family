@@ -1,4 +1,4 @@
-package auth
+package grpc
 
 import (
 	"golang.org/x/net/context"
@@ -10,21 +10,33 @@ import (
 	"github.com/taeho-io/family/svc/auth/token"
 )
 
-type Service struct {
-	config config.IFace
-
-	tokenSrv token.Token
+type IFace interface {
+	Config() config.IFace
+	Token() token.IFace
 }
 
-func New(cfg config.IFace, tokenSrv token.Token) (s *Service) {
+type Service struct {
+	cfg config.IFace
+	tkn token.IFace
+}
+
+func New(cfg config.IFace) (s *Service) {
 	return &Service{
-		config:   cfg,
-		tokenSrv: tokenSrv,
+		cfg: cfg,
+		tkn: token.New(cfg),
 	}
 }
 
-func (s *Service) Name() string {
-	return s.config.Namespace()
+func NewMock() (s *Service) {
+	return New(config.NewMock())
+}
+
+func (s *Service) Config() config.IFace {
+	return s.cfg
+}
+
+func (s *Service) Token() token.IFace {
+	return s.tkn
 }
 
 func (s *Service) RegisterService(srv *grpc.Server) {
@@ -32,17 +44,17 @@ func (s *Service) RegisterService(srv *grpc.Server) {
 }
 
 func (s *Service) Auth(ctx context.Context, req *auth.AuthRequest) (*auth.AuthResponse, error) {
-	return handlers.Auth(s.config, s.tokenSrv)(ctx, req)
+	return handlers.Auth(s.Config(), s.Token())(ctx, req)
 }
 
 func (s *Service) Validate(ctx context.Context, req *auth.ValidateRequest) (*auth.ValidateResponse, error) {
-	return handlers.Validate(s.tokenSrv)(ctx, req)
+	return handlers.Validate(s.Token())(ctx, req)
 }
 
 func (s *Service) Refresh(ctx context.Context, req *auth.RefreshRequest) (*auth.RefreshResponse, error) {
-	return handlers.Refresh(s.config, s.tokenSrv)(ctx, req)
+	return handlers.Refresh(s.Config(), s.Token())(ctx, req)
 }
 
 func (s *Service) Parse(ctx context.Context, req *auth.ParseRequest) (*auth.ParseResponse, error) {
-	return handlers.Parse(s.tokenSrv)(ctx, req)
+	return handlers.Parse(s.Token())(ctx, req)
 }

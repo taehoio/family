@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package pb.family.discovery;
+
+option go_package = "github.com/taeho-io/family/idl/generated/go/pb/family/discovery;discovery";
+
+enum Service {
+    AUTH = 0;
+    ACCOUNT = 1;
+}

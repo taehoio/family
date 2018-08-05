@@ -15,7 +15,7 @@ func TestValidateHandler(t *testing.T) {
 	ctx := context.Background()
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := token.NewJwtToken(cfg)
+	tokenSrv := token.New(cfg)
 	accessToken, _ := tokenSrv.NewAccessToken(testAccountId)
 	req := &auth.ValidateRequest{
 		AccessToken: accessToken,

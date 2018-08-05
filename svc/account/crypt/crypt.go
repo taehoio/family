@@ -2,16 +2,16 @@ package crypt
 
 import "golang.org/x/crypto/bcrypt"
 
-type Crypt interface {
+type IFace interface {
 	HashPassword(string) (string, error)
 	CheckHashedPassword(string, string) bool
 }
 
 type BCrypt struct {
-	Crypt
+	IFace
 }
 
-func NewBCrypt() *BCrypt {
+func New() *BCrypt {
 	return &BCrypt{}
 }
 

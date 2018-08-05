@@ -15,7 +15,7 @@ func TestParseHandler(t *testing.T) {
 	ctx := context.Background()
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := token.NewJwtToken(cfg)
+	tokenSrv := token.New(cfg)
 	accessToken, _ := tokenSrv.NewAccessToken(testAccountId)
 	req := &auth.ParseRequest{
 		AccessToken: accessToken,
@@ -29,7 +29,7 @@ func TestParseHandler_Error(t *testing.T) {
 	ctx := context.Background()
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := token.NewJwtToken(cfg)
+	tokenSrv := token.New(cfg)
 	req := &auth.ParseRequest{
 		AccessToken: "invalid_token",
 	}

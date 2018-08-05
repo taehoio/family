@@ -18,7 +18,7 @@ func TestRefreshHandler(t *testing.T) {
 	ctx := context.Background()
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := token.NewJwtToken(cfg)
+	tokenSrv := token.New(cfg)
 	refreshToken, _ := tokenSrv.NewRefreshToken(testAccountId)
 	req := &auth.RefreshRequest{
 		RefreshToken: refreshToken,
@@ -32,7 +32,7 @@ func TestRefreshHandler_Error_InvalidRefreshToken(t *testing.T) {
 	ctx := context.Background()
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := token.NewJwtToken(cfg)
+	tokenSrv := token.New(cfg)
 	req := &auth.RefreshRequest{
 		RefreshToken: "invalid_token",
 	}
@@ -45,7 +45,7 @@ func TestRefreshHandler_NewAccessToken_Error(t *testing.T) {
 	ctx := context.Background()
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	refreshToken, _ := token.NewJwtToken(cfg).NewRefreshToken(testAccountId)
+	refreshToken, _ := token.New(cfg).NewRefreshToken(testAccountId)
 	req := &auth.RefreshRequest{
 		RefreshToken: refreshToken,
 	}

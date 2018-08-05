@@ -3,7 +3,9 @@ package config
 import "os"
 
 const (
-	srvName = "account"
+	srvName                              = "account"
+	defaultDynamodbAccountTableName      = "account"
+	defaultDynamodbAccountEmailTableName = "account_email"
 )
 
 type Settings struct {
@@ -12,15 +14,24 @@ type Settings struct {
 }
 
 func NewSettings() Settings {
+	dynamodbAccountTableName := os.Getenv("DynamoDbAccountTableName")
+	if dynamodbAccountTableName == "" {
+		dynamodbAccountTableName = defaultDynamodbAccountTableName
+	}
+	dynamodbAccountEmailTableName := os.Getenv("DynamoDbAccountEmailTableName")
+	if dynamodbAccountEmailTableName == "" {
+		dynamodbAccountEmailTableName = defaultDynamodbAccountEmailTableName
+	}
+
 	return Settings{
-		DynamodbAccountTableName:      os.Getenv("DynamoDbAccountTableName"),
-		DynamodbAccountEmailTableName: os.Getenv("DynamoDbAccountEmailTableName"),
+		DynamodbAccountTableName:      dynamodbAccountTableName,
+		DynamodbAccountEmailTableName: dynamodbAccountEmailTableName,
 	}
 }
 
 func NewMockSettings() Settings {
 	return Settings{
-		DynamodbAccountTableName:      "account",
-		DynamodbAccountEmailTableName: "account_email",
+		DynamodbAccountTableName:      defaultDynamodbAccountTableName,
+		DynamodbAccountEmailTableName: defaultDynamodbAccountEmailTableName,
 	}
 }

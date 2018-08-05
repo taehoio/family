@@ -20,10 +20,12 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
 
+	accountGateway "github.com/taeho-io/family/idl/generated/go/pb/family/account"
 	authGateway "github.com/taeho-io/family/idl/generated/go/pb/family/auth"
+	accountConfig "github.com/taeho-io/family/svc/account/config"
+	accountGRPC "github.com/taeho-io/family/svc/account/grpc"
 	authConfig "github.com/taeho-io/family/svc/auth/config"
-	"github.com/taeho-io/family/svc/auth/grpc"
-	"github.com/taeho-io/family/svc/auth/token"
+	authGRPC "github.com/taeho-io/family/svc/auth/grpc"
 )
 
 const (
@@ -41,6 +43,11 @@ var (
 		"auth_server_endpoint",
 		grpcServerOrigin,
 		"endpoint of AuthServer",
+	)
+	accountServerEndpoint = flag.String(
+		"account_server_endpoint",
+		grpcServerOrigin,
+		"endpoint of AccountServer",
 	)
 )
 
@@ -60,8 +67,10 @@ func serveGateway() error {
 	mux := runtime.NewServeMux(runtime.WithIncomingHeaderMatcher(requestIdMatcher))
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 
-	err := authGateway.RegisterAuthServiceHandlerFromEndpoint(ctx, mux, *authServerEndpoint, opts)
-	if err != nil {
+	if err := authGateway.RegisterAuthServiceHandlerFromEndpoint(ctx, mux, *authServerEndpoint, opts); err != nil {
+		return err
+	}
+	if err := accountGateway.RegisterAccountServiceHandlerFromEndpoint(ctx, mux, *accountServerEndpoint, opts); err != nil {
 		return err
 	}
 
@@ -112,10 +121,16 @@ func serveGRPCServers() error {
 		),
 	)
 
-	authSettings := authConfig.NewSettings()
-	authCfg := authConfig.New(authSettings)
-	authService := auth.New(authCfg, token.NewJwtToken(authCfg))
+	authCfg := authConfig.New(authConfig.NewSettings())
+	authService := authGRPC.New(authCfg)
 	authService.RegisterService(grpcServer)
+
+	accountCfg := accountConfig.New(accountConfig.NewSettings())
+	accountService, err := accountGRPC.New(accountCfg)
+	if err != nil {
+		return err
+	}
+	accountService.RegisterService(grpcServer)
 
 	// Register reflection server on gRPC server.
 	reflection.Register(grpcServer)

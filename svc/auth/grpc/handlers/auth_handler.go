@@ -10,13 +10,13 @@ import (
 
 type AuthHandlerFunc func(context.Context, *auth.AuthRequest) (*auth.AuthResponse, error)
 
-func Auth(cfg config.IFace, tokenSrv token.Token) AuthHandlerFunc {
+func Auth(cfg config.IFace, tkn token.IFace) AuthHandlerFunc {
 	return func(ctx context.Context, req *auth.AuthRequest) (*auth.AuthResponse, error) {
-		accessTokenString, err := tokenSrv.NewAccessToken(req.AccountId)
+		accessTokenString, err := tkn.NewAccessToken(req.AccountId)
 		if err != nil {
 			return nil, err
 		}
-		refreshTokenString, err := tokenSrv.NewRefreshToken(req.AccountId)
+		refreshTokenString, err := tkn.NewRefreshToken(req.AccountId)
 		if err != nil {
 			return nil, err
 		}

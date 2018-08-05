@@ -24,7 +24,7 @@ func TestAuthHandler(t *testing.T) {
 	}
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := token.NewJwtToken(cfg)
+	tokenSrv := token.New(cfg)
 	res, err := Auth(cfg, tokenSrv)(ctx, req)
 	assert.Nil(t, err)
 	assert.NotNil(t, res)

@@ -7,7 +7,7 @@ import (
 	"github.com/taeho-io/family/svc/auth/jwt"
 )
 
-type Token interface {
+type IFace interface {
 	NewAccessToken(string) (string, error)
 	NewRefreshToken(string) (string, error)
 	ValidateToken(string) error
@@ -25,12 +25,12 @@ type Claims struct {
 }
 
 type JwtToken struct {
-	config config.IFace
+	IFace
 
-	Token
+	config config.IFace
 }
 
-func NewJwtToken(cfg config.IFace) *JwtToken {
+func New(cfg config.IFace) *JwtToken {
 	return &JwtToken{
 		config: cfg,
 	}

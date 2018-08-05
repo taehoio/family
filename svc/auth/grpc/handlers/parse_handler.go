@@ -9,9 +9,9 @@ import (
 
 type ParseHandlerFunc func(context.Context, *auth.ParseRequest) (*auth.ParseResponse, error)
 
-func Parse(tokenSrv token.Token) ParseHandlerFunc {
+func Parse(tkn token.IFace) ParseHandlerFunc {
 	return func(ctx context.Context, req *auth.ParseRequest) (*auth.ParseResponse, error) {
-		claims, err := tokenSrv.ParseToken(req.AccessToken)
+		claims, err := tkn.ParseToken(req.AccessToken)
 		if err != nil {
 			return nil, err
 		}
