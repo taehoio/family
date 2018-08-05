@@ -1,12 +1,14 @@
 package aws
 
 import (
+	"os"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 )
 
-const (
-	DefaultAwsRegion = "us-west-2"
+var (
+	DefaultRegion = os.Getenv("AWS_DEFAULT_REGION")
 )
 
 type IFace interface {
@@ -22,7 +24,7 @@ type Aws struct {
 func New(cfgs ...*aws.Config) (IFace, error) {
 	if len(cfgs) == 0 {
 		cfgs = append(cfgs, &aws.Config{
-			Region: aws.String(DefaultAwsRegion),
+			Region: aws.String(DefaultRegion),
 		})
 	}
 
