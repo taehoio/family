@@ -7,6 +7,8 @@ Pod::Spec.new do |s|
   s.source = { :git => 'git@github.com:swagger-api/swagger-mustache.git', :tag => 'v1.0.0' }
   s.authors = 'Swagger Codegen'
   s.license = 'Proprietary'
+  s.homepage = 'http://github.com/taeho-io/family'
+  s.summary = 'family.taeho.io'
   s.source_files = 'SwaggerClient/Classes/**/*.swift'
   s.dependency 'RxSwift', '~> 4.0'
   s.dependency 'Alamofire', '~> 4.5.0'
