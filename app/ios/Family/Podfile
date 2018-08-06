@@ -1,0 +1,39 @@
+# Uncomment the next line to define a global platform for your project
+#platform :ios, '11.0'
+
+target 'Family' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Family
+  pod 'Alamofire', '~> 4.5'
+  pod 'SwiftyJSON', '~> 4.0'
+  pod 'KeychainAccess', '~> 3.1'
+  pod 'RxSwift', '~> 4.1'
+  pod 'SwaggerClient', :path => '../../../idl/generated/swagger/client/swift/SwaggerClient.podspec'
+
+  target 'FamilyTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'FamilyUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+post_install do |installer|
+
+    installer.pods_project.build_configurations.each do |config|
+        config.build_settings.delete('CODE_SIGNING_ALLOWED')
+        config.build_settings.delete('CODE_SIGNING_REQUIRED')
+    end
+
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['CONFIGURATION_BUILD_DIR'] = '$PODS_CONFIGURATION_BUILD_DIR'
+        end
+    end
+end

@@ -11,4 +11,6 @@ docker run --rm -it \
             -i generated/swagger/swagger.json \
             -l swift4 \
             -o generated/swagger/client/swift/ \
-            --additional-properties responseAs=RxSwift
+            --additional-properties responseAs=RxSwift \
+            --additional-properties podHomepage=http://github.com/taeho-io/family \
+            --additional-properties podSummary=family.taeho.io

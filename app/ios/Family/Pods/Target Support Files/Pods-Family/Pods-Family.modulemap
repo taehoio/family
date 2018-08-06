@@ -1,0 +1,6 @@
+framework module Pods_Family {
+  umbrella header "Pods-Family-umbrella.h"
+
+  export *
+  module * { export * }
+}
