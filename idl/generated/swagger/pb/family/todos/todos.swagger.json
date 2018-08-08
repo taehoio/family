@@ -1,0 +1,469 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/family/todos/todos.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/todogroups": {
+      "get": {
+        "operationId": "ListTodoGroups",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosListTodoGroupsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      }
+    },
+    "/v1/todogroups/{todo_group_id}": {
+      "get": {
+        "operationId": "GetTodoGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosGetTodoGroupResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      }
+    },
+    "/v1/todogroups/{todo_group_id}/todos": {
+      "post": {
+        "summary": "Todos",
+        "operationId": "CreateTodo",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosCreateTodoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todosCreateTodoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      }
+    },
+    "/v1/todogroups/{todo_group_id}/todos/{todo_id}": {
+      "delete": {
+        "operationId": "DeleteTodo",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosDeleteTodoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "todo_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      },
+      "put": {
+        "operationId": "UpdateTodo",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosUpdateTodoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "todo_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todosUpdateTodoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      }
+    },
+    "/v1/todosgroups": {
+      "post": {
+        "summary": "TodoGruops",
+        "operationId": "CreateTodoGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosCreateTodoGroupResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todosCreateTodoGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      }
+    },
+    "/v1/todosgroups/{todo_group_id}": {
+      "delete": {
+        "operationId": "DeleteTodoGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosDeleteTodoGroupResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      },
+      "put": {
+        "operationId": "UpdateTodoGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosUpdateTodoGroupResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todosUpdateTodoGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "todosCreateTodoGroupRequest": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "todo_group": {
+          "$ref": "#/definitions/todosTodoGroup"
+        }
+      }
+    },
+    "todosCreateTodoGroupResponse": {
+      "type": "object",
+      "properties": {
+        "todo_group": {
+          "$ref": "#/definitions/todosTodoGroup"
+        }
+      }
+    },
+    "todosCreateTodoRequest": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "todo_group_id": {
+          "type": "string"
+        },
+        "todo_id": {
+          "type": "string"
+        },
+        "todo": {
+          "$ref": "#/definitions/todosTodo"
+        }
+      }
+    },
+    "todosCreateTodoResponse": {
+      "type": "object",
+      "properties": {
+        "todo": {
+          "$ref": "#/definitions/todosTodo"
+        }
+      }
+    },
+    "todosDeleteTodoGroupResponse": {
+      "type": "object"
+    },
+    "todosDeleteTodoResponse": {
+      "type": "object"
+    },
+    "todosGetTodoGroupResponse": {
+      "type": "object",
+      "properties": {
+        "todo_group": {
+          "$ref": "#/definitions/todosTodoGroup"
+        }
+      }
+    },
+    "todosListTodoGroupsResponse": {
+      "type": "object",
+      "properties": {
+        "todo_groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/todosTodoGroup"
+          }
+        }
+      }
+    },
+    "todosTodo": {
+      "type": "object",
+      "properties": {
+        "todo_id": {
+          "type": "string"
+        },
+        "todo_group_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/todosTodoType"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "done_at": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "todosTodoGroup": {
+      "type": "object",
+      "properties": {
+        "todo_group_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "todos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/todosTodo"
+          }
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "editor": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "viewer": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "todosTodoType": {
+      "type": "string",
+      "enum": [
+        "TODO",
+        "DONE",
+        "PENDING"
+      ],
+      "default": "TODO"
+    },
+    "todosUpdateTodoGroupRequest": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "todo_group_id": {
+          "type": "string"
+        },
+        "todo_group": {
+          "$ref": "#/definitions/todosTodoGroup"
+        }
+      }
+    },
+    "todosUpdateTodoGroupResponse": {
+      "type": "object",
+      "properties": {
+        "todo_group": {
+          "$ref": "#/definitions/todosTodoGroup"
+        }
+      }
+    },
+    "todosUpdateTodoRequest": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "todo_group_id": {
+          "type": "string"
+        },
+        "todo_id": {
+          "type": "string"
+        },
+        "todo": {
+          "$ref": "#/definitions/todosTodo"
+        }
+      }
+    },
+    "todosUpdateTodoResponse": {
+      "type": "object",
+      "properties": {
+        "todo": {
+          "$ref": "#/definitions/todosTodo"
+        }
+      }
+    }
+  }
+}
