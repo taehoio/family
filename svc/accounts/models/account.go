@@ -7,7 +7,7 @@ import (
 type Account struct {
 	AccountID      string    `dynamo:"account_id,hash"`
 	Type           string    `dynamo:"type"`
-	Email          string    `dynamo:"email"`
+	Email          string    `dynamo:"email" index:"email-index,hash"`
 	HashedPassword string    `dynamo:"hashed_password"`
 	FullName       string    `dynamo:"full_name"`
 	CreateAt       time.Time `dynamo:"created_at"`
