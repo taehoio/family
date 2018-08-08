@@ -1,0 +1,161 @@
+syntax = "proto3";
+
+package pb.family.todos;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/taeho-io/family/idl/generated/go/pb/family/todos;todos";
+
+service TodosService {
+    // TodoGruops
+    rpc CreateTodoGroup (CreateTodoGroupRequest) returns (CreateTodoGroupResponse) {
+        option (google.api.http) = {
+            post: "/v1/todosgroups"
+            body: "*"
+        };
+    }
+    rpc ListTodoGroups (ListTodoGroupsRequest) returns (ListTodoGroupsResponse) {
+        option (google.api.http) = {
+            get: "/v1/todogroups"
+        };
+    }
+    rpc GetTodoGroup (GetTodoGroupRequest) returns (GetTodoGroupResponse) {
+        option (google.api.http) = {
+            get: "/v1/todogroups/{todo_group_id}"
+        };
+    }
+    rpc UpdateTodoGroup (UpdateTodoGroupRequest) returns (UpdateTodoGroupResponse) {
+        option (google.api.http) = {
+            put: "/v1/todosgroups{todo_group_id}"
+            body: "*"
+        };
+    }
+    rpc DeleteTodoGroup (DeleteTodoGroupRequest) returns (DeleteTodoGroupResponse) {
+        option (google.api.http) = {
+            delete: "/v1/todosgroups{todo_group_id}"
+        };
+    }
+
+    // Todos
+    rpc CreateTodo (CreateTodoRequest) returns (CreateTodoResponse) {
+        option (google.api.http) = {
+            post: "/v1/todogroups/{todo_group_id}/todos"
+            body: "*"
+        };
+    }
+    rpc UpdateTodo (UpdateTodoRequest) returns (UpdateTodoResponse) {
+        option (google.api.http) = {
+            put: "/v1/todogroups/{todo_group_id}/todos/{todo_id}"
+            body: "*"
+        };
+    }
+    rpc DeleteTodo (DeleteTodoRequest) returns (DeleteTodoResponse) {
+        option (google.api.http) = {
+            delete: "/v1/todogroups/{todo_group_id}/todos/{todo_id}"
+        };
+    }
+}
+
+enum TodoType {
+    TODO = 0;
+    DONE = 1;
+    PENDING = 2;
+}
+
+message Todo {
+    string todo_id = 1;
+    string todo_group_id = 2;
+    string title = 3;
+    string description = 4;
+    TodoType type = 5;
+    int64 created_at = 6;
+    int64 done_at = 7;
+}
+
+message TodoGroup {
+    string todo_group_id = 1;
+    string title = 2;
+    string description = 3;
+    repeated Todo todos = 4;
+    string created_by = 5;
+    int64 created_at = 6;
+    int64 updated_at = 7;
+    repeated string owners = 8;
+    repeated string editor = 9;
+    repeated string viewer = 10;
+}
+
+message CreateTodoGroupRequest {
+    string account_id = 1;
+    TodoGroup todo_group = 2;
+}
+
+message CreateTodoGroupResponse {
+    TodoGroup todo_group = 1;
+}
+
+message ListTodoGroupsRequest {
+    string account_id = 1;
+}
+
+message ListTodoGroupsResponse {
+    repeated TodoGroup todo_groups = 1;
+}
+
+message GetTodoGroupRequest {
+    string account_id = 1;
+    string todo_group_id = 2;
+}
+
+message GetTodoGroupResponse {
+    TodoGroup todo_group = 1;
+}
+
+message UpdateTodoGroupRequest {
+    string account_id = 1;
+    string todo_group_id = 2;
+    TodoGroup todo_group = 3;
+}
+
+message UpdateTodoGroupResponse {
+    TodoGroup todo_group = 1;
+}
+
+message DeleteTodoGroupRequest {
+    string account_id = 1;
+    string todo_group_id = 2;
+}
+
+message DeleteTodoGroupResponse {
+}
+
+message CreateTodoRequest {
+    string account_id = 1;
+    string todo_group_id = 2;
+    string todo_id = 3;
+    Todo todo = 4;
+}
+
+message CreateTodoResponse {
+    Todo todo = 1;
+}
+
+message UpdateTodoRequest {
+    string account_id = 1;
+    string todo_group_id = 2;
+    string todo_id = 3;
+    Todo todo = 4;
+}
+
+message UpdateTodoResponse {
+    Todo todo = 1;
+}
+
+message DeleteTodoRequest {
+    string account_id = 1;
+    string todo_group_id = 2;
+    string todo_id = 3;
+}
+
+message DeleteTodoResponse {
+}
