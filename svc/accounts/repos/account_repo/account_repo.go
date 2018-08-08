@@ -14,6 +14,8 @@ import (
 
 const (
 	accountIDFieldKey      = "account_id"
+	emailFieldKey          = "email"
+	emailIndexName         = "email-index"
 	hashedPasswordFieldKey = "hashed_password"
 	fullNameFieldKey       = "full_name"
 	updatedAtFieldKey      = "updated_at"
@@ -55,6 +57,18 @@ func (t *Table) Get(accountID string) (*models.Account, error) {
 	var account models.Account
 	err := t.Table().
 		Get(accountIDFieldKey, accountID).
+		One(&account)
+	if err != nil {
+		return nil, err
+	}
+	return &account, nil
+}
+
+func (t *Table) GetByEmail(email string) (*models.Account, error) {
+	var account models.Account
+	err := t.Table().
+		Get(emailFieldKey, email).
+		Index(emailIndexName).
 		One(&account)
 	if err != nil {
 		return nil, err

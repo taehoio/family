@@ -8,7 +8,6 @@ import (
 
 	"github.com/taeho-io/family/svc/accounts/config"
 	"github.com/taeho-io/family/svc/accounts/models"
-	"github.com/taeho-io/family/svc/accounts/repos/account_email_repo"
 	"github.com/taeho-io/family/svc/accounts/repos/account_repo"
 	"github.com/taeho-io/family/svc/srv/aws"
 	"github.com/taeho-io/family/svc/srv/aws/dynamodb"
@@ -38,16 +37,6 @@ func main() {
 	}
 	log.Printf("`%s` table is being created with readUnits:%d, writeUnits:%d.",
 		accountTableName, readUnits, writeUnits)
-
-	accountEmailTableName := account_email_repo.New(ddb, svcCfg).Table().Name()
-	err = ddb.DB().CreateTable(accountEmailTableName, models.AccountEmail{}).
-		Provision(readUnits, writeUnits).
-		Run()
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Printf("`%s` table is beingcreated with readUnits:%d, writeUnits:%d.",
-		accountEmailTableName, readUnits, writeUnits)
 }
 
 func loadProvisionUnits() (readUnits int64, writeUnits int64) {
