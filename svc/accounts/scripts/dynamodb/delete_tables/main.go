@@ -4,7 +4,6 @@ import (
 	"log"
 
 	"github.com/taeho-io/family/svc/accounts/config"
-	"github.com/taeho-io/family/svc/accounts/repos/account_email_repo"
 	"github.com/taeho-io/family/svc/accounts/repos/account_repo"
 	"github.com/taeho-io/family/svc/srv/aws"
 	"github.com/taeho-io/family/svc/srv/aws/dynamodb"
@@ -23,12 +22,6 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("`%s` table is being deleted.", accountTable.Name())
-
-	accountEmailTable := account_email_repo.New(ddb, svcCfg).Table()
-	if err := accountEmailTable.DeleteTable().Run(); err != nil {
-		log.Fatal(err)
-	}
-	log.Printf("`%s` table is beingdeleted.", accountEmailTable.Name())
 }
 
 func getDynamodb() (dynamodb.IFace, error) {
