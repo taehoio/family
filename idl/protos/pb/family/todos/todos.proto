@@ -26,13 +26,13 @@ service TodosService {
     }
     rpc UpdateTodoGroup (UpdateTodoGroupRequest) returns (UpdateTodoGroupResponse) {
         option (google.api.http) = {
-            put: "/v1/todosgroups{todo_group_id}"
+            put: "/v1/todosgroups/{todo_group_id}"
             body: "*"
         };
     }
     rpc DeleteTodoGroup (DeleteTodoGroupRequest) returns (DeleteTodoGroupResponse) {
         option (google.api.http) = {
-            delete: "/v1/todosgroups{todo_group_id}"
+            delete: "/v1/todosgroups/{todo_group_id}"
         };
     }
 
