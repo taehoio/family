@@ -13,13 +13,12 @@ import (
 	"github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
 	"github.com/taeho-io/family/svc/accounts/crypt"
 	"github.com/taeho-io/family/svc/accounts/models"
-	"github.com/taeho-io/family/svc/accounts/repos/account_email_repo"
 	"github.com/taeho-io/family/svc/accounts/repos/account_repo"
 )
 
 type RegisterHandlerFunc func(ctx context.Context, req *accounts.RegisterRequest) (*accounts.RegisterResponse, error)
 
-func Register(accountTable *account_repo.Table, accountEmailTable *account_email_repo.Table, crypt crypt.IFace) RegisterHandlerFunc {
+func Register(accountTable *account_repo.Table, crypt crypt.IFace) RegisterHandlerFunc {
 	return func(ctx context.Context, req *accounts.RegisterRequest) (*accounts.RegisterResponse, error) {
 		req.AuthType = accounts.AuthType_EMAIL
 
@@ -33,12 +32,12 @@ func Register(accountTable *account_repo.Table, accountEmailTable *account_email
 			return nil, err
 		}
 
-		accountID, err := accountEmailTable.GetAccountIDByEmail(req.Email)
-		if accountID != "" {
+		account, err := accountTable.GetByEmail(req.Email)
+		if account != nil {
 			return nil, status.Error(codes.AlreadyExists, "email already exists")
 		}
 
-		accountID = xid.New().String()
+		accountID := xid.New().String()
 		currTime := time.Now()
 		if err := accountTable.Put(&models.Account{
 			AccountID:      accountID,
@@ -48,13 +47,6 @@ func Register(accountTable *account_repo.Table, accountEmailTable *account_email
 			FullName:       req.FullName,
 			CreateAt:       currTime,
 			UpdatedAt:      currTime,
-		}); err != nil {
-			return nil, err
-		}
-
-		if err := accountEmailTable.Put(&models.AccountEmail{
-			Email:     req.Email,
-			AccountID: accountID,
 		}); err != nil {
 			return nil, err
 		}

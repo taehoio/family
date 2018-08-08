@@ -9,21 +9,20 @@ import (
 	"github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/svc/accounts/crypt"
-	"github.com/taeho-io/family/svc/accounts/repos/account_email_repo"
 	"github.com/taeho-io/family/svc/accounts/repos/account_repo"
 	"github.com/taeho-io/family/svc/discovery"
 )
 
 type LogInHandlerFunc func(ctx context.Context, req *accounts.LogInRequest) (*accounts.LogInResponse, error)
 
-func LogIn(accountTable *account_repo.Table, accountEmailTable *account_email_repo.Table, crypt crypt.IFace) LogInHandlerFunc {
+func LogIn(accountTable *account_repo.Table, crypt crypt.IFace) LogInHandlerFunc {
 	return func(ctx context.Context, req *accounts.LogInRequest) (*accounts.LogInResponse, error) {
-		accountID, err := accountEmailTable.GetAccountIDByEmail(req.Email)
-		if err != nil || accountID == "" {
+		account, err := accountTable.GetByEmail(req.Email)
+		if err != nil || account == nil || account.AccountID == "" {
 			return nil, status.Error(codes.Unauthenticated, "")
 		}
 
-		acc, err := accountTable.Get(accountID)
+		acc, err := accountTable.Get(account.AccountID)
 		if err != nil || acc == nil {
 			return nil, status.Error(codes.Unauthenticated, "")
 		}

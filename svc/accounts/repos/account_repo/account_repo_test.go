@@ -54,6 +54,13 @@ func TestGet(t *testing.T) {
 	assert.Equal(t, testEmail, account.Email)
 }
 
+func TestGetByEmail(t *testing.T) {
+	account, err := accountTable.GetByEmail(testEmail)
+	assert.Nil(t, err)
+	assert.NotNil(t, account)
+	assert.Equal(t, testAccountID, account.AccountID)
+}
+
 func TestUpdateHashedPassword(t *testing.T) {
 	updatedAccount, err := accountTable.UpdateHashedPassword(testAccountID, testNewHashedPassword)
 	assert.Nil(t, err)
