@@ -8,9 +8,12 @@ import (
 	"github.com/taeho-io/family/services/auth/config"
 	"github.com/taeho-io/family/services/auth/grpc/handlers"
 	"github.com/taeho-io/family/services/auth/token"
+	grpcService "github.com/taeho-io/family/services/base/grpc"
 )
 
 type IFace interface {
+	grpcService.IFace
+
 	Config() config.IFace
 	Token() token.IFace
 }

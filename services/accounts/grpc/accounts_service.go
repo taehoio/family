@@ -8,12 +8,15 @@ import (
 	"github.com/taeho-io/family/services/accounts/config"
 	"github.com/taeho-io/family/services/accounts/crypt"
 	"github.com/taeho-io/family/services/accounts/grpc/handlers"
+	"github.com/taeho-io/family/services/accounts/repos/accounts_repo"
 	"github.com/taeho-io/family/services/base/aws"
 	"github.com/taeho-io/family/services/base/aws/dynamodb"
-	srvGRPC "github.com/taeho-io/family/services/base/grpc"
+	grpcService "github.com/taeho-io/family/services/base/grpc"
 )
 
 type IFace interface {
+	grpcService.IFace
+
 	Config() config.IFace
 	Crypt() crypt.IFace
 	Dynamodb() dynamodb.IFace
@@ -21,8 +24,6 @@ type IFace interface {
 }
 
 type Service struct {
-	srvGRPC.IFace
-
 	cfg          config.IFace
 	crypt        crypt.IFace
 	ddb          dynamodb.IFace
