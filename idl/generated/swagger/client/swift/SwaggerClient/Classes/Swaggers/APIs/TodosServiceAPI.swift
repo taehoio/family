@@ -48,16 +48,19 @@ open class TodosServiceAPI {
 
     /**
      Todos
-     - POST /v1/todogroups/{todo_group_id}/todos
+     - POST /v1/todo-groups/{todo_group_id}/todos
      - examples: [{contentType=application/json, example={
   "todo" : {
     "todo_group_id" : "todo_group_id",
+    "updated_at" : "updated_at",
     "todo_id" : "todo_id",
     "done_at" : "done_at",
     "created_at" : "created_at",
     "description" : "description",
+    "due_at" : "due_at",
+    "priority" : { },
     "title" : "title",
-    "type" : { }
+    "status" : { }
   }
 }}]
      
@@ -67,7 +70,7 @@ open class TodosServiceAPI {
      - returns: RequestBuilder<TodosCreateTodoResponse> 
      */
     open class func createTodoWithRequestBuilder(todoGroupId: String, body: TodosCreateTodoRequest) -> RequestBuilder<TodosCreateTodoResponse> {
-        var path = "/v1/todogroups/{todo_group_id}/todos"
+        var path = "/v1/todo-groups/{todo_group_id}/todos"
         path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
@@ -114,33 +117,14 @@ open class TodosServiceAPI {
 
     /**
      TodoGruops
-     - POST /v1/todosgroups
+     - POST /v1/todo-groups
      - examples: [{contentType=application/json, example={
   "todo_group" : {
-    "editor" : [ "editor", "editor" ],
-    "viewer" : [ "viewer", "viewer" ],
     "todo_group_id" : "todo_group_id",
     "updated_at" : "updated_at",
     "created_at" : "created_at",
     "description" : "description",
-    "owners" : [ "owners", "owners" ],
-    "todos" : [ {
-      "todo_group_id" : "todo_group_id",
-      "todo_id" : "todo_id",
-      "done_at" : "done_at",
-      "created_at" : "created_at",
-      "description" : "description",
-      "title" : "title",
-      "type" : { }
-    }, {
-      "todo_group_id" : "todo_group_id",
-      "todo_id" : "todo_id",
-      "done_at" : "done_at",
-      "created_at" : "created_at",
-      "description" : "description",
-      "title" : "title",
-      "type" : { }
-    } ],
+    "ordered_todo_ids" : [ "ordered_todo_ids", "ordered_todo_ids" ],
     "title" : "title",
     "created_by" : "created_by"
   }
@@ -151,7 +135,7 @@ open class TodosServiceAPI {
      - returns: RequestBuilder<TodosCreateTodoGroupResponse> 
      */
     open class func createTodoGroupWithRequestBuilder(body: TodosCreateTodoGroupRequest) -> RequestBuilder<TodosCreateTodoGroupResponse> {
-        let path = "/v1/todosgroups"
+        let path = "/v1/todo-groups"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
@@ -198,7 +182,7 @@ open class TodosServiceAPI {
     }
 
     /**
-     - DELETE /v1/todogroups/{todo_group_id}/todos/{todo_id}
+     - DELETE /v1/todo-groups/{todo_group_id}/todos/{todo_id}
      - examples: [{contentType=application/json, example={ }}]
      
      - parameter todoGroupId: (path)  
@@ -208,7 +192,7 @@ open class TodosServiceAPI {
      - returns: RequestBuilder<TodosDeleteTodoResponse> 
      */
     open class func deleteTodoWithRequestBuilder(todoGroupId: String, todoId: String, accountId: String? = nil) -> RequestBuilder<TodosDeleteTodoResponse> {
-        var path = "/v1/todogroups/{todo_group_id}/todos/{todo_id}"
+        var path = "/v1/todo-groups/{todo_group_id}/todos/{todo_id}"
         path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
         path = path.replacingOccurrences(of: "{todo_id}", with: "\(todoId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
@@ -258,7 +242,7 @@ open class TodosServiceAPI {
     }
 
     /**
-     - DELETE /v1/todosgroups/{todo_group_id}
+     - DELETE /v1/todo-groups/{todo_group_id}
      - examples: [{contentType=application/json, example={ }}]
      
      - parameter todoGroupId: (path)  
@@ -267,7 +251,7 @@ open class TodosServiceAPI {
      - returns: RequestBuilder<TodosDeleteTodoGroupResponse> 
      */
     open class func deleteTodoGroupWithRequestBuilder(todoGroupId: String, accountId: String? = nil) -> RequestBuilder<TodosDeleteTodoGroupResponse> {
-        var path = "/v1/todosgroups/{todo_group_id}"
+        var path = "/v1/todo-groups/{todo_group_id}"
         path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -316,33 +300,14 @@ open class TodosServiceAPI {
     }
 
     /**
-     - GET /v1/todogroups/{todo_group_id}
+     - GET /v1/todo-groups/{todo_group_id}
      - examples: [{contentType=application/json, example={
   "todo_group" : {
-    "editor" : [ "editor", "editor" ],
-    "viewer" : [ "viewer", "viewer" ],
     "todo_group_id" : "todo_group_id",
     "updated_at" : "updated_at",
     "created_at" : "created_at",
     "description" : "description",
-    "owners" : [ "owners", "owners" ],
-    "todos" : [ {
-      "todo_group_id" : "todo_group_id",
-      "todo_id" : "todo_id",
-      "done_at" : "done_at",
-      "created_at" : "created_at",
-      "description" : "description",
-      "title" : "title",
-      "type" : { }
-    }, {
-      "todo_group_id" : "todo_group_id",
-      "todo_id" : "todo_id",
-      "done_at" : "done_at",
-      "created_at" : "created_at",
-      "description" : "description",
-      "title" : "title",
-      "type" : { }
-    } ],
+    "ordered_todo_ids" : [ "ordered_todo_ids", "ordered_todo_ids" ],
     "title" : "title",
     "created_by" : "created_by"
   }
@@ -354,7 +319,7 @@ open class TodosServiceAPI {
      - returns: RequestBuilder<TodosGetTodoGroupResponse> 
      */
     open class func getTodoGroupWithRequestBuilder(todoGroupId: String, accountId: String? = nil) -> RequestBuilder<TodosGetTodoGroupResponse> {
-        var path = "/v1/todogroups/{todo_group_id}"
+        var path = "/v1/todo-groups/{todo_group_id}"
         path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -401,60 +366,22 @@ open class TodosServiceAPI {
     }
 
     /**
-     - GET /v1/todogroups
+     - GET /v1/todo-groups
      - examples: [{contentType=application/json, example={
   "todo_groups" : [ {
-    "editor" : [ "editor", "editor" ],
-    "viewer" : [ "viewer", "viewer" ],
     "todo_group_id" : "todo_group_id",
     "updated_at" : "updated_at",
     "created_at" : "created_at",
     "description" : "description",
-    "owners" : [ "owners", "owners" ],
-    "todos" : [ {
-      "todo_group_id" : "todo_group_id",
-      "todo_id" : "todo_id",
-      "done_at" : "done_at",
-      "created_at" : "created_at",
-      "description" : "description",
-      "title" : "title",
-      "type" : { }
-    }, {
-      "todo_group_id" : "todo_group_id",
-      "todo_id" : "todo_id",
-      "done_at" : "done_at",
-      "created_at" : "created_at",
-      "description" : "description",
-      "title" : "title",
-      "type" : { }
-    } ],
+    "ordered_todo_ids" : [ "ordered_todo_ids", "ordered_todo_ids" ],
     "title" : "title",
     "created_by" : "created_by"
   }, {
-    "editor" : [ "editor", "editor" ],
-    "viewer" : [ "viewer", "viewer" ],
     "todo_group_id" : "todo_group_id",
     "updated_at" : "updated_at",
     "created_at" : "created_at",
     "description" : "description",
-    "owners" : [ "owners", "owners" ],
-    "todos" : [ {
-      "todo_group_id" : "todo_group_id",
-      "todo_id" : "todo_id",
-      "done_at" : "done_at",
-      "created_at" : "created_at",
-      "description" : "description",
-      "title" : "title",
-      "type" : { }
-    }, {
-      "todo_group_id" : "todo_group_id",
-      "todo_id" : "todo_id",
-      "done_at" : "done_at",
-      "created_at" : "created_at",
-      "description" : "description",
-      "title" : "title",
-      "type" : { }
-    } ],
+    "ordered_todo_ids" : [ "ordered_todo_ids", "ordered_todo_ids" ],
     "title" : "title",
     "created_by" : "created_by"
   } ]
@@ -465,7 +392,7 @@ open class TodosServiceAPI {
      - returns: RequestBuilder<TodosListTodoGroupsResponse> 
      */
     open class func listTodoGroupsWithRequestBuilder(accountId: String? = nil) -> RequestBuilder<TodosListTodoGroupsResponse> {
-        let path = "/v1/todogroups"
+        let path = "/v1/todo-groups"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 
@@ -515,16 +442,19 @@ open class TodosServiceAPI {
     }
 
     /**
-     - PUT /v1/todogroups/{todo_group_id}/todos/{todo_id}
+     - PUT /v1/todo-groups/{todo_group_id}/todos/{todo_id}
      - examples: [{contentType=application/json, example={
   "todo" : {
     "todo_group_id" : "todo_group_id",
+    "updated_at" : "updated_at",
     "todo_id" : "todo_id",
     "done_at" : "done_at",
     "created_at" : "created_at",
     "description" : "description",
+    "due_at" : "due_at",
+    "priority" : { },
     "title" : "title",
-    "type" : { }
+    "status" : { }
   }
 }}]
      
@@ -535,7 +465,7 @@ open class TodosServiceAPI {
      - returns: RequestBuilder<TodosUpdateTodoResponse> 
      */
     open class func updateTodoWithRequestBuilder(todoGroupId: String, todoId: String, body: TodosUpdateTodoRequest) -> RequestBuilder<TodosUpdateTodoResponse> {
-        var path = "/v1/todogroups/{todo_group_id}/todos/{todo_id}"
+        var path = "/v1/todo-groups/{todo_group_id}/todos/{todo_id}"
         path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
         path = path.replacingOccurrences(of: "{todo_id}", with: "\(todoId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
@@ -582,33 +512,14 @@ open class TodosServiceAPI {
     }
 
     /**
-     - PUT /v1/todosgroups/{todo_group_id}
+     - PUT /v1/todo-groups/{todo_group_id}
      - examples: [{contentType=application/json, example={
   "todo_group" : {
-    "editor" : [ "editor", "editor" ],
-    "viewer" : [ "viewer", "viewer" ],
     "todo_group_id" : "todo_group_id",
     "updated_at" : "updated_at",
     "created_at" : "created_at",
     "description" : "description",
-    "owners" : [ "owners", "owners" ],
-    "todos" : [ {
-      "todo_group_id" : "todo_group_id",
-      "todo_id" : "todo_id",
-      "done_at" : "done_at",
-      "created_at" : "created_at",
-      "description" : "description",
-      "title" : "title",
-      "type" : { }
-    }, {
-      "todo_group_id" : "todo_group_id",
-      "todo_id" : "todo_id",
-      "done_at" : "done_at",
-      "created_at" : "created_at",
-      "description" : "description",
-      "title" : "title",
-      "type" : { }
-    } ],
+    "ordered_todo_ids" : [ "ordered_todo_ids", "ordered_todo_ids" ],
     "title" : "title",
     "created_by" : "created_by"
   }
@@ -620,7 +531,7 @@ open class TodosServiceAPI {
      - returns: RequestBuilder<TodosUpdateTodoGroupResponse> 
      */
     open class func updateTodoGroupWithRequestBuilder(todoGroupId: String, body: TodosUpdateTodoGroupRequest) -> RequestBuilder<TodosUpdateTodoGroupResponse> {
-        var path = "/v1/todosgroups/{todo_group_id}"
+        var path = "/v1/todo-groups/{todo_group_id}"
         path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)

@@ -10,56 +10,64 @@ service TodosService {
     // TodoGruops
     rpc CreateTodoGroup (CreateTodoGroupRequest) returns (CreateTodoGroupResponse) {
         option (google.api.http) = {
-            post: "/v1/todosgroups"
+            post: "/v1/todo-groups"
             body: "*"
         };
     }
     rpc ListTodoGroups (ListTodoGroupsRequest) returns (ListTodoGroupsResponse) {
         option (google.api.http) = {
-            get: "/v1/todogroups"
+            get: "/v1/todo-groups"
         };
     }
     rpc GetTodoGroup (GetTodoGroupRequest) returns (GetTodoGroupResponse) {
         option (google.api.http) = {
-            get: "/v1/todogroups/{todo_group_id}"
+            get: "/v1/todo-groups/{todo_group_id}"
         };
     }
     rpc UpdateTodoGroup (UpdateTodoGroupRequest) returns (UpdateTodoGroupResponse) {
         option (google.api.http) = {
-            put: "/v1/todosgroups/{todo_group_id}"
+            put: "/v1/todo-groups/{todo_group_id}"
             body: "*"
         };
     }
     rpc DeleteTodoGroup (DeleteTodoGroupRequest) returns (DeleteTodoGroupResponse) {
         option (google.api.http) = {
-            delete: "/v1/todosgroups/{todo_group_id}"
+            delete: "/v1/todo-groups/{todo_group_id}"
         };
     }
 
     // Todos
     rpc CreateTodo (CreateTodoRequest) returns (CreateTodoResponse) {
         option (google.api.http) = {
-            post: "/v1/todogroups/{todo_group_id}/todos"
+            post: "/v1/todo-groups/{todo_group_id}/todos"
             body: "*"
         };
     }
     rpc UpdateTodo (UpdateTodoRequest) returns (UpdateTodoResponse) {
         option (google.api.http) = {
-            put: "/v1/todogroups/{todo_group_id}/todos/{todo_id}"
+            put: "/v1/todo-groups/{todo_group_id}/todos/{todo_id}"
             body: "*"
         };
     }
     rpc DeleteTodo (DeleteTodoRequest) returns (DeleteTodoResponse) {
         option (google.api.http) = {
-            delete: "/v1/todogroups/{todo_group_id}/todos/{todo_id}"
+            delete: "/v1/todo-groups/{todo_group_id}/todos/{todo_id}"
         };
     }
 }
 
-enum TodoType {
+enum Status {
     TODO = 0;
     DONE = 1;
     PENDING = 2;
+}
+
+enum Priority {
+    NONE = 0;
+    LOW = 10;
+    MEDIUM = 30;
+    HIGH = 50;
+    URGENT = 100;
 }
 
 message Todo {
@@ -67,22 +75,22 @@ message Todo {
     string todo_group_id = 2;
     string title = 3;
     string description = 4;
-    TodoType type = 5;
+    Status status = 5;
     int64 created_at = 6;
-    int64 done_at = 7;
+    int64 updated_at = 7;
+    int64 done_at = 8;
+    int64 due_at = 9;
+    Priority priority = 10;
 }
 
 message TodoGroup {
     string todo_group_id = 1;
     string title = 2;
     string description = 3;
-    repeated Todo todos = 4;
+    repeated string ordered_todo_ids = 4;
     string created_by = 5;
     int64 created_at = 6;
     int64 updated_at = 7;
-    repeated string owners = 8;
-    repeated string editor = 9;
-    repeated string viewer = 10;
 }
 
 message CreateTodoGroupRequest {

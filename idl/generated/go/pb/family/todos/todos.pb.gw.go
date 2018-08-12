@@ -552,21 +552,21 @@ func RegisterTodosServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 }
 
 var (
-	pattern_TodosService_CreateTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "todosgroups"}, ""))
+	pattern_TodosService_CreateTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "todo-groups"}, ""))
 
-	pattern_TodosService_ListTodoGroups_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "todogroups"}, ""))
+	pattern_TodosService_ListTodoGroups_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "todo-groups"}, ""))
 
-	pattern_TodosService_GetTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "todogroups", "todo_group_id"}, ""))
+	pattern_TodosService_GetTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "todo-groups", "todo_group_id"}, ""))
 
-	pattern_TodosService_UpdateTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "todosgroups", "todo_group_id"}, ""))
+	pattern_TodosService_UpdateTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "todo-groups", "todo_group_id"}, ""))
 
-	pattern_TodosService_DeleteTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "todosgroups", "todo_group_id"}, ""))
+	pattern_TodosService_DeleteTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "todo-groups", "todo_group_id"}, ""))
 
-	pattern_TodosService_CreateTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "todogroups", "todo_group_id", "todos"}, ""))
+	pattern_TodosService_CreateTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "todo-groups", "todo_group_id", "todos"}, ""))
 
-	pattern_TodosService_UpdateTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "todogroups", "todo_group_id", "todos", "todo_id"}, ""))
+	pattern_TodosService_UpdateTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "todo-groups", "todo_group_id", "todos", "todo_id"}, ""))
 
-	pattern_TodosService_DeleteTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "todogroups", "todo_group_id", "todos", "todo_id"}, ""))
+	pattern_TodosService_DeleteTodo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "todo-groups", "todo_group_id", "todos", "todo_id"}, ""))
 )
 
 var (
