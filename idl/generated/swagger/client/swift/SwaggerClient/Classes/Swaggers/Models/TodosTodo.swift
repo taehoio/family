@@ -14,21 +14,27 @@ open class TodosTodo: Codable {
     public var createdAt: String?
     public var description: String?
     public var doneAt: String?
+    public var dueAt: String?
+    public var priority: TodosPriority?
+    public var status: TodosStatus?
     public var title: String?
     public var todoGroupId: String?
     public var todoId: String?
-    public var type: TodosTodoType?
+    public var updatedAt: String?
 
 
     
-    public init(createdAt: String?, description: String?, doneAt: String?, title: String?, todoGroupId: String?, todoId: String?, type: TodosTodoType?) {
+    public init(createdAt: String?, description: String?, doneAt: String?, dueAt: String?, priority: TodosPriority?, status: TodosStatus?, title: String?, todoGroupId: String?, todoId: String?, updatedAt: String?) {
         self.createdAt = createdAt
         self.description = description
         self.doneAt = doneAt
+        self.dueAt = dueAt
+        self.priority = priority
+        self.status = status
         self.title = title
         self.todoGroupId = todoGroupId
         self.todoId = todoId
-        self.type = type
+        self.updatedAt = updatedAt
     }
     
 
@@ -41,10 +47,13 @@ open class TodosTodo: Codable {
         try container.encodeIfPresent(createdAt, forKey: "created_at")
         try container.encodeIfPresent(description, forKey: "description")
         try container.encodeIfPresent(doneAt, forKey: "done_at")
+        try container.encodeIfPresent(dueAt, forKey: "due_at")
+        try container.encodeIfPresent(priority, forKey: "priority")
+        try container.encodeIfPresent(status, forKey: "status")
         try container.encodeIfPresent(title, forKey: "title")
         try container.encodeIfPresent(todoGroupId, forKey: "todo_group_id")
         try container.encodeIfPresent(todoId, forKey: "todo_id")
-        try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(updatedAt, forKey: "updated_at")
     }
 
     // Decodable protocol methods
@@ -55,10 +64,13 @@ open class TodosTodo: Codable {
         createdAt = try container.decodeIfPresent(String.self, forKey: "created_at")
         description = try container.decodeIfPresent(String.self, forKey: "description")
         doneAt = try container.decodeIfPresent(String.self, forKey: "done_at")
+        dueAt = try container.decodeIfPresent(String.self, forKey: "due_at")
+        priority = try container.decodeIfPresent(TodosPriority.self, forKey: "priority")
+        status = try container.decodeIfPresent(TodosStatus.self, forKey: "status")
         title = try container.decodeIfPresent(String.self, forKey: "title")
         todoGroupId = try container.decodeIfPresent(String.self, forKey: "todo_group_id")
         todoId = try container.decodeIfPresent(String.self, forKey: "todo_id")
-        type = try container.decodeIfPresent(TodosTodoType.self, forKey: "type")
+        updatedAt = try container.decodeIfPresent(String.self, forKey: "updated_at")
     }
 }
 

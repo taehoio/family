@@ -14,27 +14,21 @@ open class TodosTodoGroup: Codable {
     public var createdAt: String?
     public var createdBy: String?
     public var description: String?
-    public var editor: [String]?
-    public var owners: [String]?
+    public var orderedTodoIds: [String]?
     public var title: String?
     public var todoGroupId: String?
-    public var todos: [TodosTodo]?
     public var updatedAt: String?
-    public var viewer: [String]?
 
 
     
-    public init(createdAt: String?, createdBy: String?, description: String?, editor: [String]?, owners: [String]?, title: String?, todoGroupId: String?, todos: [TodosTodo]?, updatedAt: String?, viewer: [String]?) {
+    public init(createdAt: String?, createdBy: String?, description: String?, orderedTodoIds: [String]?, title: String?, todoGroupId: String?, updatedAt: String?) {
         self.createdAt = createdAt
         self.createdBy = createdBy
         self.description = description
-        self.editor = editor
-        self.owners = owners
+        self.orderedTodoIds = orderedTodoIds
         self.title = title
         self.todoGroupId = todoGroupId
-        self.todos = todos
         self.updatedAt = updatedAt
-        self.viewer = viewer
     }
     
 
@@ -47,13 +41,10 @@ open class TodosTodoGroup: Codable {
         try container.encodeIfPresent(createdAt, forKey: "created_at")
         try container.encodeIfPresent(createdBy, forKey: "created_by")
         try container.encodeIfPresent(description, forKey: "description")
-        try container.encodeIfPresent(editor, forKey: "editor")
-        try container.encodeIfPresent(owners, forKey: "owners")
+        try container.encodeIfPresent(orderedTodoIds, forKey: "ordered_todo_ids")
         try container.encodeIfPresent(title, forKey: "title")
         try container.encodeIfPresent(todoGroupId, forKey: "todo_group_id")
-        try container.encodeIfPresent(todos, forKey: "todos")
         try container.encodeIfPresent(updatedAt, forKey: "updated_at")
-        try container.encodeIfPresent(viewer, forKey: "viewer")
     }
 
     // Decodable protocol methods
@@ -64,13 +55,10 @@ open class TodosTodoGroup: Codable {
         createdAt = try container.decodeIfPresent(String.self, forKey: "created_at")
         createdBy = try container.decodeIfPresent(String.self, forKey: "created_by")
         description = try container.decodeIfPresent(String.self, forKey: "description")
-        editor = try container.decodeIfPresent([String].self, forKey: "editor")
-        owners = try container.decodeIfPresent([String].self, forKey: "owners")
+        orderedTodoIds = try container.decodeIfPresent([String].self, forKey: "ordered_todo_ids")
         title = try container.decodeIfPresent(String.self, forKey: "title")
         todoGroupId = try container.decodeIfPresent(String.self, forKey: "todo_group_id")
-        todos = try container.decodeIfPresent([TodosTodo].self, forKey: "todos")
         updatedAt = try container.decodeIfPresent(String.self, forKey: "updated_at")
-        viewer = try container.decodeIfPresent([String].self, forKey: "viewer")
     }
 }
 
