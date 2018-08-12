@@ -1,6 +1,0 @@
-framework module Pods_FamilyTests {
-  umbrella header "Pods-FamilyTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
