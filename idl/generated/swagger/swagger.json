@@ -113,7 +113,7 @@
           }
         },
         "tags": [
-          "TodosService"
+          "TodoGroupsService"
         ]
       },
       "post": {
@@ -136,9 +136,8 @@
             }
           }
         },
-        "summary": "TodoGruops",
         "tags": [
-          "TodosService"
+          "TodoGroupsService"
         ]
       }
     },
@@ -168,7 +167,7 @@
           }
         },
         "tags": [
-          "TodosService"
+          "TodoGroupsService"
         ]
       },
       "get": {
@@ -196,7 +195,7 @@
           }
         },
         "tags": [
-          "TodosService"
+          "TodoGroupsService"
         ]
       },
       "put": {
@@ -226,7 +225,7 @@
           }
         },
         "tags": [
-          "TodosService"
+          "TodoGroupsService"
         ]
       }
     },
@@ -257,7 +256,6 @@
             }
           }
         },
-        "summary": "Todos",
         "tags": [
           "TodosService"
         ]
@@ -575,6 +573,9 @@
           "format": "int64",
           "type": "string"
         },
+        "order": {
+          "type": "string"
+        },
         "priority": {
           "$ref": "#/definitions/todosPriority"
         },
@@ -608,12 +609,6 @@
         },
         "description": {
           "type": "string"
-        },
-        "ordered_todo_ids": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
         },
         "title": {
           "type": "string"

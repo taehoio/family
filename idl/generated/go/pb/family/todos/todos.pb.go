@@ -47,7 +47,7 @@ func (x Status) String() string {
 	return proto.EnumName(Status_name, int32(x))
 }
 func (Status) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{0}
+	return fileDescriptor_todos_ec9cb3fd5c9489ad, []int{0}
 }
 
 type Priority int32
@@ -79,7 +79,7 @@ func (x Priority) String() string {
 	return proto.EnumName(Priority_name, int32(x))
 }
 func (Priority) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{1}
+	return fileDescriptor_todos_ec9cb3fd5c9489ad, []int{1}
 }
 
 type Todo struct {
@@ -88,11 +88,12 @@ type Todo struct {
 	Title                string   `protobuf:"bytes,3,opt,name=title" json:"title,omitempty"`
 	Description          string   `protobuf:"bytes,4,opt,name=description" json:"description,omitempty"`
 	Status               Status   `protobuf:"varint,5,opt,name=status,enum=pb.family.todos.Status" json:"status,omitempty"`
-	CreatedAt            int64    `protobuf:"varint,6,opt,name=created_at,json=createdAt" json:"created_at,omitempty"`
-	UpdatedAt            int64    `protobuf:"varint,7,opt,name=updated_at,json=updatedAt" json:"updated_at,omitempty"`
-	DoneAt               int64    `protobuf:"varint,8,opt,name=done_at,json=doneAt" json:"done_at,omitempty"`
-	DueAt                int64    `protobuf:"varint,9,opt,name=due_at,json=dueAt" json:"due_at,omitempty"`
-	Priority             Priority `protobuf:"varint,10,opt,name=priority,enum=pb.family.todos.Priority" json:"priority,omitempty"`
+	Order                string   `protobuf:"bytes,6,opt,name=order" json:"order,omitempty"`
+	CreatedAt            int64    `protobuf:"varint,7,opt,name=created_at,json=createdAt" json:"created_at,omitempty"`
+	UpdatedAt            int64    `protobuf:"varint,8,opt,name=updated_at,json=updatedAt" json:"updated_at,omitempty"`
+	DoneAt               int64    `protobuf:"varint,9,opt,name=done_at,json=doneAt" json:"done_at,omitempty"`
+	DueAt                int64    `protobuf:"varint,10,opt,name=due_at,json=dueAt" json:"due_at,omitempty"`
+	Priority             Priority `protobuf:"varint,11,opt,name=priority,enum=pb.family.todos.Priority" json:"priority,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -102,7 +103,7 @@ func (m *Todo) Reset()         { *m = Todo{} }
 func (m *Todo) String() string { return proto.CompactTextString(m) }
 func (*Todo) ProtoMessage()    {}
 func (*Todo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{0}
+	return fileDescriptor_todos_ec9cb3fd5c9489ad, []int{0}
 }
 func (m *Todo) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Todo.Unmarshal(m, b)
@@ -157,6 +158,13 @@ func (m *Todo) GetStatus() Status {
 	return Status_TODO
 }
 
+func (m *Todo) GetOrder() string {
+	if m != nil {
+		return m.Order
+	}
+	return ""
+}
+
 func (m *Todo) GetCreatedAt() int64 {
 	if m != nil {
 		return m.CreatedAt
@@ -192,504 +200,6 @@ func (m *Todo) GetPriority() Priority {
 	return Priority_NONE
 }
 
-type TodoGroup struct {
-	TodoGroupId          string   `protobuf:"bytes,1,opt,name=todo_group_id,json=todoGroupId" json:"todo_group_id,omitempty"`
-	Title                string   `protobuf:"bytes,2,opt,name=title" json:"title,omitempty"`
-	Description          string   `protobuf:"bytes,3,opt,name=description" json:"description,omitempty"`
-	OrderedTodoIds       []string `protobuf:"bytes,4,rep,name=ordered_todo_ids,json=orderedTodoIds" json:"ordered_todo_ids,omitempty"`
-	CreatedBy            string   `protobuf:"bytes,5,opt,name=created_by,json=createdBy" json:"created_by,omitempty"`
-	CreatedAt            int64    `protobuf:"varint,6,opt,name=created_at,json=createdAt" json:"created_at,omitempty"`
-	UpdatedAt            int64    `protobuf:"varint,7,opt,name=updated_at,json=updatedAt" json:"updated_at,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *TodoGroup) Reset()         { *m = TodoGroup{} }
-func (m *TodoGroup) String() string { return proto.CompactTextString(m) }
-func (*TodoGroup) ProtoMessage()    {}
-func (*TodoGroup) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{1}
-}
-func (m *TodoGroup) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_TodoGroup.Unmarshal(m, b)
-}
-func (m *TodoGroup) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_TodoGroup.Marshal(b, m, deterministic)
-}
-func (dst *TodoGroup) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_TodoGroup.Merge(dst, src)
-}
-func (m *TodoGroup) XXX_Size() int {
-	return xxx_messageInfo_TodoGroup.Size(m)
-}
-func (m *TodoGroup) XXX_DiscardUnknown() {
-	xxx_messageInfo_TodoGroup.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_TodoGroup proto.InternalMessageInfo
-
-func (m *TodoGroup) GetTodoGroupId() string {
-	if m != nil {
-		return m.TodoGroupId
-	}
-	return ""
-}
-
-func (m *TodoGroup) GetTitle() string {
-	if m != nil {
-		return m.Title
-	}
-	return ""
-}
-
-func (m *TodoGroup) GetDescription() string {
-	if m != nil {
-		return m.Description
-	}
-	return ""
-}
-
-func (m *TodoGroup) GetOrderedTodoIds() []string {
-	if m != nil {
-		return m.OrderedTodoIds
-	}
-	return nil
-}
-
-func (m *TodoGroup) GetCreatedBy() string {
-	if m != nil {
-		return m.CreatedBy
-	}
-	return ""
-}
-
-func (m *TodoGroup) GetCreatedAt() int64 {
-	if m != nil {
-		return m.CreatedAt
-	}
-	return 0
-}
-
-func (m *TodoGroup) GetUpdatedAt() int64 {
-	if m != nil {
-		return m.UpdatedAt
-	}
-	return 0
-}
-
-type CreateTodoGroupRequest struct {
-	AccountId            string     `protobuf:"bytes,1,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
-	TodoGroup            *TodoGroup `protobuf:"bytes,2,opt,name=todo_group,json=todoGroup" json:"todo_group,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
-}
-
-func (m *CreateTodoGroupRequest) Reset()         { *m = CreateTodoGroupRequest{} }
-func (m *CreateTodoGroupRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateTodoGroupRequest) ProtoMessage()    {}
-func (*CreateTodoGroupRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{2}
-}
-func (m *CreateTodoGroupRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateTodoGroupRequest.Unmarshal(m, b)
-}
-func (m *CreateTodoGroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateTodoGroupRequest.Marshal(b, m, deterministic)
-}
-func (dst *CreateTodoGroupRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateTodoGroupRequest.Merge(dst, src)
-}
-func (m *CreateTodoGroupRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateTodoGroupRequest.Size(m)
-}
-func (m *CreateTodoGroupRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateTodoGroupRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateTodoGroupRequest proto.InternalMessageInfo
-
-func (m *CreateTodoGroupRequest) GetAccountId() string {
-	if m != nil {
-		return m.AccountId
-	}
-	return ""
-}
-
-func (m *CreateTodoGroupRequest) GetTodoGroup() *TodoGroup {
-	if m != nil {
-		return m.TodoGroup
-	}
-	return nil
-}
-
-type CreateTodoGroupResponse struct {
-	TodoGroup            *TodoGroup `protobuf:"bytes,1,opt,name=todo_group,json=todoGroup" json:"todo_group,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
-}
-
-func (m *CreateTodoGroupResponse) Reset()         { *m = CreateTodoGroupResponse{} }
-func (m *CreateTodoGroupResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateTodoGroupResponse) ProtoMessage()    {}
-func (*CreateTodoGroupResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{3}
-}
-func (m *CreateTodoGroupResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateTodoGroupResponse.Unmarshal(m, b)
-}
-func (m *CreateTodoGroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateTodoGroupResponse.Marshal(b, m, deterministic)
-}
-func (dst *CreateTodoGroupResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateTodoGroupResponse.Merge(dst, src)
-}
-func (m *CreateTodoGroupResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateTodoGroupResponse.Size(m)
-}
-func (m *CreateTodoGroupResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateTodoGroupResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateTodoGroupResponse proto.InternalMessageInfo
-
-func (m *CreateTodoGroupResponse) GetTodoGroup() *TodoGroup {
-	if m != nil {
-		return m.TodoGroup
-	}
-	return nil
-}
-
-type ListTodoGroupsRequest struct {
-	AccountId            string   `protobuf:"bytes,1,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ListTodoGroupsRequest) Reset()         { *m = ListTodoGroupsRequest{} }
-func (m *ListTodoGroupsRequest) String() string { return proto.CompactTextString(m) }
-func (*ListTodoGroupsRequest) ProtoMessage()    {}
-func (*ListTodoGroupsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{4}
-}
-func (m *ListTodoGroupsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListTodoGroupsRequest.Unmarshal(m, b)
-}
-func (m *ListTodoGroupsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListTodoGroupsRequest.Marshal(b, m, deterministic)
-}
-func (dst *ListTodoGroupsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListTodoGroupsRequest.Merge(dst, src)
-}
-func (m *ListTodoGroupsRequest) XXX_Size() int {
-	return xxx_messageInfo_ListTodoGroupsRequest.Size(m)
-}
-func (m *ListTodoGroupsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListTodoGroupsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListTodoGroupsRequest proto.InternalMessageInfo
-
-func (m *ListTodoGroupsRequest) GetAccountId() string {
-	if m != nil {
-		return m.AccountId
-	}
-	return ""
-}
-
-type ListTodoGroupsResponse struct {
-	TodoGroups           []*TodoGroup `protobuf:"bytes,1,rep,name=todo_groups,json=todoGroups" json:"todo_groups,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
-}
-
-func (m *ListTodoGroupsResponse) Reset()         { *m = ListTodoGroupsResponse{} }
-func (m *ListTodoGroupsResponse) String() string { return proto.CompactTextString(m) }
-func (*ListTodoGroupsResponse) ProtoMessage()    {}
-func (*ListTodoGroupsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{5}
-}
-func (m *ListTodoGroupsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListTodoGroupsResponse.Unmarshal(m, b)
-}
-func (m *ListTodoGroupsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListTodoGroupsResponse.Marshal(b, m, deterministic)
-}
-func (dst *ListTodoGroupsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListTodoGroupsResponse.Merge(dst, src)
-}
-func (m *ListTodoGroupsResponse) XXX_Size() int {
-	return xxx_messageInfo_ListTodoGroupsResponse.Size(m)
-}
-func (m *ListTodoGroupsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListTodoGroupsResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListTodoGroupsResponse proto.InternalMessageInfo
-
-func (m *ListTodoGroupsResponse) GetTodoGroups() []*TodoGroup {
-	if m != nil {
-		return m.TodoGroups
-	}
-	return nil
-}
-
-type GetTodoGroupRequest struct {
-	AccountId            string   `protobuf:"bytes,1,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
-	TodoGroupId          string   `protobuf:"bytes,2,opt,name=todo_group_id,json=todoGroupId" json:"todo_group_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *GetTodoGroupRequest) Reset()         { *m = GetTodoGroupRequest{} }
-func (m *GetTodoGroupRequest) String() string { return proto.CompactTextString(m) }
-func (*GetTodoGroupRequest) ProtoMessage()    {}
-func (*GetTodoGroupRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{6}
-}
-func (m *GetTodoGroupRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetTodoGroupRequest.Unmarshal(m, b)
-}
-func (m *GetTodoGroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetTodoGroupRequest.Marshal(b, m, deterministic)
-}
-func (dst *GetTodoGroupRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetTodoGroupRequest.Merge(dst, src)
-}
-func (m *GetTodoGroupRequest) XXX_Size() int {
-	return xxx_messageInfo_GetTodoGroupRequest.Size(m)
-}
-func (m *GetTodoGroupRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetTodoGroupRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetTodoGroupRequest proto.InternalMessageInfo
-
-func (m *GetTodoGroupRequest) GetAccountId() string {
-	if m != nil {
-		return m.AccountId
-	}
-	return ""
-}
-
-func (m *GetTodoGroupRequest) GetTodoGroupId() string {
-	if m != nil {
-		return m.TodoGroupId
-	}
-	return ""
-}
-
-type GetTodoGroupResponse struct {
-	TodoGroup            *TodoGroup `protobuf:"bytes,1,opt,name=todo_group,json=todoGroup" json:"todo_group,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
-}
-
-func (m *GetTodoGroupResponse) Reset()         { *m = GetTodoGroupResponse{} }
-func (m *GetTodoGroupResponse) String() string { return proto.CompactTextString(m) }
-func (*GetTodoGroupResponse) ProtoMessage()    {}
-func (*GetTodoGroupResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{7}
-}
-func (m *GetTodoGroupResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetTodoGroupResponse.Unmarshal(m, b)
-}
-func (m *GetTodoGroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetTodoGroupResponse.Marshal(b, m, deterministic)
-}
-func (dst *GetTodoGroupResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetTodoGroupResponse.Merge(dst, src)
-}
-func (m *GetTodoGroupResponse) XXX_Size() int {
-	return xxx_messageInfo_GetTodoGroupResponse.Size(m)
-}
-func (m *GetTodoGroupResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetTodoGroupResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetTodoGroupResponse proto.InternalMessageInfo
-
-func (m *GetTodoGroupResponse) GetTodoGroup() *TodoGroup {
-	if m != nil {
-		return m.TodoGroup
-	}
-	return nil
-}
-
-type UpdateTodoGroupRequest struct {
-	AccountId            string     `protobuf:"bytes,1,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
-	TodoGroupId          string     `protobuf:"bytes,2,opt,name=todo_group_id,json=todoGroupId" json:"todo_group_id,omitempty"`
-	TodoGroup            *TodoGroup `protobuf:"bytes,3,opt,name=todo_group,json=todoGroup" json:"todo_group,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
-}
-
-func (m *UpdateTodoGroupRequest) Reset()         { *m = UpdateTodoGroupRequest{} }
-func (m *UpdateTodoGroupRequest) String() string { return proto.CompactTextString(m) }
-func (*UpdateTodoGroupRequest) ProtoMessage()    {}
-func (*UpdateTodoGroupRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{8}
-}
-func (m *UpdateTodoGroupRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateTodoGroupRequest.Unmarshal(m, b)
-}
-func (m *UpdateTodoGroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateTodoGroupRequest.Marshal(b, m, deterministic)
-}
-func (dst *UpdateTodoGroupRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateTodoGroupRequest.Merge(dst, src)
-}
-func (m *UpdateTodoGroupRequest) XXX_Size() int {
-	return xxx_messageInfo_UpdateTodoGroupRequest.Size(m)
-}
-func (m *UpdateTodoGroupRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateTodoGroupRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UpdateTodoGroupRequest proto.InternalMessageInfo
-
-func (m *UpdateTodoGroupRequest) GetAccountId() string {
-	if m != nil {
-		return m.AccountId
-	}
-	return ""
-}
-
-func (m *UpdateTodoGroupRequest) GetTodoGroupId() string {
-	if m != nil {
-		return m.TodoGroupId
-	}
-	return ""
-}
-
-func (m *UpdateTodoGroupRequest) GetTodoGroup() *TodoGroup {
-	if m != nil {
-		return m.TodoGroup
-	}
-	return nil
-}
-
-type UpdateTodoGroupResponse struct {
-	TodoGroup            *TodoGroup `protobuf:"bytes,1,opt,name=todo_group,json=todoGroup" json:"todo_group,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
-}
-
-func (m *UpdateTodoGroupResponse) Reset()         { *m = UpdateTodoGroupResponse{} }
-func (m *UpdateTodoGroupResponse) String() string { return proto.CompactTextString(m) }
-func (*UpdateTodoGroupResponse) ProtoMessage()    {}
-func (*UpdateTodoGroupResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{9}
-}
-func (m *UpdateTodoGroupResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateTodoGroupResponse.Unmarshal(m, b)
-}
-func (m *UpdateTodoGroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateTodoGroupResponse.Marshal(b, m, deterministic)
-}
-func (dst *UpdateTodoGroupResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateTodoGroupResponse.Merge(dst, src)
-}
-func (m *UpdateTodoGroupResponse) XXX_Size() int {
-	return xxx_messageInfo_UpdateTodoGroupResponse.Size(m)
-}
-func (m *UpdateTodoGroupResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateTodoGroupResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UpdateTodoGroupResponse proto.InternalMessageInfo
-
-func (m *UpdateTodoGroupResponse) GetTodoGroup() *TodoGroup {
-	if m != nil {
-		return m.TodoGroup
-	}
-	return nil
-}
-
-type DeleteTodoGroupRequest struct {
-	AccountId            string   `protobuf:"bytes,1,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
-	TodoGroupId          string   `protobuf:"bytes,2,opt,name=todo_group_id,json=todoGroupId" json:"todo_group_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteTodoGroupRequest) Reset()         { *m = DeleteTodoGroupRequest{} }
-func (m *DeleteTodoGroupRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteTodoGroupRequest) ProtoMessage()    {}
-func (*DeleteTodoGroupRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{10}
-}
-func (m *DeleteTodoGroupRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteTodoGroupRequest.Unmarshal(m, b)
-}
-func (m *DeleteTodoGroupRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteTodoGroupRequest.Marshal(b, m, deterministic)
-}
-func (dst *DeleteTodoGroupRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteTodoGroupRequest.Merge(dst, src)
-}
-func (m *DeleteTodoGroupRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteTodoGroupRequest.Size(m)
-}
-func (m *DeleteTodoGroupRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteTodoGroupRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteTodoGroupRequest proto.InternalMessageInfo
-
-func (m *DeleteTodoGroupRequest) GetAccountId() string {
-	if m != nil {
-		return m.AccountId
-	}
-	return ""
-}
-
-func (m *DeleteTodoGroupRequest) GetTodoGroupId() string {
-	if m != nil {
-		return m.TodoGroupId
-	}
-	return ""
-}
-
-type DeleteTodoGroupResponse struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteTodoGroupResponse) Reset()         { *m = DeleteTodoGroupResponse{} }
-func (m *DeleteTodoGroupResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteTodoGroupResponse) ProtoMessage()    {}
-func (*DeleteTodoGroupResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{11}
-}
-func (m *DeleteTodoGroupResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteTodoGroupResponse.Unmarshal(m, b)
-}
-func (m *DeleteTodoGroupResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteTodoGroupResponse.Marshal(b, m, deterministic)
-}
-func (dst *DeleteTodoGroupResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteTodoGroupResponse.Merge(dst, src)
-}
-func (m *DeleteTodoGroupResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteTodoGroupResponse.Size(m)
-}
-func (m *DeleteTodoGroupResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteTodoGroupResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteTodoGroupResponse proto.InternalMessageInfo
-
 type CreateTodoRequest struct {
 	AccountId            string   `protobuf:"bytes,1,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
 	TodoGroupId          string   `protobuf:"bytes,2,opt,name=todo_group_id,json=todoGroupId" json:"todo_group_id,omitempty"`
@@ -704,7 +214,7 @@ func (m *CreateTodoRequest) Reset()         { *m = CreateTodoRequest{} }
 func (m *CreateTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateTodoRequest) ProtoMessage()    {}
 func (*CreateTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{12}
+	return fileDescriptor_todos_ec9cb3fd5c9489ad, []int{1}
 }
 func (m *CreateTodoRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateTodoRequest.Unmarshal(m, b)
@@ -763,7 +273,7 @@ func (m *CreateTodoResponse) Reset()         { *m = CreateTodoResponse{} }
 func (m *CreateTodoResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateTodoResponse) ProtoMessage()    {}
 func (*CreateTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{13}
+	return fileDescriptor_todos_ec9cb3fd5c9489ad, []int{2}
 }
 func (m *CreateTodoResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateTodoResponse.Unmarshal(m, b)
@@ -804,7 +314,7 @@ func (m *UpdateTodoRequest) Reset()         { *m = UpdateTodoRequest{} }
 func (m *UpdateTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateTodoRequest) ProtoMessage()    {}
 func (*UpdateTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{14}
+	return fileDescriptor_todos_ec9cb3fd5c9489ad, []int{3}
 }
 func (m *UpdateTodoRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateTodoRequest.Unmarshal(m, b)
@@ -863,7 +373,7 @@ func (m *UpdateTodoResponse) Reset()         { *m = UpdateTodoResponse{} }
 func (m *UpdateTodoResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateTodoResponse) ProtoMessage()    {}
 func (*UpdateTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{15}
+	return fileDescriptor_todos_ec9cb3fd5c9489ad, []int{4}
 }
 func (m *UpdateTodoResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateTodoResponse.Unmarshal(m, b)
@@ -903,7 +413,7 @@ func (m *DeleteTodoRequest) Reset()         { *m = DeleteTodoRequest{} }
 func (m *DeleteTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteTodoRequest) ProtoMessage()    {}
 func (*DeleteTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{16}
+	return fileDescriptor_todos_ec9cb3fd5c9489ad, []int{5}
 }
 func (m *DeleteTodoRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteTodoRequest.Unmarshal(m, b)
@@ -954,7 +464,7 @@ func (m *DeleteTodoResponse) Reset()         { *m = DeleteTodoResponse{} }
 func (m *DeleteTodoResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteTodoResponse) ProtoMessage()    {}
 func (*DeleteTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_daabd756e8a1f765, []int{17}
+	return fileDescriptor_todos_ec9cb3fd5c9489ad, []int{6}
 }
 func (m *DeleteTodoResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteTodoResponse.Unmarshal(m, b)
@@ -976,17 +486,6 @@ var xxx_messageInfo_DeleteTodoResponse proto.InternalMessageInfo
 
 func init() {
 	proto.RegisterType((*Todo)(nil), "pb.family.todos.Todo")
-	proto.RegisterType((*TodoGroup)(nil), "pb.family.todos.TodoGroup")
-	proto.RegisterType((*CreateTodoGroupRequest)(nil), "pb.family.todos.CreateTodoGroupRequest")
-	proto.RegisterType((*CreateTodoGroupResponse)(nil), "pb.family.todos.CreateTodoGroupResponse")
-	proto.RegisterType((*ListTodoGroupsRequest)(nil), "pb.family.todos.ListTodoGroupsRequest")
-	proto.RegisterType((*ListTodoGroupsResponse)(nil), "pb.family.todos.ListTodoGroupsResponse")
-	proto.RegisterType((*GetTodoGroupRequest)(nil), "pb.family.todos.GetTodoGroupRequest")
-	proto.RegisterType((*GetTodoGroupResponse)(nil), "pb.family.todos.GetTodoGroupResponse")
-	proto.RegisterType((*UpdateTodoGroupRequest)(nil), "pb.family.todos.UpdateTodoGroupRequest")
-	proto.RegisterType((*UpdateTodoGroupResponse)(nil), "pb.family.todos.UpdateTodoGroupResponse")
-	proto.RegisterType((*DeleteTodoGroupRequest)(nil), "pb.family.todos.DeleteTodoGroupRequest")
-	proto.RegisterType((*DeleteTodoGroupResponse)(nil), "pb.family.todos.DeleteTodoGroupResponse")
 	proto.RegisterType((*CreateTodoRequest)(nil), "pb.family.todos.CreateTodoRequest")
 	proto.RegisterType((*CreateTodoResponse)(nil), "pb.family.todos.CreateTodoResponse")
 	proto.RegisterType((*UpdateTodoRequest)(nil), "pb.family.todos.UpdateTodoRequest")
@@ -1008,13 +507,6 @@ const _ = grpc.SupportPackageIsVersion4
 // Client API for TodosService service
 
 type TodosServiceClient interface {
-	// TodoGruops
-	CreateTodoGroup(ctx context.Context, in *CreateTodoGroupRequest, opts ...grpc.CallOption) (*CreateTodoGroupResponse, error)
-	ListTodoGroups(ctx context.Context, in *ListTodoGroupsRequest, opts ...grpc.CallOption) (*ListTodoGroupsResponse, error)
-	GetTodoGroup(ctx context.Context, in *GetTodoGroupRequest, opts ...grpc.CallOption) (*GetTodoGroupResponse, error)
-	UpdateTodoGroup(ctx context.Context, in *UpdateTodoGroupRequest, opts ...grpc.CallOption) (*UpdateTodoGroupResponse, error)
-	DeleteTodoGroup(ctx context.Context, in *DeleteTodoGroupRequest, opts ...grpc.CallOption) (*DeleteTodoGroupResponse, error)
-	// Todos
 	CreateTodo(ctx context.Context, in *CreateTodoRequest, opts ...grpc.CallOption) (*CreateTodoResponse, error)
 	UpdateTodo(ctx context.Context, in *UpdateTodoRequest, opts ...grpc.CallOption) (*UpdateTodoResponse, error)
 	DeleteTodo(ctx context.Context, in *DeleteTodoRequest, opts ...grpc.CallOption) (*DeleteTodoResponse, error)
@@ -1026,51 +518,6 @@ type todosServiceClient struct {
 
 func NewTodosServiceClient(cc *grpc.ClientConn) TodosServiceClient {
 	return &todosServiceClient{cc}
-}
-
-func (c *todosServiceClient) CreateTodoGroup(ctx context.Context, in *CreateTodoGroupRequest, opts ...grpc.CallOption) (*CreateTodoGroupResponse, error) {
-	out := new(CreateTodoGroupResponse)
-	err := grpc.Invoke(ctx, "/pb.family.todos.TodosService/CreateTodoGroup", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *todosServiceClient) ListTodoGroups(ctx context.Context, in *ListTodoGroupsRequest, opts ...grpc.CallOption) (*ListTodoGroupsResponse, error) {
-	out := new(ListTodoGroupsResponse)
-	err := grpc.Invoke(ctx, "/pb.family.todos.TodosService/ListTodoGroups", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *todosServiceClient) GetTodoGroup(ctx context.Context, in *GetTodoGroupRequest, opts ...grpc.CallOption) (*GetTodoGroupResponse, error) {
-	out := new(GetTodoGroupResponse)
-	err := grpc.Invoke(ctx, "/pb.family.todos.TodosService/GetTodoGroup", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *todosServiceClient) UpdateTodoGroup(ctx context.Context, in *UpdateTodoGroupRequest, opts ...grpc.CallOption) (*UpdateTodoGroupResponse, error) {
-	out := new(UpdateTodoGroupResponse)
-	err := grpc.Invoke(ctx, "/pb.family.todos.TodosService/UpdateTodoGroup", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *todosServiceClient) DeleteTodoGroup(ctx context.Context, in *DeleteTodoGroupRequest, opts ...grpc.CallOption) (*DeleteTodoGroupResponse, error) {
-	out := new(DeleteTodoGroupResponse)
-	err := grpc.Invoke(ctx, "/pb.family.todos.TodosService/DeleteTodoGroup", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *todosServiceClient) CreateTodo(ctx context.Context, in *CreateTodoRequest, opts ...grpc.CallOption) (*CreateTodoResponse, error) {
@@ -1103,13 +550,6 @@ func (c *todosServiceClient) DeleteTodo(ctx context.Context, in *DeleteTodoReque
 // Server API for TodosService service
 
 type TodosServiceServer interface {
-	// TodoGruops
-	CreateTodoGroup(context.Context, *CreateTodoGroupRequest) (*CreateTodoGroupResponse, error)
-	ListTodoGroups(context.Context, *ListTodoGroupsRequest) (*ListTodoGroupsResponse, error)
-	GetTodoGroup(context.Context, *GetTodoGroupRequest) (*GetTodoGroupResponse, error)
-	UpdateTodoGroup(context.Context, *UpdateTodoGroupRequest) (*UpdateTodoGroupResponse, error)
-	DeleteTodoGroup(context.Context, *DeleteTodoGroupRequest) (*DeleteTodoGroupResponse, error)
-	// Todos
 	CreateTodo(context.Context, *CreateTodoRequest) (*CreateTodoResponse, error)
 	UpdateTodo(context.Context, *UpdateTodoRequest) (*UpdateTodoResponse, error)
 	DeleteTodo(context.Context, *DeleteTodoRequest) (*DeleteTodoResponse, error)
@@ -1117,96 +557,6 @@ type TodosServiceServer interface {
 
 func RegisterTodosServiceServer(s *grpc.Server, srv TodosServiceServer) {
 	s.RegisterService(&_TodosService_serviceDesc, srv)
-}
-
-func _TodosService_CreateTodoGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateTodoGroupRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TodosServiceServer).CreateTodoGroup(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.family.todos.TodosService/CreateTodoGroup",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TodosServiceServer).CreateTodoGroup(ctx, req.(*CreateTodoGroupRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TodosService_ListTodoGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListTodoGroupsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TodosServiceServer).ListTodoGroups(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.family.todos.TodosService/ListTodoGroups",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TodosServiceServer).ListTodoGroups(ctx, req.(*ListTodoGroupsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TodosService_GetTodoGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTodoGroupRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TodosServiceServer).GetTodoGroup(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.family.todos.TodosService/GetTodoGroup",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TodosServiceServer).GetTodoGroup(ctx, req.(*GetTodoGroupRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TodosService_UpdateTodoGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateTodoGroupRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TodosServiceServer).UpdateTodoGroup(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.family.todos.TodosService/UpdateTodoGroup",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TodosServiceServer).UpdateTodoGroup(ctx, req.(*UpdateTodoGroupRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TodosService_DeleteTodoGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteTodoGroupRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TodosServiceServer).DeleteTodoGroup(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.family.todos.TodosService/DeleteTodoGroup",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TodosServiceServer).DeleteTodoGroup(ctx, req.(*DeleteTodoGroupRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _TodosService_CreateTodo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1268,26 +618,6 @@ var _TodosService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*TodosServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateTodoGroup",
-			Handler:    _TodosService_CreateTodoGroup_Handler,
-		},
-		{
-			MethodName: "ListTodoGroups",
-			Handler:    _TodosService_ListTodoGroups_Handler,
-		},
-		{
-			MethodName: "GetTodoGroup",
-			Handler:    _TodosService_GetTodoGroup_Handler,
-		},
-		{
-			MethodName: "UpdateTodoGroup",
-			Handler:    _TodosService_UpdateTodoGroup_Handler,
-		},
-		{
-			MethodName: "DeleteTodoGroup",
-			Handler:    _TodosService_DeleteTodoGroup_Handler,
-		},
-		{
 			MethodName: "CreateTodo",
 			Handler:    _TodosService_CreateTodo_Handler,
 		},
@@ -1304,68 +634,49 @@ var _TodosService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "pb/family/todos/todos.proto",
 }
 
-func init() { proto.RegisterFile("pb/family/todos/todos.proto", fileDescriptor_todos_daabd756e8a1f765) }
+func init() { proto.RegisterFile("pb/family/todos/todos.proto", fileDescriptor_todos_ec9cb3fd5c9489ad) }
 
-var fileDescriptor_todos_daabd756e8a1f765 = []byte{
-	// 951 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x57, 0x5f, 0x8f, 0xdb, 0x44,
-	0x10, 0xef, 0x26, 0xb9, 0x5c, 0x32, 0x29, 0x97, 0xdc, 0x72, 0x77, 0x49, 0xc3, 0xbf, 0xb0, 0xb4,
-	0x5c, 0x1a, 0xa9, 0x31, 0x0d, 0xff, 0x44, 0xfb, 0x50, 0x5d, 0x9b, 0x53, 0x1a, 0xa9, 0xcd, 0x95,
-	0x34, 0x27, 0x10, 0x3c, 0x9c, 0x9c, 0xec, 0x92, 0x5a, 0x4a, 0xb3, 0xc6, 0x5e, 0x57, 0x3a, 0x10,
-	0x12, 0x42, 0x48, 0x3c, 0x81, 0x40, 0x48, 0x3c, 0xf0, 0xad, 0x10, 0x5f, 0x01, 0xf1, 0xc8, 0x67,
-	0x40, 0xbb, 0xde, 0xc4, 0x89, 0xed, 0xc6, 0x17, 0x1d, 0x87, 0xfa, 0x62, 0xd9, 0x33, 0xe3, 0x99,
-	0xdf, 0xfc, 0x66, 0xfd, 0x5b, 0x2f, 0xbc, 0x62, 0x0f, 0x8d, 0x2f, 0xcc, 0xa7, 0xd6, 0xe4, 0xd4,
-	0x10, 0x9c, 0x72, 0xd7, 0xbf, 0x36, 0x6d, 0x87, 0x0b, 0x8e, 0x8b, 0xf6, 0xb0, 0xe9, 0x3b, 0x9b,
-	0xca, 0x5c, 0x7d, 0x75, 0xcc, 0xf9, 0x78, 0xc2, 0x0c, 0xd3, 0xb6, 0x0c, 0x73, 0x3a, 0xe5, 0xc2,
-	0x14, 0x16, 0x9f, 0xea, 0x70, 0xf2, 0x47, 0x0a, 0x32, 0x03, 0x4e, 0x39, 0x2e, 0xc3, 0xa6, 0x8c,
-	0x3f, 0xb1, 0x68, 0x05, 0xd5, 0x50, 0x3d, 0xdf, 0xcf, 0xca, 0xc7, 0x2e, 0xc5, 0x04, 0x5e, 0x52,
-	0x8e, 0xb1, 0xc3, 0x3d, 0x5b, 0xba, 0x53, 0xca, 0x5d, 0x90, 0xc6, 0x8e, 0xb4, 0x75, 0x29, 0xde,
-	0x81, 0x0d, 0x61, 0x89, 0x09, 0xab, 0xa4, 0x95, 0xcf, 0x7f, 0xc0, 0x35, 0x28, 0x50, 0xe6, 0x8e,
-	0x1c, 0xcb, 0x96, 0x15, 0x2b, 0x19, 0xff, 0xbd, 0x05, 0x13, 0x36, 0x20, 0xeb, 0x0a, 0x53, 0x78,
-	0x6e, 0x65, 0xa3, 0x86, 0xea, 0x5b, 0xad, 0x72, 0x33, 0x84, 0xbe, 0xf9, 0x58, 0xb9, 0xfb, 0x3a,
-	0x0c, 0xbf, 0x06, 0x30, 0x72, 0x98, 0x29, 0x18, 0x3d, 0x31, 0x45, 0x25, 0x5b, 0x43, 0xf5, 0x74,
-	0x3f, 0xaf, 0x2d, 0x07, 0x42, 0xba, 0x3d, 0x9b, 0xce, 0xdc, 0x9b, 0xbe, 0x5b, 0x5b, 0x0e, 0x84,
-	0xec, 0x91, 0xf2, 0x29, 0x93, 0xbe, 0x9c, 0xf2, 0x65, 0xe5, 0xe3, 0x81, 0xc0, 0xbb, 0x90, 0xa5,
-	0x9e, 0xb2, 0xe7, 0x95, 0x7d, 0x83, 0x7a, 0xd2, 0xfc, 0x3e, 0xe4, 0x6c, 0xc7, 0xe2, 0x8e, 0x25,
-	0x4e, 0x2b, 0xa0, 0x00, 0x5e, 0x89, 0x00, 0x7c, 0xa4, 0x03, 0xfa, 0xf3, 0x50, 0xf2, 0x0f, 0x82,
-	0xfc, 0x60, 0xc6, 0x4e, 0x94, 0x3f, 0xb4, 0x82, 0xbf, 0xd4, 0x0a, 0xfe, 0xd2, 0x51, 0xfe, 0xea,
-	0x50, 0xe2, 0x0e, 0x65, 0x0e, 0xa3, 0x27, 0x7a, 0x78, 0x6e, 0x25, 0x53, 0x4b, 0xd7, 0xf3, 0xfd,
-	0x2d, 0x6d, 0x1f, 0xa8, 0x21, 0x2e, 0x11, 0x37, 0x3c, 0x55, 0x6c, 0xe7, 0xe7, 0xc4, 0xdd, 0x3d,
-	0x3d, 0x1f, 0xaf, 0xc4, 0x81, 0xbd, 0x7b, 0x2a, 0x76, 0xde, 0x75, 0x9f, 0x7d, 0xe9, 0x31, 0x57,
-	0xbd, 0x68, 0x8e, 0x46, 0xdc, 0x9b, 0x8a, 0xa0, 0xf3, 0xbc, 0xb6, 0x74, 0x29, 0xfe, 0x08, 0x20,
-	0xe0, 0x46, 0x35, 0x5f, 0x68, 0x55, 0x23, 0x14, 0x07, 0x59, 0xf3, 0x73, 0xd2, 0xc8, 0x00, 0xca,
-	0x91, 0x9a, 0xae, 0xcd, 0xa7, 0x2e, 0x0b, 0x65, 0x45, 0xeb, 0x64, 0xfd, 0x00, 0x76, 0x1f, 0x58,
-	0xae, 0x98, 0xfb, 0xdc, 0xb3, 0x35, 0x42, 0x8e, 0x61, 0x2f, 0xfc, 0x9e, 0x06, 0x73, 0x1b, 0x0a,
-	0x01, 0x18, 0xb7, 0x82, 0x6a, 0xe9, 0x04, 0x34, 0x30, 0x47, 0xe3, 0x92, 0x4f, 0xe1, 0xe5, 0x0e,
-	0x13, 0xeb, 0xb2, 0x7a, 0x86, 0x2f, 0x96, 0x7c, 0x0c, 0x3b, 0xcb, 0x99, 0xcf, 0xcf, 0xdd, 0x6f,
-	0x08, 0xf6, 0x8e, 0xd5, 0x9a, 0xb8, 0x00, 0xc0, 0x21, 0x60, 0xe9, 0x35, 0x97, 0x4a, 0x04, 0xd7,
-	0xf9, 0xdb, 0xfd, 0x1c, 0xf6, 0xda, 0x6c, 0xc2, 0x2e, 0xa4, 0x5b, 0x72, 0x05, 0xca, 0x91, 0xe4,
-	0x3e, 0x64, 0xf2, 0x3b, 0x82, 0xed, 0x60, 0xe5, 0xff, 0x87, 0x0c, 0x2f, 0xec, 0x00, 0xe9, 0xa5,
-	0x1d, 0xe0, 0x3a, 0x64, 0xe4, 0x9d, 0x12, 0xf0, 0x42, 0x6b, 0x37, 0x96, 0x9e, 0xbe, 0x0a, 0x21,
-	0x77, 0x00, 0x2f, 0x62, 0xd3, 0x2c, 0xcf, 0x12, 0xa0, 0xe4, 0x04, 0xb2, 0xbb, 0x60, 0x58, 0x2f,
-	0x5e, 0x77, 0x8b, 0xd8, 0xd6, 0xef, 0x8e, 0xc3, 0x76, 0x30, 0xd6, 0xff, 0xa1, 0x39, 0xb2, 0x03,
-	0x78, 0xb1, 0xa0, 0x8f, 0xb8, 0x71, 0x1d, 0xb2, 0xfe, 0xbe, 0x8a, 0x73, 0x90, 0x19, 0x1c, 0xb5,
-	0x8f, 0x4a, 0x97, 0xe4, 0x5d, 0xfb, 0xa8, 0x77, 0x58, 0x42, 0xb8, 0x00, 0x9b, 0x8f, 0x0e, 0x7b,
-	0xed, 0x6e, 0xaf, 0x53, 0x4a, 0x35, 0xee, 0x40, 0x6e, 0xb6, 0xc3, 0xc9, 0x90, 0x9e, 0x0c, 0xb9,
-	0x84, 0x37, 0x21, 0xfd, 0xe0, 0xe8, 0x93, 0x12, 0x60, 0x80, 0xec, 0xc3, 0xc3, 0x76, 0xf7, 0xf8,
-	0x61, 0xe9, 0x75, 0xe9, 0xbe, 0xdf, 0xed, 0xdc, 0x2f, 0xb5, 0xa4, 0xf5, 0xb8, 0xdf, 0x39, 0xec,
-	0x0d, 0x4a, 0xb4, 0xf5, 0x77, 0x0e, 0x2e, 0xcb, 0xe2, 0xee, 0x63, 0xe6, 0x3c, 0xb3, 0x46, 0x0c,
-	0x7f, 0x8b, 0xa0, 0x18, 0x52, 0x6e, 0xbc, 0x1f, 0x21, 0x2d, 0x7e, 0x3f, 0xa9, 0xd6, 0x93, 0x03,
-	0xf5, 0x67, 0x52, 0xfd, 0xee, 0xcf, 0xbf, 0x7e, 0x4d, 0xed, 0x90, 0xa2, 0xf1, 0xec, 0xa6, 0xfa,
-	0x41, 0xba, 0xe1, 0x2b, 0xf0, 0x2d, 0xd4, 0xc0, 0x5f, 0xc1, 0xd6, 0xb2, 0x5a, 0xe3, 0xb7, 0x23,
-	0x79, 0x63, 0xb7, 0x81, 0xea, 0x7e, 0x62, 0x9c, 0x2e, 0x5f, 0x56, 0xe5, 0xb7, 0x71, 0xb8, 0x3c,
-	0xfe, 0x1e, 0xc1, 0xe5, 0x45, 0xe5, 0xc5, 0x57, 0x23, 0x29, 0x63, 0x24, 0xbf, 0x7a, 0x2d, 0x21,
-	0x4a, 0x97, 0xdd, 0x57, 0x65, 0xdf, 0xc4, 0x6f, 0x84, 0xca, 0x1a, 0x5f, 0x2f, 0xad, 0xa1, 0x6f,
-	0xf0, 0xcf, 0x08, 0x8a, 0x21, 0x51, 0x8c, 0x99, 0x42, 0xbc, 0x9c, 0xc7, 0x4c, 0xe1, 0x39, 0xfa,
-	0x4a, 0x1a, 0x0a, 0xcf, 0xd5, 0x6a, 0x12, 0x1e, 0x39, 0x95, 0x1f, 0x11, 0x14, 0x43, 0xa2, 0x17,
-	0x03, 0x29, 0x5e, 0x73, 0x63, 0x20, 0x3d, 0x4f, 0x3f, 0x35, 0x45, 0x8d, 0x44, 0x8a, 0x7e, 0x40,
-	0x00, 0xc1, 0xea, 0xc2, 0x64, 0xc5, 0xd2, 0x9b, 0xa1, 0x78, 0x6b, 0x65, 0x8c, 0x06, 0xf0, 0x8e,
-	0x02, 0xd0, 0x20, 0xd7, 0x12, 0x00, 0xf8, 0xbf, 0xf5, 0x92, 0x99, 0x5f, 0x10, 0x40, 0xc0, 0x70,
-	0x0c, 0x92, 0x88, 0x62, 0xc6, 0x20, 0x89, 0x2a, 0x17, 0xb9, 0xa5, 0x90, 0xbc, 0x57, 0x35, 0xce,
-	0x84, 0x44, 0x5b, 0xf5, 0xb4, 0x7e, 0x42, 0x00, 0x01, 0xc5, 0x31, 0x98, 0x22, 0x42, 0x17, 0x83,
-	0x29, 0xaa, 0x4d, 0xe4, 0x43, 0x85, 0xe9, 0x66, 0x63, 0x5d, 0x4c, 0x77, 0xef, 0x7d, 0x76, 0x30,
-	0xb6, 0xc4, 0x13, 0x6f, 0xd8, 0x1c, 0xf1, 0xa7, 0x86, 0x30, 0xd9, 0x13, 0x7e, 0xc3, 0xe2, 0xb3,
-	0x83, 0x92, 0x45, 0x27, 0xc6, 0x98, 0x4d, 0x99, 0x23, 0x7f, 0x59, 0x8d, 0x31, 0x37, 0x42, 0x67,
-	0xa8, 0xdb, 0xea, 0x3a, 0xcc, 0xaa, 0x53, 0xd1, 0xbb, 0xff, 0x06, 0x00, 0x00, 0xff, 0xff, 0x57,
-	0xf0, 0x9f, 0x0e, 0x63, 0x0d, 0x00, 0x00,
+var fileDescriptor_todos_ec9cb3fd5c9489ad = []byte{
+	// 645 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x95, 0xcd, 0x6a, 0xdb, 0x4c,
+	0x14, 0x86, 0x23, 0xdb, 0x91, 0xed, 0xe3, 0xef, 0x6b, 0x95, 0x21, 0x21, 0x6a, 0xfa, 0x83, 0x51,
+	0x29, 0x24, 0x86, 0x68, 0x1a, 0xb7, 0xa5, 0x90, 0x2e, 0x82, 0x1b, 0x1b, 0xc7, 0xd0, 0xd8, 0x41,
+	0x49, 0x28, 0x74, 0x13, 0x64, 0xcd, 0x54, 0x19, 0x70, 0x34, 0xaa, 0x34, 0x0a, 0x84, 0x92, 0x4d,
+	0x37, 0xdd, 0x15, 0x4a, 0x77, 0xbd, 0x97, 0x5e, 0x45, 0x6f, 0xa1, 0xd0, 0xdb, 0x28, 0x33, 0x92,
+	0x63, 0x27, 0x32, 0x6d, 0xb2, 0x29, 0xdd, 0x08, 0xcd, 0xfb, 0x1e, 0x6b, 0x9e, 0xf3, 0xe3, 0x19,
+	0xb8, 0x1b, 0x0e, 0xf1, 0x5b, 0xf7, 0x84, 0x8d, 0xce, 0xb0, 0xe0, 0x84, 0xc7, 0xe9, 0xd3, 0x0e,
+	0x23, 0x2e, 0x38, 0xba, 0x1d, 0x0e, 0xed, 0xd4, 0xb4, 0x95, 0xbc, 0x72, 0xcf, 0xe7, 0xdc, 0x1f,
+	0x51, 0xec, 0x86, 0x0c, 0xbb, 0x41, 0xc0, 0x85, 0x2b, 0x18, 0x0f, 0xb2, 0x70, 0xeb, 0x67, 0x01,
+	0x4a, 0x07, 0x9c, 0x70, 0xb4, 0x0c, 0x65, 0x19, 0x7f, 0xc4, 0x88, 0xa9, 0xd5, 0xb5, 0xd5, 0xaa,
+	0xa3, 0xcb, 0x65, 0x8f, 0x20, 0x0b, 0xfe, 0x57, 0x86, 0x1f, 0xf1, 0x24, 0x94, 0x76, 0x41, 0xd9,
+	0x35, 0x29, 0x76, 0xa5, 0xd6, 0x23, 0x68, 0x11, 0xe6, 0x05, 0x13, 0x23, 0x6a, 0x16, 0x95, 0x97,
+	0x2e, 0x50, 0x1d, 0x6a, 0x84, 0xc6, 0x5e, 0xc4, 0x42, 0xb9, 0xa3, 0x59, 0x4a, 0x7f, 0x37, 0x25,
+	0x21, 0x0c, 0x7a, 0x2c, 0x5c, 0x91, 0xc4, 0xe6, 0x7c, 0x5d, 0x5b, 0xbd, 0xd5, 0x5c, 0xb6, 0xaf,
+	0xd0, 0xdb, 0xfb, 0xca, 0x76, 0xb2, 0x30, 0xb9, 0x11, 0x8f, 0x08, 0x8d, 0x4c, 0x3d, 0xdd, 0x48,
+	0x2d, 0xd0, 0x7d, 0x00, 0x2f, 0xa2, 0xae, 0xa0, 0xe4, 0xc8, 0x15, 0x66, 0xb9, 0xae, 0xad, 0x16,
+	0x9d, 0x6a, 0xa6, 0xb4, 0x84, 0xb4, 0x93, 0x90, 0x8c, 0xed, 0x4a, 0x6a, 0x67, 0x4a, 0x4b, 0xc8,
+	0xcc, 0x09, 0x0f, 0xa8, 0xf4, 0xaa, 0xca, 0xd3, 0xe5, 0xb2, 0x25, 0xd0, 0x12, 0xe8, 0x24, 0x51,
+	0x3a, 0x28, 0x7d, 0x9e, 0x24, 0x52, 0x7e, 0x06, 0x95, 0x30, 0x62, 0x3c, 0x62, 0xe2, 0xcc, 0xac,
+	0x29, 0xec, 0x3b, 0x39, 0xec, 0xbd, 0x2c, 0xc0, 0xb9, 0x08, 0xb5, 0xbe, 0x6a, 0xb0, 0xb0, 0xad,
+	0x98, 0x64, 0xbd, 0x1d, 0xfa, 0x2e, 0xa1, 0xb1, 0x62, 0x73, 0x3d, 0x8f, 0x27, 0x81, 0x98, 0x54,
+	0xbe, 0x9a, 0x29, 0xd7, 0x2c, 0xfe, 0x54, 0xe7, 0x8a, 0x97, 0x3a, 0xb7, 0x06, 0x25, 0xf9, 0xa6,
+	0x0a, 0x5f, 0x6b, 0x2e, 0xe5, 0x20, 0x15, 0x87, 0x0a, 0xb1, 0xb6, 0x00, 0x4d, 0xb3, 0xc5, 0x21,
+	0x0f, 0x62, 0x7a, 0xf1, 0x01, 0xed, 0xcf, 0x1f, 0x90, 0xd9, 0x1d, 0xaa, 0x92, 0xfe, 0x9b, 0xd9,
+	0x4d, 0xb3, 0xdd, 0x3c, 0x3b, 0x0e, 0x0b, 0x6d, 0x3a, 0xa2, 0x7f, 0x2d, 0x39, 0x6b, 0x11, 0xd0,
+	0xf4, 0x86, 0x29, 0x71, 0x63, 0x0d, 0xf4, 0xf4, 0xff, 0x80, 0x2a, 0x50, 0x3a, 0x18, 0xb4, 0x07,
+	0xc6, 0x9c, 0x7c, 0x6b, 0x0f, 0xfa, 0x1d, 0x43, 0x43, 0x35, 0x28, 0xef, 0x75, 0xfa, 0xed, 0x5e,
+	0xbf, 0x6b, 0x14, 0x1a, 0x5b, 0x50, 0x19, 0xcf, 0xa0, 0x0c, 0xe9, 0xcb, 0x90, 0x39, 0x54, 0x86,
+	0xe2, 0xab, 0xc1, 0x6b, 0x03, 0x10, 0x80, 0xbe, 0xdb, 0x69, 0xf7, 0x0e, 0x77, 0x8d, 0x07, 0xd2,
+	0xde, 0xe9, 0x75, 0x77, 0x8c, 0xa6, 0x54, 0x0f, 0x9d, 0x6e, 0xa7, 0x7f, 0x60, 0x90, 0xe6, 0xb7,
+	0x22, 0xfc, 0x27, 0x37, 0x8f, 0xf7, 0x69, 0x74, 0xca, 0x3c, 0x8a, 0x3e, 0x6a, 0x00, 0x93, 0x19,
+	0x41, 0x56, 0xae, 0x5e, 0xb9, 0xe1, 0x5e, 0x79, 0xf8, 0xdb, 0x98, 0x34, 0x29, 0xeb, 0xf1, 0x87,
+	0xef, 0x3f, 0xbe, 0x14, 0x1a, 0xd6, 0x23, 0x7c, 0xba, 0xa1, 0x4e, 0xb2, 0x75, 0x55, 0xb1, 0x18,
+	0xbf, 0xbf, 0x54, 0xbe, 0xf3, 0xf4, 0x94, 0xdb, 0xd4, 0x1a, 0xe8, 0xb3, 0x06, 0x30, 0xe9, 0xe7,
+	0x0c, 0x92, 0xdc, 0x20, 0xce, 0x20, 0xc9, 0x0f, 0x84, 0xb5, 0xa9, 0x48, 0x9e, 0xae, 0xe0, 0x6b,
+	0x91, 0x64, 0x2a, 0x23, 0xe7, 0x92, 0xe9, 0x93, 0x06, 0x30, 0xe9, 0xd8, 0x0c, 0xa6, 0xdc, 0xfc,
+	0xcc, 0x60, 0xca, 0xb7, 0xdc, 0x7a, 0xae, 0x98, 0x36, 0x1a, 0x37, 0x65, 0x7a, 0xb9, 0xfd, 0xa6,
+	0xe5, 0x33, 0x71, 0x9c, 0x0c, 0x6d, 0x8f, 0x9f, 0x60, 0xe1, 0xd2, 0x63, 0xbe, 0xce, 0xf8, 0xf8,
+	0xde, 0x60, 0x64, 0x84, 0x7d, 0x1a, 0xd0, 0x48, 0x9e, 0x81, 0xd8, 0xe7, 0xf8, 0xca, 0x95, 0xf2,
+	0x42, 0x3d, 0x87, 0xba, 0xba, 0x24, 0x9e, 0xfc, 0x0a, 0x00, 0x00, 0xff, 0xff, 0x3e, 0x7b, 0xaf,
+	0x59, 0x72, 0x06, 0x00, 0x00,
 }

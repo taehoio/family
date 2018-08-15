@@ -15,6 +15,7 @@ open class TodosTodo: Codable {
     public var description: String?
     public var doneAt: String?
     public var dueAt: String?
+    public var order: String?
     public var priority: TodosPriority?
     public var status: TodosStatus?
     public var title: String?
@@ -24,11 +25,12 @@ open class TodosTodo: Codable {
 
 
     
-    public init(createdAt: String?, description: String?, doneAt: String?, dueAt: String?, priority: TodosPriority?, status: TodosStatus?, title: String?, todoGroupId: String?, todoId: String?, updatedAt: String?) {
+    public init(createdAt: String?, description: String?, doneAt: String?, dueAt: String?, order: String?, priority: TodosPriority?, status: TodosStatus?, title: String?, todoGroupId: String?, todoId: String?, updatedAt: String?) {
         self.createdAt = createdAt
         self.description = description
         self.doneAt = doneAt
         self.dueAt = dueAt
+        self.order = order
         self.priority = priority
         self.status = status
         self.title = title
@@ -48,6 +50,7 @@ open class TodosTodo: Codable {
         try container.encodeIfPresent(description, forKey: "description")
         try container.encodeIfPresent(doneAt, forKey: "done_at")
         try container.encodeIfPresent(dueAt, forKey: "due_at")
+        try container.encodeIfPresent(order, forKey: "order")
         try container.encodeIfPresent(priority, forKey: "priority")
         try container.encodeIfPresent(status, forKey: "status")
         try container.encodeIfPresent(title, forKey: "title")
@@ -65,6 +68,7 @@ open class TodosTodo: Codable {
         description = try container.decodeIfPresent(String.self, forKey: "description")
         doneAt = try container.decodeIfPresent(String.self, forKey: "done_at")
         dueAt = try container.decodeIfPresent(String.self, forKey: "due_at")
+        order = try container.decodeIfPresent(String.self, forKey: "order")
         priority = try container.decodeIfPresent(TodosPriority.self, forKey: "priority")
         status = try container.decodeIfPresent(TodosStatus.self, forKey: "status")
         title = try container.decodeIfPresent(String.self, forKey: "title")

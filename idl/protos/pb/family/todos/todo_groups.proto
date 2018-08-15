@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package pb.family.todos;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/taeho-io/family/idl/generated/go/pb/family/todos;todos";
+
+service TodoGroupsService {
+    rpc CreateTodoGroup (CreateTodoGroupRequest) returns (CreateTodoGroupResponse) {
+        option (google.api.http) = {
+            post: "/v1/todo-groups"
+            body: "*"
+        };
+    }
+    rpc ListTodoGroups (ListTodoGroupsRequest) returns (ListTodoGroupsResponse) {
+        option (google.api.http) = {
+            get: "/v1/todo-groups"
+        };
+    }
+    rpc GetTodoGroup (GetTodoGroupRequest) returns (GetTodoGroupResponse) {
+        option (google.api.http) = {
+            get: "/v1/todo-groups/{todo_group_id}"
+        };
+    }
+    rpc UpdateTodoGroup (UpdateTodoGroupRequest) returns (UpdateTodoGroupResponse) {
+        option (google.api.http) = {
+            put: "/v1/todo-groups/{todo_group_id}"
+            body: "*"
+        };
+    }
+    rpc DeleteTodoGroup (DeleteTodoGroupRequest) returns (DeleteTodoGroupResponse) {
+        option (google.api.http) = {
+            delete: "/v1/todo-groups/{todo_group_id}"
+        };
+    }
+}
+
+message TodoGroup {
+    string todo_group_id = 1;
+    string title = 2;
+    string description = 3;
+    string created_by = 4;
+    int64 created_at = 5;
+    int64 updated_at = 6;
+}
+
+message CreateTodoGroupRequest {
+    string account_id = 1;
+    TodoGroup todo_group = 2;
+}
+
+message CreateTodoGroupResponse {
+    TodoGroup todo_group = 1;
+}
+
+message ListTodoGroupsRequest {
+    string account_id = 1;
+}
+
+message ListTodoGroupsResponse {
+    repeated TodoGroup todo_groups = 1;
+}
+
+message GetTodoGroupRequest {
+    string account_id = 1;
+    string todo_group_id = 2;
+}
+
+message GetTodoGroupResponse {
+    TodoGroup todo_group = 1;
+}
+
+message UpdateTodoGroupRequest {
+    string account_id = 1;
+    string todo_group_id = 2;
+    TodoGroup todo_group = 3;
+}
+
+message UpdateTodoGroupResponse {
+    TodoGroup todo_group = 1;
+}
+
+message DeleteTodoGroupRequest {
+    string account_id = 1;
+    string todo_group_id = 2;
+}
+
+message DeleteTodoGroupResponse {
+}
