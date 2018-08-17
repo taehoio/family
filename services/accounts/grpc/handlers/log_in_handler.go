@@ -15,14 +15,14 @@ import (
 
 type LogInHandlerFunc func(ctx context.Context, req *accounts.LogInRequest) (*accounts.LogInResponse, error)
 
-func LogIn(accountTable *accounts_repo.Table, crypt crypt.IFace) LogInHandlerFunc {
+func LogIn(accountsTable *accounts_repo.Table, crypt crypt.IFace) LogInHandlerFunc {
 	return func(ctx context.Context, req *accounts.LogInRequest) (*accounts.LogInResponse, error) {
-		account, err := accountTable.GetByEmail(req.Email)
+		account, err := accountsTable.GetByEmail(req.Email)
 		if err != nil || account == nil || account.AccountID == "" {
 			return nil, status.Error(codes.Unauthenticated, "")
 		}
 
-		acc, err := accountTable.Get(account.AccountID)
+		acc, err := accountsTable.Get(account.AccountID)
 		if err != nil || acc == nil {
 			return nil, status.Error(codes.Unauthenticated, "")
 		}

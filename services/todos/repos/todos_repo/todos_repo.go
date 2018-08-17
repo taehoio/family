@@ -21,12 +21,14 @@ const (
 	descriptionFieldKey = "description"
 	updatedAtFieldKey   = "updated_at"
 	doneAtFieldKey      = "done_at"
+	orderFieldKey       = "order"
 )
 
 var (
 	InvalidTodoError        = fmt.Errorf("invalid todo")
 	InvalidTodoIDError      = fmt.Errorf("invliad todo_id")
 	InvalidTodoGroupIDError = fmt.Errorf("invalid todo_group_id")
+	InvalidTitleError       = fmt.Errorf("invalid title")
 )
 
 type Table struct {
@@ -70,6 +72,9 @@ func (t *Table) validateTodoInput(todo *models.Todo) error {
 	}
 	if todo.TodoGroupID == "" {
 		return InvalidTodoGroupIDError
+	}
+	if todo.Title == "" {
+		return InvalidTitleError
 	}
 
 	return nil
@@ -117,7 +122,7 @@ func (t *Table) UpdateTitle(todoID string, title string) (*models.Todo, error) {
 
 	err := t.Table().
 		Update(todoIDFieldKey, todoID).
-		If("todo_id = ?", todoID).
+		If(fmt.Sprintf("%s = ?", todoIDFieldKey), todoID).
 		Set(titleFieldKey, title).
 		Set(updatedAtFieldKey, time.Now()).
 		Value(&todo)
@@ -133,7 +138,7 @@ func (t *Table) UpdateDescription(todoID string, description string) (*models.To
 
 	err := t.Table().
 		Update(todoIDFieldKey, todoID).
-		If("todo_id = ?", todoID).
+		If(fmt.Sprintf("%s = ?", todoIDFieldKey), todoID).
 		Set(descriptionFieldKey, description).
 		Set(updatedAtFieldKey, time.Now()).
 		Value(&todo)
@@ -150,7 +155,7 @@ func (t *Table) UpdateStatus(todoID string, status string) (*models.Todo, error)
 	now := time.Now()
 	updateQuery := t.Table().
 		Update(todoIDFieldKey, todoID).
-		If("todo_id = ?", todoID).
+		If(fmt.Sprintf("%s = ?", todoIDFieldKey), todoID).
 		Set(statusFieldKey, status).
 		Set(updatedAtFieldKey, now)
 
@@ -161,6 +166,22 @@ func (t *Table) UpdateStatus(todoID string, status string) (*models.Todo, error)
 	}
 
 	err := updateQuery.Value(&todo)
+	if err != nil {
+		return nil, err
+	}
+
+	return &todo, nil
+}
+
+func (t *Table) UpdateOrder(todoID string, order string) (*models.Todo, error) {
+	var todo models.Todo
+
+	err := t.Table().
+		Update(todoIDFieldKey, todoID).
+		If(fmt.Sprintf("%s = ?", todoIDFieldKey), todoID).
+		Set(orderFieldKey, order).
+		Set(updatedAtFieldKey, time.Now()).
+		Value(&todo)
 	if err != nil {
 		return nil, err
 	}

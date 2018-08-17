@@ -17,11 +17,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	accountTable := accounts_repo.New(ddb, cfg).Table()
-	if err := accountTable.DeleteTable().Run(); err != nil {
+	accountsTable := accounts_repo.New(ddb, cfg).Table()
+	if err := accountsTable.DeleteTable().Run(); err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("`%s` table is being deleted.", accountTable.Name())
+	log.Printf("`%s` table is being deleted.", accountsTable.Name())
 }
 
 func getDynamodb() (dynamodb.IFace, error) {

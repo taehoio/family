@@ -20,14 +20,16 @@ type IFace interface {
 	Config() config.IFace
 	Crypt() crypt.IFace
 	Dynamodb() dynamodb.IFace
-	AccountTable() *accounts_repo.Table
+	AccountsTable() *accounts_repo.Table
 }
 
 type Service struct {
-	cfg          config.IFace
-	crypt        crypt.IFace
-	ddb          dynamodb.IFace
-	accountTable *accounts_repo.Table
+	IFace
+
+	cfg           config.IFace
+	crypt         crypt.IFace
+	ddb           dynamodb.IFace
+	accountsTable *accounts_repo.Table
 }
 
 func New(cfg config.IFace) (*Service, error) {
@@ -40,15 +42,19 @@ func New(cfg config.IFace) (*Service, error) {
 	ddb := dynamodb.New(a)
 
 	return &Service{
-		cfg:          cfg,
-		crypt:        bcrypt,
-		ddb:          ddb,
-		accountTable: accounts_repo.New(ddb, cfg),
+		cfg:           cfg,
+		crypt:         bcrypt,
+		ddb:           ddb,
+		accountsTable: accounts_repo.New(ddb, cfg),
 	}, nil
 }
 
 func NewMock() (*Service, error) {
 	return New(config.NewMock())
+}
+
+func (s *Service) RegisterService(srv *grpc.Server) {
+	accounts.RegisterAccountsServiceServer(srv, s)
 }
 
 func (s *Service) Config() config.IFace {
@@ -63,18 +69,14 @@ func (s *Service) Dynamodb() dynamodb.IFace {
 	return s.ddb
 }
 
-func (s *Service) AccountTable() *accounts_repo.Table {
-	return s.accountTable
-}
-
-func (s *Service) RegisterService(srv *grpc.Server) {
-	accounts.RegisterAccountsServiceServer(srv, s)
+func (s *Service) AccountsTable() *accounts_repo.Table {
+	return s.accountsTable
 }
 
 func (s *Service) Register(ctx context.Context, req *accounts.RegisterRequest) (*accounts.RegisterResponse, error) {
-	return handlers.Register(s.AccountTable(), s.Crypt())(ctx, req)
+	return handlers.Register(s.AccountsTable(), s.Crypt())(ctx, req)
 }
 
 func (s *Service) LogIn(ctx context.Context, req *accounts.LogInRequest) (*accounts.LogInResponse, error) {
-	return handlers.LogIn(s.AccountTable(), s.Crypt())(ctx, req)
+	return handlers.LogIn(s.AccountsTable(), s.Crypt())(ctx, req)
 }

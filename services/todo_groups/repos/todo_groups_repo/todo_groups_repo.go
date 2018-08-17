@@ -9,8 +9,8 @@ import (
 
 	"github.com/taeho-io/family/services/base/aws/dynamodb"
 	"github.com/taeho-io/family/services/base/aws/dynamodb/table"
-	"github.com/taeho-io/family/services/todos/config"
-	"github.com/taeho-io/family/services/todos/models"
+	"github.com/taeho-io/family/services/todo_groups/config"
+	"github.com/taeho-io/family/services/todo_groups/models"
 )
 
 const (

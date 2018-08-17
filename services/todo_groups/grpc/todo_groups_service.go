@@ -1,18 +1,17 @@
 package grpc
 
 import (
+	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
 	"github.com/taeho-io/family/services/base/aws"
 	"github.com/taeho-io/family/services/base/aws/dynamodb"
 	grpcService "github.com/taeho-io/family/services/base/grpc"
-	"github.com/taeho-io/family/services/todos/config"
-	"github.com/taeho-io/family/services/todos/grpc/handlers"
-	"github.com/taeho-io/family/services/todos/repos/todo_group_permits_repo"
-	"github.com/taeho-io/family/services/todos/repos/todo_groups_repo"
-	"github.com/taeho-io/family/services/todos/repos/todos_repo"
-	"golang.org/x/net/context"
+	"github.com/taeho-io/family/services/todo_groups/config"
+	"github.com/taeho-io/family/services/todo_groups/grpc/handlers"
+	"github.com/taeho-io/family/services/todo_groups/repos/todo_group_permits_repo"
+	"github.com/taeho-io/family/services/todo_groups/repos/todo_groups_repo"
 )
 
 type IFace interface {
@@ -20,7 +19,6 @@ type IFace interface {
 
 	Config() config.IFace
 	DynamoDB() dynamodb.IFace
-	TodosTable() *todos_repo.Table
 	TodoGroupsTable() *todo_groups_repo.Table
 	TodoGroupPermitsTable() *todo_group_permits_repo.Table
 }
@@ -30,7 +28,6 @@ type Service struct {
 
 	cfg                   config.IFace
 	ddb                   dynamodb.IFace
-	todosTable            *todos_repo.Table
 	todoGroupsTable       *todo_groups_repo.Table
 	todoGroupPermitsTable *todo_group_permits_repo.Table
 }
@@ -45,7 +42,6 @@ func New(cfg config.IFace) (*Service, error) {
 	return &Service{
 		cfg:                   cfg,
 		ddb:                   ddb,
-		todosTable:            todos_repo.New(ddb, cfg),
 		todoGroupsTable:       todo_groups_repo.New(ddb, cfg),
 		todoGroupPermitsTable: todo_group_permits_repo.New(ddb, cfg),
 	}, nil
@@ -65,10 +61,6 @@ func (s *Service) Config() config.IFace {
 
 func (s *Service) Dynamodb() dynamodb.IFace {
 	return s.ddb
-}
-
-func (s *Service) TodosTable() *todos_repo.Table {
-	return s.todosTable
 }
 
 func (s *Service) TodoGroupsTable() *todo_groups_repo.Table {

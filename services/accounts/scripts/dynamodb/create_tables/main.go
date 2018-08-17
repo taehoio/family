@@ -28,15 +28,15 @@ func main() {
 
 	readUnits, writeUnits := loadProvisionUnits()
 
-	accountTableName := accounts_repo.New(ddb, cfg).Table().Name()
-	err = ddb.DB().CreateTable(accountTableName, models.Account{}).
+	accountsTableName := accounts_repo.New(ddb, cfg).Table().Name()
+	err = ddb.DB().CreateTable(accountsTableName, models.Account{}).
 		Provision(readUnits, writeUnits).
 		Run()
 	if err != nil {
 		log.Fatal(err)
 	}
 	log.Printf("`%s` table is being created with readUnits:%d, writeUnits:%d.",
-		accountTableName, readUnits, writeUnits)
+		accountsTableName, readUnits, writeUnits)
 }
 
 func loadProvisionUnits() (readUnits int64, writeUnits int64) {

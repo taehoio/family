@@ -34,16 +34,16 @@ func NewMock() (s *Service) {
 	return New(config.NewMock())
 }
 
+func (s *Service) RegisterService(srv *grpc.Server) {
+	auth.RegisterAuthServiceServer(srv, s)
+}
+
 func (s *Service) Config() config.IFace {
 	return s.cfg
 }
 
 func (s *Service) Token() token.IFace {
 	return s.tkn
-}
-
-func (s *Service) RegisterService(srv *grpc.Server) {
-	auth.RegisterAuthServiceServer(srv, s)
 }
 
 func (s *Service) Auth(ctx context.Context, req *auth.AuthRequest) (*auth.AuthResponse, error) {

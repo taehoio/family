@@ -18,7 +18,7 @@ import (
 
 type RegisterHandlerFunc func(ctx context.Context, req *accounts.RegisterRequest) (*accounts.RegisterResponse, error)
 
-func Register(accountTable *accounts_repo.Table, crypt crypt.IFace) RegisterHandlerFunc {
+func Register(accountsTable *accounts_repo.Table, crypt crypt.IFace) RegisterHandlerFunc {
 	return func(ctx context.Context, req *accounts.RegisterRequest) (*accounts.RegisterResponse, error) {
 		req.AuthType = accounts.AuthType_EMAIL
 
@@ -32,14 +32,14 @@ func Register(accountTable *accounts_repo.Table, crypt crypt.IFace) RegisterHand
 			return nil, err
 		}
 
-		account, err := accountTable.GetByEmail(req.Email)
+		account, err := accountsTable.GetByEmail(req.Email)
 		if account != nil {
 			return nil, status.Error(codes.AlreadyExists, "email already exists")
 		}
 
 		accountID := xid.New().String()
 		currTime := time.Now()
-		if err := accountTable.Put(&models.Account{
+		if err := accountsTable.Put(&models.Account{
 			AccountID:      accountID,
 			Type:           accounts.AuthType_EMAIL.String(),
 			Email:          req.Email,

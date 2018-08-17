@@ -10,6 +10,8 @@ import (
 )
 
 var (
+	todosTable *Table
+
 	testFullTableName      = "family-development-todos-todos"
 	testTodoID             = "test_todo_id"
 	testNonExistTodoID     = "test_no_exist_todo_id"
@@ -19,8 +21,7 @@ var (
 	testDescription        = "test_description"
 	testUpdatedTitle       = "test_updated_title"
 	testUpdatedDescription = "test_updated_description"
-
-	todosTable *Table
+	testUpdatedOrder       = "m"
 )
 
 func TestMain(m *testing.M) {
@@ -41,7 +42,8 @@ func TestValidateTodoInput(t *testing.T) {
 		Description: testDescription,
 		Status:      testTodoTypeTodo,
 	}
-	assert.Nil(t, todosTable.validateTodoInput(todo))
+	err := todosTable.validateTodoInput(todo)
+	assert.Nil(t, err)
 }
 
 func TestValidateTodoInputInvalidTodo(t *testing.T) {
@@ -69,6 +71,17 @@ func TestValidateTodoInputInvalidTodoGroupID(t *testing.T) {
 	}
 	err := todosTable.validateTodoInput(todo)
 	assert.Equal(t, InvalidTodoGroupIDError, err)
+}
+
+func TestValidateTodoInputInvalidTitle(t *testing.T) {
+	todo := &models.Todo{
+		TodoID:      testTodoID,
+		TodoGroupID: testTodoGroupID,
+		Description: testDescription,
+		Status:      testTodoTypeTodo,
+	}
+	err := todosTable.validateTodoInput(todo)
+	assert.Equal(t, InvalidTitleError, err)
 }
 
 func TestPut(t *testing.T) {
@@ -167,6 +180,19 @@ func TestUpdateTodoTypeTodo(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, todos.Status_TODO.String(), todo.Status)
 	assert.Zero(t, todo.DoneAt.Unix())
+}
+
+func TestUpdateOrderFail(t *testing.T) {
+	todo, err := todosTable.UpdateOrder(testNonExistTodoID, testUpdatedOrder)
+	assert.Nil(t, todo)
+	assert.NotNil(t, err)
+}
+
+func TestUpdateOrder(t *testing.T) {
+	todo, err := todosTable.UpdateOrder(testTodoID, testUpdatedOrder)
+	assert.NotNil(t, todo)
+	assert.Nil(t, err)
+	assert.Equal(t, testUpdatedOrder, todo.Order)
 }
 
 func TestDeleteByIDFail(t *testing.T) {

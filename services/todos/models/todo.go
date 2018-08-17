@@ -8,6 +8,7 @@ type Todo struct {
 	Title       string    `dynamo:"title"`
 	Description string    `dynamo:"description"`
 	Status      string    `dynamo:"status"`
+	Order       string    `dynamo:"order"`
 	CreatedAt   time.Time `dynamo:"created_at"`
 	UpdatedAt   time.Time `dynamo:"updated_at"`
 	DoneAt      time.Time `dynamo:"done_at"`
