@@ -10,7 +10,7 @@ import (
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/services/accounts/crypt"
 	"github.com/taeho-io/family/services/accounts/repos/accounts_repo"
-	"github.com/taeho-io/family/services/discovery"
+	"github.com/taeho-io/family/services/discovery/grpc/discovery_service"
 )
 
 type LogInHandlerFunc func(ctx context.Context, req *accounts.LogInRequest) (*accounts.LogInResponse, error)
@@ -32,7 +32,7 @@ func LogIn(accountsTable *accounts_repo.Table, crypt crypt.IFace) LogInHandlerFu
 			return nil, status.Error(codes.Unauthenticated, "")
 		}
 
-		authClient, err := discovery.NewAuthServiceClient()
+		authClient, err := discovery_service.NewAuthServiceClient()
 		if err != nil {
 			return nil, err
 		}

@@ -1,22 +1,22 @@
 package config
 
-import srvConfig "github.com/taeho-io/family/services/base/config"
+import baseConfig "github.com/taeho-io/family/services/base/config"
 
 type IFace interface {
-	srvConfig.IFace
+	baseConfig.IFace
 
 	Settings() Settings
 }
 
-type AuthSvcConfig struct {
-	srvConfig.IFace
+type AuthServiceConfig struct {
+	baseConfig.IFace
 
 	settings Settings
 }
 
 func New(settings Settings) (cfg IFace) {
-	return &AuthSvcConfig{
-		IFace:    srvConfig.New(srvName),
+	return &AuthServiceConfig{
+		IFace:    baseConfig.New(srvName),
 		settings: settings,
 	}
 }
@@ -25,6 +25,6 @@ func NewMock() (cfg IFace) {
 	return New(NewMockSettings())
 }
 
-func (c *AuthSvcConfig) Settings() Settings {
+func (c *AuthServiceConfig) Settings() Settings {
 	return c.settings
 }

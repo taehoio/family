@@ -6,5 +6,7 @@ option go_package = "github.com/taeho-io/family/idl/generated/go/pb/family/disco
 
 enum Service {
     AUTH = 0;
-    ACCOUNT = 1;
+    ACCOUNTS = 1;
+    TODOGROUPS = 2;
+    TODOS = 3;
 }

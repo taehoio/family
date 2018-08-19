@@ -92,15 +92,17 @@
   revision = "f5983d50c82d70eaa88c17080245cc871558081f"
 
 [[projects]]
-  digest = "1:1dd79f72341b3def93efdc8e2832950c11cd591087493c7f466077543bba9a03"
+  digest = "1:c99635434bee2cce9e75a864ca17f8085fcdd43cd564057b431ee01aef2bdd12"
   name = "github.com/grpc-ecosystem/go-grpc-middleware"
   packages = [
     ".",
+    "auth",
     "logging",
     "logging/logrus",
     "logging/logrus/ctxlogrus",
     "tags",
     "tags/logrus",
+    "util/metautils",
   ]
   pruneopts = "UT"
   revision = "c250d6563d4d4c20252cd865923440e829844f4e"
@@ -338,6 +340,7 @@
     "github.com/dgrijalva/jwt-go",
     "github.com/golang/protobuf/proto",
     "github.com/grpc-ecosystem/go-grpc-middleware",
+    "github.com/grpc-ecosystem/go-grpc-middleware/auth",
     "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus",
     "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus",
     "github.com/grpc-ecosystem/grpc-gateway/runtime",

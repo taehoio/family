@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
 )
 
 type TodoGroup struct {
@@ -15,7 +15,7 @@ type TodoGroup struct {
 	UpdatedAt   time.Time `dynamo:"updated_at"`
 }
 
-func NewTodoGroupFromProto(todoGroupProto *todos.TodoGroup) *TodoGroup {
+func NewTodoGroupFromProto(todoGroupProto *todo_groups.TodoGroup) *TodoGroup {
 	return &TodoGroup{
 		TodoGroupID: todoGroupProto.TodoGroupId,
 		Title:       todoGroupProto.Title,
@@ -26,8 +26,8 @@ func NewTodoGroupFromProto(todoGroupProto *todos.TodoGroup) *TodoGroup {
 	}
 }
 
-func (tg *TodoGroup) ToProto() *todos.TodoGroup {
-	return &todos.TodoGroup{
+func (tg *TodoGroup) ToProto() *todo_groups.TodoGroup {
+	return &todo_groups.TodoGroup{
 		TodoGroupId: tg.TodoGroupID,
 		Title:       tg.Title,
 		Description: tg.Description,

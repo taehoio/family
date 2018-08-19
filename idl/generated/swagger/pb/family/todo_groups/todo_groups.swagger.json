@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "pb/family/todos/todo_groups.proto",
+    "title": "pb/family/todo_groups/todo_groups.proto",
     "version": "version not set"
   },
   "schemes": [

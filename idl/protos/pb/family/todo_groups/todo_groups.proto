@@ -4,7 +4,7 @@ package pb.family.todos;
 
 import "google/api/annotations.proto";
 
-option go_package = "github.com/taeho-io/family/idl/generated/go/pb/family/todos;todos";
+option go_package = "github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups;todo_groups";
 
 service TodoGroupsService {
     rpc CreateTodoGroup (CreateTodoGroupRequest) returns (CreateTodoGroupResponse) {

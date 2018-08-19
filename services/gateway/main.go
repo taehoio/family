@@ -2,58 +2,50 @@ package main
 
 import (
 	"flag"
-	"net"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 
-	"github.com/grpc-ecosystem/go-grpc-middleware"
-	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
-	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/satori/go.uuid"
 	log "github.com/sirupsen/logrus"
 	"github.com/xissy/logrus"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
-	"google.golang.org/grpc/reflection"
 
-	accountsGateway "github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
-	authGateway "github.com/taeho-io/family/idl/generated/go/pb/family/auth"
-	accountsConfig "github.com/taeho-io/family/services/accounts/config"
-	accountsGRPC "github.com/taeho-io/family/services/accounts/grpc"
-	authConfig "github.com/taeho-io/family/services/auth/config"
-	authGRPC "github.com/taeho-io/family/services/auth/grpc"
-)
-
-const (
-	RequestIdHeaderKey = "x-request-id"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
+	"github.com/taeho-io/family/services/accounts/grpc/accounts_service"
+	"github.com/taeho-io/family/services/auth/grpc/auth_service"
+	"github.com/taeho-io/family/services/discovery/grpc/discovery_service"
+	"github.com/taeho-io/family/services/todo_groups/grpc/todo_groups_service"
 )
 
 var (
-	grpcServerPort      = 9001
-	grpcServerOrigin    = "localhost:" + strconv.Itoa(grpcServerPort)
-	gatewayServerOrigin = ":" + os.Getenv("PORT")
-)
+	gatewayAddr        = ":" + os.Getenv("PORT")
+	requestIdHeaderKey = "x-request-id"
 
-var (
 	authServerEndpoint = flag.String(
 		"auth_server_endpoint",
-		grpcServerOrigin,
+		discovery_service.ServiceAddrMap[discovery.Service_AUTH],
 		"endpoint of AuthServer",
 	)
-	accountServerEndpoint = flag.String(
-		"account_server_endpoint",
-		grpcServerOrigin,
-		"endpoint of AccountServer",
+	accountsServerEndpoint = flag.String(
+		"accounts_server_endpoint",
+		discovery_service.ServiceAddrMap[discovery.Service_ACCOUNTS],
+		"endpoint of AccountsServer",
+	)
+	todoGroupsServerEndpoint = flag.String(
+		"todo_groups_server_endpoint",
+		discovery_service.ServiceAddrMap[discovery.Service_TODOGROUPS],
+		"endpoint of TodoGroupsServer",
 	)
 )
 
-func requestIdMatcher(headerName string) (mdName string, ok bool) {
+func requestIDMatcher(headerName string) (mdName string, ok bool) {
 	lowerCasedHeaderName := strings.ToLower(headerName)
-	if lowerCasedHeaderName == RequestIdHeaderKey {
+	if lowerCasedHeaderName == requestIdHeaderKey {
 		return lowerCasedHeaderName, true
 	}
 	return "", false
@@ -64,10 +56,10 @@ func serveGateway() error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	mux := runtime.NewServeMux(runtime.WithIncomingHeaderMatcher(requestIdMatcher))
+	mux := runtime.NewServeMux(runtime.WithIncomingHeaderMatcher(requestIDMatcher))
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 
-	if err := authGateway.RegisterAuthServiceHandlerFromEndpoint(
+	if err := auth.RegisterAuthServiceHandlerFromEndpoint(
 		ctx,
 		mux,
 		*authServerEndpoint,
@@ -75,85 +67,52 @@ func serveGateway() error {
 	); err != nil {
 		return err
 	}
-	if err := accountsGateway.RegisterAccountsServiceHandlerFromEndpoint(
+
+	if err := accounts.RegisterAccountsServiceHandlerFromEndpoint(
 		ctx,
 		mux,
-		*accountServerEndpoint,
+		*accountsServerEndpoint,
 		opts,
 	); err != nil {
 		return err
 	}
 
-	return http.ListenAndServe(gatewayServerOrigin, mux)
-}
-
-func checkRequestIdUnaryServerInterceptor(
-	ctx context.Context, req interface{},
-	_ *grpc.UnaryServerInfo,
-	handler grpc.UnaryHandler,
-) (interface{}, error) {
-	md, ok := metadata.FromIncomingContext(ctx)
-	if !ok {
-		return handler(ctx, req)
-	}
-	if requestIds, ok := md[RequestIdHeaderKey]; ok && len(requestIds) > 0 {
-		return handler(ctx, req)
-	}
-	requestIdUuid := uuid.NewV4()
-	requestId := requestIdUuid.String()
-	md[RequestIdHeaderKey] = []string{requestId}
-	newCtx := metadata.NewOutgoingContext(ctx, md)
-	return handler(newCtx, req)
-}
-
-func addRequestIdLogFieldUnaryServerInterceptor(
-	ctx context.Context,
-	req interface{},
-	_ *grpc.UnaryServerInfo,
-	handler grpc.UnaryHandler,
-) (interface{}, error) {
-	md, ok := metadata.FromIncomingContext(ctx)
-	if !ok {
-		return handler(ctx, req)
-	}
-	if requestIds, ok := md[RequestIdHeaderKey]; ok && len(requestIds) > 0 {
-		newCtx := ctxlogrus.ToContext(ctx, log.WithField("request_id", requestIds[0]))
-		return handler(newCtx, req)
-	}
-	return handler(ctx, req)
-}
-
-func serveGRPCServers() error {
-	lis, err := net.Listen("tcp", grpcServerOrigin)
-	if err != nil {
+	if err := todo_groups.RegisterTodoGroupsServiceHandlerFromEndpoint(
+		ctx,
+		mux,
+		*todoGroupsServerEndpoint,
+		opts,
+	); err != nil {
 		return err
 	}
 
-	logrusEntry := log.NewEntry(log.StandardLogger())
-	var opts []grpc_logrus.Option
+	return http.ListenAndServe(gatewayAddr, mux)
+}
 
-	grpcServer := grpc.NewServer(
-		grpc_middleware.WithUnaryServerChain(
-			checkRequestIdUnaryServerInterceptor,
-			addRequestIdLogFieldUnaryServerInterceptor,
-			grpc_logrus.UnaryServerInterceptor(logrusEntry, opts...),
-		),
-	)
+func startGRPCServices() error {
+	errs := make(chan error, 1)
 
-	authCfg := authConfig.New(authConfig.NewSettings())
-	authService := authGRPC.New(authCfg)
-	authService.RegisterService(grpcServer)
+	type serveFunc func() error
 
-	accountCfg := accountsConfig.New(accountsConfig.NewSettings())
-	accountService, err := accountsGRPC.New(accountCfg)
-	if err != nil {
+	serveFuncs := []serveFunc{
+		auth_service.Serve,
+		accounts_service.Serve,
+		todo_groups_service.Serve,
+	}
+
+	for _, serve := range serveFuncs {
+		go func(serve serveFunc) {
+			if err := serve(); err != nil {
+				errs <- err
+			}
+		}(serve)
+	}
+
+	if err, open := <-errs; open {
 		return err
 	}
-	accountService.RegisterService(grpcServer)
 
-	// Register reflection server on gRPC server.
-	reflection.Register(grpcServer)
-	return grpcServer.Serve(lis)
+	return nil
 }
 
 func main() {
@@ -165,7 +124,7 @@ func main() {
 	go func() {
 		log.WithField("server_type", "grpc").Info("initializing")
 
-		err := serveGRPCServers()
+		err := startGRPCServices()
 		if err != nil {
 			log.WithField("server_type", "grpc").WithError(err).Fatal("failed to listen")
 			return
