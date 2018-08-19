@@ -97,43 +97,43 @@ func AuthWhileListUnaryServerInterceptor(prefixes []string) grpc.UnaryServerInte
 	}
 }
 
+func authFunc(ctx context.Context) (context.Context, error) {
+	shouldAuth := ctx.Value(ShouldAuthKey)
+	if !shouldAuth.(bool) {
+		return ctx, nil
+	}
+
+	if ctx.Value(AccountIDKey) != nil {
+		return ctx, nil
+	}
+
+	token, err := grpc_auth.AuthFromMD(ctx, AuthBearerScheme)
+	if err != nil {
+		return nil, err
+	}
+
+	authSvc, err := discovery_service.NewAuthServiceClient()
+	if err != nil {
+		return ctx, err
+	}
+
+	parseResponse, err := authSvc.Parse(ctx, &auth.ParseRequest{
+		AccessToken: token,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	accountID := parseResponse.GetAccountId()
+	newCtx := context.WithValue(ctx, AccountIDKey, accountID)
+	return newCtx, nil
+}
+
 func AuthUnaryServerInterceptor(
 	ctx context.Context,
 	req interface{},
 	info *grpc.UnaryServerInfo,
 	handler grpc.UnaryHandler,
 ) (interface{}, error) {
-	authFunc := func(ctx context.Context) (context.Context, error) {
-		shouldAuth := ctx.Value(ShouldAuthKey)
-		if !shouldAuth.(bool) {
-			return ctx, nil
-		}
-
-		if ctx.Value(AccountIDKey) != nil {
-			return ctx, nil
-		}
-
-		token, err := grpc_auth.AuthFromMD(ctx, AuthBearerScheme)
-		if err != nil {
-			return nil, err
-		}
-
-		authSvc, err := discovery_service.NewAuthServiceClient()
-		if err != nil {
-			return ctx, err
-		}
-
-		parseResponse, err := authSvc.Parse(ctx, &auth.ParseRequest{
-			AccessToken: token,
-		})
-		if err != nil {
-			return nil, err
-		}
-
-		accountID := parseResponse.GetAccountId()
-		newCtx := context.WithValue(ctx, AccountIDKey, accountID)
-		return newCtx, nil
-	}
-
 	return grpc_auth.UnaryServerInterceptor(authFunc)(ctx, req, info, handler)
 }
