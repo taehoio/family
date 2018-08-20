@@ -5,9 +5,9 @@ import (
 
 	"github.com/taeho-io/family/services/base/aws"
 	"github.com/taeho-io/family/services/base/aws/dynamodb"
-	"github.com/taeho-io/family/services/todos/config"
-	"github.com/taeho-io/family/services/todos/repos/todo_group_permits_repo"
-	"github.com/taeho-io/family/services/todos/repos/todo_groups_repo"
+	"github.com/taeho-io/family/services/todo_groups/config"
+	"github.com/taeho-io/family/services/todo_groups/repos/todo_group_permits_repo"
+	"github.com/taeho-io/family/services/todo_groups/repos/todo_groups_repo"
 )
 
 func main() {

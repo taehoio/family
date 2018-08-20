@@ -11,15 +11,21 @@ import (
 	"github.com/taeho-io/family/services/base/aws/dynamodb/table"
 	"github.com/taeho-io/family/services/todo_groups/config"
 	"github.com/taeho-io/family/services/todo_groups/models"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 const (
 	todoGroupIDFieldKey = "todo_group_id"
+	titleFieldKey       = "title"
+	descriptionFieldKey = "description"
+	updatedAtFieldKey   = "updated_at"
 )
 
 var (
-	InvalidTodoGroupIDError = fmt.Errorf("invalid todo_group_id")
-	InvalidTitleError       = fmt.Errorf("invalid title")
+	InvalidTodoGroupIDError = status.Error(codes.InvalidArgument, "invalid todo_group_id")
+	InvalidTitleError       = status.Error(codes.InvalidArgument, "invalid title")
+	InvalidCreatedByError   = status.Error(codes.InvalidArgument, "invalid created_by")
 )
 
 type Table struct {
@@ -60,6 +66,9 @@ func (t *Table) validateTodoGroupInput(todoGroup *models.TodoGroup) error {
 	}
 	if todoGroup.Title == "" {
 		return InvalidTitleError
+	}
+	if todoGroup.CreatedBy == "" {
+		return InvalidCreatedByError
 	}
 
 	return nil
@@ -102,6 +111,38 @@ func (t *Table) ListByIDs(todoGroupIDs []string) ([]*models.TodoGroup, error) {
 	}
 
 	return todoGroups, nil
+}
+
+func (t *Table) UpdateTitle(todoGroupID, title string) (*models.TodoGroup, error) {
+	var todoGroup models.TodoGroup
+
+	err := t.Table().
+		Update(todoGroupIDFieldKey, todoGroupID).
+		If(fmt.Sprintf("%s = ?", todoGroupIDFieldKey), todoGroupID).
+		Set(titleFieldKey, title).
+		Set(updatedAtFieldKey, time.Now()).
+		Value(&todoGroup)
+	if err != nil {
+		return nil, err
+	}
+
+	return &todoGroup, nil
+}
+
+func (t *Table) UpdateDescription(todoGroupID, description string) (*models.TodoGroup, error) {
+	var todoGroup models.TodoGroup
+
+	err := t.Table().
+		Update(todoGroupIDFieldKey, todoGroupID).
+		If(fmt.Sprintf("%s = ?", todoGroupIDFieldKey), todoGroupID).
+		Set(descriptionFieldKey, description).
+		Set(updatedAtFieldKey, time.Now()).
+		Value(&todoGroup)
+	if err != nil {
+		return nil, err
+	}
+
+	return &todoGroup, nil
 }
 
 func (t *Table) DeleteByID(todoGroupID string) error {

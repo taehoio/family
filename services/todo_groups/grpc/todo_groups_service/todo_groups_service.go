@@ -8,11 +8,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
+	"github.com/sirupsen/logrus"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
-	"github.com/taeho-io/family/services/base/aws"
-	"github.com/taeho-io/family/services/base/aws/dynamodb"
-	"github.com/taeho-io/family/services/base/grpc/base_service"
+	"github.com/taeho-io/family/services/base/grpc/dynamodb_service"
 	"github.com/taeho-io/family/services/base/grpc/interceptors"
 	"github.com/taeho-io/family/services/discovery/grpc/discovery_service"
 	"github.com/taeho-io/family/services/todo_groups/config"
@@ -22,52 +21,38 @@ import (
 )
 
 type IFace interface {
-	base_service.IFace
+	dynamodb_service.IFace
 
-	Config() config.IFace
-	DynamoDB() dynamodb.IFace
 	TodoGroupsTable() *todo_groups_repo.Table
 	TodoGroupPermitsTable() *todo_group_permits_repo.Table
 }
 
 type Service struct {
-	IFace
+	dynamodb_service.IFace
 
-	cfg                   config.IFace
-	ddb                   dynamodb.IFace
 	todoGroupsTable       *todo_groups_repo.Table
 	todoGroupPermitsTable *todo_group_permits_repo.Table
 }
 
-func New(cfg config.IFace) (*Service, error) {
-	a, err := aws.New()
+func New(cfg config.IFace) (IFace, error) {
+	dynamodbSvc, err := dynamodb_service.New(cfg)
 	if err != nil {
 		return nil, err
 	}
-	ddb := dynamodb.New(a)
 
 	return &Service{
-		cfg:                   cfg,
-		ddb:                   ddb,
-		todoGroupsTable:       todo_groups_repo.New(ddb, cfg),
-		todoGroupPermitsTable: todo_group_permits_repo.New(ddb, cfg),
+		IFace:                 dynamodbSvc,
+		todoGroupsTable:       todo_groups_repo.New(dynamodbSvc.Dynamodb(), cfg),
+		todoGroupPermitsTable: todo_group_permits_repo.New(dynamodbSvc.Dynamodb(), cfg),
 	}, nil
 }
 
-func NewMock() (*Service, error) {
+func NewMock() (IFace, error) {
 	return New(config.NewMock())
 }
 
 func (s *Service) RegisterService(srv *grpc.Server) {
 	todo_groups.RegisterTodoGroupsServiceServer(srv, s)
-}
-
-func (s *Service) Config() config.IFace {
-	return s.cfg
-}
-
-func (s *Service) Dynamodb() dynamodb.IFace {
-	return s.ddb
 }
 
 func (s *Service) TodoGroupsTable() *todo_groups_repo.Table {
@@ -82,21 +67,31 @@ func (s *Service) CreateTodoGroup(
 	ctx context.Context,
 	req *todo_groups.CreateTodoGroupRequest,
 ) (*todo_groups.CreateTodoGroupResponse, error) {
-	return handlers.CreateTodoGroup(s.TodoGroupsTable())(ctx, req)
+	logger := s.Logger().WithFields(logrus.Fields{
+		"methodName": "CreateTodoGroup",
+		"req":        req,
+	})
+
+	return handlers.CreateTodoGroup(logger, s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
 }
 
 func (s *Service) GetTodoGroup(
 	ctx context.Context,
 	req *todo_groups.GetTodoGroupRequest,
 ) (*todo_groups.GetTodoGroupResponse, error) {
-	return handlers.GetTodoGroup(s.TodoGroupsTable())(ctx, req)
+	logger := s.Logger().WithFields(logrus.Fields{
+		"methodName": "GetTodoGroup",
+		"req":        req,
+	})
+
+	return handlers.GetTodoGroup(logger, s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
 }
 
 func (s *Service) ListTodoGroups(
 	ctx context.Context,
 	req *todo_groups.ListTodoGroupsRequest,
 ) (*todo_groups.ListTodoGroupsResponse, error) {
-	return handlers.ListTodoGroups(s.TodoGroupsTable())(ctx, req)
+	return handlers.ListTodoGroups(s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
 }
 
 func (s *Service) UpdateTodoGroup(

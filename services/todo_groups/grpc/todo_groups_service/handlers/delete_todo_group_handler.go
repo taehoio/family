@@ -11,12 +11,12 @@ type DeleteTodoGroupFunc func(
 	req *todo_groups.DeleteTodoGroupRequest,
 ) (*todo_groups.DeleteTodoGroupResponse, error)
 
-func DeleteTodoGroup(todoGroupTable *todo_groups_repo.Table) DeleteTodoGroupFunc {
+func DeleteTodoGroup(todoGroupsTable *todo_groups_repo.Table) DeleteTodoGroupFunc {
 	return func(
 		ctx context.Context,
 		req *todo_groups.DeleteTodoGroupRequest,
 	) (*todo_groups.DeleteTodoGroupResponse, error) {
-		err := todoGroupTable.DeleteByID(req.GetTodoGroupId())
+		err := todoGroupsTable.DeleteByID(req.GetTodoGroupId())
 		if err != nil {
 			return nil, err
 		}

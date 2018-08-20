@@ -1,13 +1,12 @@
 package interceptors
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
-	"github.com/satori/go.uuid"
+	"github.com/rs/xid"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -29,7 +28,10 @@ func NewRequestIdIfNotExistsUnaryServerInterceptor(
 	ctx context.Context, req interface{},
 	_ *grpc.UnaryServerInfo,
 	handler grpc.UnaryHandler,
-) (interface{}, error) {
+) (
+	interface{},
+	error,
+) {
 	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
 		return handler(ctx, req)
@@ -39,8 +41,7 @@ func NewRequestIdIfNotExistsUnaryServerInterceptor(
 		return handler(ctx, req)
 	}
 
-	requestIdUuid := uuid.NewV4()
-	requestId := requestIdUuid.String()
+	requestId := xid.New().String()
 	md[RequestIDHeaderKey] = []string{requestId}
 	newCtx := metadata.NewOutgoingContext(ctx, md)
 	return handler(newCtx, req)
@@ -51,7 +52,10 @@ func ForwardRequestIdLogFieldUnaryServerInterceptor(
 	req interface{},
 	_ *grpc.UnaryServerInfo,
 	handler grpc.UnaryHandler,
-) (interface{}, error) {
+) (
+	interface{},
+	error,
+) {
 	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
 		return handler(ctx, req)
@@ -70,7 +74,10 @@ func LogrusUnaryServerInterceptor(
 	req interface{},
 	info *grpc.UnaryServerInfo,
 	handler grpc.UnaryHandler,
-) (interface{}, error) {
+) (
+	interface{},
+	error,
+) {
 	entry := logrus.NewEntry(logrus.StandardLogger())
 
 	return grpc_logrus.UnaryServerInterceptor(entry)(ctx, req, info, handler)
@@ -84,7 +91,6 @@ func AuthWhileListUnaryServerInterceptor(prefixes []string) grpc.UnaryServerInte
 		handler grpc.UnaryHandler,
 	) (interface{}, error) {
 		fullMethod := info.FullMethod
-		fmt.Println(fullMethod)
 		for _, prefix := range prefixes {
 			if strings.HasPrefix(fullMethod, prefix) {
 				newCtx := context.WithValue(ctx, ShouldAuthKey, false)
@@ -95,6 +101,18 @@ func AuthWhileListUnaryServerInterceptor(prefixes []string) grpc.UnaryServerInte
 		newCtx := context.WithValue(ctx, ShouldAuthKey, true)
 		return handler(newCtx, req)
 	}
+}
+
+func AuthUnaryServerInterceptor(
+	ctx context.Context,
+	req interface{},
+	info *grpc.UnaryServerInfo,
+	handler grpc.UnaryHandler,
+) (
+	interface{},
+	error,
+) {
+	return grpc_auth.UnaryServerInterceptor(authFunc)(ctx, req, info, handler)
 }
 
 func authFunc(ctx context.Context) (context.Context, error) {
@@ -127,13 +145,4 @@ func authFunc(ctx context.Context) (context.Context, error) {
 	accountID := parseResponse.GetAccountId()
 	newCtx := context.WithValue(ctx, AccountIDKey, accountID)
 	return newCtx, nil
-}
-
-func AuthUnaryServerInterceptor(
-	ctx context.Context,
-	req interface{},
-	info *grpc.UnaryServerInfo,
-	handler grpc.UnaryHandler,
-) (interface{}, error) {
-	return grpc_auth.UnaryServerInterceptor(authFunc)(ctx, req, info, handler)
 }

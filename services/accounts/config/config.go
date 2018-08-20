@@ -1,29 +1,29 @@
 package config
 
-import baseConfig "github.com/taeho-io/family/services/base/config"
+import "github.com/taeho-io/family/services/base/config"
 
 type IFace interface {
-	baseConfig.IFace
+	config.IFace
 
 	Settings() Settings
 }
 
 type AccountsServiceConfig struct {
-	baseConfig.IFace
+	config.IFace
 
 	settings Settings
 }
 
 func New(settings Settings) (cfg IFace) {
 	return &AccountsServiceConfig{
-		IFace:    baseConfig.New(serviceName),
+		IFace:    config.New(serviceName),
 		settings: settings,
 	}
 }
 
 func NewMock() (cfg IFace) {
 	return &AccountsServiceConfig{
-		IFace:    baseConfig.New(serviceName),
+		IFace:    config.New(serviceName),
 		settings: NewMockSettings(),
 	}
 }

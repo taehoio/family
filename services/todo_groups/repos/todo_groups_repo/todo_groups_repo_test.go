@@ -11,10 +11,12 @@ import (
 var (
 	todoGroupsTable *Table
 
-	testFullTableName       = "family-development-todos-todo_groups"
+	testFullTableName       = "family-development-todo_groups-todo_groups"
 	testTodoGroupID         = "test_todo_group_id"
 	testNonExistTodoGroupID = "test_non_exist_todo_group_id"
 	testTitle               = "test_title"
+	testUpdatedTitle        = "test_updated_title"
+	testUpdatedDescription  = "test_updated_description"
 )
 
 func TestMain(m *testing.M) {
@@ -27,7 +29,7 @@ func TestFullTableName(t *testing.T) {
 	assert.Equal(t, testFullTableName, todoGroupsTable.Table().Name())
 }
 
-func TestValidationTodoGroupInput(t *testing.T) {
+func TestValidateTodoGroupInput(t *testing.T) {
 	todoGroup := &models.TodoGroup{
 		TodoGroupID: testTodoGroupID,
 		Title:       testTitle,
@@ -36,7 +38,7 @@ func TestValidationTodoGroupInput(t *testing.T) {
 	assert.Nil(t, err)
 }
 
-func TestValidationTodoGroupInputInvalidTodoGroupID(t *testing.T) {
+func TestValidateTodoGroupInputInvalidTodoGroupID(t *testing.T) {
 	todoGroup := &models.TodoGroup{
 		Title: testTitle,
 	}
@@ -44,12 +46,21 @@ func TestValidationTodoGroupInputInvalidTodoGroupID(t *testing.T) {
 	assert.Equal(t, InvalidTodoGroupIDError, err)
 }
 
-func TestValidationTodoGroupInputInvalidTitle(t *testing.T) {
+func TestValidateTodoGroupInputInvalidTitle(t *testing.T) {
 	todoGroup := &models.TodoGroup{
 		TodoGroupID: testTodoGroupID,
 	}
 	err := todoGroupsTable.validateTodoGroupInput(todoGroup)
 	assert.Equal(t, InvalidTitleError, err)
+}
+
+func TestValidateTodoGroupInputInvalidCreatedBy(t *testing.T) {
+	todoGroup := &models.TodoGroup{
+		Title:       testTitle,
+		TodoGroupID: testTodoGroupID,
+	}
+	err := todoGroupsTable.validateTodoGroupInput(todoGroup)
+	assert.Equal(t, InvalidCreatedByError, err)
 }
 
 func TestPutFail(t *testing.T) {
@@ -93,6 +104,32 @@ func TestListByIDs(t *testing.T) {
 	assert.NotNil(t, todoGroupList)
 	assert.Nil(t, err)
 	assert.Len(t, todoGroupList, len(todoGroupIDs))
+}
+
+func TestUpdateTitleFail(t *testing.T) {
+	todoGroup, err := todoGroupsTable.UpdateTitle(testNonExistTodoGroupID, testUpdatedTitle)
+	assert.Nil(t, todoGroup)
+	assert.NotNil(t, err)
+}
+
+func TestUpdateTitle(t *testing.T) {
+	todoGroup, err := todoGroupsTable.UpdateTitle(testTodoGroupID, testUpdatedTitle)
+	assert.NotNil(t, todoGroup)
+	assert.Nil(t, err)
+	assert.Equal(t, testUpdatedTitle, todoGroup.Title)
+}
+
+func TestUpdateDescriptionFail(t *testing.T) {
+	todoGroup, err := todoGroupsTable.UpdateDescription(testNonExistTodoGroupID, testUpdatedDescription)
+	assert.Nil(t, todoGroup)
+	assert.NotNil(t, err)
+}
+
+func TestUpdateDescription(t *testing.T) {
+	todoGroup, err := todoGroupsTable.UpdateDescription(testTodoGroupID, testUpdatedDescription)
+	assert.NotNil(t, todoGroup)
+	assert.Nil(t, err)
+	assert.Equal(t, testUpdatedDescription, todoGroup.Description)
 }
 
 func TestDeleteByID(t *testing.T) {

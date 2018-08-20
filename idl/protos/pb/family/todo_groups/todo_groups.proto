@@ -88,3 +88,9 @@ message DeleteTodoGroupRequest {
 
 message DeleteTodoGroupResponse {
 }
+
+enum TodoGroupPermitType {
+    OWNER = 0;
+    EDITOR = 1;
+    VIEWER = 2;
+}

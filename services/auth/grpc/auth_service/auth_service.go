@@ -21,19 +21,19 @@ import (
 type IFace interface {
 	base_service.IFace
 
-	Config() config.IFace
 	Token() token.IFace
 }
 
 type Service struct {
-	cfg config.IFace
+	base_service.IFace
+
 	tkn token.IFace
 }
 
 func New(cfg config.IFace) (s *Service) {
 	return &Service{
-		cfg: cfg,
-		tkn: token.New(cfg),
+		IFace: base_service.New(cfg),
+		tkn:   token.New(cfg),
 	}
 }
 
@@ -45,16 +45,12 @@ func (s *Service) RegisterService(srv *grpc.Server) {
 	auth.RegisterAuthServiceServer(srv, s)
 }
 
-func (s *Service) Config() config.IFace {
-	return s.cfg
-}
-
 func (s *Service) Token() token.IFace {
 	return s.tkn
 }
 
 func (s *Service) Auth(ctx context.Context, req *auth.AuthRequest) (*auth.AuthResponse, error) {
-	return handlers.Auth(s.Config(), s.Token())(ctx, req)
+	return handlers.Auth(s.Config().(config.IFace), s.Token())(ctx, req)
 }
 
 func (s *Service) Validate(ctx context.Context, req *auth.ValidateRequest) (*auth.ValidateResponse, error) {
@@ -62,7 +58,7 @@ func (s *Service) Validate(ctx context.Context, req *auth.ValidateRequest) (*aut
 }
 
 func (s *Service) Refresh(ctx context.Context, req *auth.RefreshRequest) (*auth.RefreshResponse, error) {
-	return handlers.Refresh(s.Config(), s.Token())(ctx, req)
+	return handlers.Refresh(s.Config().(config.IFace), s.Token())(ctx, req)
 }
 
 func (s *Service) Parse(ctx context.Context, req *auth.ParseRequest) (*auth.ParseResponse, error) {

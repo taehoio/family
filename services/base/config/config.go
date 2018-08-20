@@ -23,6 +23,7 @@ type IFace interface {
 
 type Config struct {
 	IFace
+
 	productName string
 	serviceName string
 	env         string

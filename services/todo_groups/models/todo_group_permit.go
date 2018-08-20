@@ -5,6 +5,6 @@ import "time"
 type TodoGroupPermit struct {
 	AccountID   string    `dynamo:"account_id,hash"`
 	TodoGroupID string    `dynamo:"todo_group_id,range"`
-	PermitType  string    `dynamo:"type"`
+	PermitType  string    `dynamo:"permit_type"`
 	UpdateAt    time.Time `dynamo:"updated_at"`
 }

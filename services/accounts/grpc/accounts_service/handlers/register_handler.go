@@ -38,15 +38,15 @@ func Register(accountsTable *accounts_repo.Table, crypt crypt.IFace) RegisterHan
 		}
 
 		accountID := xid.New().String()
-		currTime := time.Now()
+		now := time.Now()
 		if err := accountsTable.Put(&models.Account{
 			AccountID:      accountID,
 			Type:           accounts.AuthType_EMAIL.String(),
 			Email:          req.Email,
 			HashedPassword: hashedPassword,
 			FullName:       req.FullName,
-			CreateAt:       currTime,
-			UpdatedAt:      currTime,
+			CreateAt:       now,
+			UpdatedAt:      now,
 		}); err != nil {
 			return nil, err
 		}

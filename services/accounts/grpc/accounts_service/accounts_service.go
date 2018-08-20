@@ -14,49 +14,41 @@ import (
 	"github.com/taeho-io/family/services/accounts/crypt"
 	"github.com/taeho-io/family/services/accounts/grpc/accounts_service/handlers"
 	"github.com/taeho-io/family/services/accounts/repos/accounts_repo"
-	"github.com/taeho-io/family/services/base/aws"
-	"github.com/taeho-io/family/services/base/aws/dynamodb"
-	"github.com/taeho-io/family/services/base/grpc/base_service"
+	"github.com/taeho-io/family/services/base/grpc/dynamodb_service"
 	"github.com/taeho-io/family/services/base/grpc/interceptors"
 	"github.com/taeho-io/family/services/discovery/grpc/discovery_service"
 )
 
 type IFace interface {
-	base_service.IFace
+	dynamodb_service.IFace
 
-	Config() config.IFace
 	Crypt() crypt.IFace
-	Dynamodb() dynamodb.IFace
 	AccountsTable() *accounts_repo.Table
 }
 
 type Service struct {
-	IFace
+	dynamodb_service.IFace
 
-	cfg           config.IFace
 	crypt         crypt.IFace
-	ddb           dynamodb.IFace
 	accountsTable *accounts_repo.Table
 }
 
-func New(cfg config.IFace) (*Service, error) {
+func New(cfg config.IFace) (IFace, error) {
 	bcrypt := crypt.New()
 
-	a, err := aws.New()
+	dynamodbSvc, err := dynamodb_service.New(cfg)
 	if err != nil {
 		return nil, err
 	}
-	ddb := dynamodb.New(a)
 
 	return &Service{
-		cfg:           cfg,
+		IFace:         dynamodbSvc,
 		crypt:         bcrypt,
-		ddb:           ddb,
-		accountsTable: accounts_repo.New(ddb, cfg),
+		accountsTable: accounts_repo.New(dynamodbSvc.Dynamodb(), cfg),
 	}, nil
 }
 
-func NewMock() (*Service, error) {
+func NewMock() (IFace, error) {
 	return New(config.NewMock())
 }
 
@@ -64,16 +56,8 @@ func (s *Service) RegisterService(srv *grpc.Server) {
 	accounts.RegisterAccountsServiceServer(srv, s)
 }
 
-func (s *Service) Config() config.IFace {
-	return s.cfg
-}
-
 func (s *Service) Crypt() crypt.IFace {
 	return s.crypt
-}
-
-func (s *Service) Dynamodb() dynamodb.IFace {
-	return s.ddb
 }
 
 func (s *Service) AccountsTable() *accounts_repo.Table {
