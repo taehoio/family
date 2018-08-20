@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/guregu/dynamo"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
@@ -19,7 +20,6 @@ type GetTodoGroupFunc func(
 )
 
 func GetTodoGroup(
-	logger *logrus.Entry,
 	todoGroupsTable *todo_groups_repo.Table,
 	todoGroupPermitsTable *todo_group_permits_repo.Table,
 ) GetTodoGroupFunc {
@@ -42,18 +42,33 @@ func GetTodoGroup(
 			return nil, err
 		}
 
+		logger := ctxlogrus.Extract(ctx)
+
 		_, err := todoGroupPermitsTable.Get(req.AccountId, req.TodoGroupId)
 		if err == dynamo.ErrNotFound {
-			logger.Warn(err)
+			logger.WithFields(logrus.Fields{
+				"what": "todoGroupPermitsTable.Get",
+				"req":  req,
+			}).Warn(err)
+
 			return nil, PermissionDeniedError
 		}
 		if err != nil {
-			logger.Error(err)
+			logger.WithFields(logrus.Fields{
+				"what": "todoGroupPermitsTable.Get",
+				"req":  req,
+			}).Error(err)
+
 			return nil, PermissionDeniedError
 		}
 
 		todoGroup, err := todoGroupsTable.GetByID(req.TodoGroupId)
 		if err != nil {
+			logger.WithFields(logrus.Fields{
+				"what": "todoGroupsTable.GetByID",
+				"req":  req,
+			}).Error(err)
+
 			return nil, err
 		}
 

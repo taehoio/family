@@ -1,16 +1,18 @@
 package handlers
 
 import (
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/rs/xid"
 	"github.com/sirupsen/logrus"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
 	"github.com/taeho-io/family/services/base/grpc/interceptors"
 	"github.com/taeho-io/family/services/todo_groups/models"
 	"github.com/taeho-io/family/services/todo_groups/repos/todo_group_permits_repo"
 	"github.com/taeho-io/family/services/todo_groups/repos/todo_groups_repo"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type CreateTodoGroupFunc func(
@@ -22,7 +24,6 @@ type CreateTodoGroupFunc func(
 )
 
 func CreateTodoGroup(
-	logger *logrus.Entry,
 	todoGroupsTable *todo_groups_repo.Table,
 	todoGroupPermitsTable *todo_group_permits_repo.Table,
 ) CreateTodoGroupFunc {
@@ -42,6 +43,8 @@ func CreateTodoGroup(
 			return nil, err
 		}
 
+		logger := ctxlogrus.Extract(ctx)
+
 		todoGroup := models.NewTodoGroupFromProto(req.GetTodoGroup())
 		todoGroup.TodoGroupID = xid.New().String()
 		todoGroup.CreatedBy = req.AccountId
@@ -50,6 +53,7 @@ func CreateTodoGroup(
 				"what":      "todoGroupsTable.Put",
 				"todoGroup": todoGroup,
 			}).Error(err)
+
 			return nil, err
 		}
 
@@ -63,6 +67,7 @@ func CreateTodoGroup(
 				"what":      "todoGroupPermitsTable.Put",
 				"todoGroup": todoGroupPermit,
 			}).Error(err)
+
 			return nil, err
 		}
 

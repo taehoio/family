@@ -24,8 +24,8 @@ func New(cfg config.IFace) IFace {
 	svc := &Service{
 		cfg: cfg,
 		logger: logrus.WithFields(logrus.Fields{
-			"productName": cfg.ProductName(),
-			"serviceName": cfg.ServiceName(),
+			"product_name": cfg.ProductName(),
+			"service_name": cfg.ServiceName(),
 		}),
 	}
 	return svc

@@ -144,5 +144,6 @@ func authFunc(ctx context.Context) (context.Context, error) {
 
 	accountID := parseResponse.GetAccountId()
 	newCtx := context.WithValue(ctx, AccountIDKey, accountID)
+	newCtx = ctxlogrus.ToContext(newCtx, logrus.WithField(AccountIDKey, accountID))
 	return newCtx, nil
 }

@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
+	"github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
@@ -32,8 +34,15 @@ func ListTodoGroups(
 			return nil, err
 		}
 
+		logger := ctxlogrus.Extract(ctx)
+
 		todoGroupPermits, err := todoGroupPermitsTable.ListByAccountID(req.AccountId)
 		if err != nil {
+			logger.WithFields(logrus.Fields{
+				"what":      "todoGroupPermitsTable.ListByAccountID",
+				"accountId": req.AccountId,
+			}).Error(err)
+
 			return nil, err
 		}
 
@@ -44,6 +53,11 @@ func ListTodoGroups(
 
 		todoGroups, err := todoGroupsTable.ListByIDs(todoGroupIDs)
 		if err != nil {
+			logger.WithFields(logrus.Fields{
+				"what":         "todoGroupsTable.ListByIDs",
+				"todoGroupIDs": todoGroupIDs,
+			}).Error(err)
+
 			return nil, err
 		}
 

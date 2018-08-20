@@ -8,7 +8,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/sirupsen/logrus"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
 	"github.com/taeho-io/family/services/base/grpc/dynamodb_service"
@@ -66,45 +65,50 @@ func (s *Service) TodoGroupPermitsTable() *todo_group_permits_repo.Table {
 func (s *Service) CreateTodoGroup(
 	ctx context.Context,
 	req *todo_groups.CreateTodoGroupRequest,
-) (*todo_groups.CreateTodoGroupResponse, error) {
-	logger := s.Logger().WithFields(logrus.Fields{
-		"methodName": "CreateTodoGroup",
-		"req":        req,
-	})
-
-	return handlers.CreateTodoGroup(logger, s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
+) (
+	*todo_groups.CreateTodoGroupResponse,
+	error,
+) {
+	return handlers.CreateTodoGroup(s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
 }
 
 func (s *Service) GetTodoGroup(
 	ctx context.Context,
 	req *todo_groups.GetTodoGroupRequest,
-) (*todo_groups.GetTodoGroupResponse, error) {
-	logger := s.Logger().WithFields(logrus.Fields{
-		"methodName": "GetTodoGroup",
-		"req":        req,
-	})
-
-	return handlers.GetTodoGroup(logger, s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
+) (
+	*todo_groups.GetTodoGroupResponse,
+	error,
+) {
+	return handlers.GetTodoGroup(s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
 }
 
 func (s *Service) ListTodoGroups(
 	ctx context.Context,
 	req *todo_groups.ListTodoGroupsRequest,
-) (*todo_groups.ListTodoGroupsResponse, error) {
+) (
+	*todo_groups.ListTodoGroupsResponse,
+	error,
+) {
 	return handlers.ListTodoGroups(s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
 }
 
 func (s *Service) UpdateTodoGroup(
 	ctx context.Context,
 	req *todo_groups.UpdateTodoGroupRequest,
-) (*todo_groups.UpdateTodoGroupResponse, error) {
+) (
+	*todo_groups.UpdateTodoGroupResponse,
+	error,
+) {
 	return handlers.UpdateTodoGroup(s.TodoGroupsTable())(ctx, req)
 }
 
 func (s *Service) DeleteTodoGroup(
 	ctx context.Context,
 	req *todo_groups.DeleteTodoGroupRequest,
-) (*todo_groups.DeleteTodoGroupResponse, error) {
+) (
+	*todo_groups.DeleteTodoGroupResponse,
+	error,
+) {
 	return handlers.DeleteTodoGroup(s.TodoGroupsTable())(ctx, req)
 }
 
