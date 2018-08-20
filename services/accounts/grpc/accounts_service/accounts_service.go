@@ -85,10 +85,9 @@ func Serve() error {
 
 	svr := grpc.NewServer(
 		grpc_middleware.WithUnaryServerChain(
-			interceptors.NewRequestIdIfNotExistsUnaryServerInterceptor,
-			interceptors.ForwardRequestIdLogFieldUnaryServerInterceptor,
+			interceptors.RequestIDUnaryServerInterceptor,
 			interceptors.LogrusUnaryServerInterceptor,
-			interceptors.AuthWhileListUnaryServerInterceptor(whiteListPrefixes),
+			interceptors.AuthWithWhiteListUnaryServerInterceptor(whiteListPrefixes),
 			interceptors.AuthUnaryServerInterceptor,
 		),
 	)

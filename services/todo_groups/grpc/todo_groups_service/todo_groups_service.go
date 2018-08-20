@@ -119,15 +119,11 @@ func Serve() error {
 		return err
 	}
 
-	var whiteListPrefixes []string
-
 	svr := grpc.NewServer(
 		grpc_middleware.WithUnaryServerChain(
-			interceptors.NewRequestIdIfNotExistsUnaryServerInterceptor,
-			interceptors.ForwardRequestIdLogFieldUnaryServerInterceptor,
-			interceptors.LogrusUnaryServerInterceptor,
-			interceptors.AuthWhileListUnaryServerInterceptor(whiteListPrefixes),
+			interceptors.RequestIDUnaryServerInterceptor,
 			interceptors.AuthUnaryServerInterceptor,
+			interceptors.LogrusUnaryServerInterceptor,
 		),
 	)
 

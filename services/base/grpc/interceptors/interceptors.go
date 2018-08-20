@@ -24,7 +24,7 @@ const (
 	AuthBearerScheme   = "bearer"
 )
 
-func NewRequestIdIfNotExistsUnaryServerInterceptor(
+func RequestIDUnaryServerInterceptor(
 	ctx context.Context, req interface{},
 	_ *grpc.UnaryServerInfo,
 	handler grpc.UnaryHandler,
@@ -37,36 +37,22 @@ func NewRequestIdIfNotExistsUnaryServerInterceptor(
 		return handler(ctx, req)
 	}
 
-	if requestIds, ok := md[RequestIDHeaderKey]; ok && len(requestIds) > 0 {
-		return handler(ctx, req)
+	var requestID string
+	if ctx.Value(RequestIDKey) != nil {
+		requestID = ctx.Value(RequestIDKey).(string)
+	} else if requestIDs, ok := md[RequestIDHeaderKey]; ok && len(requestIDs) > 0 {
+		requestID = requestIDs[0]
+	} else {
+		requestID = xid.New().String()
 	}
 
-	requestId := xid.New().String()
-	md[RequestIDHeaderKey] = []string{requestId}
-	newCtx := metadata.NewOutgoingContext(ctx, md)
+	newCtx := context.WithValue(ctx, RequestIDKey, requestID)
+	newCtx = ctxlogrus.ToContext(newCtx, logrus.WithFields(logrus.Fields{
+		RequestIDKey: requestID,
+	}))
+	newCtx = metadata.AppendToOutgoingContext(newCtx, RequestIDHeaderKey, requestID)
+
 	return handler(newCtx, req)
-}
-
-func ForwardRequestIdLogFieldUnaryServerInterceptor(
-	ctx context.Context,
-	req interface{},
-	_ *grpc.UnaryServerInfo,
-	handler grpc.UnaryHandler,
-) (
-	interface{},
-	error,
-) {
-	md, ok := metadata.FromIncomingContext(ctx)
-	if !ok {
-		return handler(ctx, req)
-	}
-
-	if requestIds, ok := md[RequestIDHeaderKey]; ok && len(requestIds) > 0 {
-		newCtx := ctxlogrus.ToContext(ctx, logrus.WithField(RequestIDKey, requestIds[0]))
-		return handler(newCtx, req)
-	}
-
-	return handler(ctx, req)
 }
 
 func LogrusUnaryServerInterceptor(
@@ -80,10 +66,14 @@ func LogrusUnaryServerInterceptor(
 ) {
 	entry := logrus.NewEntry(logrus.StandardLogger())
 
+	ctxlogrus.AddFields(ctx, logrus.Fields{
+		RequestIDKey: ctx.Value(RequestIDKey),
+	})
+
 	return grpc_logrus.UnaryServerInterceptor(entry)(ctx, req, info, handler)
 }
 
-func AuthWhileListUnaryServerInterceptor(prefixes []string) grpc.UnaryServerInterceptor {
+func AuthWithWhiteListUnaryServerInterceptor(prefixes []string) grpc.UnaryServerInterceptor {
 	return func(
 		ctx context.Context,
 		req interface{},
@@ -117,7 +107,7 @@ func AuthUnaryServerInterceptor(
 
 func authFunc(ctx context.Context) (context.Context, error) {
 	shouldAuth := ctx.Value(ShouldAuthKey)
-	if !shouldAuth.(bool) {
+	if shouldAuth != nil && !shouldAuth.(bool) {
 		return ctx, nil
 	}
 
