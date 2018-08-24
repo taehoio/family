@@ -51,7 +51,8 @@ open class TodoGroupsServiceAPI {
     "created_at" : "created_at",
     "description" : "description",
     "title" : "title",
-    "created_by" : "created_by"
+    "created_by" : "created_by",
+    "order" : "order"
   }
 }}]
      
@@ -171,7 +172,8 @@ open class TodoGroupsServiceAPI {
     "created_at" : "created_at",
     "description" : "description",
     "title" : "title",
-    "created_by" : "created_by"
+    "created_by" : "created_by",
+    "order" : "order"
   }
 }}]
      
@@ -236,14 +238,16 @@ open class TodoGroupsServiceAPI {
     "created_at" : "created_at",
     "description" : "description",
     "title" : "title",
-    "created_by" : "created_by"
+    "created_by" : "created_by",
+    "order" : "order"
   }, {
     "todo_group_id" : "todo_group_id",
     "updated_at" : "updated_at",
     "created_at" : "created_at",
     "description" : "description",
     "title" : "title",
-    "created_by" : "created_by"
+    "created_by" : "created_by",
+    "order" : "order"
   } ]
 }}]
      
@@ -308,7 +312,8 @@ open class TodoGroupsServiceAPI {
     "created_at" : "created_at",
     "description" : "description",
     "title" : "title",
-    "created_by" : "created_by"
+    "created_by" : "created_by",
+    "order" : "order"
   }
 }}]
      

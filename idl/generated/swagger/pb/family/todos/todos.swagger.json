@@ -15,7 +15,46 @@
     "application/json"
   ],
   "paths": {
-    "/v1/todo-groups/{todo_group_id}/todos": {
+    "/v1/todos": {
+      "get": {
+        "operationId": "ListTodo",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosListTodosResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "parent_type",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PARENT_TYPE_TODO_GROUP",
+              "PARENT_TYPE_TODO"
+            ],
+            "default": "PARENT_TYPE_TODO_GROUP"
+          },
+          {
+            "name": "parent_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      },
       "post": {
         "operationId": "CreateTodo",
         "responses": {
@@ -27,12 +66,6 @@
           }
         },
         "parameters": [
-          {
-            "name": "todo_group_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
           {
             "name": "body",
             "in": "body",
@@ -47,7 +80,35 @@
         ]
       }
     },
-    "/v1/todo-groups/{todo_group_id}/todos/{todo_id}": {
+    "/v1/todos/{todo_id}": {
+      "get": {
+        "operationId": "GetTodo",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosGetTodoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      },
       "delete": {
         "operationId": "DeleteTodo",
         "responses": {
@@ -59,12 +120,6 @@
           }
         },
         "parameters": [
-          {
-            "name": "todo_group_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
           {
             "name": "todo_id",
             "in": "path",
@@ -94,12 +149,6 @@
         },
         "parameters": [
           {
-            "name": "todo_group_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "todo_id",
             "in": "path",
             "required": true,
@@ -127,9 +176,6 @@
         "account_id": {
           "type": "string"
         },
-        "todo_group_id": {
-          "type": "string"
-        },
         "todo_id": {
           "type": "string"
         },
@@ -149,25 +195,52 @@
     "todosDeleteTodoResponse": {
       "type": "object"
     },
+    "todosGetTodoResponse": {
+      "type": "object",
+      "properties": {
+        "todo": {
+          "$ref": "#/definitions/todosTodo"
+        }
+      }
+    },
+    "todosListTodosResponse": {
+      "type": "object",
+      "properties": {
+        "todos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/todosTodo"
+          }
+        }
+      }
+    },
+    "todosParentType": {
+      "type": "string",
+      "enum": [
+        "PARENT_TYPE_TODO_GROUP",
+        "PARENT_TYPE_TODO"
+      ],
+      "default": "PARENT_TYPE_TODO_GROUP"
+    },
     "todosPriority": {
       "type": "string",
       "enum": [
-        "NONE",
-        "LOW",
-        "MEDIUM",
-        "HIGH",
-        "URGENT"
+        "PRIORITY_NONE",
+        "PRIORITY_LOW",
+        "PRIORITY_MEDIUM",
+        "PRIORITY_HIGH",
+        "PRIORITY_URGENT"
       ],
-      "default": "NONE"
+      "default": "PRIORITY_NONE"
     },
     "todosStatus": {
       "type": "string",
       "enum": [
-        "TODO",
-        "DONE",
-        "PENDING"
+        "STATUS_TODO",
+        "STATUS_DONE",
+        "STATUS_PENDING"
       ],
-      "default": "TODO"
+      "default": "STATUS_TODO"
     },
     "todosTodo": {
       "type": "object",
@@ -175,7 +248,10 @@
         "todo_id": {
           "type": "string"
         },
-        "todo_group_id": {
+        "parent_type": {
+          "$ref": "#/definitions/todosParentType"
+        },
+        "parent_id": {
           "type": "string"
         },
         "title": {
@@ -189,6 +265,18 @@
         },
         "order": {
           "type": "string"
+        },
+        "assigned_to": {
+          "type": "string"
+        },
+        "priority": {
+          "$ref": "#/definitions/todosPriority"
+        },
+        "sub_tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/todosTodo"
+          }
         },
         "created_at": {
           "type": "string",
@@ -205,9 +293,6 @@
         "due_at": {
           "type": "string",
           "format": "int64"
-        },
-        "priority": {
-          "$ref": "#/definitions/todosPriority"
         }
       }
     },
@@ -215,9 +300,6 @@
       "type": "object",
       "properties": {
         "account_id": {
-          "type": "string"
-        },
-        "todo_group_id": {
           "type": "string"
         },
         "todo_id": {

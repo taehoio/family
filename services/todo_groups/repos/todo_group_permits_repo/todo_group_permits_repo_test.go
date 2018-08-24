@@ -95,6 +95,18 @@ func TestPutOneMore(t *testing.T) {
 	assert.Nil(t, err)
 }
 
+func TestGetFail(t *testing.T) {
+	todoGroupPermit, err := todoGroupPermitsTable.Get(testNonExistAccountID, testTodoGroupID)
+	assert.Nil(t, todoGroupPermit)
+	assert.NotNil(t, err)
+}
+
+func TestGet(t *testing.T) {
+	todoGroupPermit, err := todoGroupPermitsTable.Get(testAccountID, testTodoGroupID)
+	assert.NotNil(t, todoGroupPermit)
+	assert.Nil(t, err)
+}
+
 func TestListByAccountID(t *testing.T) {
 	todoGroupPermits, err := todoGroupPermitsTable.ListByAccountID(testAccountID)
 	assert.NotNil(t, todoGroupPermits)
@@ -106,4 +118,21 @@ func TestListByAccountIDEmpty(t *testing.T) {
 	todoGroupPermits, err := todoGroupPermitsTable.ListByAccountID(testNonExistAccountID)
 	assert.Len(t, todoGroupPermits, 0)
 	assert.Nil(t, err)
+}
+
+func TestDeleteFail(t *testing.T) {
+	err := todoGroupPermitsTable.Delete(testNonExistAccountID, testTodoGroupID)
+	assert.NotNil(t, err)
+}
+
+func TestDelete(t *testing.T) {
+	err := todoGroupPermitsTable.Delete(testAccountID, testTodoGroupID)
+	assert.Nil(t, err)
+}
+
+func TestListByAccountIDFail(t *testing.T) {
+	accountIDFieldKey = "wrong_account_id"
+	todoGroupPermits, err := todoGroupPermitsTable.ListByAccountID(testNonExistAccountID)
+	assert.Nil(t, todoGroupPermits)
+	assert.NotNil(t, err)
 }

@@ -14,16 +14,18 @@ open class TodosTodoGroup: Codable {
     public var createdAt: String?
     public var createdBy: String?
     public var description: String?
+    public var order: String?
     public var title: String?
     public var todoGroupId: String?
     public var updatedAt: String?
 
 
     
-    public init(createdAt: String?, createdBy: String?, description: String?, title: String?, todoGroupId: String?, updatedAt: String?) {
+    public init(createdAt: String?, createdBy: String?, description: String?, order: String?, title: String?, todoGroupId: String?, updatedAt: String?) {
         self.createdAt = createdAt
         self.createdBy = createdBy
         self.description = description
+        self.order = order
         self.title = title
         self.todoGroupId = todoGroupId
         self.updatedAt = updatedAt
@@ -39,6 +41,7 @@ open class TodosTodoGroup: Codable {
         try container.encodeIfPresent(createdAt, forKey: "created_at")
         try container.encodeIfPresent(createdBy, forKey: "created_by")
         try container.encodeIfPresent(description, forKey: "description")
+        try container.encodeIfPresent(order, forKey: "order")
         try container.encodeIfPresent(title, forKey: "title")
         try container.encodeIfPresent(todoGroupId, forKey: "todo_group_id")
         try container.encodeIfPresent(updatedAt, forKey: "updated_at")
@@ -52,6 +55,7 @@ open class TodosTodoGroup: Codable {
         createdAt = try container.decodeIfPresent(String.self, forKey: "created_at")
         createdBy = try container.decodeIfPresent(String.self, forKey: "created_by")
         description = try container.decodeIfPresent(String.self, forKey: "description")
+        order = try container.decodeIfPresent(String.self, forKey: "order")
         title = try container.decodeIfPresent(String.self, forKey: "title")
         todoGroupId = try container.decodeIfPresent(String.self, forKey: "todo_group_id")
         updatedAt = try container.decodeIfPresent(String.self, forKey: "updated_at")

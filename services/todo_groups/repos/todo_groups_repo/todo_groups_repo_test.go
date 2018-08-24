@@ -17,6 +17,8 @@ var (
 	testTitle               = "test_title"
 	testUpdatedTitle        = "test_updated_title"
 	testUpdatedDescription  = "test_updated_description"
+	testUpdatedOrder        = "test_updated_order"
+	testCreatedBy           = "test_created_by"
 )
 
 func TestMain(m *testing.M) {
@@ -33,6 +35,7 @@ func TestValidateTodoGroupInput(t *testing.T) {
 	todoGroup := &models.TodoGroup{
 		TodoGroupID: testTodoGroupID,
 		Title:       testTitle,
+		CreatedBy:   testCreatedBy,
 	}
 	err := todoGroupsTable.validateTodoGroupInput(todoGroup)
 	assert.Nil(t, err)
@@ -73,6 +76,7 @@ func TestPut(t *testing.T) {
 	todoGroup := &models.TodoGroup{
 		TodoGroupID: testTodoGroupID,
 		Title:       testTitle,
+		CreatedBy:   testCreatedBy,
 	}
 	err := todoGroupsTable.Put(todoGroup)
 	assert.Nil(t, err)
@@ -127,6 +131,19 @@ func TestUpdateDescriptionFail(t *testing.T) {
 
 func TestUpdateDescription(t *testing.T) {
 	todoGroup, err := todoGroupsTable.UpdateDescription(testTodoGroupID, testUpdatedDescription)
+	assert.NotNil(t, todoGroup)
+	assert.Nil(t, err)
+	assert.Equal(t, testUpdatedDescription, todoGroup.Description)
+}
+
+func TestUpdateOrderFail(t *testing.T) {
+	todoGroup, err := todoGroupsTable.UpdateOrder(testNonExistTodoGroupID, testUpdatedOrder)
+	assert.Nil(t, todoGroup)
+	assert.NotNil(t, err)
+}
+
+func TestUpdateOrder(t *testing.T) {
+	todoGroup, err := todoGroupsTable.UpdateOrder(testTodoGroupID, testUpdatedOrder)
 	assert.NotNil(t, todoGroup)
 	assert.Nil(t, err)
 	assert.Equal(t, testUpdatedDescription, todoGroup.Description)

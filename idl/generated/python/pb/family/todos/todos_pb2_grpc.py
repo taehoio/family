@@ -19,6 +19,16 @@ class TodosServiceStub(object):
         request_serializer=pb_dot_family_dot_todos_dot_todos__pb2.CreateTodoRequest.SerializeToString,
         response_deserializer=pb_dot_family_dot_todos_dot_todos__pb2.CreateTodoResponse.FromString,
         )
+    self.GetTodo = channel.unary_unary(
+        '/pb.family.todos.TodosService/GetTodo',
+        request_serializer=pb_dot_family_dot_todos_dot_todos__pb2.GetTodoRequest.SerializeToString,
+        response_deserializer=pb_dot_family_dot_todos_dot_todos__pb2.GetTodoResponse.FromString,
+        )
+    self.ListTodo = channel.unary_unary(
+        '/pb.family.todos.TodosService/ListTodo',
+        request_serializer=pb_dot_family_dot_todos_dot_todos__pb2.ListTodosRequest.SerializeToString,
+        response_deserializer=pb_dot_family_dot_todos_dot_todos__pb2.ListTodosResponse.FromString,
+        )
     self.UpdateTodo = channel.unary_unary(
         '/pb.family.todos.TodosService/UpdateTodo',
         request_serializer=pb_dot_family_dot_todos_dot_todos__pb2.UpdateTodoRequest.SerializeToString,
@@ -36,6 +46,20 @@ class TodosServiceServicer(object):
   pass
 
   def CreateTodo(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def GetTodo(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def ListTodo(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -63,6 +87,16 @@ def add_TodosServiceServicer_to_server(servicer, server):
           servicer.CreateTodo,
           request_deserializer=pb_dot_family_dot_todos_dot_todos__pb2.CreateTodoRequest.FromString,
           response_serializer=pb_dot_family_dot_todos_dot_todos__pb2.CreateTodoResponse.SerializeToString,
+      ),
+      'GetTodo': grpc.unary_unary_rpc_method_handler(
+          servicer.GetTodo,
+          request_deserializer=pb_dot_family_dot_todos_dot_todos__pb2.GetTodoRequest.FromString,
+          response_serializer=pb_dot_family_dot_todos_dot_todos__pb2.GetTodoResponse.SerializeToString,
+      ),
+      'ListTodo': grpc.unary_unary_rpc_method_handler(
+          servicer.ListTodo,
+          request_deserializer=pb_dot_family_dot_todos_dot_todos__pb2.ListTodosRequest.FromString,
+          response_serializer=pb_dot_family_dot_todos_dot_todos__pb2.ListTodosResponse.SerializeToString,
       ),
       'UpdateTodo': grpc.unary_unary_rpc_method_handler(
           servicer.UpdateTodo,

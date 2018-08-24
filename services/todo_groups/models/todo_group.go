@@ -13,6 +13,7 @@ type TodoGroup struct {
 	CreatedBy   string    `dynamo:"created_by"`
 	CreatedAt   time.Time `dynamo:"created_at"`
 	UpdatedAt   time.Time `dynamo:"updated_at"`
+	Order       string    `dynamo:"order"`
 }
 
 func NewTodoGroupFromProto(todoGroupProto *todo_groups.TodoGroup) *TodoGroup {
@@ -23,6 +24,7 @@ func NewTodoGroupFromProto(todoGroupProto *todo_groups.TodoGroup) *TodoGroup {
 		CreatedBy:   todoGroupProto.CreatedBy,
 		CreatedAt:   time.Unix(todoGroupProto.CreatedAt, 0),
 		UpdatedAt:   time.Unix(todoGroupProto.UpdatedAt, 0),
+		Order:       todoGroupProto.Order,
 	}
 }
 
@@ -34,5 +36,6 @@ func (tg *TodoGroup) ToProto() *todo_groups.TodoGroup {
 		CreatedBy:   tg.CreatedBy,
 		CreatedAt:   tg.CreatedAt.Unix(),
 		UpdatedAt:   tg.UpdatedAt.Unix(),
+		Order:       tg.Order,
 	}
 }

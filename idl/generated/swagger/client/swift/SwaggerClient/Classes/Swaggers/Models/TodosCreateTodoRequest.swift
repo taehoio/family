@@ -13,15 +13,13 @@ open class TodosCreateTodoRequest: Codable {
 
     public var accountId: String?
     public var todo: TodosTodo?
-    public var todoGroupId: String?
     public var todoId: String?
 
 
     
-    public init(accountId: String?, todo: TodosTodo?, todoGroupId: String?, todoId: String?) {
+    public init(accountId: String?, todo: TodosTodo?, todoId: String?) {
         self.accountId = accountId
         self.todo = todo
-        self.todoGroupId = todoGroupId
         self.todoId = todoId
     }
     
@@ -34,7 +32,6 @@ open class TodosCreateTodoRequest: Codable {
 
         try container.encodeIfPresent(accountId, forKey: "account_id")
         try container.encodeIfPresent(todo, forKey: "todo")
-        try container.encodeIfPresent(todoGroupId, forKey: "todo_group_id")
         try container.encodeIfPresent(todoId, forKey: "todo_id")
     }
 
@@ -45,7 +42,6 @@ open class TodosCreateTodoRequest: Codable {
 
         accountId = try container.decodeIfPresent(String.self, forKey: "account_id")
         todo = try container.decodeIfPresent(TodosTodo.self, forKey: "todo")
-        todoGroupId = try container.decodeIfPresent(String.self, forKey: "todo_group_id")
         todoId = try container.decodeIfPresent(String.self, forKey: "todo_id")
     }
 }

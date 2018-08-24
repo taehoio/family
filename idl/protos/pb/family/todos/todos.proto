@@ -9,67 +9,102 @@ option go_package = "github.com/taeho-io/family/idl/generated/go/pb/family/todos
 service TodosService {
     rpc CreateTodo (CreateTodoRequest) returns (CreateTodoResponse) {
         option (google.api.http) = {
-            post: "/v1/todo-groups/{todo_group_id}/todos"
+            post: "/v1/todos"
             body: "*"
+        };
+    }
+    rpc GetTodo (GetTodoRequest) returns (GetTodoResponse) {
+        option (google.api.http) ={
+            get: "/v1/todos/{todo_id}"
+        };
+    }
+    rpc ListTodo (ListTodosRequest) returns (ListTodosResponse) {
+        option (google.api.http) ={
+            get: "/v1/todos"
         };
     }
     rpc UpdateTodo (UpdateTodoRequest) returns (UpdateTodoResponse) {
         option (google.api.http) = {
-            put: "/v1/todo-groups/{todo_group_id}/todos/{todo_id}"
+            put: "/v1/todos/{todo_id}"
             body: "*"
         };
     }
     rpc DeleteTodo (DeleteTodoRequest) returns (DeleteTodoResponse) {
         option (google.api.http) = {
-            delete: "/v1/todo-groups/{todo_group_id}/todos/{todo_id}"
+            delete: "/v1/todos/{todo_id}"
         };
     }
 }
 
 enum Status {
-    TODO = 0;
-    DONE = 1;
-    PENDING = 2;
+    STATUS_TODO = 0;
+    STATUS_DONE = 1;
+    STATUS_PENDING = 2;
 }
 
 enum Priority {
-    NONE = 0;
-    LOW = 10;
-    MEDIUM = 30;
-    HIGH = 50;
-    URGENT = 100;
+    PRIORITY_NONE = 0;
+    PRIORITY_LOW = 10;
+    PRIORITY_MEDIUM = 30;
+    PRIORITY_HIGH = 50;
+    PRIORITY_URGENT = 100;
+}
+
+enum ParentType {
+    PARENT_TYPE_TODO_GROUP = 0;
+    PARENT_TYPE_TODO = 1;
 }
 
 message Todo {
     string todo_id = 1;
-    string todo_group_id = 2;
-    string title = 3;
-    string description = 4;
-    Status status = 5;
-    string order = 6;
-    int64 created_at = 7;
-    int64 updated_at = 8;
-    int64 done_at = 9;
-    int64 due_at = 10;
-    Priority priority = 11;
+    ParentType parent_type = 2;
+    string parent_id = 3;
+    string title = 4;
+    string description = 5;
+    Status status = 6;
+    string order = 7;
+    string assigned_to = 8;
+    Priority priority = 9;
+    repeated Todo sub_tasks = 10;
+    int64 created_at = 11;
+    int64 updated_at = 12;
+    int64 done_at = 13;
+    int64 due_at = 14;
 }
 
 message CreateTodoRequest {
     string account_id = 1;
-    string todo_group_id = 2;
-    string todo_id = 3;
-    Todo todo = 4;
+    string todo_id = 2;
+    Todo todo = 3;
 }
 
 message CreateTodoResponse {
     Todo todo = 1;
 }
 
+message GetTodoRequest {
+    string account_id = 1;
+    string todo_id = 2;
+}
+
+message GetTodoResponse {
+    Todo todo = 1;
+}
+
+message ListTodosRequest {
+    string account_id = 1;
+    ParentType parent_type = 2;
+    string parent_id = 3;
+}
+
+message ListTodosResponse {
+    repeated Todo todos = 1;
+}
+
 message UpdateTodoRequest {
     string account_id = 1;
-    string todo_group_id = 2;
-    string todo_id = 3;
-    Todo todo = 4;
+    string todo_id = 2;
+    Todo todo = 3;
 }
 
 message UpdateTodoResponse {
@@ -78,8 +113,7 @@ message UpdateTodoResponse {
 
 message DeleteTodoRequest {
     string account_id = 1;
-    string todo_group_id = 2;
-    string todo_id = 3;
+    string todo_id = 2;
 }
 
 message DeleteTodoResponse {

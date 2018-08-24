@@ -20,6 +20,7 @@ const (
 	titleFieldKey       = "title"
 	descriptionFieldKey = "description"
 	updatedAtFieldKey   = "updated_at"
+	orderFieldKey       = "order"
 )
 
 var (
@@ -136,6 +137,22 @@ func (t *Table) UpdateDescription(todoGroupID, description string) (*models.Todo
 		Update(todoGroupIDFieldKey, todoGroupID).
 		If(fmt.Sprintf("%s = ?", todoGroupIDFieldKey), todoGroupID).
 		Set(descriptionFieldKey, description).
+		Set(updatedAtFieldKey, time.Now()).
+		Value(&todoGroup)
+	if err != nil {
+		return nil, err
+	}
+
+	return &todoGroup, nil
+}
+
+func (t *Table) UpdateOrder(todoGroupID, order string) (*models.TodoGroup, error) {
+	var todoGroup models.TodoGroup
+
+	err := t.Table().
+		Update(todoGroupIDFieldKey, todoGroupID).
+		If(fmt.Sprintf("%s = ?", todoGroupIDFieldKey), todoGroupID).
+		Set(orderFieldKey, order).
 		Set(updatedAtFieldKey, time.Now()).
 		Value(&todoGroup)
 	if err != nil {

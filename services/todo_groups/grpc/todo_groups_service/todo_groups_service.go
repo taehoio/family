@@ -109,7 +109,7 @@ func (s *Service) DeleteTodoGroup(
 	*todo_groups.DeleteTodoGroupResponse,
 	error,
 ) {
-	return handlers.DeleteTodoGroup(s.TodoGroupsTable())(ctx, req)
+	return handlers.DeleteTodoGroup(s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
 }
 
 func Serve() error {

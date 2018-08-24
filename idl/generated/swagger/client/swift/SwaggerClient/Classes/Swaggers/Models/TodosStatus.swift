@@ -9,8 +9,8 @@ import Foundation
 
 
 public enum TodosStatus: String, Codable {
-    case todo = "TODO"
-    case done = "DONE"
-    case pending = "PENDING"
+    case todo = "STATUS_TODO"
+    case done = "STATUS_DONE"
+    case pending = "STATUS_PENDING"
 
 }

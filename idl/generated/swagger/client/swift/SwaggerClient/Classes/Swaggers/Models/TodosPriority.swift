@@ -9,10 +9,10 @@ import Foundation
 
 
 public enum TodosPriority: String, Codable {
-    case _none = "NONE"
-    case low = "LOW"
-    case medium = "MEDIUM"
-    case high = "HIGH"
-    case urgent = "URGENT"
+    case _none = "PRIORITY_NONE"
+    case low = "PRIORITY_LOW"
+    case medium = "PRIORITY_MEDIUM"
+    case high = "PRIORITY_HIGH"
+    case urgent = "PRIORITY_URGENT"
 
 }

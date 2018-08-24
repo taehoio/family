@@ -216,6 +216,9 @@
         "updated_at": {
           "type": "string",
           "format": "int64"
+        },
+        "order": {
+          "type": "string"
         }
       }
     },

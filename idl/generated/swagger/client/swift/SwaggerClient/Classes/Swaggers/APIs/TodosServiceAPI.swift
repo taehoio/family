@@ -14,25 +14,23 @@ import RxSwift
 open class TodosServiceAPI {
     /**
 
-     - parameter todoGroupId: (path)  
      - parameter body: (body)  
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func createTodo(todoGroupId: String, body: TodosCreateTodoRequest, completion: @escaping ((_ data: TodosCreateTodoResponse?,_ error: Error?) -> Void)) {
-        createTodoWithRequestBuilder(todoGroupId: todoGroupId, body: body).execute { (response, error) -> Void in
+    open class func createTodo(body: TodosCreateTodoRequest, completion: @escaping ((_ data: TodosCreateTodoResponse?,_ error: Error?) -> Void)) {
+        createTodoWithRequestBuilder(body: body).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
 
     /**
 
-     - parameter todoGroupId: (path)  
      - parameter body: (body)  
      - returns: Observable<TodosCreateTodoResponse>
      */
-    open class func createTodo(todoGroupId: String, body: TodosCreateTodoRequest) -> Observable<TodosCreateTodoResponse> {
+    open class func createTodo(body: TodosCreateTodoRequest) -> Observable<TodosCreateTodoResponse> {
         return Observable.create { observer -> Disposable in
-            createTodo(todoGroupId: todoGroupId, body: body) { data, error in
+            createTodo(body: body) { data, error in
                 if let error = error {
                     observer.on(.error(error))
                 } else {
@@ -45,31 +43,32 @@ open class TodosServiceAPI {
     }
 
     /**
-     - POST /v1/todo-groups/{todo_group_id}/todos
+     - POST /v1/todos
      - examples: [{contentType=application/json, example={
   "todo" : {
-    "todo_group_id" : "todo_group_id",
-    "updated_at" : "updated_at",
     "todo_id" : "todo_id",
     "done_at" : "done_at",
     "created_at" : "created_at",
     "description" : "description",
-    "due_at" : "due_at",
+    "parent_type" : { },
     "priority" : { },
     "title" : "title",
+    "updated_at" : "updated_at",
+    "parent_id" : "parent_id",
+    "sub_tasks" : [ null, null ],
+    "due_at" : "due_at",
+    "assigned_to" : "assigned_to",
     "order" : "order",
     "status" : { }
   }
 }}]
      
-     - parameter todoGroupId: (path)  
      - parameter body: (body)  
 
      - returns: RequestBuilder<TodosCreateTodoResponse> 
      */
-    open class func createTodoWithRequestBuilder(todoGroupId: String, body: TodosCreateTodoRequest) -> RequestBuilder<TodosCreateTodoResponse> {
-        var path = "/v1/todo-groups/{todo_group_id}/todos"
-        path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
+    open class func createTodoWithRequestBuilder(body: TodosCreateTodoRequest) -> RequestBuilder<TodosCreateTodoResponse> {
+        let path = "/v1/todos"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
@@ -83,27 +82,25 @@ open class TodosServiceAPI {
 
     /**
 
-     - parameter todoGroupId: (path)  
      - parameter todoId: (path)  
      - parameter accountId: (query)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteTodo(todoGroupId: String, todoId: String, accountId: String? = nil, completion: @escaping ((_ data: TodosDeleteTodoResponse?,_ error: Error?) -> Void)) {
-        deleteTodoWithRequestBuilder(todoGroupId: todoGroupId, todoId: todoId, accountId: accountId).execute { (response, error) -> Void in
+    open class func deleteTodo(todoId: String, accountId: String? = nil, completion: @escaping ((_ data: TodosDeleteTodoResponse?,_ error: Error?) -> Void)) {
+        deleteTodoWithRequestBuilder(todoId: todoId, accountId: accountId).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
 
     /**
 
-     - parameter todoGroupId: (path)  
      - parameter todoId: (path)  
      - parameter accountId: (query)  (optional)
      - returns: Observable<TodosDeleteTodoResponse>
      */
-    open class func deleteTodo(todoGroupId: String, todoId: String, accountId: String? = nil) -> Observable<TodosDeleteTodoResponse> {
+    open class func deleteTodo(todoId: String, accountId: String? = nil) -> Observable<TodosDeleteTodoResponse> {
         return Observable.create { observer -> Disposable in
-            deleteTodo(todoGroupId: todoGroupId, todoId: todoId, accountId: accountId) { data, error in
+            deleteTodo(todoId: todoId, accountId: accountId) { data, error in
                 if let error = error {
                     observer.on(.error(error))
                 } else {
@@ -116,18 +113,16 @@ open class TodosServiceAPI {
     }
 
     /**
-     - DELETE /v1/todo-groups/{todo_group_id}/todos/{todo_id}
+     - DELETE /v1/todos/{todo_id}
      - examples: [{contentType=application/json, example={ }}]
      
-     - parameter todoGroupId: (path)  
      - parameter todoId: (path)  
      - parameter accountId: (query)  (optional)
 
      - returns: RequestBuilder<TodosDeleteTodoResponse> 
      */
-    open class func deleteTodoWithRequestBuilder(todoGroupId: String, todoId: String, accountId: String? = nil) -> RequestBuilder<TodosDeleteTodoResponse> {
-        var path = "/v1/todo-groups/{todo_group_id}/todos/{todo_id}"
-        path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
+    open class func deleteTodoWithRequestBuilder(todoId: String, accountId: String? = nil) -> RequestBuilder<TodosDeleteTodoResponse> {
+        var path = "/v1/todos/{todo_id}"
         path = path.replacingOccurrences(of: "{todo_id}", with: "\(todoId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -145,27 +140,25 @@ open class TodosServiceAPI {
 
     /**
 
-     - parameter todoGroupId: (path)  
      - parameter todoId: (path)  
-     - parameter body: (body)  
+     - parameter accountId: (query)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func updateTodo(todoGroupId: String, todoId: String, body: TodosUpdateTodoRequest, completion: @escaping ((_ data: TodosUpdateTodoResponse?,_ error: Error?) -> Void)) {
-        updateTodoWithRequestBuilder(todoGroupId: todoGroupId, todoId: todoId, body: body).execute { (response, error) -> Void in
+    open class func getTodo(todoId: String, accountId: String? = nil, completion: @escaping ((_ data: TodosGetTodoResponse?,_ error: Error?) -> Void)) {
+        getTodoWithRequestBuilder(todoId: todoId, accountId: accountId).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
 
     /**
 
-     - parameter todoGroupId: (path)  
      - parameter todoId: (path)  
-     - parameter body: (body)  
-     - returns: Observable<TodosUpdateTodoResponse>
+     - parameter accountId: (query)  (optional)
+     - returns: Observable<TodosGetTodoResponse>
      */
-    open class func updateTodo(todoGroupId: String, todoId: String, body: TodosUpdateTodoRequest) -> Observable<TodosUpdateTodoResponse> {
+    open class func getTodo(todoId: String, accountId: String? = nil) -> Observable<TodosGetTodoResponse> {
         return Observable.create { observer -> Disposable in
-            updateTodo(todoGroupId: todoGroupId, todoId: todoId, body: body) { data, error in
+            getTodo(todoId: todoId, accountId: accountId) { data, error in
                 if let error = error {
                     observer.on(.error(error))
                 } else {
@@ -178,32 +171,210 @@ open class TodosServiceAPI {
     }
 
     /**
-     - PUT /v1/todo-groups/{todo_group_id}/todos/{todo_id}
+     - GET /v1/todos/{todo_id}
      - examples: [{contentType=application/json, example={
   "todo" : {
-    "todo_group_id" : "todo_group_id",
-    "updated_at" : "updated_at",
     "todo_id" : "todo_id",
     "done_at" : "done_at",
     "created_at" : "created_at",
     "description" : "description",
-    "due_at" : "due_at",
+    "parent_type" : { },
     "priority" : { },
     "title" : "title",
+    "updated_at" : "updated_at",
+    "parent_id" : "parent_id",
+    "sub_tasks" : [ null, null ],
+    "due_at" : "due_at",
+    "assigned_to" : "assigned_to",
     "order" : "order",
     "status" : { }
   }
 }}]
      
-     - parameter todoGroupId: (path)  
+     - parameter todoId: (path)  
+     - parameter accountId: (query)  (optional)
+
+     - returns: RequestBuilder<TodosGetTodoResponse> 
+     */
+    open class func getTodoWithRequestBuilder(todoId: String, accountId: String? = nil) -> RequestBuilder<TodosGetTodoResponse> {
+        var path = "/v1/todos/{todo_id}"
+        path = path.replacingOccurrences(of: "{todo_id}", with: "\(todoId)", options: .literal, range: nil)
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+
+        let url = NSURLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
+            "account_id": accountId
+        ])
+        
+
+        let requestBuilder: RequestBuilder<TodosGetTodoResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     * enum for parameter parentType
+     */
+    public enum ParentType_listTodo: String { 
+        case todoGroup = "PARENT_TYPE_TODO_GROUP"
+        case todo = "PARENT_TYPE_TODO"
+    }
+
+    /**
+
+     - parameter accountId: (query)  (optional)
+     - parameter parentType: (query)  (optional, default to PARENT_TYPE_TODO_GROUP)
+     - parameter parentId: (query)  (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func listTodo(accountId: String? = nil, parentType: ParentType_listTodo? = nil, parentId: String? = nil, completion: @escaping ((_ data: TodosListTodosResponse?,_ error: Error?) -> Void)) {
+        listTodoWithRequestBuilder(accountId: accountId, parentType: parentType, parentId: parentId).execute { (response, error) -> Void in
+            completion(response?.body, error);
+        }
+    }
+
+    /**
+
+     - parameter accountId: (query)  (optional)
+     - parameter parentType: (query)  (optional, default to PARENT_TYPE_TODO_GROUP)
+     - parameter parentId: (query)  (optional)
+     - returns: Observable<TodosListTodosResponse>
+     */
+    open class func listTodo(accountId: String? = nil, parentType: ParentType_listTodo? = nil, parentId: String? = nil) -> Observable<TodosListTodosResponse> {
+        return Observable.create { observer -> Disposable in
+            listTodo(accountId: accountId, parentType: parentType, parentId: parentId) { data, error in
+                if let error = error {
+                    observer.on(.error(error))
+                } else {
+                    observer.on(.next(data!))
+                }
+                observer.on(.completed)
+            }
+            return Disposables.create()
+        }
+    }
+
+    /**
+     - GET /v1/todos
+     - examples: [{contentType=application/json, example={
+  "todos" : [ {
+    "todo_id" : "todo_id",
+    "done_at" : "done_at",
+    "created_at" : "created_at",
+    "description" : "description",
+    "parent_type" : { },
+    "priority" : { },
+    "title" : "title",
+    "updated_at" : "updated_at",
+    "parent_id" : "parent_id",
+    "sub_tasks" : [ null, null ],
+    "due_at" : "due_at",
+    "assigned_to" : "assigned_to",
+    "order" : "order",
+    "status" : { }
+  }, {
+    "todo_id" : "todo_id",
+    "done_at" : "done_at",
+    "created_at" : "created_at",
+    "description" : "description",
+    "parent_type" : { },
+    "priority" : { },
+    "title" : "title",
+    "updated_at" : "updated_at",
+    "parent_id" : "parent_id",
+    "sub_tasks" : [ null, null ],
+    "due_at" : "due_at",
+    "assigned_to" : "assigned_to",
+    "order" : "order",
+    "status" : { }
+  } ]
+}}]
+     
+     - parameter accountId: (query)  (optional)
+     - parameter parentType: (query)  (optional, default to PARENT_TYPE_TODO_GROUP)
+     - parameter parentId: (query)  (optional)
+
+     - returns: RequestBuilder<TodosListTodosResponse> 
+     */
+    open class func listTodoWithRequestBuilder(accountId: String? = nil, parentType: ParentType_listTodo? = nil, parentId: String? = nil) -> RequestBuilder<TodosListTodosResponse> {
+        let path = "/v1/todos"
+        let URLString = SwaggerClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+
+        let url = NSURLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
+            "account_id": accountId, 
+            "parent_type": parentType?.rawValue, 
+            "parent_id": parentId
+        ])
+        
+
+        let requestBuilder: RequestBuilder<TodosListTodosResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+
+     - parameter todoId: (path)  
+     - parameter body: (body)  
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func updateTodo(todoId: String, body: TodosUpdateTodoRequest, completion: @escaping ((_ data: TodosUpdateTodoResponse?,_ error: Error?) -> Void)) {
+        updateTodoWithRequestBuilder(todoId: todoId, body: body).execute { (response, error) -> Void in
+            completion(response?.body, error);
+        }
+    }
+
+    /**
+
+     - parameter todoId: (path)  
+     - parameter body: (body)  
+     - returns: Observable<TodosUpdateTodoResponse>
+     */
+    open class func updateTodo(todoId: String, body: TodosUpdateTodoRequest) -> Observable<TodosUpdateTodoResponse> {
+        return Observable.create { observer -> Disposable in
+            updateTodo(todoId: todoId, body: body) { data, error in
+                if let error = error {
+                    observer.on(.error(error))
+                } else {
+                    observer.on(.next(data!))
+                }
+                observer.on(.completed)
+            }
+            return Disposables.create()
+        }
+    }
+
+    /**
+     - PUT /v1/todos/{todo_id}
+     - examples: [{contentType=application/json, example={
+  "todo" : {
+    "todo_id" : "todo_id",
+    "done_at" : "done_at",
+    "created_at" : "created_at",
+    "description" : "description",
+    "parent_type" : { },
+    "priority" : { },
+    "title" : "title",
+    "updated_at" : "updated_at",
+    "parent_id" : "parent_id",
+    "sub_tasks" : [ null, null ],
+    "due_at" : "due_at",
+    "assigned_to" : "assigned_to",
+    "order" : "order",
+    "status" : { }
+  }
+}}]
+     
      - parameter todoId: (path)  
      - parameter body: (body)  
 
      - returns: RequestBuilder<TodosUpdateTodoResponse> 
      */
-    open class func updateTodoWithRequestBuilder(todoGroupId: String, todoId: String, body: TodosUpdateTodoRequest) -> RequestBuilder<TodosUpdateTodoResponse> {
-        var path = "/v1/todo-groups/{todo_group_id}/todos/{todo_id}"
-        path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
+    open class func updateTodoWithRequestBuilder(todoId: String, body: TodosUpdateTodoRequest) -> RequestBuilder<TodosUpdateTodoResponse> {
+        var path = "/v1/todos/{todo_id}"
         path = path.replacingOccurrences(of: "{todo_id}", with: "\(todoId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)

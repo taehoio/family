@@ -16,6 +16,10 @@ func UpdateTodoGroup(todoGroupsTable *todo_groups_repo.Table) UpdateTodoGroupFun
 		ctx context.Context,
 		req *todo_groups.UpdateTodoGroupRequest,
 	) (*todo_groups.UpdateTodoGroupResponse, error) {
+		if err := hasPermission(ctx, req.AccountId); err != nil {
+			return nil, err
+		}
+
 		_, err := todoGroupsTable.UpdateTitle(
 			req.GetTodoGroupId(),
 			req.GetTodoGroup().GetTitle(),

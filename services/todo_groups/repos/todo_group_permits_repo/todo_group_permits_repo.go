@@ -8,6 +8,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
+	"fmt"
+
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
 	"github.com/taeho-io/family/services/base/aws/dynamodb"
 	"github.com/taeho-io/family/services/base/aws/dynamodb/table"
@@ -15,12 +17,10 @@ import (
 	"github.com/taeho-io/family/services/todo_groups/models"
 )
 
-const (
+var (
 	accountIDFieldKey   = "account_id"
 	todoGroupIDFieldKey = "todo_group_id"
-)
 
-var (
 	InvalidAccountIDError   = status.Error(codes.InvalidArgument, "invalid account_id")
 	InvalidTodoGroupIDError = status.Error(codes.InvalidArgument, "invalid todo_group_id")
 	InvalidPermitTypeError  = status.Error(codes.InvalidArgument, "invalid permit_type")
@@ -108,4 +108,12 @@ func (t *Table) ListByAccountID(accountID string) ([]*models.TodoGroupPermit, er
 		return nil, err
 	}
 	return todoGroupPermits, nil
+}
+
+func (t *Table) Delete(accountID, todoGroupID string) error {
+	return t.Table().
+		Delete(accountIDFieldKey, accountID).
+		Range(todoGroupIDFieldKey, todoGroupID).
+		If(fmt.Sprintf("%s = ? AND %s = ?", accountIDFieldKey, todoGroupIDFieldKey), accountID, todoGroupID).
+		Run()
 }
