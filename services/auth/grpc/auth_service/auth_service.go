@@ -6,6 +6,8 @@ import (
 
 	"net"
 
+	"time"
+
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
@@ -89,5 +91,9 @@ func Serve() error {
 
 	svc.RegisterService(svr)
 	reflection.Register(svr)
+
+	// sleep a second to make sure all servers are ready.
+	// TODO: find a better way to optimize the waiting time.
+	time.Sleep(time.Second)
 	return svr.Serve(lis)
 }
