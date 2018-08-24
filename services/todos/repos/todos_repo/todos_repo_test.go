@@ -15,8 +15,9 @@ var (
 	testFullTableName      = "family-development-todos-todos"
 	testTodoID             = "test_todo_id"
 	testNonExistTodoID     = "test_no_exist_todo_id"
-	testTodoGroupID        = "test_todo_group_id"
-	testTodoTypeTodo       = todos.Status_DONE.String()
+	testParentType         = todos.ParentType_PARENT_TYPE_TODO_GROUP.String()
+	testParentID           = "test_parent_id"
+	testTodoTypeTodo       = todos.Status_STATUS_DONE.String()
 	testTitle              = "test_title"
 	testDescription        = "test_description"
 	testUpdatedTitle       = "test_updated_title"
@@ -37,7 +38,8 @@ func TestFullTableName(t *testing.T) {
 func TestValidateTodoInput(t *testing.T) {
 	todo := &models.Todo{
 		TodoID:      testTodoID,
-		TodoGroupID: testTodoGroupID,
+		ParentType:  testParentType,
+		ParentID:    testParentID,
 		Title:       testTitle,
 		Description: testDescription,
 		Status:      testTodoTypeTodo,
@@ -53,7 +55,8 @@ func TestValidateTodoInputInvalidTodo(t *testing.T) {
 
 func TestValidateTodoInputInvalidTodoID(t *testing.T) {
 	todo := &models.Todo{
-		TodoGroupID: testTodoGroupID,
+		ParentType:  testParentType,
+		ParentID:    testParentID,
 		Title:       testTitle,
 		Description: testDescription,
 		Status:      testTodoTypeTodo,
@@ -62,21 +65,35 @@ func TestValidateTodoInputInvalidTodoID(t *testing.T) {
 	assert.Equal(t, InvalidTodoIDError, err)
 }
 
-func TestValidateTodoInputInvalidTodoGroupID(t *testing.T) {
+func TestValidateTodoInputInvalidParentType(t *testing.T) {
 	todo := &models.Todo{
 		TodoID:      testTodoID,
+		ParentID:    testParentID,
 		Title:       testTitle,
 		Description: testDescription,
 		Status:      testTodoTypeTodo,
 	}
 	err := todosTable.validateTodoInput(todo)
-	assert.Equal(t, InvalidTodoGroupIDError, err)
+	assert.Equal(t, InvalidParentTypeError, err)
+}
+
+func TestValidateTodoInputInvalidParentID(t *testing.T) {
+	todo := &models.Todo{
+		TodoID:      testTodoID,
+		ParentType:  testParentType,
+		Title:       testTitle,
+		Description: testDescription,
+		Status:      testTodoTypeTodo,
+	}
+	err := todosTable.validateTodoInput(todo)
+	assert.Equal(t, InvalidParentIDError, err)
 }
 
 func TestValidateTodoInputInvalidTitle(t *testing.T) {
 	todo := &models.Todo{
 		TodoID:      testTodoID,
-		TodoGroupID: testTodoGroupID,
+		ParentType:  testParentType,
+		ParentID:    testParentID,
 		Description: testDescription,
 		Status:      testTodoTypeTodo,
 	}
@@ -87,7 +104,8 @@ func TestValidateTodoInputInvalidTitle(t *testing.T) {
 func TestPut(t *testing.T) {
 	todo := &models.Todo{
 		TodoID:      testTodoID,
-		TodoGroupID: testTodoGroupID,
+		ParentType:  testParentType,
+		ParentID:    testParentID,
 		Title:       testTitle,
 		Description: testDescription,
 		Status:      testTodoTypeTodo,
@@ -105,7 +123,8 @@ func TestGetByID(t *testing.T) {
 	todo, err := todosTable.GetByID(testTodoID)
 	assert.Nil(t, err)
 	assert.NotNil(t, todo)
-	assert.Equal(t, testTodoGroupID, todo.TodoGroupID)
+	assert.Equal(t, testParentType, todo.ParentType)
+	assert.Equal(t, testParentID, todo.ParentID)
 	assert.Equal(t, testTitle, todo.Title)
 }
 
@@ -130,7 +149,8 @@ func TestListByIDs(t *testing.T) {
 	assert.Len(t, todoList, 1)
 
 	todo := todoList[0]
-	assert.Equal(t, testTodoGroupID, todo.TodoGroupID)
+	assert.Equal(t, testParentType, todo.ParentType)
+	assert.Equal(t, testParentID, todo.ParentID)
 	assert.Equal(t, testTitle, todo.Title)
 }
 
@@ -161,25 +181,25 @@ func TestUpdateDescription(t *testing.T) {
 }
 
 func TestUpdateTodoTypeFail(t *testing.T) {
-	todo, err := todosTable.UpdateStatus(testNonExistTodoID, todos.Status_DONE.String())
+	todo, err := todosTable.UpdateStatus(testNonExistTodoID, todos.Status_STATUS_DONE.String())
 	assert.Nil(t, todo)
 	assert.NotNil(t, err)
 }
 
 func TestUpdateTodoTypeDone(t *testing.T) {
-	todo, err := todosTable.UpdateStatus(testTodoID, todos.Status_DONE.String())
+	todo, err := todosTable.UpdateStatus(testTodoID, todos.Status_STATUS_DONE.String())
 	assert.NotNil(t, todo)
 	assert.Nil(t, err)
-	assert.Equal(t, todos.Status_DONE.String(), todo.Status)
+	assert.Equal(t, todos.Status_STATUS_DONE.String(), todo.Status)
 	assert.True(t, todo.DoneAt.Unix() > 0)
 }
 
 func TestUpdateTodoTypeTodo(t *testing.T) {
-	todo, err := todosTable.UpdateStatus(testTodoID, todos.Status_TODO.String())
+	todo, err := todosTable.UpdateStatus(testTodoID, todos.Status_STATUS_DONE.String())
 	assert.NotNil(t, todo)
 	assert.Nil(t, err)
-	assert.Equal(t, todos.Status_TODO.String(), todo.Status)
-	assert.Zero(t, todo.DoneAt.Unix())
+	assert.Equal(t, todos.Status_STATUS_DONE.String(), todo.Status)
+	assert.NotZero(t, todo.DoneAt.Unix())
 }
 
 func TestUpdateOrderFail(t *testing.T) {

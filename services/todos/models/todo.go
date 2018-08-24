@@ -4,7 +4,7 @@ import "time"
 
 type Todo struct {
 	TodoID      string    `dynamo:"todo_id,hash"`
-	ParentType  string    `dynamo:"ParentType"`
+	ParentType  string    `dynamo:"parent_type"`
 	ParentID    string    `dynamo:"parent_id"`
 	Title       string    `dynamo:"title"`
 	Description string    `dynamo:"description"`

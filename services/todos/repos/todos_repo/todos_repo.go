@@ -25,10 +25,11 @@ const (
 )
 
 var (
-	InvalidTodoError        = fmt.Errorf("invalid todo")
-	InvalidTodoIDError      = fmt.Errorf("invliad todo_id")
-	InvalidTodoGroupIDError = fmt.Errorf("invalid todo_group_id")
-	InvalidTitleError       = fmt.Errorf("invalid title")
+	InvalidTodoError       = fmt.Errorf("invalid todo")
+	InvalidTodoIDError     = fmt.Errorf("invliad todo_id")
+	InvalidParentTypeError = fmt.Errorf("invalid parent_type")
+	InvalidParentIDError   = fmt.Errorf("invalid parent_id")
+	InvalidTitleError      = fmt.Errorf("invalid title")
 )
 
 type Table struct {
@@ -70,8 +71,11 @@ func (t *Table) validateTodoInput(todo *models.Todo) error {
 	if todo.TodoID == "" {
 		return InvalidTodoIDError
 	}
-	if todo.TodoGroupID == "" {
-		return InvalidTodoGroupIDError
+	if todo.ParentType == "" {
+		return InvalidParentTypeError
+	}
+	if todo.ParentID == "" {
+		return InvalidParentIDError
 	}
 	if todo.Title == "" {
 		return InvalidTitleError
@@ -159,7 +163,7 @@ func (t *Table) UpdateStatus(todoID string, status string) (*models.Todo, error)
 		Set(statusFieldKey, status).
 		Set(updatedAtFieldKey, now)
 
-	if status == todos.Status_DONE.String() {
+	if status == todos.Status_STATUS_DONE.String() {
 		updateQuery.Set(doneAtFieldKey, now)
 	} else {
 		updateQuery.Set(doneAtFieldKey, time.Unix(0, 0))
