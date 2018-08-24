@@ -195,11 +195,11 @@ func TestUpdateTodoTypeDone(t *testing.T) {
 }
 
 func TestUpdateTodoTypeTodo(t *testing.T) {
-	todo, err := todosTable.UpdateStatus(testTodoID, todos.Status_STATUS_DONE.String())
+	todo, err := todosTable.UpdateStatus(testTodoID, todos.Status_STATUS_TODO.String())
 	assert.NotNil(t, todo)
 	assert.Nil(t, err)
-	assert.Equal(t, todos.Status_STATUS_DONE.String(), todo.Status)
-	assert.NotZero(t, todo.DoneAt.Unix())
+	assert.Equal(t, todos.Status_STATUS_TODO.String(), todo.Status)
+	assert.Zero(t, todo.DoneAt.Unix())
 }
 
 func TestUpdateOrderFail(t *testing.T) {
