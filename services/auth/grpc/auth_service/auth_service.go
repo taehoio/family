@@ -2,7 +2,6 @@ package auth_service
 
 import (
 	"net"
-	"time"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"golang.org/x/net/context"
@@ -90,9 +89,5 @@ func Serve() error {
 
 	svc.RegisterService(svr)
 	reflection.Register(svr)
-
-	// sleep a second to make sure all servers are ready.
-	// TODO: find a better way to optimize the waiting time.
-	time.Sleep(time.Second)
 	return svr.Serve(lis)
 }

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	log "github.com/sirupsen/logrus"
@@ -131,6 +132,9 @@ func main() {
 		}
 	}()
 
+	// sleep a second to make sure all servers are ready.
+	// TODO: find a better way to optimize the waiting time.
+	time.Sleep(time.Second)
 	log.WithField("server_type", "grpc_gw").Info("initializing")
 	if err := serveGateway(); err != nil {
 		log.WithField("server_type", "grpc_tw").WithError(err).Fatal("failed to listen")
