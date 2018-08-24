@@ -231,7 +231,7 @@
     },
     "/v1/todos": {
       "get": {
-        "operationId": "ListTodo",
+        "operationId": "ListTodos",
         "parameters": [
           {
             "in": "query",

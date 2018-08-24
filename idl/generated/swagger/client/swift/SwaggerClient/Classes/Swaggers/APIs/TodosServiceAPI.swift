@@ -216,7 +216,7 @@ open class TodosServiceAPI {
     /**
      * enum for parameter parentType
      */
-    public enum ParentType_listTodo: String { 
+    public enum ParentType_listTodos: String { 
         case todoGroup = "PARENT_TYPE_TODO_GROUP"
         case todo = "PARENT_TYPE_TODO"
     }
@@ -228,8 +228,8 @@ open class TodosServiceAPI {
      - parameter parentId: (query)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func listTodo(accountId: String? = nil, parentType: ParentType_listTodo? = nil, parentId: String? = nil, completion: @escaping ((_ data: TodosListTodosResponse?,_ error: Error?) -> Void)) {
-        listTodoWithRequestBuilder(accountId: accountId, parentType: parentType, parentId: parentId).execute { (response, error) -> Void in
+    open class func listTodos(accountId: String? = nil, parentType: ParentType_listTodos? = nil, parentId: String? = nil, completion: @escaping ((_ data: TodosListTodosResponse?,_ error: Error?) -> Void)) {
+        listTodosWithRequestBuilder(accountId: accountId, parentType: parentType, parentId: parentId).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
@@ -241,9 +241,9 @@ open class TodosServiceAPI {
      - parameter parentId: (query)  (optional)
      - returns: Observable<TodosListTodosResponse>
      */
-    open class func listTodo(accountId: String? = nil, parentType: ParentType_listTodo? = nil, parentId: String? = nil) -> Observable<TodosListTodosResponse> {
+    open class func listTodos(accountId: String? = nil, parentType: ParentType_listTodos? = nil, parentId: String? = nil) -> Observable<TodosListTodosResponse> {
         return Observable.create { observer -> Disposable in
-            listTodo(accountId: accountId, parentType: parentType, parentId: parentId) { data, error in
+            listTodos(accountId: accountId, parentType: parentType, parentId: parentId) { data, error in
                 if let error = error {
                     observer.on(.error(error))
                 } else {
@@ -297,7 +297,7 @@ open class TodosServiceAPI {
 
      - returns: RequestBuilder<TodosListTodosResponse> 
      */
-    open class func listTodoWithRequestBuilder(accountId: String? = nil, parentType: ParentType_listTodo? = nil, parentId: String? = nil) -> RequestBuilder<TodosListTodosResponse> {
+    open class func listTodosWithRequestBuilder(accountId: String? = nil, parentType: ParentType_listTodos? = nil, parentId: String? = nil) -> RequestBuilder<TodosListTodosResponse> {
         let path = "/v1/todos"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil

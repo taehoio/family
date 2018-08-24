@@ -24,8 +24,8 @@ class TodosServiceStub(object):
         request_serializer=pb_dot_family_dot_todos_dot_todos__pb2.GetTodoRequest.SerializeToString,
         response_deserializer=pb_dot_family_dot_todos_dot_todos__pb2.GetTodoResponse.FromString,
         )
-    self.ListTodo = channel.unary_unary(
-        '/pb.family.todos.TodosService/ListTodo',
+    self.ListTodos = channel.unary_unary(
+        '/pb.family.todos.TodosService/ListTodos',
         request_serializer=pb_dot_family_dot_todos_dot_todos__pb2.ListTodosRequest.SerializeToString,
         response_deserializer=pb_dot_family_dot_todos_dot_todos__pb2.ListTodosResponse.FromString,
         )
@@ -59,7 +59,7 @@ class TodosServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def ListTodo(self, request, context):
+  def ListTodos(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -93,8 +93,8 @@ def add_TodosServiceServicer_to_server(servicer, server):
           request_deserializer=pb_dot_family_dot_todos_dot_todos__pb2.GetTodoRequest.FromString,
           response_serializer=pb_dot_family_dot_todos_dot_todos__pb2.GetTodoResponse.SerializeToString,
       ),
-      'ListTodo': grpc.unary_unary_rpc_method_handler(
-          servicer.ListTodo,
+      'ListTodos': grpc.unary_unary_rpc_method_handler(
+          servicer.ListTodos,
           request_deserializer=pb_dot_family_dot_todos_dot_todos__pb2.ListTodosRequest.FromString,
           response_serializer=pb_dot_family_dot_todos_dot_todos__pb2.ListTodosResponse.SerializeToString,
       ),

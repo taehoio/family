@@ -18,7 +18,7 @@ service TodosService {
             get: "/v1/todos/{todo_id}"
         };
     }
-    rpc ListTodo (ListTodosRequest) returns (ListTodosResponse) {
+    rpc ListTodos (ListTodosRequest) returns (ListTodosResponse) {
         option (google.api.http) ={
             get: "/v1/todos"
         };

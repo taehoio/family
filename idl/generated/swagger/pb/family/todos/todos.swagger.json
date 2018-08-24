@@ -17,7 +17,7 @@
   "paths": {
     "/v1/todos": {
       "get": {
-        "operationId": "ListTodo",
+        "operationId": "ListTodos",
         "responses": {
           "200": {
             "description": "",
