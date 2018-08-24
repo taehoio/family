@@ -1,14 +1,14 @@
 package auth_service
 
 import (
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
-
 	"net"
-
 	"time"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
+
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
 	"github.com/taeho-io/family/services/auth/config"
@@ -17,7 +17,6 @@ import (
 	"github.com/taeho-io/family/services/base/grpc/base_service"
 	"github.com/taeho-io/family/services/base/grpc/interceptors"
 	"github.com/taeho-io/family/services/discovery/grpc/discovery_service"
-	"google.golang.org/grpc/reflection"
 )
 
 type IFace interface {
