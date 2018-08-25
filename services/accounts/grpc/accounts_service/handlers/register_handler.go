@@ -41,7 +41,7 @@ func Register(accountsTable *accounts_repo.Table, crypt crypt.IFace) RegisterHan
 		now := time.Now()
 		if err := accountsTable.Put(&models.Account{
 			AccountID:      accountID,
-			Type:           accounts.AuthType_EMAIL.String(),
+			Type:           accounts.AuthType_EMAIL,
 			Email:          req.Email,
 			HashedPassword: hashedPassword,
 			FullName:       req.FullName,

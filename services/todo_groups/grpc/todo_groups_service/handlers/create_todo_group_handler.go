@@ -58,7 +58,7 @@ func CreateTodoGroup(
 		todoGroupPermit := &models.TodoGroupPermit{
 			AccountID:   req.AccountId,
 			TodoGroupID: todoGroup.TodoGroupID,
-			PermitType:  todo_groups.TodoGroupPermitType_OWNER.String(),
+			PermitType:  todo_groups.PermitType_PERMIT_TYPE_OWNER,
 		}
 		if err := todoGroupPermitsTable.Put(todoGroupPermit); err != nil {
 			logger.WithFields(logrus.Fields{

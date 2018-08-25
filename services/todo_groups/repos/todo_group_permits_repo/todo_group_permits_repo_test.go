@@ -18,8 +18,9 @@ var (
 	testNonExistAccountID         = "test_non_exist_account_id"
 	testTodoGroupID               = "test_todo_group_id"
 	testAnotherTodoGroupID        = "test_another_todo_group_id"
-	testTodoGroupPermitTypeOwner  = todo_groups.TodoGroupPermitType_OWNER.String()
-	testTodoGroupPermitTypeEditor = todo_groups.TodoGroupPermitType_EDITOR.String()
+	testTodoGroupPermitTypeOwner  = todo_groups.PermitType_PERMIT_TYPE_OWNER
+	testTodoGroupPermitTypeEditor = todo_groups.PermitType_PERMIT_TYPE_EDITOR
+	testWongTodoGroupPermitType   = todo_groups.PermitType(999)
 )
 
 func TestMain(m *testing.M) {
@@ -64,6 +65,7 @@ func TestValidateTodoGroupPermitInputInvalidPermitType(t *testing.T) {
 	todoGroupPermit := &models.TodoGroupPermit{
 		AccountID:   testAccountID,
 		TodoGroupID: testTodoGroupID,
+		PermitType:  testWongTodoGroupPermitType,
 	}
 	err := todoGroupPermitsTable.validateTodoGroupPermitInput(todoGroupPermit)
 	assert.Equal(t, InvalidPermitTypeError, err)

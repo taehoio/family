@@ -7,6 +7,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
+	"github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
 	"github.com/taeho-io/family/services/accounts/models"
 )
 
@@ -14,7 +15,7 @@ const (
 	testFullTableName     = "family-development-accounts-accounts"
 	testAccountID         = "test_account_id"
 	testNonExistAccountID = "test_non_exist_account_id"
-	testAccountType       = "email"
+	testAccountType       = accounts.AuthType_EMAIL
 	testEmail             = "test@test.io"
 	testHashedPassword    = "hashed_password"
 	testNewHashedPassword = "new_hashed_password"

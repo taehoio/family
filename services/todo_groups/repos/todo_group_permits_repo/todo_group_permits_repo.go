@@ -66,8 +66,8 @@ func (t *Table) validateTodoGroupPermitInput(todoGroupPermit *models.TodoGroupPe
 		return InvalidTodoGroupIDError
 	}
 	isPermitTypeFound := false
-	for _, permitType := range todo_groups.TodoGroupPermitType_name {
-		if todoGroupPermit.PermitType == permitType {
+	for _, permitType := range todo_groups.PermitType_value {
+		if todoGroupPermit.PermitType == todo_groups.PermitType(permitType) {
 			isPermitTypeFound = true
 			break
 		}
