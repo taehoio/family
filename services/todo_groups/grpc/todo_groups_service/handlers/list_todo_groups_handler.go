@@ -6,6 +6,7 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
+	"github.com/taeho-io/family/services/base/grpc/base_service"
 	"github.com/taeho-io/family/services/todo_groups/repos/todo_group_permits_repo"
 	"github.com/taeho-io/family/services/todo_groups/repos/todo_groups_repo"
 )
@@ -21,6 +22,7 @@ type ListTodoGroupsFunc func(
 func ListTodoGroups(
 	todoGroupsTable *todo_groups_repo.Table,
 	todoGroupPermitsTable *todo_group_permits_repo.Table,
+	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
 ) ListTodoGroupsFunc {
 	return func(
 		ctx context.Context,
@@ -29,8 +31,7 @@ func ListTodoGroups(
 		*todo_groups.ListTodoGroupsResponse,
 		error,
 	) {
-		req.AccountId = getAccountIDFromContext(ctx)
-		if err := hasPermission(ctx, req.AccountId); err != nil {
+		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
 			return nil, err
 		}
 

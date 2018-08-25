@@ -5,11 +5,9 @@ import (
 	"github.com/rs/xid"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
-	"github.com/taeho-io/family/services/base/grpc/interceptors"
+	"github.com/taeho-io/family/services/base/grpc/base_service"
 	"github.com/taeho-io/family/services/todo_groups/models"
 	"github.com/taeho-io/family/services/todo_groups/repos/todo_group_permits_repo"
 	"github.com/taeho-io/family/services/todo_groups/repos/todo_groups_repo"
@@ -26,6 +24,7 @@ type CreateTodoGroupFunc func(
 func CreateTodoGroup(
 	todoGroupsTable *todo_groups_repo.Table,
 	todoGroupPermitsTable *todo_group_permits_repo.Table,
+	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
 ) CreateTodoGroupFunc {
 	return func(
 		ctx context.Context,
@@ -34,18 +33,17 @@ func CreateTodoGroup(
 		*todo_groups.CreateTodoGroupResponse,
 		error,
 	) {
-		err := validateTodoGroupInput(req)
-		if err != nil {
+		if err := validateTodoGroupInput(req); err != nil {
 			return nil, err
 		}
 
-		if err := hasPermission(ctx, req.AccountId); err != nil {
+		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
 			return nil, err
 		}
 
 		logger := ctxlogrus.Extract(ctx)
 
-		todoGroup := models.NewTodoGroupFromProto(req.GetTodoGroup())
+		todoGroup := models.NewTodoGroupFromProto(req.TodoGroup)
 		todoGroup.TodoGroupID = xid.New().String()
 		todoGroup.CreatedBy = req.AccountId
 		if err := todoGroupsTable.Put(todoGroup); err != nil {
@@ -79,27 +77,10 @@ func CreateTodoGroup(
 
 func validateTodoGroupInput(req *todo_groups.CreateTodoGroupRequest) error {
 	if req.AccountId == "" {
-		return InvalidAccountIDError
+		return base_service.InvalidAccountIDError
 	}
 	if req.TodoGroup.Title == "" {
 		return InvalidTitleError
-	}
-
-	return nil
-}
-
-func getAccountIDFromContext(ctx context.Context) string {
-	return ctx.Value(interceptors.AccountIDKey).(string)
-}
-
-func hasPermission(ctx context.Context, accountID string) error {
-	if accountID == "" {
-		return InvalidAccountIDError
-	}
-
-	accountIDFromCtx := ctx.Value(interceptors.AccountIDKey)
-	if accountIDFromCtx != accountID {
-		return status.Error(codes.PermissionDenied, "Forbidden")
 	}
 
 	return nil

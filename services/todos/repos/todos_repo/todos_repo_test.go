@@ -14,6 +14,7 @@ var (
 
 	testFullTableName      = "family-development-todos-todos"
 	testTodoID             = "test_todo_id"
+	testAnotherTodoID      = "test_another_todo_id"
 	testNonExistTodoID     = "test_no_exist_todo_id"
 	testParentType         = todos.ParentType_PARENT_TYPE_TODO_GROUP.String()
 	testParentID           = "test_parent_id"
@@ -141,14 +142,53 @@ func TestListByIDsFail(t *testing.T) {
 	assert.Nil(t, todoList)
 }
 
+func TestPutAnother(t *testing.T) {
+	todo := &models.Todo{
+		TodoID:      testAnotherTodoID,
+		ParentType:  testParentType,
+		ParentID:    testParentID,
+		Title:       testTitle,
+		Description: testDescription,
+		Status:      testTodoTypeTodo,
+	}
+	err := todosTable.Put(todo)
+	assert.Nil(t, err)
+}
+
 func TestListByIDs(t *testing.T) {
-	todoIDs := []string{testTodoID}
+	todoIDs := []string{testTodoID, testAnotherTodoID}
 	todoList, err := todosTable.ListByIDs(todoIDs)
 	assert.Nil(t, err)
 	assert.NotNil(t, todoList)
-	assert.Len(t, todoList, 1)
+	assert.Len(t, todoList, 2)
 
 	todo := todoList[0]
+	assert.Equal(t, testTodoID, todo.TodoID)
+	assert.Equal(t, testParentType, todo.ParentType)
+	assert.Equal(t, testParentID, todo.ParentID)
+	assert.Equal(t, testTitle, todo.Title)
+
+	todo = todoList[1]
+	assert.Equal(t, testAnotherTodoID, todo.TodoID)
+	assert.Equal(t, testParentType, todo.ParentType)
+	assert.Equal(t, testParentID, todo.ParentID)
+	assert.Equal(t, testTitle, todo.Title)
+}
+
+func TestListByParentID(t *testing.T) {
+	todoList, err := todosTable.ListByParentID(testParentID)
+	assert.Nil(t, err)
+	assert.NotNil(t, todoList)
+	assert.Len(t, todoList, 2)
+
+	todo := todoList[0]
+	assert.Equal(t, testTodoID, todo.TodoID)
+	assert.Equal(t, testParentType, todo.ParentType)
+	assert.Equal(t, testParentID, todo.ParentID)
+	assert.Equal(t, testTitle, todo.Title)
+
+	todo = todoList[1]
+	assert.Equal(t, testAnotherTodoID, todo.TodoID)
 	assert.Equal(t, testParentType, todo.ParentType)
 	assert.Equal(t, testParentID, todo.ParentID)
 	assert.Equal(t, testTitle, todo.Title)
@@ -223,4 +263,11 @@ func TestDeleteByIDFail(t *testing.T) {
 func TestDeleteByID(t *testing.T) {
 	err := todosTable.DeleteByID(testTodoID)
 	assert.Nil(t, err)
+}
+
+func TestListByParentIDFail(t *testing.T) {
+	parentIDFieldKey = "wrong_parent_id"
+	todoList, err := todosTable.ListByParentID(testParentID)
+	assert.NotNil(t, err)
+	assert.Nil(t, todoList)
 }

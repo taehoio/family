@@ -19,6 +19,7 @@ import (
 const (
 	RequestIDHeaderKey = "x-request-id"
 	RequestIDKey       = "request_id"
+	AccountIDHeaderKey = "x-account-id"
 	AccountIDKey       = "account_id"
 	ShouldAuthKey      = "should_auth"
 	AuthBearerScheme   = "bearer"
@@ -47,11 +48,8 @@ func RequestIDUnaryServerInterceptor(
 	}
 
 	newCtx := context.WithValue(ctx, RequestIDKey, requestID)
-	newCtx = ctxlogrus.ToContext(newCtx, logrus.WithFields(logrus.Fields{
-		RequestIDKey: requestID,
-	}))
+	newCtx = ctxlogrus.ToContext(newCtx, logrus.WithFields(logrus.Fields{RequestIDKey: requestID}))
 	newCtx = metadata.AppendToOutgoingContext(newCtx, RequestIDHeaderKey, requestID)
-
 	return handler(newCtx, req)
 }
 
@@ -106,6 +104,15 @@ func AuthUnaryServerInterceptor(
 }
 
 func authFunc(ctx context.Context) (context.Context, error) {
+	md, ok := metadata.FromIncomingContext(ctx)
+	if !ok {
+		return ctx, nil
+	}
+	if accountIDs, ok := md[AccountIDHeaderKey]; ok && len(accountIDs) > 0 {
+		newCtx := context.WithValue(ctx, AccountIDKey, accountIDs[0])
+		return newCtx, nil
+	}
+
 	shouldAuth := ctx.Value(ShouldAuthKey)
 	if shouldAuth != nil && !shouldAuth.(bool) {
 		return ctx, nil
@@ -135,5 +142,6 @@ func authFunc(ctx context.Context) (context.Context, error) {
 	accountID := parseResponse.GetAccountId()
 	newCtx := context.WithValue(ctx, AccountIDKey, accountID)
 	newCtx = ctxlogrus.ToContext(newCtx, logrus.WithField(AccountIDKey, accountID))
+	newCtx = metadata.AppendToOutgoingContext(newCtx, AccountIDHeaderKey, accountID)
 	return newCtx, nil
 }

@@ -7,6 +7,7 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
+	"github.com/taeho-io/family/services/base/grpc/base_service"
 	"github.com/taeho-io/family/services/todo_groups/repos/todo_group_permits_repo"
 	"github.com/taeho-io/family/services/todo_groups/repos/todo_groups_repo"
 )
@@ -22,6 +23,8 @@ type GetTodoGroupFunc func(
 func GetTodoGroup(
 	todoGroupsTable *todo_groups_repo.Table,
 	todoGroupPermitsTable *todo_group_permits_repo.Table,
+	getAccountIDFromContext base_service.GetAccountIDFromContextFunc,
+	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
 ) GetTodoGroupFunc {
 	return func(
 		ctx context.Context,
@@ -31,15 +34,15 @@ func GetTodoGroup(
 		error,
 	) {
 		req.AccountId = getAccountIDFromContext(ctx)
+		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
+			return nil, err
+		}
+
 		if req.AccountId == "" {
-			return nil, InvalidAccountIDError
+			return nil, base_service.InvalidAccountIDError
 		}
 		if req.TodoGroupId == "" {
 			return nil, InvalidTodoGroupIDError
-		}
-
-		if err := hasPermission(ctx, req.AccountId); err != nil {
-			return nil, err
 		}
 
 		logger := ctxlogrus.Extract(ctx)
@@ -51,7 +54,7 @@ func GetTodoGroup(
 				"req":  req,
 			}).Warn(err)
 
-			return nil, PermissionDeniedError
+			return nil, base_service.PermissionDeniedError
 		}
 		if err != nil {
 			logger.WithFields(logrus.Fields{
@@ -59,7 +62,7 @@ func GetTodoGroup(
 				"req":  req,
 			}).Error(err)
 
-			return nil, PermissionDeniedError
+			return nil, base_service.PermissionDeniedError
 		}
 
 		todoGroup, err := todoGroupsTable.GetByID(req.TodoGroupId)

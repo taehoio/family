@@ -14,8 +14,10 @@ import (
 	"github.com/taeho-io/family/services/todos/models"
 )
 
-const (
+var (
 	todoIDFieldKey      = "todo_id"
+	parentIDFieldKey    = "parent_id"
+	parentIDIndexName   = "parent_id-index"
 	titleFieldKey       = "title"
 	statusFieldKey      = "status"
 	descriptionFieldKey = "description"
@@ -116,6 +118,20 @@ func (t *Table) ListByIDs(todoIDs []string) ([]*models.Todo, error) {
 			return nil, err
 		}
 		todoList = append(todoList, todo)
+	}
+
+	return todoList, nil
+}
+
+func (t *Table) ListByParentID(parentID string) ([]*models.Todo, error) {
+	var todoList []*models.Todo
+
+	err := t.Table().
+		Get(parentIDFieldKey, parentID).
+		Index(parentIDIndexName).
+		All(&todoList)
+	if err != nil {
+		return nil, err
 	}
 
 	return todoList, nil

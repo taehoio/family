@@ -6,6 +6,7 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
+	"github.com/taeho-io/family/services/base/grpc/base_service"
 	"github.com/taeho-io/family/services/todo_groups/repos/todo_group_permits_repo"
 	"github.com/taeho-io/family/services/todo_groups/repos/todo_groups_repo"
 )
@@ -15,12 +16,16 @@ type DeleteTodoGroupFunc func(
 	req *todo_groups.DeleteTodoGroupRequest,
 ) (*todo_groups.DeleteTodoGroupResponse, error)
 
-func DeleteTodoGroup(todoGroupsTable *todo_groups_repo.Table, todoGroupPermitsTable *todo_group_permits_repo.Table) DeleteTodoGroupFunc {
+func DeleteTodoGroup(
+	todoGroupsTable *todo_groups_repo.Table,
+	todoGroupPermitsTable *todo_group_permits_repo.Table,
+	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
+) DeleteTodoGroupFunc {
 	return func(
 		ctx context.Context,
 		req *todo_groups.DeleteTodoGroupRequest,
 	) (*todo_groups.DeleteTodoGroupResponse, error) {
-		if err := hasPermission(ctx, req.AccountId); err != nil {
+		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
 			return nil, err
 		}
 

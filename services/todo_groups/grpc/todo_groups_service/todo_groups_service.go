@@ -69,7 +69,11 @@ func (s *Service) CreateTodoGroup(
 	*todo_groups.CreateTodoGroupResponse,
 	error,
 ) {
-	return handlers.CreateTodoGroup(s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
+	return handlers.CreateTodoGroup(
+		s.TodoGroupsTable(),
+		s.TodoGroupPermitsTable(),
+		s.HasPermissionByAccountID,
+	)(ctx, req)
 }
 
 func (s *Service) GetTodoGroup(
@@ -79,7 +83,12 @@ func (s *Service) GetTodoGroup(
 	*todo_groups.GetTodoGroupResponse,
 	error,
 ) {
-	return handlers.GetTodoGroup(s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
+	return handlers.GetTodoGroup(
+		s.TodoGroupsTable(),
+		s.TodoGroupPermitsTable(),
+		s.GetAccountIDFromContext,
+		s.HasPermissionByAccountID,
+	)(ctx, req)
 }
 
 func (s *Service) ListTodoGroups(
@@ -89,7 +98,11 @@ func (s *Service) ListTodoGroups(
 	*todo_groups.ListTodoGroupsResponse,
 	error,
 ) {
-	return handlers.ListTodoGroups(s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
+	return handlers.ListTodoGroups(
+		s.TodoGroupsTable(),
+		s.TodoGroupPermitsTable(),
+		s.HasPermissionByAccountID,
+	)(ctx, req)
 }
 
 func (s *Service) UpdateTodoGroup(
@@ -99,7 +112,10 @@ func (s *Service) UpdateTodoGroup(
 	*todo_groups.UpdateTodoGroupResponse,
 	error,
 ) {
-	return handlers.UpdateTodoGroup(s.TodoGroupsTable())(ctx, req)
+	return handlers.UpdateTodoGroup(
+		s.TodoGroupsTable(),
+		s.HasPermissionByAccountID,
+	)(ctx, req)
 }
 
 func (s *Service) DeleteTodoGroup(
@@ -109,7 +125,11 @@ func (s *Service) DeleteTodoGroup(
 	*todo_groups.DeleteTodoGroupResponse,
 	error,
 ) {
-	return handlers.DeleteTodoGroup(s.TodoGroupsTable(), s.TodoGroupPermitsTable())(ctx, req)
+	return handlers.DeleteTodoGroup(
+		s.TodoGroupsTable(),
+		s.TodoGroupPermitsTable(),
+		s.HasPermissionByAccountID,
+	)(ctx, req)
 }
 
 func Serve() error {

@@ -17,10 +17,12 @@ import (
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
 	"github.com/taeho-io/family/services/accounts/grpc/accounts_service"
 	"github.com/taeho-io/family/services/auth/grpc/auth_service"
 	"github.com/taeho-io/family/services/discovery/grpc/discovery_service"
 	"github.com/taeho-io/family/services/todo_groups/grpc/todo_groups_service"
+	"github.com/taeho-io/family/services/todos/grpc/todos_service"
 )
 
 var (
@@ -41,6 +43,11 @@ var (
 		"todo_groups_server_endpoint",
 		discovery_service.ServiceAddrMap[discovery.Service_TODOGROUPS],
 		"endpoint of TodoGroupsServer",
+	)
+	todosServerEndpoint = flag.String(
+		"todos_server_endpoint",
+		discovery_service.ServiceAddrMap[discovery.Service_TODOS],
+		"endpoint of TodosServer",
 	)
 )
 
@@ -87,6 +94,15 @@ func serveGateway() error {
 		return err
 	}
 
+	if err := todos.RegisterTodosServiceHandlerFromEndpoint(
+		ctx,
+		mux,
+		*todosServerEndpoint,
+		opts,
+	); err != nil {
+		return err
+	}
+
 	return http.ListenAndServe(gatewayAddr, mux)
 }
 
@@ -99,6 +115,7 @@ func startGRPCServices() error {
 		auth_service.Serve,
 		accounts_service.Serve,
 		todo_groups_service.Serve,
+		todos_service.Serve,
 	}
 
 	for _, serve := range serveFuncs {
@@ -134,7 +151,7 @@ func main() {
 
 	// sleep a second to make sure all servers are ready.
 	// TODO: find a better way to optimize the waiting time.
-	time.Sleep(time.Second)
+	time.Sleep(time.Microsecond * 500)
 	log.WithField("server_type", "grpc_gw").Info("initializing")
 	if err := serveGateway(); err != nil {
 		log.WithField("server_type", "grpc_tw").WithError(err).Fatal("failed to listen")

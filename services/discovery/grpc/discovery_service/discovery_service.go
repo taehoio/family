@@ -7,6 +7,7 @@ import (
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
 )
 
 var ServiceAddrMap = map[discovery.Service]string{
@@ -43,4 +44,12 @@ func NewTodoGroupsServiceClient() (todo_groups.TodoGroupsServiceClient, error) {
 		return nil, err
 	}
 	return todo_groups.NewTodoGroupsServiceClient(clientConn), nil
+}
+
+func NewTodosServiceClient() (todos.TodosServiceClient, error) {
+	clientConn, err := getGRPCConnection(discovery.Service_TODOS)
+	if err != nil {
+		return nil, err
+	}
+	return todos.NewTodosServiceClient(clientConn), nil
 }

@@ -6,8 +6,6 @@ import (
 )
 
 var (
-	InvalidAccountIDError   = status.Error(codes.InvalidArgument, "invalid account_id")
 	InvalidTodoGroupIDError = status.Error(codes.InvalidArgument, "invalid todo_group_id")
 	InvalidTitleError       = status.Error(codes.InvalidArgument, "invalid title")
-	PermissionDeniedError   = status.Error(codes.PermissionDenied, "Forbidden")
 )
