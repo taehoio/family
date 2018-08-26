@@ -194,6 +194,15 @@
         }
       }
     },
+    "todosPermitType": {
+      "type": "string",
+      "enum": [
+        "PERMIT_TYPE_OWNER",
+        "PERMIT_TYPE_EDITOR",
+        "PERMIT_TYPE_VIEWER"
+      ],
+      "default": "PERMIT_TYPE_OWNER"
+    },
     "todosTodoGroup": {
       "type": "object",
       "properties": {
@@ -219,6 +228,9 @@
         },
         "order": {
           "type": "string"
+        },
+        "permit_type": {
+          "$ref": "#/definitions/todosPermitType"
         }
       }
     },

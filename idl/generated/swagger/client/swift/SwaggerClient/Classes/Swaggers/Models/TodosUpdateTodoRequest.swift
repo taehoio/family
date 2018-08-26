@@ -12,13 +12,15 @@ import Foundation
 open class TodosUpdateTodoRequest: Codable {
 
     public var accountId: String?
+    public var fields: [TodosUpdatingField]?
     public var todo: TodosTodo?
     public var todoId: String?
 
 
     
-    public init(accountId: String?, todo: TodosTodo?, todoId: String?) {
+    public init(accountId: String?, fields: [TodosUpdatingField]?, todo: TodosTodo?, todoId: String?) {
         self.accountId = accountId
+        self.fields = fields
         self.todo = todo
         self.todoId = todoId
     }
@@ -31,6 +33,7 @@ open class TodosUpdateTodoRequest: Codable {
         var container = encoder.container(keyedBy: String.self)
 
         try container.encodeIfPresent(accountId, forKey: "account_id")
+        try container.encodeIfPresent(fields, forKey: "fields")
         try container.encodeIfPresent(todo, forKey: "todo")
         try container.encodeIfPresent(todoId, forKey: "todo_id")
     }
@@ -41,6 +44,7 @@ open class TodosUpdateTodoRequest: Codable {
         let container = try decoder.container(keyedBy: String.self)
 
         accountId = try container.decodeIfPresent(String.self, forKey: "account_id")
+        fields = try container.decodeIfPresent([TodosUpdatingField].self, forKey: "fields")
         todo = try container.decodeIfPresent(TodosTodo.self, forKey: "todo")
         todoId = try container.decodeIfPresent(String.self, forKey: "todo_id")
     }

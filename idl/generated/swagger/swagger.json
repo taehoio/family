@@ -609,6 +609,15 @@
       ],
       "type": "string"
     },
+    "todosPermitType": {
+      "default": "PERMIT_TYPE_OWNER",
+      "enum": [
+        "PERMIT_TYPE_OWNER",
+        "PERMIT_TYPE_EDITOR",
+        "PERMIT_TYPE_VIEWER"
+      ],
+      "type": "string"
+    },
     "todosPriority": {
       "default": "PRIORITY_NONE",
       "enum": [
@@ -698,6 +707,9 @@
         "order": {
           "type": "string"
         },
+        "permit_type": {
+          "$ref": "#/definitions/todosPermitType"
+        },
         "title": {
           "type": "string"
         },
@@ -738,6 +750,12 @@
         "account_id": {
           "type": "string"
         },
+        "fields": {
+          "items": {
+            "$ref": "#/definitions/todosUpdatingField"
+          },
+          "type": "array"
+        },
         "todo": {
           "$ref": "#/definitions/todosTodo"
         },
@@ -754,6 +772,20 @@
         }
       },
       "type": "object"
+    },
+    "todosUpdatingField": {
+      "default": "UPDATING_FIELD_PARENT",
+      "enum": [
+        "UPDATING_FIELD_PARENT",
+        "UPDATING_FIELD_TITLE",
+        "UPDATING_FIELD_DESCRIPTION",
+        "UPDATING_FIELD_STATUS",
+        "UPDATING_FIELD_ORDER",
+        "UPDATING_FIELD_ASSIGNED_TO",
+        "UPDATING_FIELD_PRIORITY",
+        "UPDATING_FIELD_DUE_AT"
+      ],
+      "type": "string"
     }
   }
 }

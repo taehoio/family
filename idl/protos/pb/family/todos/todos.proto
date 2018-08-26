@@ -101,10 +101,22 @@ message ListTodosResponse {
     repeated Todo todos = 1;
 }
 
+enum UpdatingField {
+    UPDATING_FIELD_PARENT = 0;
+    UPDATING_FIELD_TITLE = 1;
+    UPDATING_FIELD_DESCRIPTION = 2;
+    UPDATING_FIELD_STATUS = 3;
+    UPDATING_FIELD_ORDER = 4;
+    UPDATING_FIELD_ASSIGNED_TO = 5;
+    UPDATING_FIELD_PRIORITY = 6;
+    UPDATING_FIELD_DUE_AT = 7;
+}
+
 message UpdateTodoRequest {
     string account_id = 1;
     string todo_id = 2;
-    Todo todo = 3;
+    repeated UpdatingField fields = 3;
+    Todo todo = 4;
 }
 
 message UpdateTodoResponse {

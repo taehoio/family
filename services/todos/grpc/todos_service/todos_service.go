@@ -80,7 +80,12 @@ func (s *Service) CreateTodo(ctx context.Context, req *todos.CreateTodoRequest) 
 }
 
 func (s *Service) GetTodo(ctx context.Context, req *todos.GetTodoRequest) (*todos.GetTodoResponse, error) {
-	return handlers.GetTodo(s.TodosTable())(ctx, req)
+	return handlers.GetTodo(
+		s.TodosTable(),
+		s.GetAccountIDFromContext,
+		s.HasPermissionByAccountID,
+		s.TodoGroupsServiceClient(),
+	)(ctx, req)
 }
 
 func (s *Service) ListTodos(ctx context.Context, req *todos.ListTodosRequest) (*todos.ListTodosResponse, error) {
@@ -93,11 +98,21 @@ func (s *Service) ListTodos(ctx context.Context, req *todos.ListTodosRequest) (*
 }
 
 func (s *Service) UpdateTodo(ctx context.Context, req *todos.UpdateTodoRequest) (*todos.UpdateTodoResponse, error) {
-	return handlers.UpdateTodo(s.TodosTable())(ctx, req)
+	return handlers.UpdateTodo(
+		s.TodosTable(),
+		s.GetAccountIDFromContext,
+		s.HasPermissionByAccountID,
+		s.TodoGroupsServiceClient(),
+	)(ctx, req)
 }
 
 func (s *Service) DeleteTodo(ctx context.Context, req *todos.DeleteTodoRequest) (*todos.DeleteTodoResponse, error) {
-	return handlers.DeleteTodo(s.TodosTable())(ctx, req)
+	return handlers.DeleteTodo(
+		s.TodosTable(),
+		s.GetAccountIDFromContext,
+		s.HasPermissionByAccountID,
+		s.TodoGroupsServiceClient(),
+	)(ctx, req)
 }
 
 func Serve() error {

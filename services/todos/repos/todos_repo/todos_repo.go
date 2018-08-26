@@ -16,22 +16,23 @@ import (
 
 var (
 	todoIDFieldKey      = "todo_id"
+	parentTypeFieldKey  = "parent_type"
 	parentIDFieldKey    = "parent_id"
 	parentIDIndexName   = "parent_id-index"
 	titleFieldKey       = "title"
-	statusFieldKey      = "status"
 	descriptionFieldKey = "description"
+	statusFieldKey      = "status"
+	assignedToFieldKey  = "assigned_to"
 	updatedAtFieldKey   = "updated_at"
 	doneAtFieldKey      = "done_at"
 	orderFieldKey       = "order"
 )
 
 var (
-	InvalidTodoError       = fmt.Errorf("invalid todo")
-	InvalidTodoIDError     = fmt.Errorf("invliad todo_id")
-	InvalidParentTypeError = fmt.Errorf("invalid parent_type")
-	InvalidParentIDError   = fmt.Errorf("invalid parent_id")
-	InvalidTitleError      = fmt.Errorf("invalid title")
+	InvalidTodoError     = fmt.Errorf("invalid todo")
+	InvalidTodoIDError   = fmt.Errorf("invliad todo_id")
+	InvalidParentIDError = fmt.Errorf("invalid parent_id")
+	InvalidTitleError    = fmt.Errorf("invalid title")
 )
 
 type Table struct {
@@ -72,9 +73,6 @@ func (t *Table) validateTodoInput(todo *models.Todo) error {
 	}
 	if todo.TodoID == "" {
 		return InvalidTodoIDError
-	}
-	if todo.ParentType == "" {
-		return InvalidParentTypeError
 	}
 	if todo.ParentID == "" {
 		return InvalidParentIDError
@@ -137,6 +135,23 @@ func (t *Table) ListByParentID(parentID string) ([]*models.Todo, error) {
 	return todoList, nil
 }
 
+func (t *Table) UpdateParent(todoID string, parentType todos.ParentType, parentID string) (*models.Todo, error) {
+	var todo models.Todo
+
+	err := t.Table().
+		Update(todoIDFieldKey, todoID).
+		If(fmt.Sprintf("%s = ?", todoIDFieldKey), todoID).
+		Set(parentTypeFieldKey, parentType).
+		Set(parentIDFieldKey, parentID).
+		Set(updatedAtFieldKey, time.Now()).
+		Value(&todo)
+	if err != nil {
+		return nil, err
+	}
+
+	return &todo, nil
+}
+
 func (t *Table) UpdateTitle(todoID string, title string) (*models.Todo, error) {
 	var todo models.Todo
 
@@ -169,7 +184,7 @@ func (t *Table) UpdateDescription(todoID string, description string) (*models.To
 	return &todo, nil
 }
 
-func (t *Table) UpdateStatus(todoID string, status string) (*models.Todo, error) {
+func (t *Table) UpdateStatus(todoID string, status todos.Status) (*models.Todo, error) {
 	var todo models.Todo
 
 	now := time.Now()
@@ -179,13 +194,30 @@ func (t *Table) UpdateStatus(todoID string, status string) (*models.Todo, error)
 		Set(statusFieldKey, status).
 		Set(updatedAtFieldKey, now)
 
-	if status == todos.Status_STATUS_DONE.String() {
+	if status == todos.Status_STATUS_DONE {
 		updateQuery.Set(doneAtFieldKey, now)
 	} else {
 		updateQuery.Set(doneAtFieldKey, time.Unix(0, 0))
 	}
 
 	err := updateQuery.Value(&todo)
+	if err != nil {
+		return nil, err
+	}
+
+	return &todo, nil
+}
+
+func (t *Table) UpdateAssignedTo(todoID, accountID string) (*models.Todo, error) {
+	var todo models.Todo
+
+	now := time.Now()
+	err := t.Table().
+		Update(todoIDFieldKey, todoID).
+		If(fmt.Sprintf("%s = ?", todoIDFieldKey), todoID).
+		Set(assignedToFieldKey, accountID).
+		Set(updatedAtFieldKey, now).
+		Value(&todo)
 	if err != nil {
 		return nil, err
 	}

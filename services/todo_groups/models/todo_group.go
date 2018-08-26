@@ -7,13 +7,14 @@ import (
 )
 
 type TodoGroup struct {
-	TodoGroupID string    `dynamo:"todo_group_id,hash"`
-	Title       string    `dynamo:"title"`
-	Description string    `dynamo:"description"`
-	CreatedBy   string    `dynamo:"created_by"`
-	CreatedAt   time.Time `dynamo:"created_at"`
-	UpdatedAt   time.Time `dynamo:"updated_at"`
-	Order       string    `dynamo:"order"`
+	TodoGroupID string                 `dynamo:"todo_group_id,hash"`
+	Title       string                 `dynamo:"title"`
+	Description string                 `dynamo:"description"`
+	CreatedBy   string                 `dynamo:"created_by"`
+	CreatedAt   time.Time              `dynamo:"created_at"`
+	UpdatedAt   time.Time              `dynamo:"updated_at"`
+	Order       string                 `dynamo:"order"`
+	PermitType  todo_groups.PermitType `dynamo:"permit_type"`
 }
 
 func NewTodoGroupFromProto(todoGroupProto *todo_groups.TodoGroup) *TodoGroup {
@@ -25,6 +26,7 @@ func NewTodoGroupFromProto(todoGroupProto *todo_groups.TodoGroup) *TodoGroup {
 		CreatedAt:   time.Unix(todoGroupProto.CreatedAt, 0),
 		UpdatedAt:   time.Unix(todoGroupProto.UpdatedAt, 0),
 		Order:       todoGroupProto.Order,
+		PermitType:  todoGroupProto.PermitType,
 	}
 }
 
@@ -37,5 +39,6 @@ func (tg *TodoGroup) ToProto() *todo_groups.TodoGroup {
 		CreatedAt:   tg.CreatedAt.Unix(),
 		UpdatedAt:   tg.UpdatedAt.Unix(),
 		Order:       tg.Order,
+		PermitType:  tg.PermitType,
 	}
 }

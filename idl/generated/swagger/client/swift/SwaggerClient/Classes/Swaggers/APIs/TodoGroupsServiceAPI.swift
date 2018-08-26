@@ -52,6 +52,7 @@ open class TodoGroupsServiceAPI {
     "description" : "description",
     "title" : "title",
     "created_by" : "created_by",
+    "permit_type" : { },
     "order" : "order"
   }
 }}]
@@ -173,6 +174,7 @@ open class TodoGroupsServiceAPI {
     "description" : "description",
     "title" : "title",
     "created_by" : "created_by",
+    "permit_type" : { },
     "order" : "order"
   }
 }}]
@@ -239,6 +241,7 @@ open class TodoGroupsServiceAPI {
     "description" : "description",
     "title" : "title",
     "created_by" : "created_by",
+    "permit_type" : { },
     "order" : "order"
   }, {
     "todo_group_id" : "todo_group_id",
@@ -247,6 +250,7 @@ open class TodoGroupsServiceAPI {
     "description" : "description",
     "title" : "title",
     "created_by" : "created_by",
+    "permit_type" : { },
     "order" : "order"
   } ]
 }}]
@@ -313,6 +317,7 @@ open class TodoGroupsServiceAPI {
     "description" : "description",
     "title" : "title",
     "created_by" : "created_by",
+    "permit_type" : { },
     "order" : "order"
   }
 }}]

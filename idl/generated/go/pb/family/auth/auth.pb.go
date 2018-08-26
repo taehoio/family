@@ -25,7 +25,7 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type AuthRequest struct {
-	AccountId            string   `protobuf:"bytes,1,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
+	AccountId            string   `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -63,10 +63,10 @@ func (m *AuthRequest) GetAccountId() string {
 }
 
 type AuthResponse struct {
-	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken" json:"access_token,omitempty"`
-	RefreshToken         string   `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken" json:"refresh_token,omitempty"`
-	AccountId            string   `protobuf:"bytes,3,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
-	ExpiresIn            int64    `protobuf:"varint,5,opt,name=expires_in,json=expiresIn" json:"expires_in,omitempty"`
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	RefreshToken         string   `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	AccountId            string   `protobuf:"bytes,3,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
+	ExpiresIn            int64    `protobuf:"varint,5,opt,name=expires_in,json=expiresIn,proto3" json:"expires_in,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -125,7 +125,7 @@ func (m *AuthResponse) GetExpiresIn() int64 {
 }
 
 type ValidateRequest struct {
-	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken" json:"access_token,omitempty"`
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -163,7 +163,7 @@ func (m *ValidateRequest) GetAccessToken() string {
 }
 
 type ValidateResponse struct {
-	IsValid              bool     `protobuf:"varint,1,opt,name=is_valid,json=isValid" json:"is_valid,omitempty"`
+	IsValid              bool     `protobuf:"varint,1,opt,name=is_valid,json=isValid,proto3" json:"is_valid,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -201,7 +201,7 @@ func (m *ValidateResponse) GetIsValid() bool {
 }
 
 type RefreshRequest struct {
-	RefreshToken         string   `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken" json:"refresh_token,omitempty"`
+	RefreshToken         string   `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -239,10 +239,10 @@ func (m *RefreshRequest) GetRefreshToken() string {
 }
 
 type RefreshResponse struct {
-	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken" json:"access_token,omitempty"`
-	RefreshToken         string   `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken" json:"refresh_token,omitempty"`
-	AccountId            string   `protobuf:"bytes,3,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
-	ExpiresIn            int64    `protobuf:"varint,5,opt,name=expires_in,json=expiresIn" json:"expires_in,omitempty"`
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	RefreshToken         string   `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	AccountId            string   `protobuf:"bytes,3,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
+	ExpiresIn            int64    `protobuf:"varint,5,opt,name=expires_in,json=expiresIn,proto3" json:"expires_in,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -301,7 +301,7 @@ func (m *RefreshResponse) GetExpiresIn() int64 {
 }
 
 type ParseRequest struct {
-	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken" json:"access_token,omitempty"`
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -339,7 +339,7 @@ func (m *ParseRequest) GetAccessToken() string {
 }
 
 type ParseResponse struct {
-	AccountId            string   `protobuf:"bytes,1,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
+	AccountId            string   `protobuf:"bytes,1,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -395,8 +395,9 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// Client API for AuthService service
-
+// AuthServiceClient is the client API for AuthService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AuthServiceClient interface {
 	Auth(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthResponse, error)
 	Validate(ctx context.Context, in *ValidateRequest, opts ...grpc.CallOption) (*ValidateResponse, error)
@@ -414,7 +415,7 @@ func NewAuthServiceClient(cc *grpc.ClientConn) AuthServiceClient {
 
 func (c *authServiceClient) Auth(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthResponse, error) {
 	out := new(AuthResponse)
-	err := grpc.Invoke(ctx, "/pb.family.auth.AuthService/Auth", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/pb.family.auth.AuthService/Auth", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -423,7 +424,7 @@ func (c *authServiceClient) Auth(ctx context.Context, in *AuthRequest, opts ...g
 
 func (c *authServiceClient) Validate(ctx context.Context, in *ValidateRequest, opts ...grpc.CallOption) (*ValidateResponse, error) {
 	out := new(ValidateResponse)
-	err := grpc.Invoke(ctx, "/pb.family.auth.AuthService/Validate", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/pb.family.auth.AuthService/Validate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -432,7 +433,7 @@ func (c *authServiceClient) Validate(ctx context.Context, in *ValidateRequest, o
 
 func (c *authServiceClient) Refresh(ctx context.Context, in *RefreshRequest, opts ...grpc.CallOption) (*RefreshResponse, error) {
 	out := new(RefreshResponse)
-	err := grpc.Invoke(ctx, "/pb.family.auth.AuthService/Refresh", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/pb.family.auth.AuthService/Refresh", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -441,15 +442,14 @@ func (c *authServiceClient) Refresh(ctx context.Context, in *RefreshRequest, opt
 
 func (c *authServiceClient) Parse(ctx context.Context, in *ParseRequest, opts ...grpc.CallOption) (*ParseResponse, error) {
 	out := new(ParseResponse)
-	err := grpc.Invoke(ctx, "/pb.family.auth.AuthService/Parse", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/pb.family.auth.AuthService/Parse", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// Server API for AuthService service
-
+// AuthServiceServer is the server API for AuthService service.
 type AuthServiceServer interface {
 	Auth(context.Context, *AuthRequest) (*AuthResponse, error)
 	Validate(context.Context, *ValidateRequest) (*ValidateResponse, error)

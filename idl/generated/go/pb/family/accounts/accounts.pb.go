@@ -48,13 +48,13 @@ func (AuthType) EnumDescriptor() ([]byte, []int) {
 }
 
 type Account struct {
-	AuthType             AuthType `protobuf:"varint,1,opt,name=auth_type,json=authType,enum=pb.family.accounts.AuthType" json:"auth_type,omitempty"`
-	AccountId            string   `protobuf:"bytes,2,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
-	Email                string   `protobuf:"bytes,3,opt,name=email" json:"email,omitempty"`
-	HashedPassword       string   `protobuf:"bytes,4,opt,name=hashed_password,json=hashedPassword" json:"hashed_password,omitempty"`
-	FullName             string   `protobuf:"bytes,5,opt,name=full_name,json=fullName" json:"full_name,omitempty"`
-	CreatedAt            int64    `protobuf:"varint,6,opt,name=created_at,json=createdAt" json:"created_at,omitempty"`
-	UpdatedAt            int64    `protobuf:"varint,7,opt,name=updated_at,json=updatedAt" json:"updated_at,omitempty"`
+	AuthType             AuthType `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=pb.family.accounts.AuthType" json:"auth_type,omitempty"`
+	AccountId            string   `protobuf:"bytes,2,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
+	Email                string   `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	HashedPassword       string   `protobuf:"bytes,4,opt,name=hashed_password,json=hashedPassword,proto3" json:"hashed_password,omitempty"`
+	FullName             string   `protobuf:"bytes,5,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
+	CreatedAt            int64    `protobuf:"varint,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt            int64    `protobuf:"varint,7,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -134,10 +134,10 @@ func (m *Account) GetUpdatedAt() int64 {
 }
 
 type RegisterRequest struct {
-	AuthType             AuthType `protobuf:"varint,1,opt,name=auth_type,json=authType,enum=pb.family.accounts.AuthType" json:"auth_type,omitempty"`
-	Email                string   `protobuf:"bytes,2,opt,name=email" json:"email,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password" json:"password,omitempty"`
-	FullName             string   `protobuf:"bytes,4,opt,name=full_name,json=fullName" json:"full_name,omitempty"`
+	AuthType             AuthType `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=pb.family.accounts.AuthType" json:"auth_type,omitempty"`
+	Email                string   `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	FullName             string   `protobuf:"bytes,4,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -196,8 +196,8 @@ func (m *RegisterRequest) GetFullName() string {
 }
 
 type RegisterResponse struct {
-	AuthType             AuthType `protobuf:"varint,1,opt,name=auth_type,json=authType,enum=pb.family.accounts.AuthType" json:"auth_type,omitempty"`
-	AccountId            string   `protobuf:"bytes,2,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
+	AuthType             AuthType `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=pb.family.accounts.AuthType" json:"auth_type,omitempty"`
+	AccountId            string   `protobuf:"bytes,2,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -242,9 +242,9 @@ func (m *RegisterResponse) GetAccountId() string {
 }
 
 type LogInRequest struct {
-	AuthType             AuthType `protobuf:"varint,1,opt,name=auth_type,json=authType,enum=pb.family.accounts.AuthType" json:"auth_type,omitempty"`
-	Email                string   `protobuf:"bytes,2,opt,name=email" json:"email,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password" json:"password,omitempty"`
+	AuthType             AuthType `protobuf:"varint,1,opt,name=auth_type,json=authType,proto3,enum=pb.family.accounts.AuthType" json:"auth_type,omitempty"`
+	Email                string   `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -296,11 +296,11 @@ func (m *LogInRequest) GetPassword() string {
 }
 
 type LogInResponse struct {
-	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken" json:"access_token,omitempty"`
-	RefreshToken         string   `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken" json:"refresh_token,omitempty"`
-	AccountId            string   `protobuf:"bytes,3,opt,name=account_id,json=accountId" json:"account_id,omitempty"`
-	TokenType            string   `protobuf:"bytes,4,opt,name=token_type,json=tokenType" json:"token_type,omitempty"`
-	ExpiresIn            int64    `protobuf:"varint,5,opt,name=expires_in,json=expiresIn" json:"expires_in,omitempty"`
+	AccessToken          string   `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	RefreshToken         string   `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	AccountId            string   `protobuf:"bytes,3,opt,name=account_id,json=accountId,proto3" json:"account_id,omitempty"`
+	TokenType            string   `protobuf:"bytes,4,opt,name=token_type,json=tokenType,proto3" json:"token_type,omitempty"`
+	ExpiresIn            int64    `protobuf:"varint,5,opt,name=expires_in,json=expiresIn,proto3" json:"expires_in,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -382,8 +382,9 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// Client API for AccountsService service
-
+// AccountsServiceClient is the client API for AccountsService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AccountsServiceClient interface {
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
 	LogIn(ctx context.Context, in *LogInRequest, opts ...grpc.CallOption) (*LogInResponse, error)
@@ -399,7 +400,7 @@ func NewAccountsServiceClient(cc *grpc.ClientConn) AccountsServiceClient {
 
 func (c *accountsServiceClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
 	out := new(RegisterResponse)
-	err := grpc.Invoke(ctx, "/pb.family.accounts.AccountsService/Register", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/pb.family.accounts.AccountsService/Register", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -408,15 +409,14 @@ func (c *accountsServiceClient) Register(ctx context.Context, in *RegisterReques
 
 func (c *accountsServiceClient) LogIn(ctx context.Context, in *LogInRequest, opts ...grpc.CallOption) (*LogInResponse, error) {
 	out := new(LogInResponse)
-	err := grpc.Invoke(ctx, "/pb.family.accounts.AccountsService/LogIn", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/pb.family.accounts.AccountsService/LogIn", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// Server API for AccountsService service
-
+// AccountsServiceServer is the server API for AccountsService service.
 type AccountsServiceServer interface {
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
 	LogIn(context.Context, *LogInRequest) (*LogInResponse, error)

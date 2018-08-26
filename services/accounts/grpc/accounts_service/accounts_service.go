@@ -9,6 +9,7 @@ import (
 	"google.golang.org/grpc/reflection"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
 	"github.com/taeho-io/family/services/accounts/config"
 	"github.com/taeho-io/family/services/accounts/crypt"
@@ -24,13 +25,15 @@ type IFace interface {
 
 	Crypt() crypt.IFace
 	AccountsTable() *accounts_repo.Table
+	AuthServiceClient() auth.AuthServiceClient
 }
 
 type Service struct {
 	dynamodb_service.IFace
 
-	crypt         crypt.IFace
-	accountsTable *accounts_repo.Table
+	crypt             crypt.IFace
+	accountsTable     *accounts_repo.Table
+	authServiceClient auth.AuthServiceClient
 }
 
 func New(cfg config.IFace) (IFace, error) {
@@ -41,10 +44,16 @@ func New(cfg config.IFace) (IFace, error) {
 		return nil, err
 	}
 
+	authServiceClient, err := discovery_service.NewAuthServiceClient()
+	if err != nil {
+		return nil, err
+	}
+
 	return &Service{
-		IFace:         dynamodbSvc,
-		crypt:         bcrypt,
-		accountsTable: accounts_repo.New(dynamodbSvc.Dynamodb(), cfg),
+		IFace:             dynamodbSvc,
+		crypt:             bcrypt,
+		accountsTable:     accounts_repo.New(dynamodbSvc.Dynamodb(), cfg),
+		authServiceClient: authServiceClient,
 	}, nil
 }
 
@@ -64,12 +73,16 @@ func (s *Service) AccountsTable() *accounts_repo.Table {
 	return s.accountsTable
 }
 
+func (s *Service) AuthServiceClient() auth.AuthServiceClient {
+	return s.authServiceClient
+}
+
 func (s *Service) Register(ctx context.Context, req *accounts.RegisterRequest) (*accounts.RegisterResponse, error) {
 	return handlers.Register(s.AccountsTable(), s.Crypt())(ctx, req)
 }
 
 func (s *Service) LogIn(ctx context.Context, req *accounts.LogInRequest) (*accounts.LogInResponse, error) {
-	return handlers.LogIn(s.AccountsTable(), s.Crypt())(ctx, req)
+	return handlers.LogIn(s.AccountsTable(), s.Crypt(), s.AuthServiceClient().Auth)(ctx, req)
 }
 
 func Serve() error {

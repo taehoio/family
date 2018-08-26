@@ -305,6 +305,12 @@
         "todo_id": {
           "type": "string"
         },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/todosUpdatingField"
+          }
+        },
         "todo": {
           "$ref": "#/definitions/todosTodo"
         }
@@ -317,6 +323,20 @@
           "$ref": "#/definitions/todosTodo"
         }
       }
+    },
+    "todosUpdatingField": {
+      "type": "string",
+      "enum": [
+        "UPDATING_FIELD_PARENT",
+        "UPDATING_FIELD_TITLE",
+        "UPDATING_FIELD_DESCRIPTION",
+        "UPDATING_FIELD_STATUS",
+        "UPDATING_FIELD_ORDER",
+        "UPDATING_FIELD_ASSIGNED_TO",
+        "UPDATING_FIELD_PRIORITY",
+        "UPDATING_FIELD_DUE_AT"
+      ],
+      "default": "UPDATING_FIELD_PARENT"
     }
   }
 }

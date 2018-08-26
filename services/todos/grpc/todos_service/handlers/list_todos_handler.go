@@ -25,7 +25,7 @@ func ListTodos(
 			return nil, err
 		}
 
-		logger := ctxlogrus.Extract(ctx)
+		logger := ctxlogrus.Extract(ctx).WithField("req", req)
 
 		if req.ParentType != todos.ParentType_PARENT_TYPE_TODO_GROUP {
 			return nil, InvalidParentTypeError

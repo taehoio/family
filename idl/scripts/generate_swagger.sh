@@ -12,7 +12,7 @@ PROTO_DIRS=$(echo ${PROTOS} | xargs -n1 dirname | sort -u)
 for FILE in ${PROTOS}; do
   FILE=$IDL_PATH${FILE#.}
 
-  docker run --rm -it --name protoc -v $(pwd):$IDL_PATH -w $IDL_PATH xissy/protoc:v0.0.1 \
+  docker run --rm -it --name protoc -v $(pwd):$IDL_PATH -w $IDL_PATH xissy/protoc:v0.0.3 \
     -I/go/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
     -I$IDL_PATH/protos \
     --swagger_out=logtostderr=true:$OUT \

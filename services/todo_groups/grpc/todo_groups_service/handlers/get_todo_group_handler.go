@@ -45,9 +45,9 @@ func GetTodoGroup(
 			return nil, InvalidTodoGroupIDError
 		}
 
-		logger := ctxlogrus.Extract(ctx)
+		logger := ctxlogrus.Extract(ctx).WithField("req", req)
 
-		_, err := todoGroupPermitsTable.Get(req.AccountId, req.TodoGroupId)
+		togoGroupPermit, err := todoGroupPermitsTable.Get(req.AccountId, req.TodoGroupId)
 		if err == dynamo.ErrNotFound {
 			logger.WithFields(logrus.Fields{
 				"what": "todoGroupPermitsTable.Get",
@@ -74,6 +74,7 @@ func GetTodoGroup(
 
 			return nil, err
 		}
+		todoGroup.PermitType = togoGroupPermit.PermitType
 
 		return &todo_groups.GetTodoGroupResponse{
 			TodoGroup: todoGroup.ToProto(),

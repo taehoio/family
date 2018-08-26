@@ -108,17 +108,17 @@ func authFunc(ctx context.Context) (context.Context, error) {
 	if !ok {
 		return ctx, nil
 	}
+
 	if accountIDs, ok := md[AccountIDHeaderKey]; ok && len(accountIDs) > 0 {
-		newCtx := context.WithValue(ctx, AccountIDKey, accountIDs[0])
+		accountID := accountIDs[0]
+		newCtx := context.WithValue(ctx, AccountIDKey, accountID)
+		newCtx = ctxlogrus.ToContext(newCtx, logrus.WithField(AccountIDKey, accountID))
+		newCtx = metadata.AppendToOutgoingContext(newCtx, AccountIDHeaderKey, accountID)
 		return newCtx, nil
 	}
 
 	shouldAuth := ctx.Value(ShouldAuthKey)
 	if shouldAuth != nil && !shouldAuth.(bool) {
-		return ctx, nil
-	}
-
-	if ctx.Value(AccountIDKey) != nil {
 		return ctx, nil
 	}
 

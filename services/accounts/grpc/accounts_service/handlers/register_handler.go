@@ -3,12 +3,8 @@ package handlers
 import (
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/rs/xid"
-	"go.uber.org/multierr"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
 	"github.com/taeho-io/family/services/accounts/crypt"
@@ -24,7 +20,7 @@ func Register(accountsTable *accounts_repo.Table, crypt crypt.IFace) RegisterHan
 
 		err := validateRegisterRequest(req)
 		if err != nil {
-			return nil, status.Error(codes.InvalidArgument, err.Error())
+			return nil, err
 		}
 
 		hashedPassword, err := crypt.HashPassword(req.Password)
@@ -34,7 +30,7 @@ func Register(accountsTable *accounts_repo.Table, crypt crypt.IFace) RegisterHan
 
 		account, err := accountsTable.GetByEmail(req.Email)
 		if account != nil {
-			return nil, status.Error(codes.AlreadyExists, "email already exists")
+			return nil, EmailAlreadyExistsError
 		}
 
 		accountID := xid.New().String()
@@ -59,15 +55,18 @@ func Register(accountsTable *accounts_repo.Table, crypt crypt.IFace) RegisterHan
 }
 
 func validateRegisterRequest(req *accounts.RegisterRequest) error {
-	var err error
 	if req.AuthType == accounts.AuthType_NONE {
-		err = multierr.Append(err, errors.New("invalid auth_type"))
+		return InvalidAuthTypeError
+	}
+	if req.FullName == "" {
+		return InvalidFullNameError
 	}
 	if req.Email == "" {
-		err = multierr.Append(err, errors.New("empty email"))
+		return InvalidEmailError
 	}
 	if req.Password == "" {
-		err = multierr.Append(err, errors.New("empty password"))
+		return InvalidPasswordError
 	}
-	return err
+
+	return nil
 }

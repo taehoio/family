@@ -27,7 +27,7 @@ func CreateTodo(
 			return nil, err
 		}
 
-		logger := ctxlogrus.Extract(ctx)
+		logger := ctxlogrus.Extract(ctx).WithField("req", req)
 
 		todo := models.NewTodoFromProto(req.Todo)
 		todo.TodoID = xid.New().String()

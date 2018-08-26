@@ -11,17 +11,10 @@ IDL_PATH=/go/src/github.com/taeho-io/family/idl
 for FILE in ${PROTOS}; do
   FILE=$IDL_PATH${FILE#.}
 
-  # generate gRPC stub
+  # lint
   docker run --rm -it --name protoc -v $(pwd):$IDL_PATH -w $IDL_PATH xissy/protoc:v0.0.3 \
     -I/go/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
     -I$IDL_PATH/protos \
-    --go_out=plugins=grpc:/go/src \
-    $FILE
-
-  # generate reverse-proxy
-  docker run --rm -it --name protoc -v $(pwd):$IDL_PATH -w $IDL_PATH xissy/protoc:v0.0.3 \
-    -I/go/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
-    -I$IDL_PATH/protos \
-    --grpc-gateway_out=logtostderr=true:/go/src \
+    --lint_out=/go/src \
     $FILE
 done

@@ -92,6 +92,7 @@ func (t *Table) Put(account *models.Account) error {
 func (t *Table) Delete(accountID string) error {
 	return t.Table().
 		Delete(accountIDFieldKey, accountID).
+		If(fmt.Sprintf("%s = ?", accountIDFieldKey), accountID).
 		Run()
 }
 

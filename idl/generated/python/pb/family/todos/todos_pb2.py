@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='pb/family/todos/todos.proto',
   package='pb.family.todos',
   syntax='proto3',
-  serialized_pb=_b('\n\x1bpb/family/todos/todos.proto\x12\x0fpb.family.todos\x1a\x1cgoogle/api/annotations.proto\"\xed\x02\n\x04Todo\x12\x0f\n\x07todo_id\x18\x01 \x01(\t\x12\x30\n\x0bparent_type\x18\x02 \x01(\x0e\x32\x1b.pb.family.todos.ParentType\x12\x11\n\tparent_id\x18\x03 \x01(\t\x12\r\n\x05title\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\'\n\x06status\x18\x06 \x01(\x0e\x32\x17.pb.family.todos.Status\x12\r\n\x05order\x18\x07 \x01(\t\x12\x13\n\x0b\x61ssigned_to\x18\x08 \x01(\t\x12+\n\x08priority\x18\t \x01(\x0e\x32\x19.pb.family.todos.Priority\x12(\n\tsub_tasks\x18\n \x03(\x0b\x32\x15.pb.family.todos.Todo\x12\x12\n\ncreated_at\x18\x0b \x01(\x03\x12\x12\n\nupdated_at\x18\x0c \x01(\x03\x12\x0f\n\x07\x64one_at\x18\r \x01(\x03\x12\x0e\n\x06\x64ue_at\x18\x0e \x01(\x03\"]\n\x11\x43reateTodoRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x0f\n\x07todo_id\x18\x02 \x01(\t\x12#\n\x04todo\x18\x03 \x01(\x0b\x32\x15.pb.family.todos.Todo\"9\n\x12\x43reateTodoResponse\x12#\n\x04todo\x18\x01 \x01(\x0b\x32\x15.pb.family.todos.Todo\"5\n\x0eGetTodoRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x0f\n\x07todo_id\x18\x02 \x01(\t\"6\n\x0fGetTodoResponse\x12#\n\x04todo\x18\x01 \x01(\x0b\x32\x15.pb.family.todos.Todo\"k\n\x10ListTodosRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x30\n\x0bparent_type\x18\x02 \x01(\x0e\x32\x1b.pb.family.todos.ParentType\x12\x11\n\tparent_id\x18\x03 \x01(\t\"9\n\x11ListTodosResponse\x12$\n\x05todos\x18\x01 \x03(\x0b\x32\x15.pb.family.todos.Todo\"]\n\x11UpdateTodoRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x0f\n\x07todo_id\x18\x02 \x01(\t\x12#\n\x04todo\x18\x03 \x01(\x0b\x32\x15.pb.family.todos.Todo\"9\n\x12UpdateTodoResponse\x12#\n\x04todo\x18\x01 \x01(\x0b\x32\x15.pb.family.todos.Todo\"8\n\x11\x44\x65leteTodoRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x0f\n\x07todo_id\x18\x02 \x01(\t\"\x14\n\x12\x44\x65leteTodoResponse*>\n\x06Status\x12\x0f\n\x0bSTATUS_TODO\x10\x00\x12\x0f\n\x0bSTATUS_DONE\x10\x01\x12\x12\n\x0eSTATUS_PENDING\x10\x02*l\n\x08Priority\x12\x11\n\rPRIORITY_NONE\x10\x00\x12\x10\n\x0cPRIORITY_LOW\x10\n\x12\x13\n\x0fPRIORITY_MEDIUM\x10\x1e\x12\x11\n\rPRIORITY_HIGH\x10\x32\x12\x13\n\x0fPRIORITY_URGENT\x10\x64*>\n\nParentType\x12\x1a\n\x16PARENT_TYPE_TODO_GROUP\x10\x00\x12\x14\n\x10PARENT_TYPE_TODO\x10\x01\x32\xb8\x04\n\x0cTodosService\x12k\n\nCreateTodo\x12\".pb.family.todos.CreateTodoRequest\x1a#.pb.family.todos.CreateTodoResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\"\t/v1/todos:\x01*\x12i\n\x07GetTodo\x12\x1f.pb.family.todos.GetTodoRequest\x1a .pb.family.todos.GetTodoResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/v1/todos/{todo_id}\x12\x65\n\tListTodos\x12!.pb.family.todos.ListTodosRequest\x1a\".pb.family.todos.ListTodosResponse\"\x11\x82\xd3\xe4\x93\x02\x0b\x12\t/v1/todos\x12u\n\nUpdateTodo\x12\".pb.family.todos.UpdateTodoRequest\x1a#.pb.family.todos.UpdateTodoResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\x1a\x13/v1/todos/{todo_id}:\x01*\x12r\n\nDeleteTodo\x12\".pb.family.todos.DeleteTodoRequest\x1a#.pb.family.todos.DeleteTodoResponse\"\x1b\x82\xd3\xe4\x93\x02\x15*\x13/v1/todos/{todo_id}BCZAgithub.com/taeho-io/family/idl/generated/go/pb/family/todos;todosb\x06proto3')
+  serialized_pb=_b('\n\x1bpb/family/todos/todos.proto\x12\x0fpb.family.todos\x1a\x1cgoogle/api/annotations.proto\"\xed\x02\n\x04Todo\x12\x0f\n\x07todo_id\x18\x01 \x01(\t\x12\x30\n\x0bparent_type\x18\x02 \x01(\x0e\x32\x1b.pb.family.todos.ParentType\x12\x11\n\tparent_id\x18\x03 \x01(\t\x12\r\n\x05title\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\'\n\x06status\x18\x06 \x01(\x0e\x32\x17.pb.family.todos.Status\x12\r\n\x05order\x18\x07 \x01(\t\x12\x13\n\x0b\x61ssigned_to\x18\x08 \x01(\t\x12+\n\x08priority\x18\t \x01(\x0e\x32\x19.pb.family.todos.Priority\x12(\n\tsub_tasks\x18\n \x03(\x0b\x32\x15.pb.family.todos.Todo\x12\x12\n\ncreated_at\x18\x0b \x01(\x03\x12\x12\n\nupdated_at\x18\x0c \x01(\x03\x12\x0f\n\x07\x64one_at\x18\r \x01(\x03\x12\x0e\n\x06\x64ue_at\x18\x0e \x01(\x03\"]\n\x11\x43reateTodoRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x0f\n\x07todo_id\x18\x02 \x01(\t\x12#\n\x04todo\x18\x03 \x01(\x0b\x32\x15.pb.family.todos.Todo\"9\n\x12\x43reateTodoResponse\x12#\n\x04todo\x18\x01 \x01(\x0b\x32\x15.pb.family.todos.Todo\"5\n\x0eGetTodoRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x0f\n\x07todo_id\x18\x02 \x01(\t\"6\n\x0fGetTodoResponse\x12#\n\x04todo\x18\x01 \x01(\x0b\x32\x15.pb.family.todos.Todo\"k\n\x10ListTodosRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x30\n\x0bparent_type\x18\x02 \x01(\x0e\x32\x1b.pb.family.todos.ParentType\x12\x11\n\tparent_id\x18\x03 \x01(\t\"9\n\x11ListTodosResponse\x12$\n\x05todos\x18\x01 \x03(\x0b\x32\x15.pb.family.todos.Todo\"\x8d\x01\n\x11UpdateTodoRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x0f\n\x07todo_id\x18\x02 \x01(\t\x12.\n\x06\x66ields\x18\x03 \x03(\x0e\x32\x1e.pb.family.todos.UpdatingField\x12#\n\x04todo\x18\x04 \x01(\x0b\x32\x15.pb.family.todos.Todo\"9\n\x12UpdateTodoResponse\x12#\n\x04todo\x18\x01 \x01(\x0b\x32\x15.pb.family.todos.Todo\"8\n\x11\x44\x65leteTodoRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x0f\n\x07todo_id\x18\x02 \x01(\t\"\x14\n\x12\x44\x65leteTodoResponse*>\n\x06Status\x12\x0f\n\x0bSTATUS_TODO\x10\x00\x12\x0f\n\x0bSTATUS_DONE\x10\x01\x12\x12\n\x0eSTATUS_PENDING\x10\x02*l\n\x08Priority\x12\x11\n\rPRIORITY_NONE\x10\x00\x12\x10\n\x0cPRIORITY_LOW\x10\n\x12\x13\n\x0fPRIORITY_MEDIUM\x10\x1e\x12\x11\n\rPRIORITY_HIGH\x10\x32\x12\x13\n\x0fPRIORITY_URGENT\x10\x64*>\n\nParentType\x12\x1a\n\x16PARENT_TYPE_TODO_GROUP\x10\x00\x12\x14\n\x10PARENT_TYPE_TODO\x10\x01*\xf1\x01\n\rUpdatingField\x12\x19\n\x15UPDATING_FIELD_PARENT\x10\x00\x12\x18\n\x14UPDATING_FIELD_TITLE\x10\x01\x12\x1e\n\x1aUPDATING_FIELD_DESCRIPTION\x10\x02\x12\x19\n\x15UPDATING_FIELD_STATUS\x10\x03\x12\x18\n\x14UPDATING_FIELD_ORDER\x10\x04\x12\x1e\n\x1aUPDATING_FIELD_ASSIGNED_TO\x10\x05\x12\x1b\n\x17UPDATING_FIELD_PRIORITY\x10\x06\x12\x19\n\x15UPDATING_FIELD_DUE_AT\x10\x07\x32\xb8\x04\n\x0cTodosService\x12k\n\nCreateTodo\x12\".pb.family.todos.CreateTodoRequest\x1a#.pb.family.todos.CreateTodoResponse\"\x14\x82\xd3\xe4\x93\x02\x0e\"\t/v1/todos:\x01*\x12i\n\x07GetTodo\x12\x1f.pb.family.todos.GetTodoRequest\x1a .pb.family.todos.GetTodoResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/v1/todos/{todo_id}\x12\x65\n\tListTodos\x12!.pb.family.todos.ListTodosRequest\x1a\".pb.family.todos.ListTodosResponse\"\x11\x82\xd3\xe4\x93\x02\x0b\x12\t/v1/todos\x12u\n\nUpdateTodo\x12\".pb.family.todos.UpdateTodoRequest\x1a#.pb.family.todos.UpdateTodoResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\x1a\x13/v1/todos/{todo_id}:\x01*\x12r\n\nDeleteTodo\x12\".pb.family.todos.DeleteTodoRequest\x1a#.pb.family.todos.DeleteTodoResponse\"\x1b\x82\xd3\xe4\x93\x02\x15*\x13/v1/todos/{todo_id}BCZAgithub.com/taeho-io/family/idl/generated/go/pb/family/todos;todosb\x06proto3')
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -46,8 +46,8 @@ _STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1113,
-  serialized_end=1175,
+  serialized_start=1162,
+  serialized_end=1224,
 )
 _sym_db.RegisterEnumDescriptor(_STATUS)
 
@@ -81,8 +81,8 @@ _PRIORITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1177,
-  serialized_end=1285,
+  serialized_start=1226,
+  serialized_end=1334,
 )
 _sym_db.RegisterEnumDescriptor(_PRIORITY)
 
@@ -104,12 +104,59 @@ _PARENTTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1287,
-  serialized_end=1349,
+  serialized_start=1336,
+  serialized_end=1398,
 )
 _sym_db.RegisterEnumDescriptor(_PARENTTYPE)
 
 ParentType = enum_type_wrapper.EnumTypeWrapper(_PARENTTYPE)
+_UPDATINGFIELD = _descriptor.EnumDescriptor(
+  name='UpdatingField',
+  full_name='pb.family.todos.UpdatingField',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='UPDATING_FIELD_PARENT', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UPDATING_FIELD_TITLE', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UPDATING_FIELD_DESCRIPTION', index=2, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UPDATING_FIELD_STATUS', index=3, number=3,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UPDATING_FIELD_ORDER', index=4, number=4,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UPDATING_FIELD_ASSIGNED_TO', index=5, number=5,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UPDATING_FIELD_PRIORITY', index=6, number=6,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='UPDATING_FIELD_DUE_AT', index=7, number=7,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=1401,
+  serialized_end=1642,
+)
+_sym_db.RegisterEnumDescriptor(_UPDATINGFIELD)
+
+UpdatingField = enum_type_wrapper.EnumTypeWrapper(_UPDATINGFIELD)
 STATUS_TODO = 0
 STATUS_DONE = 1
 STATUS_PENDING = 2
@@ -120,6 +167,14 @@ PRIORITY_HIGH = 50
 PRIORITY_URGENT = 100
 PARENT_TYPE_TODO_GROUP = 0
 PARENT_TYPE_TODO = 1
+UPDATING_FIELD_PARENT = 0
+UPDATING_FIELD_TITLE = 1
+UPDATING_FIELD_DESCRIPTION = 2
+UPDATING_FIELD_STATUS = 3
+UPDATING_FIELD_ORDER = 4
+UPDATING_FIELD_ASSIGNED_TO = 5
+UPDATING_FIELD_PRIORITY = 6
+UPDATING_FIELD_DUE_AT = 7
 
 
 
@@ -488,8 +543,15 @@ _UPDATETODOREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='todo', full_name='pb.family.todos.UpdateTodoRequest.todo', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='fields', full_name='pb.family.todos.UpdateTodoRequest.fields', index=2,
+      number=3, type=14, cpp_type=8, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='todo', full_name='pb.family.todos.UpdateTodoRequest.todo', index=3,
+      number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -506,8 +568,8 @@ _UPDATETODOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=879,
-  serialized_end=972,
+  serialized_start=880,
+  serialized_end=1021,
 )
 
 
@@ -537,8 +599,8 @@ _UPDATETODORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=974,
-  serialized_end=1031,
+  serialized_start=1023,
+  serialized_end=1080,
 )
 
 
@@ -575,8 +637,8 @@ _DELETETODOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1033,
-  serialized_end=1089,
+  serialized_start=1082,
+  serialized_end=1138,
 )
 
 
@@ -599,8 +661,8 @@ _DELETETODORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1091,
-  serialized_end=1111,
+  serialized_start=1140,
+  serialized_end=1160,
 )
 
 _TODO.fields_by_name['parent_type'].enum_type = _PARENTTYPE
@@ -612,6 +674,7 @@ _CREATETODORESPONSE.fields_by_name['todo'].message_type = _TODO
 _GETTODORESPONSE.fields_by_name['todo'].message_type = _TODO
 _LISTTODOSREQUEST.fields_by_name['parent_type'].enum_type = _PARENTTYPE
 _LISTTODOSRESPONSE.fields_by_name['todos'].message_type = _TODO
+_UPDATETODOREQUEST.fields_by_name['fields'].enum_type = _UPDATINGFIELD
 _UPDATETODOREQUEST.fields_by_name['todo'].message_type = _TODO
 _UPDATETODORESPONSE.fields_by_name['todo'].message_type = _TODO
 DESCRIPTOR.message_types_by_name['Todo'] = _TODO
@@ -628,6 +691,7 @@ DESCRIPTOR.message_types_by_name['DeleteTodoResponse'] = _DELETETODORESPONSE
 DESCRIPTOR.enum_types_by_name['Status'] = _STATUS
 DESCRIPTOR.enum_types_by_name['Priority'] = _PRIORITY
 DESCRIPTOR.enum_types_by_name['ParentType'] = _PARENTTYPE
+DESCRIPTOR.enum_types_by_name['UpdatingField'] = _UPDATINGFIELD
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Todo = _reflection.GeneratedProtocolMessageType('Todo', (_message.Message,), dict(
@@ -717,8 +781,8 @@ _TODOSSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=1352,
-  serialized_end=1920,
+  serialized_start=1645,
+  serialized_end=2213,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateTodo',
