@@ -3,6 +3,8 @@ package todo_groups_service
 import (
 	"net"
 
+	"github.com/taeho-io/family/services/base/grpc/base_service"
+
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -21,16 +23,17 @@ import (
 
 type IFace interface {
 	dynamodb_service.IFace
+	todo_groups.TodoGroupsServiceServer
 
-	TodoGroupsTable() *todo_groups_repo.Table
-	TodoGroupPermitsTable() *todo_group_permits_repo.Table
+	TodoGroupsTable() todo_groups_repo.IFace
+	TodoGroupPermitsTable() todo_group_permits_repo.IFace
 }
 
 type Service struct {
 	dynamodb_service.IFace
 
-	todoGroupsTable       *todo_groups_repo.Table
-	todoGroupPermitsTable *todo_group_permits_repo.Table
+	todoGroupsTable       todo_groups_repo.IFace
+	todoGroupPermitsTable todo_group_permits_repo.IFace
 }
 
 func New(cfg config.IFace) (IFace, error) {
@@ -54,11 +57,11 @@ func (s *Service) RegisterService(srv *grpc.Server) {
 	todo_groups.RegisterTodoGroupsServiceServer(srv, s)
 }
 
-func (s *Service) TodoGroupsTable() *todo_groups_repo.Table {
+func (s *Service) TodoGroupsTable() todo_groups_repo.IFace {
 	return s.todoGroupsTable
 }
 
-func (s *Service) TodoGroupPermitsTable() *todo_group_permits_repo.Table {
+func (s *Service) TodoGroupPermitsTable() todo_group_permits_repo.IFace {
 	return s.todoGroupPermitsTable
 }
 
@@ -72,7 +75,7 @@ func (s *Service) CreateTodoGroup(
 	return handlers.CreateTodoGroup(
 		s.TodoGroupsTable(),
 		s.TodoGroupPermitsTable(),
-		s.HasPermissionByAccountID,
+		base_service.HasPermissionByAccountID,
 	)(ctx, req)
 }
 
@@ -86,8 +89,8 @@ func (s *Service) GetTodoGroup(
 	return handlers.GetTodoGroup(
 		s.TodoGroupsTable(),
 		s.TodoGroupPermitsTable(),
-		s.GetAccountIDFromContext,
-		s.HasPermissionByAccountID,
+		base_service.GetAccountIDFromContext,
+		base_service.HasPermissionByAccountID,
 	)(ctx, req)
 }
 
@@ -101,7 +104,7 @@ func (s *Service) ListTodoGroups(
 	return handlers.ListTodoGroups(
 		s.TodoGroupsTable(),
 		s.TodoGroupPermitsTable(),
-		s.HasPermissionByAccountID,
+		base_service.HasPermissionByAccountID,
 	)(ctx, req)
 }
 
@@ -114,7 +117,7 @@ func (s *Service) UpdateTodoGroup(
 ) {
 	return handlers.UpdateTodoGroup(
 		s.TodoGroupsTable(),
-		s.HasPermissionByAccountID,
+		base_service.HasPermissionByAccountID,
 	)(ctx, req)
 }
 
@@ -128,7 +131,7 @@ func (s *Service) DeleteTodoGroup(
 	return handlers.DeleteTodoGroup(
 		s.TodoGroupsTable(),
 		s.TodoGroupPermitsTable(),
-		s.HasPermissionByAccountID,
+		base_service.HasPermissionByAccountID,
 	)(ctx, req)
 }
 

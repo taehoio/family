@@ -12,7 +12,7 @@ import (
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
-	"github.com/taeho-io/family/services/base/aws/dynamodb"
+	"github.com/taeho-io/family/services/base/grpc/base_service"
 	"github.com/taeho-io/family/services/base/grpc/dynamodb_service"
 	"github.com/taeho-io/family/services/base/grpc/interceptors"
 	"github.com/taeho-io/family/services/discovery/grpc/discovery_service"
@@ -32,9 +32,7 @@ type IFace interface {
 type Service struct {
 	dynamodb_service.IFace
 
-	cfg                     config.IFace
-	ddb                     dynamodb.IFace
-	todosTable              *todos_repo.Table
+	todosTable              todos_repo.IFace
 	todoGroupsServiceClient todo_groups.TodoGroupsServiceClient
 }
 
@@ -68,7 +66,7 @@ func (s *Service) RegisterService(srv *grpc.Server) {
 	todos.RegisterTodosServiceServer(srv, s)
 }
 
-func (s *Service) TodosTable() *todos_repo.Table {
+func (s *Service) TodosTable() todos_repo.IFace {
 	return s.todosTable
 }
 
@@ -77,14 +75,14 @@ func (s *Service) TodoGroupsServiceClient() todo_groups.TodoGroupsServiceClient 
 }
 
 func (s *Service) CreateTodo(ctx context.Context, req *todos.CreateTodoRequest) (*todos.CreateTodoResponse, error) {
-	return handlers.CreateTodo(s.TodosTable(), s.HasPermissionByAccountID)(ctx, req)
+	return handlers.CreateTodo(s.TodosTable(), base_service.HasPermissionByAccountID)(ctx, req)
 }
 
 func (s *Service) GetTodo(ctx context.Context, req *todos.GetTodoRequest) (*todos.GetTodoResponse, error) {
 	return handlers.GetTodo(
 		s.TodosTable(),
-		s.GetAccountIDFromContext,
-		s.HasPermissionByAccountID,
+		base_service.GetAccountIDFromContext,
+		base_service.HasPermissionByAccountID,
 		s.TodoGroupsServiceClient(),
 	)(ctx, req)
 }
@@ -92,8 +90,8 @@ func (s *Service) GetTodo(ctx context.Context, req *todos.GetTodoRequest) (*todo
 func (s *Service) ListTodos(ctx context.Context, req *todos.ListTodosRequest) (*todos.ListTodosResponse, error) {
 	return handlers.ListTodos(
 		s.TodosTable(),
-		s.GetAccountIDFromContext,
-		s.HasPermissionByAccountID,
+		base_service.GetAccountIDFromContext,
+		base_service.HasPermissionByAccountID,
 		s.TodoGroupsServiceClient(),
 	)(ctx, req)
 }
@@ -101,8 +99,8 @@ func (s *Service) ListTodos(ctx context.Context, req *todos.ListTodosRequest) (*
 func (s *Service) UpdateTodo(ctx context.Context, req *todos.UpdateTodoRequest) (*todos.UpdateTodoResponse, error) {
 	return handlers.UpdateTodo(
 		s.TodosTable(),
-		s.GetAccountIDFromContext,
-		s.HasPermissionByAccountID,
+		base_service.GetAccountIDFromContext,
+		base_service.HasPermissionByAccountID,
 		s.TodoGroupsServiceClient(),
 	)(ctx, req)
 }
@@ -110,8 +108,8 @@ func (s *Service) UpdateTodo(ctx context.Context, req *todos.UpdateTodoRequest) 
 func (s *Service) DeleteTodo(ctx context.Context, req *todos.DeleteTodoRequest) (*todos.DeleteTodoResponse, error) {
 	return handlers.DeleteTodo(
 		s.TodosTable(),
-		s.GetAccountIDFromContext,
-		s.HasPermissionByAccountID,
+		base_service.GetAccountIDFromContext,
+		base_service.HasPermissionByAccountID,
 		s.TodoGroupsServiceClient(),
 	)(ctx, req)
 }

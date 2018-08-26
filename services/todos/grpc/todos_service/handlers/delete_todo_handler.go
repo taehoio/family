@@ -14,7 +14,7 @@ import (
 type DeleteTodoFunc func(ctx context.Context, req *todos.DeleteTodoRequest) (*todos.DeleteTodoResponse, error)
 
 func DeleteTodo(
-	todosTable *todos_repo.Table,
+	todosTable todos_repo.IFace,
 	getAccountIDFromContext base_service.GetAccountIDFromContextFunc,
 	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
 	todoGroupsServiceClient todo_groups.TodoGroupsServiceClient,

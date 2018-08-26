@@ -22,8 +22,8 @@ type CreateTodoGroupFunc func(
 )
 
 func CreateTodoGroup(
-	todoGroupsTable *todo_groups_repo.Table,
-	todoGroupPermitsTable *todo_group_permits_repo.Table,
+	todoGroupsTable todo_groups_repo.IFace,
+	todoGroupPermitsTable todo_group_permits_repo.IFace,
 	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
 ) CreateTodoGroupFunc {
 	return func(

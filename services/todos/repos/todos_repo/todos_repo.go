@@ -35,13 +35,29 @@ var (
 	InvalidTitleError    = fmt.Errorf("invalid title")
 )
 
-type Table struct {
+type IFace interface {
 	table.IFace
+
+	Put(todo *models.Todo) error
+	GetByID(todoID string) (*models.Todo, error)
+	ListByIDs(todoIDs []string) ([]*models.Todo, error)
+	ListByParentID(parentID string) ([]*models.Todo, error)
+	UpdateParent(todoID string, parentType todos.ParentType, parentID string) (*models.Todo, error)
+	UpdateTitle(todoID string, title string) (*models.Todo, error)
+	UpdateDescription(todoID string, description string) (*models.Todo, error)
+	UpdateStatus(todoID string, status todos.Status) (*models.Todo, error)
+	UpdateAssignedTo(todoID, accountID string) (*models.Todo, error)
+	UpdateOrder(todoID string, order string) (*models.Todo, error)
+	DeleteByID(todoID string) error
+}
+
+type Table struct {
+	IFace
 
 	todosTable *dynamo.Table
 }
 
-func New(ddb dynamodb.IFace, cfg config.IFace) *Table {
+func New(ddb dynamodb.IFace, cfg config.IFace) IFace {
 	fullTableName := fullTableName(cfg)
 	todosTable := ddb.DB().Table(fullTableName)
 
@@ -50,7 +66,7 @@ func New(ddb dynamodb.IFace, cfg config.IFace) *Table {
 	}
 }
 
-func NewMock() *Table {
+func NewMock() IFace {
 	ddb := dynamodb.NewMock()
 	cfg := config.NewMock()
 
@@ -63,11 +79,7 @@ func fullTableName(cfg config.IFace) string {
 	return strings.Join([]string{prefix, tableName}, "-")
 }
 
-func (t *Table) Table() *dynamo.Table {
-	return t.todosTable
-}
-
-func (t *Table) validateTodoInput(todo *models.Todo) error {
+func validateTodoInput(todo *models.Todo) error {
 	if todo == nil {
 		return InvalidTodoError
 	}
@@ -84,8 +96,12 @@ func (t *Table) validateTodoInput(todo *models.Todo) error {
 	return nil
 }
 
+func (t *Table) Table() *dynamo.Table {
+	return t.todosTable
+}
+
 func (t *Table) Put(todo *models.Todo) error {
-	if err := t.validateTodoInput(todo); err != nil {
+	if err := validateTodoInput(todo); err != nil {
 		return err
 	}
 

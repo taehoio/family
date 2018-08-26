@@ -17,7 +17,7 @@ import (
 type UpdateTodoFunc func(ctx context.Context, req *todos.UpdateTodoRequest) (*todos.UpdateTodoResponse, error)
 
 func UpdateTodo(
-	todosTable *todos_repo.Table,
+	todosTable todos_repo.IFace,
 	getAccountIDFromContext base_service.GetAccountIDFromContextFunc,
 	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
 	todoGroupsServiceClient todo_groups.TodoGroupsServiceClient,

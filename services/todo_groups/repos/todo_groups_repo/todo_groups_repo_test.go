@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	todoGroupsTable *Table
+	todoGroupsTable IFace
 
 	testFullTableName       = "family-development-todo_groups-todo_groups"
 	testTodoGroupID         = "test_todo_group_id"
@@ -37,7 +37,7 @@ func TestValidateTodoGroupInput(t *testing.T) {
 		Title:       testTitle,
 		CreatedBy:   testCreatedBy,
 	}
-	err := todoGroupsTable.validateTodoGroupInput(todoGroup)
+	err := validateTodoGroupInput(todoGroup)
 	assert.Nil(t, err)
 }
 
@@ -45,7 +45,7 @@ func TestValidateTodoGroupInputInvalidTodoGroupID(t *testing.T) {
 	todoGroup := &models.TodoGroup{
 		Title: testTitle,
 	}
-	err := todoGroupsTable.validateTodoGroupInput(todoGroup)
+	err := validateTodoGroupInput(todoGroup)
 	assert.Equal(t, InvalidTodoGroupIDError, err)
 }
 
@@ -53,7 +53,7 @@ func TestValidateTodoGroupInputInvalidTitle(t *testing.T) {
 	todoGroup := &models.TodoGroup{
 		TodoGroupID: testTodoGroupID,
 	}
-	err := todoGroupsTable.validateTodoGroupInput(todoGroup)
+	err := validateTodoGroupInput(todoGroup)
 	assert.Equal(t, InvalidTitleError, err)
 }
 
@@ -62,7 +62,7 @@ func TestValidateTodoGroupInputInvalidCreatedBy(t *testing.T) {
 		Title:       testTitle,
 		TodoGroupID: testTodoGroupID,
 	}
-	err := todoGroupsTable.validateTodoGroupInput(todoGroup)
+	err := validateTodoGroupInput(todoGroup)
 	assert.Equal(t, InvalidCreatedByError, err)
 }
 

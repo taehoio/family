@@ -5,10 +5,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/taeho-io/family/services/base/aws/dynamodb/table"
+
 	"github.com/guregu/dynamo"
 
 	"github.com/taeho-io/family/services/base/aws/dynamodb"
-	"github.com/taeho-io/family/services/base/aws/dynamodb/table"
 	"github.com/taeho-io/family/services/todo_groups/config"
 	"github.com/taeho-io/family/services/todo_groups/models"
 	"google.golang.org/grpc/codes"
@@ -29,8 +30,20 @@ var (
 	InvalidCreatedByError   = status.Error(codes.InvalidArgument, "invalid created_by")
 )
 
-type Table struct {
+type IFace interface {
 	table.IFace
+
+	Put(*models.TodoGroup) error
+	GetByID(string) (*models.TodoGroup, error)
+	ListByIDs([]string) ([]*models.TodoGroup, error)
+	UpdateTitle(string, string) (*models.TodoGroup, error)
+	UpdateDescription(string, string) (*models.TodoGroup, error)
+	UpdateOrder(string, string) (*models.TodoGroup, error)
+	DeleteByID(string) error
+}
+
+type Table struct {
+	IFace
 
 	todoGroupsTable *dynamo.Table
 }
@@ -57,11 +70,7 @@ func fullTableName(cfg config.IFace) string {
 	return strings.Join([]string{prefix, tableName}, "-")
 }
 
-func (t *Table) Table() *dynamo.Table {
-	return t.todoGroupsTable
-}
-
-func (t *Table) validateTodoGroupInput(todoGroup *models.TodoGroup) error {
+func validateTodoGroupInput(todoGroup *models.TodoGroup) error {
 	if todoGroup.TodoGroupID == "" {
 		return InvalidTodoGroupIDError
 	}
@@ -75,8 +84,12 @@ func (t *Table) validateTodoGroupInput(todoGroup *models.TodoGroup) error {
 	return nil
 }
 
+func (t *Table) Table() *dynamo.Table {
+	return t.todoGroupsTable
+}
+
 func (t *Table) Put(todoGroup *models.TodoGroup) error {
-	if err := t.validateTodoGroupInput(todoGroup); err != nil {
+	if err := validateTodoGroupInput(todoGroup); err != nil {
 		return err
 	}
 

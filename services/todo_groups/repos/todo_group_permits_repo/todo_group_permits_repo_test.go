@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	todoGroupPermitsTable *Table
+	todoGroupPermitsTable IFace
 
 	testFullTableName             = "family-development-todo_groups-todo_group_permits"
 	testAccountID                 = "test_account_id"
@@ -39,7 +39,7 @@ func TestValidationTodoGroupPermitInput(t *testing.T) {
 		TodoGroupID: testTodoGroupID,
 		PermitType:  testTodoGroupPermitTypeOwner,
 	}
-	err := todoGroupPermitsTable.validateTodoGroupPermitInput(todoGroupPermit)
+	err := validateTodoGroupPermitInput(todoGroupPermit)
 	assert.Nil(t, err)
 }
 
@@ -48,7 +48,7 @@ func TestValidateTodoGroupPermitInputInvalidAccountID(t *testing.T) {
 		TodoGroupID: testTodoGroupID,
 		PermitType:  testTodoGroupPermitTypeOwner,
 	}
-	err := todoGroupPermitsTable.validateTodoGroupPermitInput(todoGroupPermit)
+	err := validateTodoGroupPermitInput(todoGroupPermit)
 	assert.Equal(t, InvalidAccountIDError, err)
 }
 
@@ -57,7 +57,7 @@ func TestValidateTodoGroupPermitInputInvalidTodoGroupID(t *testing.T) {
 		AccountID:  testAccountID,
 		PermitType: testTodoGroupPermitTypeOwner,
 	}
-	err := todoGroupPermitsTable.validateTodoGroupPermitInput(todoGroupPermit)
+	err := validateTodoGroupPermitInput(todoGroupPermit)
 	assert.Equal(t, InvalidTodoGroupIDError, err)
 }
 
@@ -67,7 +67,7 @@ func TestValidateTodoGroupPermitInputInvalidPermitType(t *testing.T) {
 		TodoGroupID: testTodoGroupID,
 		PermitType:  testWongTodoGroupPermitType,
 	}
-	err := todoGroupPermitsTable.validateTodoGroupPermitInput(todoGroupPermit)
+	err := validateTodoGroupPermitInput(todoGroupPermit)
 	assert.Equal(t, InvalidPermitTypeError, err)
 }
 

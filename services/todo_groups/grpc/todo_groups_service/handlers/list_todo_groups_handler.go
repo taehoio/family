@@ -20,8 +20,8 @@ type ListTodoGroupsFunc func(
 )
 
 func ListTodoGroups(
-	todoGroupsTable *todo_groups_repo.Table,
-	todoGroupPermitsTable *todo_group_permits_repo.Table,
+	todoGroupsTable todo_groups_repo.IFace,
+	todoGroupPermitsTable todo_group_permits_repo.IFace,
 	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
 ) ListTodoGroupsFunc {
 	return func(

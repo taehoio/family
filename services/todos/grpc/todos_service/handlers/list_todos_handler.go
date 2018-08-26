@@ -14,7 +14,7 @@ import (
 type ListTodosFunc func(ctx context.Context, req *todos.ListTodosRequest) (*todos.ListTodosResponse, error)
 
 func ListTodos(
-	todosTable *todos_repo.Table,
+	todosTable todos_repo.IFace,
 	getAccountIDFromContext base_service.GetAccountIDFromContextFunc,
 	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
 	todoGroupsServiceClient todo_groups.TodoGroupsServiceClient,

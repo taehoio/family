@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	todosTable *Table
+	todosTable IFace
 
 	testFullTableName      = "family-development-todos-todos"
 	testTodoID             = "test_todo_id"
@@ -48,12 +48,12 @@ func TestValidateTodoInput(t *testing.T) {
 		Description: testDescription,
 		Status:      testTodoTypeTodo,
 	}
-	err := todosTable.validateTodoInput(todo)
+	err := validateTodoInput(todo)
 	assert.Nil(t, err)
 }
 
 func TestValidateTodoInputInvalidTodo(t *testing.T) {
-	err := todosTable.validateTodoInput(nil)
+	err := validateTodoInput(nil)
 	assert.Equal(t, InvalidTodoError, err)
 }
 
@@ -65,7 +65,7 @@ func TestValidateTodoInputInvalidTodoID(t *testing.T) {
 		Description: testDescription,
 		Status:      testTodoTypeTodo,
 	}
-	err := todosTable.validateTodoInput(todo)
+	err := validateTodoInput(todo)
 	assert.Equal(t, InvalidTodoIDError, err)
 }
 
@@ -77,7 +77,7 @@ func TestValidateTodoInputInvalidParentID(t *testing.T) {
 		Description: testDescription,
 		Status:      testTodoTypeTodo,
 	}
-	err := todosTable.validateTodoInput(todo)
+	err := validateTodoInput(todo)
 	assert.Equal(t, InvalidParentIDError, err)
 }
 
@@ -89,7 +89,7 @@ func TestValidateTodoInputInvalidTitle(t *testing.T) {
 		Description: testDescription,
 		Status:      testTodoTypeTodo,
 	}
-	err := todosTable.validateTodoInput(todo)
+	err := validateTodoInput(todo)
 	assert.Equal(t, InvalidTitleError, err)
 }
 

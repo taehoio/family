@@ -11,16 +11,10 @@ import (
 	"github.com/taeho-io/family/services/base/grpc/interceptors"
 )
 
-type GetAccountIDFromContextFunc func(context.Context) string
-type HasPermissionByAccountIDFunc func(context.Context, string) error
-
 type IFace interface {
 	Config() config.IFace
 	Logger() *logrus.Entry
 	RegisterService(*grpc.Server)
-
-	GetAccountIDFromContext(ctx context.Context) string
-	HasPermissionByAccountID(ctx context.Context, accountID string) error
 }
 
 type Service struct {
@@ -49,11 +43,14 @@ func (s *Service) Logger() *logrus.Entry {
 	return s.logger
 }
 
-func (s *Service) GetAccountIDFromContext(ctx context.Context) string {
+type GetAccountIDFromContextFunc func(context.Context) string
+type HasPermissionByAccountIDFunc func(context.Context, string) error
+
+func GetAccountIDFromContext(ctx context.Context) string {
 	return ctx.Value(interceptors.AccountIDKey).(string)
 }
 
-func (s *Service) HasPermissionByAccountID(ctx context.Context, accountID string) error {
+func HasPermissionByAccountID(ctx context.Context, accountID string) error {
 	if accountID == "" {
 		return InvalidAccountIDError
 	}

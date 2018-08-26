@@ -21,8 +21,8 @@ type GetTodoGroupFunc func(
 )
 
 func GetTodoGroup(
-	todoGroupsTable *todo_groups_repo.Table,
-	todoGroupPermitsTable *todo_group_permits_repo.Table,
+	todoGroupsTable todo_groups_repo.IFace,
+	todoGroupPermitsTable todo_group_permits_repo.IFace,
 	getAccountIDFromContext base_service.GetAccountIDFromContextFunc,
 	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
 ) GetTodoGroupFunc {

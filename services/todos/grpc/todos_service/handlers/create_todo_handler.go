@@ -15,7 +15,7 @@ import (
 type CreateTodoFunc func(ctx context.Context, req *todos.CreateTodoRequest) (*todos.CreateTodoResponse, error)
 
 func CreateTodo(
-	todosTable *todos_repo.Table,
+	todosTable todos_repo.IFace,
 	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
 ) CreateTodoFunc {
 	return func(ctx context.Context, req *todos.CreateTodoRequest) (*todos.CreateTodoResponse, error) {

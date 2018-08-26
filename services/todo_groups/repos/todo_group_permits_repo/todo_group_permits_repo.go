@@ -26,13 +26,22 @@ var (
 	InvalidPermitTypeError  = status.Error(codes.InvalidArgument, "invalid permit_type")
 )
 
-type Table struct {
+type IFace interface {
 	table.IFace
+
+	Put(permit *models.TodoGroupPermit) error
+	Get(string, string) (*models.TodoGroupPermit, error)
+	ListByAccountID(string) ([]*models.TodoGroupPermit, error)
+	Delete(string, string) error
+}
+
+type Table struct {
+	IFace
 
 	todoGroupPermitsTable *dynamo.Table
 }
 
-func New(ddb dynamodb.IFace, cfg config.IFace) *Table {
+func New(ddb dynamodb.IFace, cfg config.IFace) IFace {
 	fullTableName := fullTableName(cfg)
 	todoGroupPermitsTable := ddb.DB().Table(fullTableName)
 
@@ -41,7 +50,7 @@ func New(ddb dynamodb.IFace, cfg config.IFace) *Table {
 	}
 }
 
-func NewMock() *Table {
+func NewMock() IFace {
 	ddb := dynamodb.NewMock()
 	cfg := config.NewMock()
 
@@ -54,11 +63,7 @@ func fullTableName(cfg config.IFace) string {
 	return strings.Join([]string{prefix, tableName}, "-")
 }
 
-func (t *Table) Table() *dynamo.Table {
-	return t.todoGroupPermitsTable
-}
-
-func (t *Table) validateTodoGroupPermitInput(todoGroupPermit *models.TodoGroupPermit) error {
+func validateTodoGroupPermitInput(todoGroupPermit *models.TodoGroupPermit) error {
 	if todoGroupPermit.AccountID == "" {
 		return InvalidAccountIDError
 	}
@@ -79,8 +84,12 @@ func (t *Table) validateTodoGroupPermitInput(todoGroupPermit *models.TodoGroupPe
 	return nil
 }
 
+func (t *Table) Table() *dynamo.Table {
+	return t.todoGroupPermitsTable
+}
+
 func (t *Table) Put(todoGroupPermit *models.TodoGroupPermit) error {
-	if err := t.validateTodoGroupPermitInput(todoGroupPermit); err != nil {
+	if err := validateTodoGroupPermitInput(todoGroupPermit); err != nil {
 		return err
 	}
 
