@@ -14,10 +14,8 @@ import (
 
 type RegisterHandlerFunc func(ctx context.Context, req *accounts.RegisterRequest) (*accounts.RegisterResponse, error)
 
-func Register(accountsTable *accounts_repo.Table, crypt crypt.IFace) RegisterHandlerFunc {
+func Register(accountsTable accounts_repo.IFace, crypt crypt.IFace) RegisterHandlerFunc {
 	return func(ctx context.Context, req *accounts.RegisterRequest) (*accounts.RegisterResponse, error) {
-		req.AuthType = accounts.AuthType_EMAIL
-
 		err := validateRegisterRequest(req)
 		if err != nil {
 			return nil, err

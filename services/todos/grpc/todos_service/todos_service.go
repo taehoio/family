@@ -23,6 +23,7 @@ import (
 
 type IFace interface {
 	dynamodb_service.IFace
+	todos.TodosServiceServer
 
 	TodosTable() *todos_repo.Table
 	TodoGroupsServiceClient() todo_groups.TodoGroupsServiceClient

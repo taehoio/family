@@ -6,6 +6,7 @@ import (
 )
 
 var (
+	UnauthorizedError       = status.Error(codes.Unauthenticated, "")
 	InvalidAuthTypeError    = status.Error(codes.InvalidArgument, "invalid auth_type")
 	InvalidFullNameError    = status.Error(codes.InvalidArgument, "invalid full_name")
 	InvalidEmailError       = status.Error(codes.InvalidArgument, "invalid email")

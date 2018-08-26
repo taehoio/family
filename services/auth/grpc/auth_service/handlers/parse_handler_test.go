@@ -15,12 +15,12 @@ func TestParseHandler(t *testing.T) {
 	ctx := context.Background()
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := token.New(cfg)
-	accessToken, _ := tokenSrv.NewAccessToken(testAccountId)
+	tokenSvc := token.New(cfg)
+	accessToken, _ := tokenSvc.NewAccessToken(testAccountId)
 	req := &auth.ParseRequest{
 		AccessToken: accessToken,
 	}
-	res, err := Parse(tokenSrv)(ctx, req)
+	res, err := Parse(tokenSvc)(ctx, req)
 	assert.Nil(t, err)
 	assert.NotNil(t, res)
 }
@@ -29,11 +29,11 @@ func TestParseHandler_Error(t *testing.T) {
 	ctx := context.Background()
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := token.New(cfg)
+	tokenSvc := token.New(cfg)
 	req := &auth.ParseRequest{
 		AccessToken: "invalid_token",
 	}
-	res, err := Parse(tokenSrv)(ctx, req)
+	res, err := Parse(tokenSvc)(ctx, req)
 	assert.NotNil(t, err)
 	assert.Nil(t, res)
 }

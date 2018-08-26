@@ -23,13 +23,24 @@ const (
 	updatedAtFieldKey      = "updated_at"
 )
 
-type Table struct {
+type IFace interface {
 	table.IFace
+
+	GetByID(string) (*models.Account, error)
+	GetByEmail(string) (*models.Account, error)
+	Put(*models.Account) error
+	DeleteByID(string) error
+	UpdateHashedPassword(string, string) (*models.Account, error)
+	UpdateFullName(string, string) (*models.Account, error)
+}
+
+type Table struct {
+	IFace
 
 	accountsTable *dynamo.Table
 }
 
-func New(ddb dynamodb.IFace, cfg config.IFace) *Table {
+func New(ddb dynamodb.IFace, cfg config.IFace) IFace {
 	fullTableName := fullTableName(cfg)
 	accountsTable := ddb.DB().Table(fullTableName)
 
@@ -38,7 +49,7 @@ func New(ddb dynamodb.IFace, cfg config.IFace) *Table {
 	}
 }
 
-func NewMock() *Table {
+func NewMock() IFace {
 	ddb := dynamodb.NewMock()
 	cfg := config.NewMock()
 
@@ -56,7 +67,7 @@ func (t *Table) Table() *dynamo.Table {
 	return t.accountsTable
 }
 
-func (t *Table) Get(accountID string) (*models.Account, error) {
+func (t *Table) GetByID(accountID string) (*models.Account, error) {
 	var account models.Account
 
 	err := t.Table().
@@ -89,7 +100,7 @@ func (t *Table) Put(account *models.Account) error {
 		Run()
 }
 
-func (t *Table) Delete(accountID string) error {
+func (t *Table) DeleteByID(accountID string) error {
 	return t.Table().
 		Delete(accountIDFieldKey, accountID).
 		If(fmt.Sprintf("%s = ?", accountIDFieldKey), accountID).

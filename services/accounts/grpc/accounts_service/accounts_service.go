@@ -22,9 +22,10 @@ import (
 
 type IFace interface {
 	dynamodb_service.IFace
+	accounts.AccountsServiceServer
 
 	Crypt() crypt.IFace
-	AccountsTable() *accounts_repo.Table
+	AccountsTable() accounts_repo.IFace
 	AuthServiceClient() auth.AuthServiceClient
 }
 
@@ -32,7 +33,7 @@ type Service struct {
 	dynamodb_service.IFace
 
 	crypt             crypt.IFace
-	accountsTable     *accounts_repo.Table
+	accountsTable     accounts_repo.IFace
 	authServiceClient auth.AuthServiceClient
 }
 
@@ -69,7 +70,7 @@ func (s *Service) Crypt() crypt.IFace {
 	return s.crypt
 }
 
-func (s *Service) AccountsTable() *accounts_repo.Table {
+func (s *Service) AccountsTable() accounts_repo.IFace {
 	return s.accountsTable
 }
 
@@ -82,7 +83,7 @@ func (s *Service) Register(ctx context.Context, req *accounts.RegisterRequest) (
 }
 
 func (s *Service) LogIn(ctx context.Context, req *accounts.LogInRequest) (*accounts.LogInResponse, error) {
-	return handlers.LogIn(s.AccountsTable(), s.Crypt(), s.AuthServiceClient().Auth)(ctx, req)
+	return handlers.LogIn(s.AccountsTable(), s.Crypt(), s.AuthServiceClient())(ctx, req)
 }
 
 func Serve() error {

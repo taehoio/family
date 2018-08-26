@@ -24,7 +24,7 @@ const (
 )
 
 var (
-	accountsTable *Table
+	accountsTable IFace
 )
 
 func TestMain(m *testing.M) {
@@ -52,13 +52,13 @@ func TestPut(t *testing.T) {
 }
 
 func TestGetFail(t *testing.T) {
-	account, err := accountsTable.Get(testNonExistAccountID)
+	account, err := accountsTable.GetByID(testNonExistAccountID)
 	assert.Nil(t, account)
 	assert.NotNil(t, err)
 }
 
 func TestGet(t *testing.T) {
-	account, err := accountsTable.Get(testAccountID)
+	account, err := accountsTable.GetByID(testAccountID)
 	assert.NotNil(t, account)
 	assert.Nil(t, err)
 	assert.Equal(t, testEmail, account.Email)
@@ -104,6 +104,6 @@ func TestUpdateFullName(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	err := accountsTable.Delete(testAccountID)
+	err := accountsTable.DeleteByID(testAccountID)
 	assert.Nil(t, err)
 }

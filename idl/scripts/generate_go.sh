@@ -25,3 +25,6 @@ for FILE in ${PROTOS}; do
     --grpc-gateway_out=logtostderr=true:/go/src \
     $FILE
 done
+
+# generate mocks
+mockery -all -dir ./generated/go/pb/family -keeptree -output ./generated/go/pb/family/mocks

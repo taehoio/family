@@ -15,32 +15,32 @@ const (
 
 func TestNewAccessToken(t *testing.T) {
 	cfg := config.New(config.NewMockSettings())
-	tokenSrv := New(cfg)
-	token, err := tokenSrv.NewAccessToken(testAccountId)
+	tokenSvc := New(cfg)
+	token, err := tokenSvc.NewAccessToken(testAccountId)
 	assert.Nil(t, err)
 	assert.NotNil(t, token)
 }
 
 func TestNewRefreshToken(t *testing.T) {
 	cfg := config.New(config.NewMockSettings())
-	tokenSrv := New(cfg)
-	token, err := tokenSrv.NewRefreshToken(testAccountId)
+	tokenSvc := New(cfg)
+	token, err := tokenSvc.NewRefreshToken(testAccountId)
 	assert.Nil(t, err)
 	assert.NotNil(t, token)
 }
 
 func TestValidateToken(t *testing.T) {
 	cfg := config.New(config.NewMockSettings())
-	tokenSrv := New(cfg)
-	token, _ := tokenSrv.NewAccessToken(testAccountId)
-	err := tokenSrv.ValidateToken(token)
+	tokenSvc := New(cfg)
+	token, _ := tokenSvc.NewAccessToken(testAccountId)
+	err := tokenSvc.ValidateToken(token)
 	assert.Nil(t, err)
 }
 
 func TestToClaims(t *testing.T) {
 	cfg := config.New(config.NewMockSettings())
-	tokenSrv := New(cfg)
-	claims := tokenSrv.toClaims(&jwt.Claims{
+	tokenSvc := New(cfg)
+	claims := tokenSvc.toClaims(&jwt.Claims{
 		Audience:  "",
 		ExpiresAt: 0,
 		Id:        "",
@@ -64,18 +64,18 @@ func TestToClaims(t *testing.T) {
 
 func TestParseToken(t *testing.T) {
 	cfg := config.New(config.NewMockSettings())
-	tokenSrv := New(cfg)
-	token, _ := tokenSrv.NewAccessToken(testAccountId)
-	claims, err := tokenSrv.ParseToken(token)
+	tokenSvc := New(cfg)
+	token, _ := tokenSvc.NewAccessToken(testAccountId)
+	claims, err := tokenSvc.ParseToken(token)
 	assert.Nil(t, err)
 	assert.NotNil(t, claims)
 }
 
 func TestParseToken_Error(t *testing.T) {
 	cfg := config.New(config.NewMockSettings())
-	tokenSrv := New(cfg)
+	tokenSvc := New(cfg)
 	token := "invalid_token"
-	claims, err := tokenSrv.ParseToken(token)
+	claims, err := tokenSvc.ParseToken(token)
 	assert.NotNil(t, err)
 	assert.Nil(t, claims)
 }

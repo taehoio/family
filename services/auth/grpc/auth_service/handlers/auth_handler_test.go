@@ -9,7 +9,7 @@ import (
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/services/auth/config"
-	"github.com/taeho-io/family/services/auth/mocks"
+	mockToken "github.com/taeho-io/family/services/auth/mocks/token"
 	"github.com/taeho-io/family/services/auth/token"
 )
 
@@ -24,13 +24,13 @@ func TestAuthHandler(t *testing.T) {
 	}
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := token.New(cfg)
-	res, err := Auth(cfg, tokenSrv)(ctx, req)
+	tokenSvc := token.New(cfg)
+	res, err := Auth(cfg, tokenSvc)(ctx, req)
 	assert.Nil(t, err)
 	assert.NotNil(t, res)
 
-	accessToken, _ := tokenSrv.NewAccessToken(testAccountId)
-	refreshToken, _ := tokenSrv.NewRefreshToken(testAccountId)
+	accessToken, _ := tokenSvc.NewAccessToken(testAccountId)
+	refreshToken, _ := tokenSvc.NewRefreshToken(testAccountId)
 	expected := &auth.AuthResponse{
 		AccountId:    testAccountId,
 		AccessToken:  accessToken,
@@ -50,9 +50,9 @@ func TestAuthHandler_NewAccessToken_Error(t *testing.T) {
 	}
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := new(mocks.Token)
-	tokenSrv.On("NewAccessToken", testAccountId).Return("", errors.New("failed"))
-	_, err := Auth(cfg, tokenSrv)(ctx, req)
+	tokenSvc := new(mockToken.IFace)
+	tokenSvc.On("NewAccessToken", testAccountId).Return("", errors.New("failed"))
+	_, err := Auth(cfg, tokenSvc)(ctx, req)
 	assert.NotNil(t, err)
 }
 
@@ -63,9 +63,9 @@ func TestAuthHandler_NewRefreshToken_Error(t *testing.T) {
 	}
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := new(mocks.Token)
-	tokenSrv.On("NewAccessToken", testAccountId).Return("token", nil)
-	tokenSrv.On("NewRefreshToken", testAccountId).Return("", errors.New("failed"))
-	_, err := Auth(cfg, tokenSrv)(ctx, req)
+	tokenSvc := new(mockToken.IFace)
+	tokenSvc.On("NewAccessToken", testAccountId).Return("token", nil)
+	tokenSvc.On("NewRefreshToken", testAccountId).Return("", errors.New("failed"))
+	_, err := Auth(cfg, tokenSvc)(ctx, req)
 	assert.NotNil(t, err)
 }

@@ -20,6 +20,7 @@ import (
 
 type IFace interface {
 	base_service.IFace
+	auth.AuthServiceServer
 
 	Token() token.IFace
 }
@@ -30,14 +31,14 @@ type Service struct {
 	tkn token.IFace
 }
 
-func New(cfg config.IFace) (s *Service) {
+func New(cfg config.IFace) IFace {
 	return &Service{
 		IFace: base_service.New(cfg),
 		tkn:   token.New(cfg),
 	}
 }
 
-func NewMock() (s *Service) {
+func NewMock() IFace {
 	return New(config.NewMock())
 }
 

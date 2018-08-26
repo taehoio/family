@@ -15,12 +15,12 @@ func TestValidateHandler(t *testing.T) {
 	ctx := context.Background()
 	settings := config.NewSettings()
 	cfg := config.New(settings)
-	tokenSrv := token.New(cfg)
-	accessToken, _ := tokenSrv.NewAccessToken(testAccountId)
+	tokenSvc := token.New(cfg)
+	accessToken, _ := tokenSvc.NewAccessToken(testAccountId)
 	req := &auth.ValidateRequest{
 		AccessToken: accessToken,
 	}
-	res, err := Validate(tokenSrv)(ctx, req)
+	res, err := Validate(tokenSvc)(ctx, req)
 	assert.Nil(t, err)
 	assert.NotNil(t, res)
 }
