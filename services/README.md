@@ -1,2 +1,2 @@
-# svc
+# services
 > services
