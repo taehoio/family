@@ -1,13 +1,14 @@
 package todos_service
 
 import (
-	"github.com/sirupsen/logrus"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
-
 	"net"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware"
+	"github.com/sirupsen/logrus"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
+
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
@@ -18,7 +19,6 @@ import (
 	"github.com/taeho-io/family/services/todos/config"
 	"github.com/taeho-io/family/services/todos/grpc/todos_service/handlers"
 	"github.com/taeho-io/family/services/todos/repos/todos_repo"
-	"google.golang.org/grpc/reflection"
 )
 
 type IFace interface {

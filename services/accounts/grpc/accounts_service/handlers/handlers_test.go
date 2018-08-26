@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"os"
 	"testing"
 
@@ -43,8 +42,6 @@ func TestMain(m *testing.M) {
 
 	register = Register(accountsTableMock, cryptMock)
 	logIn = LogIn(accountsTableMock, cryptMock, authMock)
-
-	fmt.Println("TestMain!!!")
 
 	retCode := m.Run()
 	os.Exit(retCode)
