@@ -1,2 +1,2 @@
-# srv
-> a service template
+# base
+> service templates
