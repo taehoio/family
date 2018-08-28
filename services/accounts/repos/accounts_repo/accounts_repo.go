@@ -23,6 +23,7 @@ const (
 	updatedAtFieldKey      = "updated_at"
 )
 
+// IFace represents accounts_repo
 type IFace interface {
 	table.IFace
 
@@ -34,12 +35,14 @@ type IFace interface {
 	UpdateFullName(string, string) (*models.Account, error)
 }
 
+// Table implements IFace
 type Table struct {
 	IFace
 
 	accountsTable *dynamo.Table
 }
 
+// New returns a new instance of Table
 func New(ddb dynamodb.IFace, cfg config.IFace) IFace {
 	fullTableName := fullTableName(cfg)
 	accountsTable := ddb.DB().Table(fullTableName)
@@ -49,6 +52,7 @@ func New(ddb dynamodb.IFace, cfg config.IFace) IFace {
 	}
 }
 
+// NewMock returns a mock of Table
 func NewMock() IFace {
 	ddb := dynamodb.NewMock()
 	cfg := config.NewMock()
@@ -63,10 +67,12 @@ func fullTableName(cfg config.IFace) string {
 	return strings.Join([]string{prefix, tableName}, "-")
 }
 
+// Table returns dynamo.Table
 func (t *Table) Table() *dynamo.Table {
 	return t.accountsTable
 }
 
+// GetByID returns an account model by accountID
 func (t *Table) GetByID(accountID string) (*models.Account, error) {
 	var account models.Account
 
@@ -80,6 +86,7 @@ func (t *Table) GetByID(accountID string) (*models.Account, error) {
 	return &account, nil
 }
 
+// GetByEmail returns an account model by email
 func (t *Table) GetByEmail(email string) (*models.Account, error) {
 	var account models.Account
 
@@ -94,12 +101,14 @@ func (t *Table) GetByEmail(email string) (*models.Account, error) {
 	return &account, nil
 }
 
+// Put stores an account model
 func (t *Table) Put(account *models.Account) error {
 	return t.Table().
 		Put(account).
 		Run()
 }
 
+// DeleteByID removes an account model by accountID
 func (t *Table) DeleteByID(accountID string) error {
 	return t.Table().
 		Delete(accountIDFieldKey, accountID).
@@ -107,6 +116,7 @@ func (t *Table) DeleteByID(accountID string) error {
 		Run()
 }
 
+// UpdateHashedPassword updates the account's hashedPassword field
 func (t *Table) UpdateHashedPassword(accountID string, newHashedPassword string) (*models.Account, error) {
 	var updatedAccount models.Account
 
@@ -123,6 +133,7 @@ func (t *Table) UpdateHashedPassword(accountID string, newHashedPassword string)
 	return &updatedAccount, nil
 }
 
+// UpdateFullName updates the account's fullName field
 func (t *Table) UpdateFullName(accountID string, newFullName string) (*models.Account, error) {
 	var updatedAccount models.Account
 
