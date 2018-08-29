@@ -14,7 +14,7 @@ import (
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
 	"github.com/taeho-io/family/services/base/grpc/base_service"
 	"github.com/taeho-io/family/services/base/grpc/dynamodb_service"
-	"github.com/taeho-io/family/services/base/grpc/interceptors"
+	"github.com/taeho-io/family/services/base/interceptor"
 	"github.com/taeho-io/family/services/discovery/grpc/discovery_service"
 	"github.com/taeho-io/family/services/todos/config"
 	"github.com/taeho-io/family/services/todos/grpc/todos_service/handlers"
@@ -123,9 +123,9 @@ func Serve() error {
 
 	svr := grpc.NewServer(
 		grpc_middleware.WithUnaryServerChain(
-			interceptors.RequestIDUnaryServerInterceptor,
-			interceptors.AuthUnaryServerInterceptor,
-			interceptors.LogrusUnaryServerInterceptor,
+			interceptor.RequestIDUnaryServerInterceptor,
+			interceptor.AuthUnaryServerInterceptor,
+			interceptor.LogrusUnaryServerInterceptor,
 		),
 	)
 

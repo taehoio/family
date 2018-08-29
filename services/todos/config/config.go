@@ -3,20 +3,20 @@ package config
 import baseConfig "github.com/taeho-io/family/services/base/config"
 
 type IFace interface {
-	baseConfig.IFace
+	baseConfig.Config
 
 	Settings() Settings
 }
 
 type TodosServiceConfig struct {
-	baseConfig.IFace
+	baseConfig.Config
 
 	settings Settings
 }
 
 func New(settings Settings) (cfg IFace) {
 	return &TodosServiceConfig{
-		IFace:    baseConfig.New(serviceName),
+		Config:   baseConfig.NewConfig(serviceName),
 		settings: settings,
 	}
 
@@ -24,7 +24,7 @@ func New(settings Settings) (cfg IFace) {
 
 func NewMock() (cfg IFace) {
 	return &TodosServiceConfig{
-		IFace:    baseConfig.New(serviceName),
+		Config:   baseConfig.NewConfig(serviceName),
 		settings: NewMockSettings(),
 	}
 }

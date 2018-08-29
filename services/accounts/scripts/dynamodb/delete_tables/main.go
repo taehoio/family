@@ -3,31 +3,32 @@ package main
 import (
 	"log"
 
-	"github.com/taeho-io/family/services/accounts/config"
-	"github.com/taeho-io/family/services/accounts/repos/accounts_repo"
-	"github.com/taeho-io/family/services/base/aws"
-	"github.com/taeho-io/family/services/base/aws/dynamodb"
+	"github.com/taeho-io/family/services/accounts"
+	"github.com/taeho-io/family/services/accounts/internal/repo"
+	"github.com/taeho-io/family/services/base"
 )
 
 func main() {
-	cfg := config.New(config.NewSettings())
+	cfg := accounts.NewConfig(accounts.NewSettings())
 
 	ddb, err := getDynamodb()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	accountsTable := accounts_repo.New(ddb, cfg).Table()
+	fullTableName := base.FullDynamodbTableName(cfg, cfg.Settings().DynamodbAccountsTableName)
+
+	accountsTable := repo.NewAccountsRepo(ddb, repo.NewAccountsRepoConfig(fullTableName)).Table()
 	if err := accountsTable.DeleteTable().Run(); err != nil {
 		log.Fatal(err)
 	}
 	log.Printf("`%s` table is being deleted.", accountsTable.Name())
 }
 
-func getDynamodb() (dynamodb.IFace, error) {
-	a, err := aws.New()
+func getDynamodb() (base.Dynamodb, error) {
+	aws, err := base.NewAws()
 	if err != nil {
 		return nil, err
 	}
-	return dynamodb.New(a), nil
+	return base.NewDynamodb(aws), nil
 }

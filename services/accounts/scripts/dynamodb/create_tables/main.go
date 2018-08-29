@@ -2,15 +2,12 @@ package main
 
 import (
 	"log"
-
 	"os"
 	"strconv"
 
-	"github.com/taeho-io/family/services/accounts/config"
-	"github.com/taeho-io/family/services/accounts/models"
-	"github.com/taeho-io/family/services/accounts/repos/accounts_repo"
-	"github.com/taeho-io/family/services/base/aws"
-	"github.com/taeho-io/family/services/base/aws/dynamodb"
+	"github.com/taeho-io/family/services/accounts"
+	"github.com/taeho-io/family/services/accounts/internal/model"
+	"github.com/taeho-io/family/services/base"
 )
 
 var (
@@ -19,7 +16,7 @@ var (
 )
 
 func main() {
-	cfg := config.New(config.NewSettings())
+	cfg := accounts.NewConfig(accounts.NewSettings())
 
 	ddb, err := getDynamodb()
 	if err != nil {
@@ -28,15 +25,16 @@ func main() {
 
 	readUnits, writeUnits := loadProvisionUnits()
 
-	accountsTableName := accounts_repo.New(ddb, cfg).Table().Name()
-	err = ddb.DB().CreateTable(accountsTableName, models.Account{}).
+	fullTableName := base.FullDynamodbTableName(cfg, cfg.Settings().DynamodbAccountsTableName)
+
+	err = ddb.DB().CreateTable(fullTableName, model.Account{}).
 		Provision(readUnits, writeUnits).
 		Run()
 	if err != nil {
 		log.Fatal(err)
 	}
 	log.Printf("`%s` table is being created with readUnits:%d, writeUnits:%d.",
-		accountsTableName, readUnits, writeUnits)
+		fullTableName, readUnits, writeUnits)
 }
 
 func loadProvisionUnits() (readUnits int64, writeUnits int64) {
@@ -53,10 +51,10 @@ func loadProvisionUnits() (readUnits int64, writeUnits int64) {
 	return readUnits, writeUnits
 }
 
-func getDynamodb() (dynamodb.IFace, error) {
-	a, err := aws.New()
+func getDynamodb() (base.Dynamodb, error) {
+	aws, err := base.NewAws()
 	if err != nil {
 		return nil, err
 	}
-	return dynamodb.New(a), nil
+	return base.NewDynamodb(aws), nil
 }

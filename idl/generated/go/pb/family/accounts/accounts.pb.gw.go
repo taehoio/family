@@ -79,14 +79,14 @@ func RegisterAccountsServiceHandlerFromEndpoint(ctx context.Context, mux *runtim
 	return RegisterAccountsServiceHandler(ctx, mux, conn)
 }
 
-// RegisterAccountsServiceHandler registers the http handlers for service AccountsService to "mux".
-// The handlers forward requests to the grpc endpoint over "conn".
+// RegisterAccountsServiceHandler registers the http handler for service AccountsService to "mux".
+// The handler forward requests to the grpc endpoint over "conn".
 func RegisterAccountsServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	return RegisterAccountsServiceHandlerClient(ctx, mux, NewAccountsServiceClient(conn))
 }
 
-// RegisterAccountsServiceHandler registers the http handlers for service AccountsService to "mux".
-// The handlers forward requests to the grpc endpoint over the given implementation of "AccountsServiceClient".
+// RegisterAccountsServiceHandler registers the http handler for service AccountsService to "mux".
+// The handler forward requests to the grpc endpoint over the given implementation of "AccountsServiceClient".
 // Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "AccountsServiceClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "AccountsServiceClient" to call the correct interceptors.

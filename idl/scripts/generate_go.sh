@@ -27,4 +27,4 @@ for FILE in ${PROTOS}; do
 done
 
 # generate mocks
-mockery -all -dir ./generated/go/pb/family -keeptree -output ./generated/go/pb/family/mocks
+mockery -all -dir ./generated/go/pb/family -inpkg

@@ -18,10 +18,10 @@ import (
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
-	"github.com/taeho-io/family/services/accounts/grpc/accounts_service"
-	"github.com/taeho-io/family/services/auth/grpc/auth_service"
-	"github.com/taeho-io/family/services/discovery/grpc/discovery_service"
-	"github.com/taeho-io/family/services/todo_groups/grpc/todo_groups_service"
+	accountsService "github.com/taeho-io/family/services/accounts"
+	authService "github.com/taeho-io/family/services/auth"
+	discoveryService "github.com/taeho-io/family/services/discovery"
+	"github.com/taeho-io/family/services/todogroups/grpc/todo_groups_service"
 	"github.com/taeho-io/family/services/todos/grpc/todos_service"
 )
 
@@ -31,22 +31,22 @@ var (
 
 	authServerEndpoint = flag.String(
 		"auth_server_endpoint",
-		discovery_service.ServiceAddrMap[discovery.Service_AUTH],
+		discoveryService.ServiceAddrMap[discovery.Service_AUTH],
 		"endpoint of AuthServer",
 	)
 	accountsServerEndpoint = flag.String(
 		"accounts_server_endpoint",
-		discovery_service.ServiceAddrMap[discovery.Service_ACCOUNTS],
+		discoveryService.ServiceAddrMap[discovery.Service_ACCOUNTS],
 		"endpoint of AccountsServer",
 	)
 	todoGroupsServerEndpoint = flag.String(
 		"todo_groups_server_endpoint",
-		discovery_service.ServiceAddrMap[discovery.Service_TODOGROUPS],
+		discoveryService.ServiceAddrMap[discovery.Service_TODOGROUPS],
 		"endpoint of TodoGroupsServer",
 	)
 	todosServerEndpoint = flag.String(
 		"todos_server_endpoint",
-		discovery_service.ServiceAddrMap[discovery.Service_TODOS],
+		discoveryService.ServiceAddrMap[discovery.Service_TODOS],
 		"endpoint of TodosServer",
 	)
 )
@@ -112,8 +112,8 @@ func startGRPCServices() error {
 	type serveFunc func() error
 
 	serveFuncs := []serveFunc{
-		auth_service.Serve,
-		accounts_service.Serve,
+		authService.Serve,
+		accountsService.Serve,
 		todo_groups_service.Serve,
 		todos_service.Serve,
 	}

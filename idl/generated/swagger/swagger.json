@@ -108,7 +108,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/todosListTodoGroupsResponse"
+              "$ref": "#/definitions/todogroupsListTodoGroupsResponse"
             }
           }
         },
@@ -124,7 +124,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/todosCreateTodoGroupRequest"
+              "$ref": "#/definitions/todogroupsCreateTodoGroupRequest"
             }
           }
         ],
@@ -132,7 +132,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/todosCreateTodoGroupResponse"
+              "$ref": "#/definitions/todogroupsCreateTodoGroupResponse"
             }
           }
         },
@@ -162,7 +162,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/todosDeleteTodoGroupResponse"
+              "$ref": "#/definitions/todogroupsDeleteTodoGroupResponse"
             }
           }
         },
@@ -190,7 +190,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/todosGetTodoGroupResponse"
+              "$ref": "#/definitions/todogroupsGetTodoGroupResponse"
             }
           }
         },
@@ -212,7 +212,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/todosUpdateTodoGroupRequest"
+              "$ref": "#/definitions/todogroupsUpdateTodoGroupRequest"
             }
           }
         ],
@@ -220,7 +220,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/todosUpdateTodoGroupResponse"
+              "$ref": "#/definitions/todogroupsUpdateTodoGroupResponse"
             }
           }
         },
@@ -516,21 +516,105 @@
       },
       "type": "object"
     },
-    "todosCreateTodoGroupRequest": {
+    "todogroupsCreateTodoGroupRequest": {
       "properties": {
         "account_id": {
           "type": "string"
         },
         "todo_group": {
-          "$ref": "#/definitions/todosTodoGroup"
+          "$ref": "#/definitions/todogroupsTodoGroup"
         }
       },
       "type": "object"
     },
-    "todosCreateTodoGroupResponse": {
+    "todogroupsCreateTodoGroupResponse": {
       "properties": {
         "todo_group": {
-          "$ref": "#/definitions/todosTodoGroup"
+          "$ref": "#/definitions/todogroupsTodoGroup"
+        }
+      },
+      "type": "object"
+    },
+    "todogroupsDeleteTodoGroupResponse": {
+      "type": "object"
+    },
+    "todogroupsGetTodoGroupResponse": {
+      "properties": {
+        "todo_group": {
+          "$ref": "#/definitions/todogroupsTodoGroup"
+        }
+      },
+      "type": "object"
+    },
+    "todogroupsListTodoGroupsResponse": {
+      "properties": {
+        "todo_groups": {
+          "items": {
+            "$ref": "#/definitions/todogroupsTodoGroup"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "todogroupsPermitType": {
+      "default": "PERMIT_TYPE_OWNER",
+      "enum": [
+        "PERMIT_TYPE_OWNER",
+        "PERMIT_TYPE_EDITOR",
+        "PERMIT_TYPE_VIEWER"
+      ],
+      "type": "string"
+    },
+    "todogroupsTodoGroup": {
+      "properties": {
+        "created_at": {
+          "format": "int64",
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "order": {
+          "type": "string"
+        },
+        "permit_type": {
+          "$ref": "#/definitions/todogroupsPermitType"
+        },
+        "title": {
+          "type": "string"
+        },
+        "todo_group_id": {
+          "type": "string"
+        },
+        "updated_at": {
+          "format": "int64",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "todogroupsUpdateTodoGroupRequest": {
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "todo_group": {
+          "$ref": "#/definitions/todogroupsTodoGroup"
+        },
+        "todo_group_id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "todogroupsUpdateTodoGroupResponse": {
+      "properties": {
+        "todo_group": {
+          "$ref": "#/definitions/todogroupsTodoGroup"
         }
       },
       "type": "object"
@@ -557,35 +641,13 @@
       },
       "type": "object"
     },
-    "todosDeleteTodoGroupResponse": {
-      "type": "object"
-    },
     "todosDeleteTodoResponse": {
-      "type": "object"
-    },
-    "todosGetTodoGroupResponse": {
-      "properties": {
-        "todo_group": {
-          "$ref": "#/definitions/todosTodoGroup"
-        }
-      },
       "type": "object"
     },
     "todosGetTodoResponse": {
       "properties": {
         "todo": {
           "$ref": "#/definitions/todosTodo"
-        }
-      },
-      "type": "object"
-    },
-    "todosListTodoGroupsResponse": {
-      "properties": {
-        "todo_groups": {
-          "items": {
-            "$ref": "#/definitions/todosTodoGroup"
-          },
-          "type": "array"
         }
       },
       "type": "object"
@@ -606,15 +668,6 @@
       "enum": [
         "PARENT_TYPE_TODO_GROUP",
         "PARENT_TYPE_TODO"
-      ],
-      "type": "string"
-    },
-    "todosPermitType": {
-      "default": "PERMIT_TYPE_OWNER",
-      "enum": [
-        "PERMIT_TYPE_OWNER",
-        "PERMIT_TYPE_EDITOR",
-        "PERMIT_TYPE_VIEWER"
       ],
       "type": "string"
     },
@@ -688,59 +741,6 @@
         "updated_at": {
           "format": "int64",
           "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "todosTodoGroup": {
-      "properties": {
-        "created_at": {
-          "format": "int64",
-          "type": "string"
-        },
-        "created_by": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "order": {
-          "type": "string"
-        },
-        "permit_type": {
-          "$ref": "#/definitions/todosPermitType"
-        },
-        "title": {
-          "type": "string"
-        },
-        "todo_group_id": {
-          "type": "string"
-        },
-        "updated_at": {
-          "format": "int64",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "todosUpdateTodoGroupRequest": {
-      "properties": {
-        "account_id": {
-          "type": "string"
-        },
-        "todo_group": {
-          "$ref": "#/definitions/todosTodoGroup"
-        },
-        "todo_group_id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "todosUpdateTodoGroupResponse": {
-      "properties": {
-        "todo_group": {
-          "$ref": "#/definitions/todosTodoGroup"
         }
       },
       "type": "object"

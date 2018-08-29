@@ -1,0 +1,260 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/family/todogroups/todogroups.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/todo-groups": {
+      "get": {
+        "operationId": "ListTodoGroups",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todogroupsListTodoGroupsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TodoGroupsService"
+        ]
+      },
+      "post": {
+        "operationId": "CreateTodoGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todogroupsCreateTodoGroupResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todogroupsCreateTodoGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TodoGroupsService"
+        ]
+      }
+    },
+    "/v1/todo-groups/{todo_group_id}": {
+      "get": {
+        "operationId": "GetTodoGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todogroupsGetTodoGroupResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TodoGroupsService"
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteTodoGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todogroupsDeleteTodoGroupResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "TodoGroupsService"
+        ]
+      },
+      "put": {
+        "operationId": "UpdateTodoGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todogroupsUpdateTodoGroupResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todogroupsUpdateTodoGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TodoGroupsService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "todogroupsCreateTodoGroupRequest": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "todo_group": {
+          "$ref": "#/definitions/todogroupsTodoGroup"
+        }
+      }
+    },
+    "todogroupsCreateTodoGroupResponse": {
+      "type": "object",
+      "properties": {
+        "todo_group": {
+          "$ref": "#/definitions/todogroupsTodoGroup"
+        }
+      }
+    },
+    "todogroupsDeleteTodoGroupResponse": {
+      "type": "object"
+    },
+    "todogroupsGetTodoGroupResponse": {
+      "type": "object",
+      "properties": {
+        "todo_group": {
+          "$ref": "#/definitions/todogroupsTodoGroup"
+        }
+      }
+    },
+    "todogroupsListTodoGroupsResponse": {
+      "type": "object",
+      "properties": {
+        "todo_groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/todogroupsTodoGroup"
+          }
+        }
+      }
+    },
+    "todogroupsPermitType": {
+      "type": "string",
+      "enum": [
+        "PERMIT_TYPE_OWNER",
+        "PERMIT_TYPE_EDITOR",
+        "PERMIT_TYPE_VIEWER"
+      ],
+      "default": "PERMIT_TYPE_OWNER"
+    },
+    "todogroupsTodoGroup": {
+      "type": "object",
+      "properties": {
+        "todo_group_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "order": {
+          "type": "string"
+        },
+        "permit_type": {
+          "$ref": "#/definitions/todogroupsPermitType"
+        }
+      }
+    },
+    "todogroupsUpdateTodoGroupRequest": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "todo_group_id": {
+          "type": "string"
+        },
+        "todo_group": {
+          "$ref": "#/definitions/todogroupsTodoGroup"
+        }
+      }
+    },
+    "todogroupsUpdateTodoGroupResponse": {
+      "type": "object",
+      "properties": {
+        "todo_group": {
+          "$ref": "#/definitions/todogroupsTodoGroup"
+        }
+      }
+    }
+  }
+}

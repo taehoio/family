@@ -7,7 +7,7 @@ import (
 const (
 	serviceName                              = "todos"
 	defaultDynamodbTodosTableName            = "todos"
-	defaultDynamodbTodoGroupsTableName       = "todo_groups"
+	defaultDynamodbTodoGroupsTableName       = "todogroups"
 	defaultDynamodbTodoGroupPermitsTableName = "todo_group_permits"
 )
 

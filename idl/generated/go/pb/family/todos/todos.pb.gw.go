@@ -184,14 +184,14 @@ func RegisterTodosServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.S
 	return RegisterTodosServiceHandler(ctx, mux, conn)
 }
 
-// RegisterTodosServiceHandler registers the http handlers for service TodosService to "mux".
-// The handlers forward requests to the grpc endpoint over "conn".
+// RegisterTodosServiceHandler registers the http handler for service TodosService to "mux".
+// The handler forward requests to the grpc endpoint over "conn".
 func RegisterTodosServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	return RegisterTodosServiceHandlerClient(ctx, mux, NewTodosServiceClient(conn))
 }
 
-// RegisterTodosServiceHandler registers the http handlers for service TodosService to "mux".
-// The handlers forward requests to the grpc endpoint over the given implementation of "TodosServiceClient".
+// RegisterTodosServiceHandler registers the http handler for service TodosService to "mux".
+// The handler forward requests to the grpc endpoint over the given implementation of "TodosServiceClient".
 // Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "TodosServiceClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "TodosServiceClient" to call the correct interceptors.
