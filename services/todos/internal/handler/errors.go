@@ -1,4 +1,4 @@
-package handlers
+package handler
 
 import (
 	"google.golang.org/grpc/codes"

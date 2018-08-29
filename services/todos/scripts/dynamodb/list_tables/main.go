@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/taeho-io/family/services/base/aws"
-	"github.com/taeho-io/family/services/base/aws/dynamodb"
+	"github.com/taeho-io/family/services/base"
 )
 
 func main() {
@@ -24,10 +23,10 @@ func main() {
 	}
 }
 
-func getDynamodb() (dynamodb.IFace, error) {
-	a, err := aws.New()
+func getDynamodb() (base.Dynamodb, error) {
+	aws, err := base.NewAws()
 	if err != nil {
 		return nil, err
 	}
-	return dynamodb.New(a), nil
+	return base.NewDynamodb(aws), nil
 }

@@ -21,8 +21,8 @@ type CreateTodoGroupFunc func(
 )
 
 func CreateTodoGroup(
-	todoGroupsRepo repo.TodoGroupsRepo,
-	todoGroupPermitsRepo repo.TodoGroupPermitsRepo,
+	todoGroupsRepo repo.GroupsRepo,
+	todoGroupPermitsRepo repo.PermitsRepo,
 	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) CreateTodoGroupFunc {
 	return func(

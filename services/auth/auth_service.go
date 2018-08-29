@@ -24,7 +24,7 @@ type Service interface {
 	Token() token.Token
 }
 
-type DefaultService struct {
+type defaultService struct {
 	base.GrpcService
 
 	tkn token.Token
@@ -37,7 +37,7 @@ func NewService(cfg Config) Service {
 		cfg.Settings().RefreshTokenExpiringDuration,
 	)
 
-	return &DefaultService{
+	return &defaultService{
 		GrpcService: base.NewGrpcService(cfg),
 		tkn:         token.New(tokenCfg),
 	}
@@ -47,27 +47,27 @@ func NewMockService() Service {
 	return NewService(NewMockConfig())
 }
 
-func (s *DefaultService) RegisterService(srv *grpc.Server) {
+func (s *defaultService) RegisterService(srv *grpc.Server) {
 	auth.RegisterAuthServiceServer(srv, s)
 }
 
-func (s *DefaultService) Token() token.Token {
+func (s *defaultService) Token() token.Token {
 	return s.tkn
 }
 
-func (s *DefaultService) Auth(ctx context.Context, req *auth.AuthRequest) (*auth.AuthResponse, error) {
+func (s *defaultService) Auth(ctx context.Context, req *auth.AuthRequest) (*auth.AuthResponse, error) {
 	return handler.Auth(s.Config().(Config).Settings().AccessTokenExpiringDuration, s.Token())(ctx, req)
 }
 
-func (s *DefaultService) Validate(ctx context.Context, req *auth.ValidateRequest) (*auth.ValidateResponse, error) {
+func (s *defaultService) Validate(ctx context.Context, req *auth.ValidateRequest) (*auth.ValidateResponse, error) {
 	return handler.Validate(s.Token())(ctx, req)
 }
 
-func (s *DefaultService) Refresh(ctx context.Context, req *auth.RefreshRequest) (*auth.RefreshResponse, error) {
+func (s *defaultService) Refresh(ctx context.Context, req *auth.RefreshRequest) (*auth.RefreshResponse, error) {
 	return handler.Refresh(s.Config().(Config).Settings().AccessTokenExpiringDuration, s.Token())(ctx, req)
 }
 
-func (s *DefaultService) Parse(ctx context.Context, req *auth.ParseRequest) (*auth.ParseResponse, error) {
+func (s *defaultService) Parse(ctx context.Context, req *auth.ParseRequest) (*auth.ParseResponse, error) {
 	return handler.Parse(s.Token())(ctx, req)
 }
 

@@ -13,7 +13,7 @@ type UpdateTodoGroupFunc func(
 ) (*todogroups.UpdateTodoGroupResponse, error)
 
 func UpdateTodoGroup(
-	todoGroupsRepo repo.TodoGroupsRepo,
+	todoGroupsRepo repo.GroupsRepo,
 	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) UpdateTodoGroupFunc {
 	return func(

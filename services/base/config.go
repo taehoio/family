@@ -21,7 +21,7 @@ type Config interface {
 	Prefix() string
 }
 
-type DefaultConfig struct {
+type defaultConfig struct {
 	Config
 
 	productName string
@@ -29,7 +29,7 @@ type DefaultConfig struct {
 	env         string
 }
 
-func NewConfig(serviceName string) (cfg *DefaultConfig) {
+func NewConfig(serviceName string) (cfg *defaultConfig) {
 	env := defaultEnvironment
 	for _, key := range environmentKeys {
 		value := os.Getenv(key)
@@ -39,33 +39,33 @@ func NewConfig(serviceName string) (cfg *DefaultConfig) {
 		}
 	}
 
-	return &DefaultConfig{
+	return &defaultConfig{
 		productName: productName,
 		serviceName: serviceName,
 		env:         env,
 	}
 }
 
-func NewMockConfig(serviceName string) (cfg *DefaultConfig) {
-	return &DefaultConfig{
+func NewMockConfig(serviceName string) (cfg *defaultConfig) {
+	return &defaultConfig{
 		productName: productName,
 		serviceName: serviceName,
 		env:         defaultEnvironment,
 	}
 }
 
-func (c *DefaultConfig) ProductName() string {
+func (c *defaultConfig) ProductName() string {
 	return c.productName
 }
 
-func (c *DefaultConfig) ServiceName() string {
+func (c *defaultConfig) ServiceName() string {
 	return c.serviceName
 }
 
-func (c *DefaultConfig) Env() string {
+func (c *defaultConfig) Env() string {
 	return c.env
 }
 
-func (c *DefaultConfig) Prefix() string {
+func (c *defaultConfig) Prefix() string {
 	return strings.Join([]string{c.ProductName(), c.Env(), c.ServiceName()}, "-")
 }

@@ -26,9 +26,7 @@ var (
 	InvalidCreatedByError   = status.Error(codes.InvalidArgument, "invalid created_by")
 )
 
-type TodoGroupsRepo interface {
-	base.DynamodbRepo
-
+type GroupsRepo interface {
 	Put(*model.TodoGroup) error
 	GetByID(string) (*model.TodoGroup, error)
 	ListByIDs([]string) ([]*model.TodoGroup, error)
@@ -38,25 +36,26 @@ type TodoGroupsRepo interface {
 	DeleteByID(string) error
 }
 
-type DynamodbTodoGroupsRepo struct {
-	TodoGroupsRepo
+type dynamodbGroupsRepo struct {
+	GroupsRepo
+	base.DynamodbRepo
 
 	todoGroupsTable *dynamo.Table
 }
 
-func NewTodoGroupsRepo(ddb base.Dynamodb, cfg TodoGroupsRepoConfig) TodoGroupsRepo {
+func NewTodosRepo(ddb base.Dynamodb, cfg TodoGroupsRepoConfig) GroupsRepo {
 	todoGroupsTable := ddb.DB().Table(cfg.FullTableName())
 
-	return &DynamodbTodoGroupsRepo{
+	return &dynamodbGroupsRepo{
 		todoGroupsTable: &todoGroupsTable,
 	}
 }
 
-func NewMockTodoGroupsRepo() TodoGroupsRepo {
+func NewMockGroupsRepo() GroupsRepo {
 	ddb := base.NewMockDynamodb()
 	cfg := NewMockTodoGroupsRepoConfig()
 
-	return NewTodoGroupsRepo(ddb, cfg)
+	return NewTodosRepo(ddb, cfg)
 }
 
 func validateTodoGroupInput(todoGroup *model.TodoGroup) error {
@@ -73,11 +72,11 @@ func validateTodoGroupInput(todoGroup *model.TodoGroup) error {
 	return nil
 }
 
-func (t *DynamodbTodoGroupsRepo) Table() *dynamo.Table {
+func (t *dynamodbGroupsRepo) Table() *dynamo.Table {
 	return t.todoGroupsTable
 }
 
-func (t *DynamodbTodoGroupsRepo) Put(todoGroup *model.TodoGroup) error {
+func (t *dynamodbGroupsRepo) Put(todoGroup *model.TodoGroup) error {
 	if err := validateTodoGroupInput(todoGroup); err != nil {
 		return err
 	}
@@ -91,7 +90,7 @@ func (t *DynamodbTodoGroupsRepo) Put(todoGroup *model.TodoGroup) error {
 		Run()
 }
 
-func (t *DynamodbTodoGroupsRepo) GetByID(todoGroupID string) (*model.TodoGroup, error) {
+func (t *dynamodbGroupsRepo) GetByID(todoGroupID string) (*model.TodoGroup, error) {
 	var todoGroup model.TodoGroup
 
 	if err := t.Table().Get(todoGroupIDFieldKey, todoGroupID).One(&todoGroup); err != nil {
@@ -101,7 +100,7 @@ func (t *DynamodbTodoGroupsRepo) GetByID(todoGroupID string) (*model.TodoGroup, 
 	return &todoGroup, nil
 }
 
-func (t *DynamodbTodoGroupsRepo) ListByIDs(todoGroupIDs []string) ([]*model.TodoGroup, error) {
+func (t *dynamodbGroupsRepo) ListByIDs(todoGroupIDs []string) ([]*model.TodoGroup, error) {
 	var todoGroups []*model.TodoGroup
 
 	// TODO: make it concurrent.
@@ -116,7 +115,7 @@ func (t *DynamodbTodoGroupsRepo) ListByIDs(todoGroupIDs []string) ([]*model.Todo
 	return todoGroups, nil
 }
 
-func (t *DynamodbTodoGroupsRepo) UpdateTitle(todoGroupID, title string) (*model.TodoGroup, error) {
+func (t *dynamodbGroupsRepo) UpdateTitle(todoGroupID, title string) (*model.TodoGroup, error) {
 	var todoGroup model.TodoGroup
 
 	err := t.Table().
@@ -132,7 +131,7 @@ func (t *DynamodbTodoGroupsRepo) UpdateTitle(todoGroupID, title string) (*model.
 	return &todoGroup, nil
 }
 
-func (t *DynamodbTodoGroupsRepo) UpdateDescription(todoGroupID, description string) (*model.TodoGroup, error) {
+func (t *dynamodbGroupsRepo) UpdateDescription(todoGroupID, description string) (*model.TodoGroup, error) {
 	var todoGroup model.TodoGroup
 
 	err := t.Table().
@@ -148,7 +147,7 @@ func (t *DynamodbTodoGroupsRepo) UpdateDescription(todoGroupID, description stri
 	return &todoGroup, nil
 }
 
-func (t *DynamodbTodoGroupsRepo) UpdateOrder(todoGroupID, order string) (*model.TodoGroup, error) {
+func (t *dynamodbGroupsRepo) UpdateOrder(todoGroupID, order string) (*model.TodoGroup, error) {
 	var todoGroup model.TodoGroup
 
 	err := t.Table().
@@ -164,7 +163,7 @@ func (t *DynamodbTodoGroupsRepo) UpdateOrder(todoGroupID, order string) (*model.
 	return &todoGroup, nil
 }
 
-func (t *DynamodbTodoGroupsRepo) DeleteByID(todoGroupID string) error {
+func (t *dynamodbGroupsRepo) DeleteByID(todoGroupID string) error {
 	return t.Table().
 		Delete(todoGroupIDFieldKey, todoGroupID).
 		If(fmt.Sprintf("%s = ?", todoGroupIDFieldKey), todoGroupID).

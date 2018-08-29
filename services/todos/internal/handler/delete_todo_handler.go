@@ -1,23 +1,23 @@
-package handlers
+package handler
 
 import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/sirupsen/logrus"
+	"github.com/taeho-io/family/services/base"
+	"github.com/taeho-io/family/services/todos/internal/repo"
 	"golang.org/x/net/context"
 
-	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/todogroups"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
-	"github.com/taeho-io/family/services/base/grpc/base_service"
-	"github.com/taeho-io/family/services/todos/repos/todos_repo"
 )
 
 type DeleteTodoFunc func(ctx context.Context, req *todos.DeleteTodoRequest) (*todos.DeleteTodoResponse, error)
 
 func DeleteTodo(
-	todosTable todos_repo.IFace,
-	getAccountIDFromContext base_service.GetAccountIDFromContextFunc,
-	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
-	todoGroupsServiceClient todo_groups.TodoGroupsServiceClient,
+	todosRepo repo.TodosRepo,
+	getAccountIDFromContext base.GetAccountIDFromContextFunc,
+	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
+	todoGroupsServiceClient todogroups.TodoGroupsServiceClient,
 ) DeleteTodoFunc {
 	return func(ctx context.Context, req *todos.DeleteTodoRequest) (*todos.DeleteTodoResponse, error) {
 		req.AccountId = getAccountIDFromContext(ctx)
@@ -27,10 +27,10 @@ func DeleteTodo(
 
 		logger := ctxlogrus.Extract(ctx).WithField("req", req)
 
-		todo, err := todosTable.GetByID(req.TodoId)
+		todo, err := todosRepo.GetByID(req.TodoId)
 		if err != nil {
 			logger.WithFields(logrus.Fields{
-				"what":   "todosTable.GetByID",
+				"what":   "todosRepo.GetByID",
 				"todoId": "req.TodoId",
 			})
 			return nil, err
@@ -40,7 +40,7 @@ func DeleteTodo(
 			return nil, InvalidParentTypeError
 		}
 
-		getTogoGroupReq := &todo_groups.GetTodoGroupRequest{
+		getTogoGroupReq := &todogroups.GetTodoGroupRequest{
 			AccountId:   req.AccountId,
 			TodoGroupId: todo.ParentID,
 		}
@@ -54,17 +54,17 @@ func DeleteTodo(
 			return nil, err
 		}
 		if todoGroupRes.TodoGroup == nil {
-			return nil, base_service.PermissionDeniedError
+			return nil, base.PermissionDeniedError
 		}
 
 		permitType := todoGroupRes.TodoGroup.PermitType
-		if !(permitType == todo_groups.PermitType_PERMIT_TYPE_OWNER || permitType == todo_groups.PermitType_PERMIT_TYPE_EDITOR) {
-			return nil, base_service.PermissionDeniedError
+		if !(permitType == todogroups.PermitType_PERMIT_TYPE_OWNER || permitType == todogroups.PermitType_PERMIT_TYPE_EDITOR) {
+			return nil, base.PermissionDeniedError
 		}
 
-		if err := todosTable.DeleteByID(req.TodoId); err != nil {
+		if err := todosRepo.DeleteByID(req.TodoId); err != nil {
 			logger.WithFields(logrus.Fields{
-				"what":   "todosTable.DeleteByID",
+				"what":   "todosRepo.DeleteByID",
 				"todoId": req.TodoId,
 			}).Error(err)
 

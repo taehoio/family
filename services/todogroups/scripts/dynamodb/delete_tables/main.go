@@ -17,14 +17,14 @@ func main() {
 	}
 
 	dynamodbTodoGroupsTableName := base.FullDynamodbTableName(cfg, cfg.Settings().DynamodbTodoGroupsTableName)
-	todoGroupsTable := repo.NewTodoGroupsRepo(ddb, repo.NewTodoGroupPermitsRepoConfig(dynamodbTodoGroupsTableName)).Table()
+	todoGroupsTable := repo.NewTodosRepo(ddb, repo.NewTodoGroupsRepoConfig(dynamodbTodoGroupsTableName)).(base.DynamodbRepo).Table()
 	if err := todoGroupsTable.DeleteTable().Run(); err != nil {
 		log.Fatal(err)
 	}
 	log.Printf("`%s` table is being deleted.", todoGroupsTable.Name())
 
 	dynamodbTodoGroupPermitsTableName := base.FullDynamodbTableName(cfg, cfg.Settings().DynamodbTodoGroupPermitsTableName)
-	todoGroupPermitsTable := repo.NewTodoGroupPermitsRepo(ddb, repo.NewTodoGroupPermitsRepoConfig(dynamodbTodoGroupPermitsTableName)).Table()
+	todoGroupPermitsTable := repo.NewPermitsRepo(ddb, repo.NewTodoGroupPermitsRepoConfig(dynamodbTodoGroupPermitsTableName)).(base.DynamodbRepo).Table()
 	if err := todoGroupPermitsTable.DeleteTable().Run(); err != nil {
 		log.Fatal(err)
 	}

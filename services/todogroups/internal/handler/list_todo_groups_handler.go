@@ -19,8 +19,8 @@ type ListTodoGroupsFunc func(
 )
 
 func ListTodoGroups(
-	todoGroupsRepo repo.TodoGroupsRepo,
-	todoGroupPermitsRepo repo.TodoGroupPermitsRepo,
+	todoGroupsRepo repo.GroupsRepo,
+	todoGroupPermitsRepo repo.PermitsRepo,
 	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) ListTodoGroupsFunc {
 	return func(

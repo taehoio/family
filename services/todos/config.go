@@ -1,4 +1,4 @@
-package todogroups
+package todos
 
 import (
 	"github.com/taeho-io/family/services/base"
@@ -10,27 +10,26 @@ type Config interface {
 	Settings() Settings
 }
 
-type DefaultConfig struct {
+type defaultConfig struct {
 	base.Config
 
 	settings Settings
 }
 
-func NewConfig(settings Settings) (cfg Config) {
-	return &DefaultConfig{
+func NewConfig(settings Settings) Config {
+	return &defaultConfig{
 		Config:   base.NewConfig(serviceName),
 		settings: settings,
 	}
-
 }
 
-func NewMockConfig() (cfg Config) {
-	return &DefaultConfig{
+func NewMockConfig() Config {
+	return &defaultConfig{
 		Config:   base.NewConfig(serviceName),
 		settings: NewMockSettings(),
 	}
 }
 
-func (t *DefaultConfig) Settings() Settings {
+func (t *defaultConfig) Settings() Settings {
 	return t.settings
 }

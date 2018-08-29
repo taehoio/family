@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	todoGroupPermitsRepo TodoGroupPermitsRepo
+	todoGroupPermitsRepo PermitsRepo
 
 	testAccountID                 = "test_account_id"
 	testNonExistAccountID         = "test_non_exist_account_id"
@@ -26,7 +26,7 @@ func TestValidationTodoGroupPermitInput(t *testing.T) {
 		TodoGroupID: testTodoGroupID,
 		PermitType:  testTodoGroupPermitTypeOwner,
 	}
-	err := validateTodoGroupPermitInput(todoGroupPermit)
+	err := validatePermitInput(todoGroupPermit)
 	assert.Nil(t, err)
 }
 
@@ -35,7 +35,7 @@ func TestValidateTodoGroupPermitInputInvalidAccountID(t *testing.T) {
 		TodoGroupID: testTodoGroupID,
 		PermitType:  testTodoGroupPermitTypeOwner,
 	}
-	err := validateTodoGroupPermitInput(todoGroupPermit)
+	err := validatePermitInput(todoGroupPermit)
 	assert.Equal(t, InvalidAccountIDError, err)
 }
 
@@ -44,7 +44,7 @@ func TestValidateTodoGroupPermitInputInvalidTodoGroupID(t *testing.T) {
 		AccountID:  testAccountID,
 		PermitType: testTodoGroupPermitTypeOwner,
 	}
-	err := validateTodoGroupPermitInput(todoGroupPermit)
+	err := validatePermitInput(todoGroupPermit)
 	assert.Equal(t, InvalidTodoGroupIDError, err)
 }
 
@@ -54,7 +54,7 @@ func TestValidateTodoGroupPermitInputInvalidPermitType(t *testing.T) {
 		TodoGroupID: testTodoGroupID,
 		PermitType:  testWongTodoGroupPermitType,
 	}
-	err := validateTodoGroupPermitInput(todoGroupPermit)
+	err := validatePermitInput(todoGroupPermit)
 	assert.Equal(t, InvalidPermitTypeError, err)
 }
 

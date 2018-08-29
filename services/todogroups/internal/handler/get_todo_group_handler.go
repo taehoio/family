@@ -20,8 +20,8 @@ type GetTodoGroupFunc func(
 )
 
 func GetTodoGroup(
-	todoGroupsRepo repo.TodoGroupsRepo,
-	todoGroupPermitsRepo repo.TodoGroupPermitsRepo,
+	todoGroupsRepo repo.GroupsRepo,
+	todoGroupPermitsRepo repo.PermitsRepo,
 	getAccountIDFromContext base.GetAccountIDFromContextFunc,
 	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) GetTodoGroupFunc {

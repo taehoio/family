@@ -16,8 +16,8 @@ type DeleteTodoGroupFunc func(
 ) (*todogroups.DeleteTodoGroupResponse, error)
 
 func DeleteTodoGroup(
-	todoGroupsRepo repo.TodoGroupsRepo,
-	todoGroupPermitsRepo repo.TodoGroupPermitsRepo,
+	todoGroupsRepo repo.GroupsRepo,
+	todoGroupPermitsRepo repo.PermitsRepo,
 	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) DeleteTodoGroupFunc {
 	return func(

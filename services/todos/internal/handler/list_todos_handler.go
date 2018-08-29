@@ -1,23 +1,23 @@
-package handlers
+package handler
 
 import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 
-	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/todogroups"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
-	"github.com/taeho-io/family/services/base/grpc/base_service"
-	"github.com/taeho-io/family/services/todos/repos/todos_repo"
+	"github.com/taeho-io/family/services/base"
+	"github.com/taeho-io/family/services/todos/internal/repo"
 )
 
 type ListTodosFunc func(ctx context.Context, req *todos.ListTodosRequest) (*todos.ListTodosResponse, error)
 
 func ListTodos(
-	todosTable todos_repo.IFace,
-	getAccountIDFromContext base_service.GetAccountIDFromContextFunc,
-	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
-	todoGroupsServiceClient todo_groups.TodoGroupsServiceClient,
+	todosRepo repo.TodosRepo,
+	getAccountIDFromContext base.GetAccountIDFromContextFunc,
+	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
+	todoGroupsServiceClient todogroups.TodoGroupsServiceClient,
 ) ListTodosFunc {
 	return func(ctx context.Context, req *todos.ListTodosRequest) (*todos.ListTodosResponse, error) {
 		req.AccountId = getAccountIDFromContext(ctx)
@@ -31,7 +31,7 @@ func ListTodos(
 			return nil, InvalidParentTypeError
 		}
 
-		getTogoGroupReq := &todo_groups.GetTodoGroupRequest{
+		getTogoGroupReq := &todogroups.GetTodoGroupRequest{
 			AccountId:   req.AccountId,
 			TodoGroupId: req.ParentId,
 		}
@@ -45,10 +45,10 @@ func ListTodos(
 			return nil, err
 		}
 		if todoGroupRes.TodoGroup == nil {
-			return nil, base_service.PermissionDeniedError
+			return nil, base.PermissionDeniedError
 		}
 
-		todoList, err := todosTable.ListByParentID(req.ParentId)
+		todoList, err := todosRepo.ListByParentID(req.ParentId)
 		if err != nil {
 			logger.WithFields(logrus.Fields{
 				"what":     "todoTable.ListByParendID",

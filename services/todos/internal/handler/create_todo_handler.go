@@ -1,4 +1,4 @@
-package handlers
+package handler
 
 import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
@@ -7,16 +7,16 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
-	"github.com/taeho-io/family/services/base/grpc/base_service"
-	"github.com/taeho-io/family/services/todos/models"
-	"github.com/taeho-io/family/services/todos/repos/todos_repo"
+	"github.com/taeho-io/family/services/base"
+	"github.com/taeho-io/family/services/todos/internal/model"
+	"github.com/taeho-io/family/services/todos/internal/repo"
 )
 
 type CreateTodoFunc func(ctx context.Context, req *todos.CreateTodoRequest) (*todos.CreateTodoResponse, error)
 
 func CreateTodo(
-	todosTable todos_repo.IFace,
-	hasPermissionByAccountID base_service.HasPermissionByAccountIDFunc,
+	todosRepo repo.TodosRepo,
+	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) CreateTodoFunc {
 	return func(ctx context.Context, req *todos.CreateTodoRequest) (*todos.CreateTodoResponse, error) {
 		if err := validateTodoInput(req); err != nil {
@@ -29,11 +29,11 @@ func CreateTodo(
 
 		logger := ctxlogrus.Extract(ctx).WithField("req", req)
 
-		todo := models.NewTodoFromProto(req.Todo)
+		todo := model.NewTodoFromProto(req.Todo)
 		todo.TodoID = xid.New().String()
-		if err := todosTable.Put(todo); err != nil {
+		if err := todosRepo.Put(todo); err != nil {
 			logger.WithFields(logrus.Fields{
-				"what": "todosTable.Put",
+				"what": "todosRepo.Put",
 				"todo": todo,
 			}).Error(err)
 

@@ -22,15 +22,15 @@ type Service interface {
 	base.DynamodbService
 	todogroups.TodoGroupsServiceServer
 
-	TodoGroupsRepo() repo.TodoGroupsRepo
-	TodoGroupPermitsRepo() repo.TodoGroupPermitsRepo
+	TodoGroupsRepo() repo.GroupsRepo
+	TodoGroupPermitsRepo() repo.PermitsRepo
 }
 
 type DefaultService struct {
 	base.DynamodbService
 
-	todoGroupsRepo       repo.TodoGroupsRepo
-	todoGroupPermitsRepo repo.TodoGroupPermitsRepo
+	todoGroupsRepo       repo.GroupsRepo
+	todoGroupPermitsRepo repo.PermitsRepo
 }
 
 func New(cfg Config) (Service, error) {
@@ -39,14 +39,14 @@ func New(cfg Config) (Service, error) {
 		return nil, err
 	}
 
-	todoGroupsRepo := repo.NewTodoGroupsRepo(
+	todoGroupsRepo := repo.NewTodosRepo(
 		dynamodbSvc.Dynamodb(),
-		repo.NewTodoGroupPermitsRepoConfig(
+		repo.NewTodoGroupsRepoConfig(
 			base.FullDynamodbTableName(cfg, cfg.Settings().DynamodbTodoGroupsTableName),
 		),
 	)
 
-	todoGroupPermitsRepo := repo.NewTodoGroupPermitsRepo(
+	todoGroupPermitsRepo := repo.NewPermitsRepo(
 		dynamodbSvc.Dynamodb(),
 		repo.NewTodoGroupPermitsRepoConfig(
 			base.FullDynamodbTableName(cfg, cfg.Settings().DynamodbTodoGroupPermitsTableName),
@@ -68,11 +68,11 @@ func (s *DefaultService) RegisterService(srv *grpc.Server) {
 	todogroups.RegisterTodoGroupsServiceServer(srv, s)
 }
 
-func (s *DefaultService) TodoGroupsRepo() repo.TodoGroupsRepo {
+func (s *DefaultService) TodoGroupsRepo() repo.GroupsRepo {
 	return s.todoGroupsRepo
 }
 
-func (s *DefaultService) TodoGroupPermitsRepo() repo.TodoGroupPermitsRepo {
+func (s *DefaultService) TodoGroupPermitsRepo() repo.PermitsRepo {
 	return s.todoGroupPermitsRepo
 }
 

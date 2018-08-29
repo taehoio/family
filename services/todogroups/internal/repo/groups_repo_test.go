@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	todoGroupsRepo TodoGroupsRepo
+	todoGroupsRepo GroupsRepo
 
 	testTodoGroupID         = "test_todo_group_id"
 	testNonExistTodoGroupID = "test_non_exist_todo_group_id"

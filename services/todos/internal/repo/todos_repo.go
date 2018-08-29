@@ -1,17 +1,14 @@
-package todos_repo
+package repo
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/guregu/dynamo"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
-	"github.com/taeho-io/family/services/base/aws/dynamodb"
-	"github.com/taeho-io/family/services/base/aws/dynamodb/table"
-	"github.com/taeho-io/family/services/todos/config"
-	"github.com/taeho-io/family/services/todos/models"
+	"github.com/taeho-io/family/services/base"
+	"github.com/taeho-io/family/services/todos/internal/model"
 )
 
 var (
@@ -35,51 +32,43 @@ var (
 	InvalidTitleError    = fmt.Errorf("invalid title")
 )
 
-type IFace interface {
-	table.IFace
-
-	Put(todo *models.Todo) error
-	GetByID(todoID string) (*models.Todo, error)
-	ListByIDs(todoIDs []string) ([]*models.Todo, error)
-	ListByParentID(parentID string) ([]*models.Todo, error)
-	UpdateParent(todoID string, parentType todos.ParentType, parentID string) (*models.Todo, error)
-	UpdateTitle(todoID string, title string) (*models.Todo, error)
-	UpdateDescription(todoID string, description string) (*models.Todo, error)
-	UpdateStatus(todoID string, status todos.Status) (*models.Todo, error)
-	UpdateAssignedTo(todoID, accountID string) (*models.Todo, error)
-	UpdateOrder(todoID string, order string) (*models.Todo, error)
+type TodosRepo interface {
+	Put(todo *model.Todo) error
+	GetByID(todoID string) (*model.Todo, error)
+	ListByIDs(todoIDs []string) ([]*model.Todo, error)
+	ListByParentID(parentID string) ([]*model.Todo, error)
+	UpdateParent(todoID string, parentType todos.ParentType, parentID string) (*model.Todo, error)
+	UpdateTitle(todoID string, title string) (*model.Todo, error)
+	UpdateDescription(todoID string, description string) (*model.Todo, error)
+	UpdateStatus(todoID string, status todos.Status) (*model.Todo, error)
+	UpdateAssignedTo(todoID, accountID string) (*model.Todo, error)
+	UpdateOrder(todoID string, order string) (*model.Todo, error)
 	DeleteByID(todoID string) error
 }
 
-type Table struct {
-	IFace
+type dynamodbTodosRepo struct {
+	TodosRepo
+	base.DynamodbRepo
 
 	todosTable *dynamo.Table
 }
 
-func New(ddb dynamodb.IFace, cfg config.IFace) IFace {
-	fullTableName := fullTableName(cfg)
-	todosTable := ddb.DB().Table(fullTableName)
+func NewTodosRepo(ddb base.Dynamodb, cfg TodosRepoConfig) TodosRepo {
+	todosTable := ddb.DB().Table(cfg.FullTableName())
 
-	return &Table{
+	return &dynamodbTodosRepo{
 		todosTable: &todosTable,
 	}
 }
 
-func NewMock() IFace {
-	ddb := dynamodb.NewMock()
-	cfg := config.NewMock()
+func NewMockTodosRepo() TodosRepo {
+	ddb := base.NewMockDynamodb()
+	cfg := NewMockTodosRepoConfig()
 
-	return New(ddb, cfg)
+	return NewTodosRepo(ddb, cfg)
 }
 
-func fullTableName(cfg config.IFace) string {
-	prefix := cfg.Prefix()
-	tableName := cfg.Settings().DynamodbTodosTableName
-	return strings.Join([]string{prefix, tableName}, "-")
-}
-
-func validateTodoInput(todo *models.Todo) error {
+func validateTodoInput(todo *model.Todo) error {
 	if todo == nil {
 		return InvalidTodoError
 	}
@@ -96,11 +85,11 @@ func validateTodoInput(todo *models.Todo) error {
 	return nil
 }
 
-func (t *Table) Table() *dynamo.Table {
+func (t *dynamodbTodosRepo) Table() *dynamo.Table {
 	return t.todosTable
 }
 
-func (t *Table) Put(todo *models.Todo) error {
+func (t *dynamodbTodosRepo) Put(todo *model.Todo) error {
 	if err := validateTodoInput(todo); err != nil {
 		return err
 	}
@@ -112,8 +101,8 @@ func (t *Table) Put(todo *models.Todo) error {
 	return t.Table().Put(todo).Run()
 }
 
-func (t *Table) GetByID(todoID string) (*models.Todo, error) {
-	var todo models.Todo
+func (t *dynamodbTodosRepo) GetByID(todoID string) (*model.Todo, error) {
+	var todo model.Todo
 
 	if err := t.Table().Get(todoIDFieldKey, todoID).One(&todo); err != nil {
 		return nil, err
@@ -122,8 +111,8 @@ func (t *Table) GetByID(todoID string) (*models.Todo, error) {
 	return &todo, nil
 }
 
-func (t *Table) ListByIDs(todoIDs []string) ([]*models.Todo, error) {
-	var todoList []*models.Todo
+func (t *dynamodbTodosRepo) ListByIDs(todoIDs []string) ([]*model.Todo, error) {
+	var todoList []*model.Todo
 
 	// TODO: make it concurrent.
 	for _, todoID := range todoIDs {
@@ -137,8 +126,8 @@ func (t *Table) ListByIDs(todoIDs []string) ([]*models.Todo, error) {
 	return todoList, nil
 }
 
-func (t *Table) ListByParentID(parentID string) ([]*models.Todo, error) {
-	var todoList []*models.Todo
+func (t *dynamodbTodosRepo) ListByParentID(parentID string) ([]*model.Todo, error) {
+	var todoList []*model.Todo
 
 	err := t.Table().
 		Get(parentIDFieldKey, parentID).
@@ -151,8 +140,8 @@ func (t *Table) ListByParentID(parentID string) ([]*models.Todo, error) {
 	return todoList, nil
 }
 
-func (t *Table) UpdateParent(todoID string, parentType todos.ParentType, parentID string) (*models.Todo, error) {
-	var todo models.Todo
+func (t *dynamodbTodosRepo) UpdateParent(todoID string, parentType todos.ParentType, parentID string) (*model.Todo, error) {
+	var todo model.Todo
 
 	err := t.Table().
 		Update(todoIDFieldKey, todoID).
@@ -168,8 +157,8 @@ func (t *Table) UpdateParent(todoID string, parentType todos.ParentType, parentI
 	return &todo, nil
 }
 
-func (t *Table) UpdateTitle(todoID string, title string) (*models.Todo, error) {
-	var todo models.Todo
+func (t *dynamodbTodosRepo) UpdateTitle(todoID string, title string) (*model.Todo, error) {
+	var todo model.Todo
 
 	err := t.Table().
 		Update(todoIDFieldKey, todoID).
@@ -184,8 +173,8 @@ func (t *Table) UpdateTitle(todoID string, title string) (*models.Todo, error) {
 	return &todo, nil
 }
 
-func (t *Table) UpdateDescription(todoID string, description string) (*models.Todo, error) {
-	var todo models.Todo
+func (t *dynamodbTodosRepo) UpdateDescription(todoID string, description string) (*model.Todo, error) {
+	var todo model.Todo
 
 	err := t.Table().
 		Update(todoIDFieldKey, todoID).
@@ -200,8 +189,8 @@ func (t *Table) UpdateDescription(todoID string, description string) (*models.To
 	return &todo, nil
 }
 
-func (t *Table) UpdateStatus(todoID string, status todos.Status) (*models.Todo, error) {
-	var todo models.Todo
+func (t *dynamodbTodosRepo) UpdateStatus(todoID string, status todos.Status) (*model.Todo, error) {
+	var todo model.Todo
 
 	now := time.Now()
 	updateQuery := t.Table().
@@ -224,8 +213,8 @@ func (t *Table) UpdateStatus(todoID string, status todos.Status) (*models.Todo, 
 	return &todo, nil
 }
 
-func (t *Table) UpdateAssignedTo(todoID, accountID string) (*models.Todo, error) {
-	var todo models.Todo
+func (t *dynamodbTodosRepo) UpdateAssignedTo(todoID, accountID string) (*model.Todo, error) {
+	var todo model.Todo
 
 	now := time.Now()
 	err := t.Table().
@@ -241,8 +230,8 @@ func (t *Table) UpdateAssignedTo(todoID, accountID string) (*models.Todo, error)
 	return &todo, nil
 }
 
-func (t *Table) UpdateOrder(todoID string, order string) (*models.Todo, error) {
-	var todo models.Todo
+func (t *dynamodbTodosRepo) UpdateOrder(todoID string, order string) (*model.Todo, error) {
+	var todo model.Todo
 
 	err := t.Table().
 		Update(todoIDFieldKey, todoID).
@@ -257,7 +246,7 @@ func (t *Table) UpdateOrder(todoID string, order string) (*models.Todo, error) {
 	return &todo, nil
 }
 
-func (t *Table) DeleteByID(todoID string) error {
+func (t *dynamodbTodosRepo) DeleteByID(todoID string) error {
 	return t.Table().
 		Delete(todoIDFieldKey, todoID).
 		If(fmt.Sprintf("%s = ?", todoIDFieldKey), todoID).

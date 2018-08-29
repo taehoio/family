@@ -6,8 +6,8 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	todoGroupsRepo = NewMockTodoGroupsRepo()
-	todoGroupPermitsRepo = NewMockTodoGroupPermitsRepo()
+	todoGroupsRepo = NewMockGroupsRepo()
+	todoGroupPermitsRepo = NewMockPermitsRepo()
 
 	retCode := m.Run()
 	os.Exit(retCode)

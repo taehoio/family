@@ -28,7 +28,7 @@ type Service interface {
 	AuthServiceClient() auth.AuthServiceClient
 }
 
-type DefaultService struct {
+type defaultService struct {
 	base.DynamodbService
 
 	crypt             crypt.Crypt
@@ -56,7 +56,7 @@ func NewService(cfg Config) (Service, error) {
 		),
 	)
 
-	return &DefaultService{
+	return &defaultService{
 		DynamodbService:   dynamodbSvc,
 		crypt:             bcrypt,
 		accountsRepo:      accountsRepo,
@@ -68,27 +68,27 @@ func NewMockService() (Service, error) {
 	return NewService(NewMockConfig())
 }
 
-func (s *DefaultService) RegisterService(srv *grpc.Server) {
+func (s *defaultService) RegisterService(srv *grpc.Server) {
 	accounts.RegisterAccountsServiceServer(srv, s)
 }
 
-func (s *DefaultService) Crypt() crypt.Crypt {
+func (s *defaultService) Crypt() crypt.Crypt {
 	return s.crypt
 }
 
-func (s *DefaultService) AccountsRepo() repo.AccountsRepo {
+func (s *defaultService) AccountsRepo() repo.AccountsRepo {
 	return s.accountsRepo
 }
 
-func (s *DefaultService) AuthServiceClient() auth.AuthServiceClient {
+func (s *defaultService) AuthServiceClient() auth.AuthServiceClient {
 	return s.authServiceClient
 }
 
-func (s *DefaultService) Register(ctx context.Context, req *accounts.RegisterRequest) (*accounts.RegisterResponse, error) {
+func (s *defaultService) Register(ctx context.Context, req *accounts.RegisterRequest) (*accounts.RegisterResponse, error) {
 	return handler.Register(s.AccountsRepo(), s.Crypt())(ctx, req)
 }
 
-func (s *DefaultService) LogIn(ctx context.Context, req *accounts.LogInRequest) (*accounts.LogInResponse, error) {
+func (s *defaultService) LogIn(ctx context.Context, req *accounts.LogInRequest) (*accounts.LogInResponse, error) {
 	return handler.LogIn(s.AccountsRepo(), s.Crypt(), s.AuthServiceClient())(ctx, req)
 }
 

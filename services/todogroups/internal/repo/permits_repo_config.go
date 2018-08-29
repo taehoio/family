@@ -18,7 +18,7 @@ func NewTodoGroupPermitsRepoConfig(fullTableName string) TodoGroupPermitsRepoCon
 	}
 }
 
-func NewMockTodoGroupPermitsRepoConfig() TodoGroupPermitsRepoConfig {
+func NewMockPermitsRepoConfig() TodoGroupPermitsRepoConfig {
 	return NewTodoGroupPermitsRepoConfig("family-development-todogroups-todo_group_permits")
 }
 

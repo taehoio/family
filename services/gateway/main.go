@@ -16,12 +16,12 @@ import (
 	"github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
-	"github.com/taeho-io/family/idl/generated/go/pb/family/todo_groups"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/todogroups"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
 	accountsService "github.com/taeho-io/family/services/accounts"
 	authService "github.com/taeho-io/family/services/auth"
 	discoveryService "github.com/taeho-io/family/services/discovery"
-	"github.com/taeho-io/family/services/todogroups/grpc/todo_groups_service"
+	todogroupsService "github.com/taeho-io/family/services/todogroups"
 	"github.com/taeho-io/family/services/todos/grpc/todos_service"
 )
 
@@ -40,7 +40,7 @@ var (
 		"endpoint of AccountsServer",
 	)
 	todoGroupsServerEndpoint = flag.String(
-		"todo_groups_server_endpoint",
+		"todogroups_server_endpoint",
 		discoveryService.ServiceAddrMap[discovery.Service_TODOGROUPS],
 		"endpoint of TodoGroupsServer",
 	)
@@ -85,7 +85,7 @@ func serveGateway() error {
 		return err
 	}
 
-	if err := todo_groups.RegisterTodoGroupsServiceHandlerFromEndpoint(
+	if err := todogroups.RegisterTodoGroupsServiceHandlerFromEndpoint(
 		ctx,
 		mux,
 		*todoGroupsServerEndpoint,
@@ -114,7 +114,7 @@ func startGRPCServices() error {
 	serveFuncs := []serveFunc{
 		authService.Serve,
 		accountsService.Serve,
-		todo_groups_service.Serve,
+		todogroupsService.Serve,
 		todos_service.Serve,
 	}
 
