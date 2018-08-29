@@ -1,7 +1,6 @@
 package repo
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -66,9 +65,6 @@ func TestPutFail(t *testing.T) {
 }
 
 func TestPut(t *testing.T) {
-	fmt.Println("!!!")
-	fmt.Println(todoGroupPermitsRepo.Table().Name())
-
 	todoGroupPermit := &model.TodoGroupPermit{
 		AccountID:   testAccountID,
 		TodoGroupID: testTodoGroupID,

@@ -36,7 +36,7 @@ func main() {
 		dynamodbTodoGroupsFullTableName, readUnits, writeUnits)
 
 	dynamodbTodoGroupPermitsFullTableName := base.FullDynamodbTableName(cfg, cfg.Settings().DynamodbTodoGroupPermitsTableName)
-	err = ddb.DB().CreateTable(dynamodbTodoGroupPermitsFullTableName, model.TodoGroup{}).
+	err = ddb.DB().CreateTable(dynamodbTodoGroupPermitsFullTableName, model.TodoGroupPermit{}).
 		Provision(readUnits, writeUnits).
 		Run()
 	if err != nil {
