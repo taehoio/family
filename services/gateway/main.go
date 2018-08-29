@@ -22,7 +22,7 @@ import (
 	authService "github.com/taeho-io/family/services/auth"
 	discoveryService "github.com/taeho-io/family/services/discovery"
 	todogroupsService "github.com/taeho-io/family/services/todogroups"
-	"github.com/taeho-io/family/services/todos/grpc/todos_service"
+	todosService "github.com/taeho-io/family/services/todos"
 )
 
 var (
@@ -115,7 +115,7 @@ func startGRPCServices() error {
 		authService.Serve,
 		accountsService.Serve,
 		todogroupsService.Serve,
-		todos_service.Serve,
+		todosService.Serve,
 	}
 
 	for _, serve := range serveFuncs {
