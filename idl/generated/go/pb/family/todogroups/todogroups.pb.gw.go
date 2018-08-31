@@ -184,14 +184,14 @@ func RegisterTodoGroupsServiceHandlerFromEndpoint(ctx context.Context, mux *runt
 	return RegisterTodoGroupsServiceHandler(ctx, mux, conn)
 }
 
-// RegisterTodoGroupsServiceHandler registers the http handler for service TodoGroupsService to "mux".
-// The handler forward requests to the grpc endpoint over "conn".
+// RegisterTodoGroupsServiceHandler registers the http handlers for service TodoGroupsService to "mux".
+// The handlers forward requests to the grpc endpoint over "conn".
 func RegisterTodoGroupsServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	return RegisterTodoGroupsServiceHandlerClient(ctx, mux, NewTodoGroupsServiceClient(conn))
 }
 
-// RegisterTodoGroupsServiceHandler registers the http handler for service TodoGroupsService to "mux".
-// The handler forward requests to the grpc endpoint over the given implementation of "TodoGroupsServiceClient".
+// RegisterTodoGroupsServiceHandler registers the http handlers for service TodoGroupsService to "mux".
+// The handlers forward requests to the grpc endpoint over the given implementation of "TodoGroupsServiceClient".
 // Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "TodoGroupsServiceClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "TodoGroupsServiceClient" to call the correct interceptors.

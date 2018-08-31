@@ -1,0 +1,22 @@
+# Api.TodosUpdatingField
+
+## Enum
+
+
+* `PARENT` (value: `"UPDATING_FIELD_PARENT"`)
+
+* `TITLE` (value: `"UPDATING_FIELD_TITLE"`)
+
+* `DESCRIPTION` (value: `"UPDATING_FIELD_DESCRIPTION"`)
+
+* `STATUS` (value: `"UPDATING_FIELD_STATUS"`)
+
+* `ORDER` (value: `"UPDATING_FIELD_ORDER"`)
+
+* `ASSIGNED_TO` (value: `"UPDATING_FIELD_ASSIGNED_TO"`)
+
+* `PRIORITY` (value: `"UPDATING_FIELD_PRIORITY"`)
+
+* `DUE_AT` (value: `"UPDATING_FIELD_DUE_AT"`)
+
+

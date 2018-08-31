@@ -30,5 +30,5 @@ done
 docker run --rm -it \
     --name=taeho-io-idl-swagger-tool-merge \
     -v $GOPATH/src/github.com/taeho-io/family/idl/generated/swagger:/swagger \
-    xissy/swagger-tool:v0.0.1 \
+    xissy/swagger-tool:v0.0.2 \
     merge $INPUT_FILES_OPTIONS -o /swagger/swagger.json
