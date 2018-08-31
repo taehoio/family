@@ -3,8 +3,6 @@ package accounts
 import (
 	"net"
 
-	"github.com/taeho-io/family/services/base"
-
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -16,6 +14,7 @@ import (
 	"github.com/taeho-io/family/services/accounts/internal/handler"
 	"github.com/taeho-io/family/services/accounts/internal/repo"
 	"github.com/taeho-io/family/services/accounts/pkg/crypt"
+	"github.com/taeho-io/family/services/base"
 	discoveryService "github.com/taeho-io/family/services/discovery"
 )
 
