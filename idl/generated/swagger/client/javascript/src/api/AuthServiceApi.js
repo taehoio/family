@@ -47,20 +47,12 @@
     this.apiClient = apiClient || ApiClient.instance;
 
 
-    /**
-     * Callback function to receive the result of the refresh operation.
-     * @callback module:api/AuthServiceApi~refreshCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AuthRefreshResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * @param {module:model/AuthRefreshRequest} body 
-     * @param {module:api/AuthServiceApi~refreshCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AuthRefreshResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AuthRefreshResponse} and HTTP response
      */
-    this.refresh = function(body, callback) {
+    this.refreshWithHttpInfo = function(body) {
       var postBody = body;
 
       // verify the required parameter 'body' is set
@@ -88,8 +80,19 @@
       return this.apiClient.callApi(
         '/v1/auth/refreshToken', 'POST',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
+    }
+
+    /**
+     * @param {module:model/AuthRefreshRequest} body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AuthRefreshResponse}
+     */
+    this.refresh = function(body) {
+      return this.refreshWithHttpInfo(body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
   };
 

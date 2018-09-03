@@ -1,31 +1,34 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-var Api = require('api');
+import Api, { logIn, isLoggedIn } from './api';
+logIn('taeho@taeho.io', '1234')
+    .then(console.log)
+    .catch(console.log);
 
-Api.ApiClient.instance.basePath = "http://localhost:3000";
+console.log(isLoggedIn());
+setTimeout(() => {
+    console.log(isLoggedIn());
 
-var api = new Api.AccountsServiceApi();
+    const api = new Api.TodoGroupsServiceApi();
+    const body = Api.TodogroupsCreateTodoGroupRequest.constructFromObject({
+        account_id: 'be35al3oo3solaig0nb0',
+        todo_group: Api.TodogroupsTodoGroup.constructFromObject({
+            title: 'test_title',
+        }),
+    });
 
-var body = new Api.AccountsLogInRequest(); // {AccountsLogInRequest}
+    api.createTodoGroup(body)
 
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.logIn(body, callback);
+}, 5000);
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <Text>Yamma! Yo!</Text>
       </View>
     );
   }

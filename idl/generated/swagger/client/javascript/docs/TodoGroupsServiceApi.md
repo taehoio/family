@@ -25,15 +25,12 @@ var apiInstance = new Api.TodoGroupsServiceApi();
 
 var body = new Api.TodogroupsCreateTodoGroupRequest(); // TodogroupsCreateTodoGroupRequest | 
 
+apiInstance.createTodoGroup(body).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.createTodoGroup(body, callback);
 ```
 
 ### Parameters
@@ -72,15 +69,12 @@ var todoGroupId = "todoGroupId_example"; // String |
 var opts = { 
   'accountId': "accountId_example" // String | 
 };
+apiInstance.deleteTodoGroup(todoGroupId, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.deleteTodoGroup(todoGroupId, opts, callback);
 ```
 
 ### Parameters
@@ -120,15 +114,12 @@ var todoGroupId = "todoGroupId_example"; // String |
 var opts = { 
   'accountId': "accountId_example" // String | 
 };
+apiInstance.getTodoGroup(todoGroupId, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getTodoGroup(todoGroupId, opts, callback);
 ```
 
 ### Parameters
@@ -166,15 +157,12 @@ var apiInstance = new Api.TodoGroupsServiceApi();
 var opts = { 
   'accountId': "accountId_example" // String | 
 };
+apiInstance.listTodoGroups(opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.listTodoGroups(opts, callback);
 ```
 
 ### Parameters
@@ -212,15 +200,12 @@ var todoGroupId = "todoGroupId_example"; // String |
 
 var body = new Api.TodogroupsUpdateTodoGroupRequest(); // TodogroupsUpdateTodoGroupRequest | 
 
+apiInstance.updateTodoGroup(todoGroupId, body).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.updateTodoGroup(todoGroupId, body, callback);
 ```
 
 ### Parameters

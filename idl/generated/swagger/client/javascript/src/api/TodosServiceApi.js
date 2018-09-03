@@ -47,20 +47,12 @@
     this.apiClient = apiClient || ApiClient.instance;
 
 
-    /**
-     * Callback function to receive the result of the createTodo operation.
-     * @callback module:api/TodosServiceApi~createTodoCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TodosCreateTodoResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * @param {module:model/TodosCreateTodoRequest} body 
-     * @param {module:api/TodosServiceApi~createTodoCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TodosCreateTodoResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodosCreateTodoResponse} and HTTP response
      */
-    this.createTodo = function(body, callback) {
+    this.createTodoWithHttpInfo = function(body) {
       var postBody = body;
 
       // verify the required parameter 'body' is set
@@ -88,26 +80,29 @@
       return this.apiClient.callApi(
         '/v1/todos', 'POST',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteTodo operation.
-     * @callback module:api/TodosServiceApi~deleteTodoCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TodosDeleteTodoResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {module:model/TodosCreateTodoRequest} body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodosCreateTodoResponse}
      */
+    this.createTodo = function(body) {
+      return this.createTodoWithHttpInfo(body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {String} todoId 
      * @param {Object} opts Optional parameters
      * @param {String} opts.accountId 
-     * @param {module:api/TodosServiceApi~deleteTodoCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TodosDeleteTodoResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodosDeleteTodoResponse} and HTTP response
      */
-    this.deleteTodo = function(todoId, opts, callback) {
+    this.deleteTodoWithHttpInfo = function(todoId, opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -138,26 +133,31 @@
       return this.apiClient.callApi(
         '/v1/todos/{todo_id}', 'DELETE',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
     }
-
-    /**
-     * Callback function to receive the result of the getTodo operation.
-     * @callback module:api/TodosServiceApi~getTodoCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TodosGetTodoResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * @param {String} todoId 
      * @param {Object} opts Optional parameters
      * @param {String} opts.accountId 
-     * @param {module:api/TodosServiceApi~getTodoCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TodosGetTodoResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodosDeleteTodoResponse}
      */
-    this.getTodo = function(todoId, opts, callback) {
+    this.deleteTodo = function(todoId, opts) {
+      return this.deleteTodoWithHttpInfo(todoId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * @param {String} todoId 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.accountId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodosGetTodoResponse} and HTTP response
+     */
+    this.getTodoWithHttpInfo = function(todoId, opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -188,27 +188,32 @@
       return this.apiClient.callApi(
         '/v1/todos/{todo_id}', 'GET',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
     }
 
     /**
-     * Callback function to receive the result of the listTodos operation.
-     * @callback module:api/TodosServiceApi~listTodosCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TodosListTodosResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {String} todoId 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.accountId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodosGetTodoResponse}
      */
+    this.getTodo = function(todoId, opts) {
+      return this.getTodoWithHttpInfo(todoId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {Object} opts Optional parameters
      * @param {String} opts.accountId 
      * @param {module:model/String} opts.parentType  (default to PARENT_TYPE_TODO_GROUP)
      * @param {String} opts.parentId 
-     * @param {module:api/TodosServiceApi~listTodosCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TodosListTodosResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodosListTodosResponse} and HTTP response
      */
-    this.listTodos = function(opts, callback) {
+    this.listTodosWithHttpInfo = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -235,25 +240,31 @@
       return this.apiClient.callApi(
         '/v1/todos', 'GET',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
     }
 
     /**
-     * Callback function to receive the result of the updateTodo operation.
-     * @callback module:api/TodosServiceApi~updateTodoCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TodosUpdateTodoResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.accountId 
+     * @param {module:model/String} opts.parentType  (default to PARENT_TYPE_TODO_GROUP)
+     * @param {String} opts.parentId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodosListTodosResponse}
      */
+    this.listTodos = function(opts) {
+      return this.listTodosWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {String} todoId 
      * @param {module:model/TodosUpdateTodoRequest} body 
-     * @param {module:api/TodosServiceApi~updateTodoCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TodosUpdateTodoResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodosUpdateTodoResponse} and HTTP response
      */
-    this.updateTodo = function(todoId, body, callback) {
+    this.updateTodoWithHttpInfo = function(todoId, body) {
       var postBody = body;
 
       // verify the required parameter 'todoId' is set
@@ -287,8 +298,20 @@
       return this.apiClient.callApi(
         '/v1/todos/{todo_id}', 'PUT',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
+    }
+
+    /**
+     * @param {String} todoId 
+     * @param {module:model/TodosUpdateTodoRequest} body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodosUpdateTodoResponse}
+     */
+    this.updateTodo = function(todoId, body) {
+      return this.updateTodoWithHttpInfo(todoId, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
   };
 

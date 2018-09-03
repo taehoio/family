@@ -99,15 +99,12 @@ var api = new Api.AccountsServiceApi()
 
 var body = new Api.AccountsLogInRequest(); // {AccountsLogInRequest} 
 
+api.logIn(body).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.logIn(body, callback);
 
 ```
 

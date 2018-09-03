@@ -151,7 +151,7 @@ func main() {
 
 	// sleep a second to make sure all servers are ready.
 	// TODO: find a better way to optimize the waiting time.
-	time.Sleep(time.Microsecond * 500)
+	time.Sleep(time.Millisecond * 1500)
 	log.WithField("server_type", "grpc_gw").Info("initializing")
 	if err := serveGateway(); err != nil {
 		log.WithField("server_type", "grpc_tw").WithError(err).Fatal("failed to listen")

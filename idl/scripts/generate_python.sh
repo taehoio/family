@@ -14,6 +14,7 @@ for FILE in ${PROTOS}; do
   # generate gRPC stub
   docker run --rm -it --name grpcio-tools -v $(pwd):$IDL_PATH -w $IDL_PATH xissy/grpcio-tools:v0.0.1 \
     -I/go/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+    -I/go/src/github.com/grpc-ecosystem/grpc-gateway \
     -I$IDL_PATH/protos \
     --python_out=:$OUT \
     --grpc_python_out=$OUT \

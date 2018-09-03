@@ -1,5 +1,14 @@
 {
   "name": "family-app",
+  "hooks": {
+    "prebuild": "cp ../../idl/generated/swagger/swagger.json ./public"
+  },
+  "static": {
+    "dir": "public"
+  },
+  "cors": {
+    "enable": true
+  },
   "profile": "taeho-io",
   "regions": [
     "us-west-2"

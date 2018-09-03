@@ -35,7 +35,7 @@ func (m *AuthRequest) Reset()         { *m = AuthRequest{} }
 func (m *AuthRequest) String() string { return proto.CompactTextString(m) }
 func (*AuthRequest) ProtoMessage()    {}
 func (*AuthRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_auth_225e03793b82241b, []int{0}
+	return fileDescriptor_auth_61c4ee96cdc57597, []int{0}
 }
 func (m *AuthRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AuthRequest.Unmarshal(m, b)
@@ -76,7 +76,7 @@ func (m *AuthResponse) Reset()         { *m = AuthResponse{} }
 func (m *AuthResponse) String() string { return proto.CompactTextString(m) }
 func (*AuthResponse) ProtoMessage()    {}
 func (*AuthResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_auth_225e03793b82241b, []int{1}
+	return fileDescriptor_auth_61c4ee96cdc57597, []int{1}
 }
 func (m *AuthResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AuthResponse.Unmarshal(m, b)
@@ -135,7 +135,7 @@ func (m *ValidateRequest) Reset()         { *m = ValidateRequest{} }
 func (m *ValidateRequest) String() string { return proto.CompactTextString(m) }
 func (*ValidateRequest) ProtoMessage()    {}
 func (*ValidateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_auth_225e03793b82241b, []int{2}
+	return fileDescriptor_auth_61c4ee96cdc57597, []int{2}
 }
 func (m *ValidateRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ValidateRequest.Unmarshal(m, b)
@@ -173,7 +173,7 @@ func (m *ValidateResponse) Reset()         { *m = ValidateResponse{} }
 func (m *ValidateResponse) String() string { return proto.CompactTextString(m) }
 func (*ValidateResponse) ProtoMessage()    {}
 func (*ValidateResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_auth_225e03793b82241b, []int{3}
+	return fileDescriptor_auth_61c4ee96cdc57597, []int{3}
 }
 func (m *ValidateResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ValidateResponse.Unmarshal(m, b)
@@ -211,7 +211,7 @@ func (m *RefreshRequest) Reset()         { *m = RefreshRequest{} }
 func (m *RefreshRequest) String() string { return proto.CompactTextString(m) }
 func (*RefreshRequest) ProtoMessage()    {}
 func (*RefreshRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_auth_225e03793b82241b, []int{4}
+	return fileDescriptor_auth_61c4ee96cdc57597, []int{4}
 }
 func (m *RefreshRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RefreshRequest.Unmarshal(m, b)
@@ -252,7 +252,7 @@ func (m *RefreshResponse) Reset()         { *m = RefreshResponse{} }
 func (m *RefreshResponse) String() string { return proto.CompactTextString(m) }
 func (*RefreshResponse) ProtoMessage()    {}
 func (*RefreshResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_auth_225e03793b82241b, []int{5}
+	return fileDescriptor_auth_61c4ee96cdc57597, []int{5}
 }
 func (m *RefreshResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RefreshResponse.Unmarshal(m, b)
@@ -311,7 +311,7 @@ func (m *ParseRequest) Reset()         { *m = ParseRequest{} }
 func (m *ParseRequest) String() string { return proto.CompactTextString(m) }
 func (*ParseRequest) ProtoMessage()    {}
 func (*ParseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_auth_225e03793b82241b, []int{6}
+	return fileDescriptor_auth_61c4ee96cdc57597, []int{6}
 }
 func (m *ParseRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ParseRequest.Unmarshal(m, b)
@@ -349,7 +349,7 @@ func (m *ParseResponse) Reset()         { *m = ParseResponse{} }
 func (m *ParseResponse) String() string { return proto.CompactTextString(m) }
 func (*ParseResponse) ProtoMessage()    {}
 func (*ParseResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_auth_225e03793b82241b, []int{7}
+	return fileDescriptor_auth_61c4ee96cdc57597, []int{7}
 }
 func (m *ParseResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ParseResponse.Unmarshal(m, b)
@@ -558,9 +558,9 @@ var _AuthService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "pb/family/auth/auth.proto",
 }
 
-func init() { proto.RegisterFile("pb/family/auth/auth.proto", fileDescriptor_auth_225e03793b82241b) }
+func init() { proto.RegisterFile("pb/family/auth/auth.proto", fileDescriptor_auth_61c4ee96cdc57597) }
 
-var fileDescriptor_auth_225e03793b82241b = []byte{
+var fileDescriptor_auth_61c4ee96cdc57597 = []byte{
 	// 452 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x54, 0x4d, 0x6f, 0xd4, 0x30,
 	0x10, 0x25, 0x5b, 0x4a, 0x77, 0xa7, 0xdb, 0x16, 0x59, 0x42, 0x6a, 0x43, 0x4b, 0x17, 0x73, 0xa9,

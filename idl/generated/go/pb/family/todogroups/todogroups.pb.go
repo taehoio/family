@@ -47,7 +47,7 @@ func (x PermitType) String() string {
 	return proto.EnumName(PermitType_name, int32(x))
 }
 func (PermitType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{0}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{0}
 }
 
 type TodoGroup struct {
@@ -68,7 +68,7 @@ func (m *TodoGroup) Reset()         { *m = TodoGroup{} }
 func (m *TodoGroup) String() string { return proto.CompactTextString(m) }
 func (*TodoGroup) ProtoMessage()    {}
 func (*TodoGroup) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{0}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{0}
 }
 func (m *TodoGroup) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_TodoGroup.Unmarshal(m, b)
@@ -156,7 +156,7 @@ func (m *CreateTodoGroupRequest) Reset()         { *m = CreateTodoGroupRequest{}
 func (m *CreateTodoGroupRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateTodoGroupRequest) ProtoMessage()    {}
 func (*CreateTodoGroupRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{1}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{1}
 }
 func (m *CreateTodoGroupRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateTodoGroupRequest.Unmarshal(m, b)
@@ -201,7 +201,7 @@ func (m *CreateTodoGroupResponse) Reset()         { *m = CreateTodoGroupResponse
 func (m *CreateTodoGroupResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateTodoGroupResponse) ProtoMessage()    {}
 func (*CreateTodoGroupResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{2}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{2}
 }
 func (m *CreateTodoGroupResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateTodoGroupResponse.Unmarshal(m, b)
@@ -239,7 +239,7 @@ func (m *ListTodoGroupsRequest) Reset()         { *m = ListTodoGroupsRequest{} }
 func (m *ListTodoGroupsRequest) String() string { return proto.CompactTextString(m) }
 func (*ListTodoGroupsRequest) ProtoMessage()    {}
 func (*ListTodoGroupsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{3}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{3}
 }
 func (m *ListTodoGroupsRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ListTodoGroupsRequest.Unmarshal(m, b)
@@ -277,7 +277,7 @@ func (m *ListTodoGroupsResponse) Reset()         { *m = ListTodoGroupsResponse{}
 func (m *ListTodoGroupsResponse) String() string { return proto.CompactTextString(m) }
 func (*ListTodoGroupsResponse) ProtoMessage()    {}
 func (*ListTodoGroupsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{4}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{4}
 }
 func (m *ListTodoGroupsResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ListTodoGroupsResponse.Unmarshal(m, b)
@@ -316,7 +316,7 @@ func (m *GetTodoGroupRequest) Reset()         { *m = GetTodoGroupRequest{} }
 func (m *GetTodoGroupRequest) String() string { return proto.CompactTextString(m) }
 func (*GetTodoGroupRequest) ProtoMessage()    {}
 func (*GetTodoGroupRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{5}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{5}
 }
 func (m *GetTodoGroupRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetTodoGroupRequest.Unmarshal(m, b)
@@ -361,7 +361,7 @@ func (m *GetTodoGroupResponse) Reset()         { *m = GetTodoGroupResponse{} }
 func (m *GetTodoGroupResponse) String() string { return proto.CompactTextString(m) }
 func (*GetTodoGroupResponse) ProtoMessage()    {}
 func (*GetTodoGroupResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{6}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{6}
 }
 func (m *GetTodoGroupResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetTodoGroupResponse.Unmarshal(m, b)
@@ -401,7 +401,7 @@ func (m *UpdateTodoGroupRequest) Reset()         { *m = UpdateTodoGroupRequest{}
 func (m *UpdateTodoGroupRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateTodoGroupRequest) ProtoMessage()    {}
 func (*UpdateTodoGroupRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{7}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{7}
 }
 func (m *UpdateTodoGroupRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateTodoGroupRequest.Unmarshal(m, b)
@@ -453,7 +453,7 @@ func (m *UpdateTodoGroupResponse) Reset()         { *m = UpdateTodoGroupResponse
 func (m *UpdateTodoGroupResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateTodoGroupResponse) ProtoMessage()    {}
 func (*UpdateTodoGroupResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{8}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{8}
 }
 func (m *UpdateTodoGroupResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateTodoGroupResponse.Unmarshal(m, b)
@@ -492,7 +492,7 @@ func (m *DeleteTodoGroupRequest) Reset()         { *m = DeleteTodoGroupRequest{}
 func (m *DeleteTodoGroupRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteTodoGroupRequest) ProtoMessage()    {}
 func (*DeleteTodoGroupRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{9}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{9}
 }
 func (m *DeleteTodoGroupRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteTodoGroupRequest.Unmarshal(m, b)
@@ -536,7 +536,7 @@ func (m *DeleteTodoGroupResponse) Reset()         { *m = DeleteTodoGroupResponse
 func (m *DeleteTodoGroupResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteTodoGroupResponse) ProtoMessage()    {}
 func (*DeleteTodoGroupResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todogroups_a736af8a79b0998b, []int{10}
+	return fileDescriptor_todogroups_a103200bf1254a4b, []int{10}
 }
 func (m *DeleteTodoGroupResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteTodoGroupResponse.Unmarshal(m, b)
@@ -776,10 +776,10 @@ var _TodoGroupsService_serviceDesc = grpc.ServiceDesc{
 }
 
 func init() {
-	proto.RegisterFile("pb/family/todogroups/todogroups.proto", fileDescriptor_todogroups_a736af8a79b0998b)
+	proto.RegisterFile("pb/family/todogroups/todogroups.proto", fileDescriptor_todogroups_a103200bf1254a4b)
 }
 
-var fileDescriptor_todogroups_a736af8a79b0998b = []byte{
+var fileDescriptor_todogroups_a103200bf1254a4b = []byte{
 	// 688 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x96, 0x4f, 0x6f, 0xd3, 0x3e,
 	0x18, 0xc7, 0x7f, 0x6e, 0x7f, 0x1b, 0xf4, 0x29, 0xac, 0x9b, 0xe9, 0xba, 0x50, 0x81, 0x56, 0x22,

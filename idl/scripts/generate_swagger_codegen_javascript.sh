@@ -9,5 +9,6 @@ docker run --rm -it \
     swaggerapi/swagger-codegen-cli:v2.3.1 \
         generate \
             -i generated/swagger/swagger.json \
+            -o generated/swagger/client/javascript/ \
             -l javascript \
-            -o generated/swagger/client/javascript/
+            --additional-properties usePromises=true

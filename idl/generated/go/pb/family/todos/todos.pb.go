@@ -47,7 +47,7 @@ func (x Status) String() string {
 	return proto.EnumName(Status_name, int32(x))
 }
 func (Status) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{0}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{0}
 }
 
 type Priority int32
@@ -79,7 +79,7 @@ func (x Priority) String() string {
 	return proto.EnumName(Priority_name, int32(x))
 }
 func (Priority) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{1}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{1}
 }
 
 type ParentType int32
@@ -102,7 +102,7 @@ func (x ParentType) String() string {
 	return proto.EnumName(ParentType_name, int32(x))
 }
 func (ParentType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{2}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{2}
 }
 
 type UpdatingField int32
@@ -143,7 +143,7 @@ func (x UpdatingField) String() string {
 	return proto.EnumName(UpdatingField_name, int32(x))
 }
 func (UpdatingField) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{3}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{3}
 }
 
 type Todo struct {
@@ -170,7 +170,7 @@ func (m *Todo) Reset()         { *m = Todo{} }
 func (m *Todo) String() string { return proto.CompactTextString(m) }
 func (*Todo) ProtoMessage()    {}
 func (*Todo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{0}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{0}
 }
 func (m *Todo) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Todo.Unmarshal(m, b)
@@ -301,7 +301,7 @@ func (m *CreateTodoRequest) Reset()         { *m = CreateTodoRequest{} }
 func (m *CreateTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateTodoRequest) ProtoMessage()    {}
 func (*CreateTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{1}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{1}
 }
 func (m *CreateTodoRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateTodoRequest.Unmarshal(m, b)
@@ -353,7 +353,7 @@ func (m *CreateTodoResponse) Reset()         { *m = CreateTodoResponse{} }
 func (m *CreateTodoResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateTodoResponse) ProtoMessage()    {}
 func (*CreateTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{2}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{2}
 }
 func (m *CreateTodoResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateTodoResponse.Unmarshal(m, b)
@@ -392,7 +392,7 @@ func (m *GetTodoRequest) Reset()         { *m = GetTodoRequest{} }
 func (m *GetTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*GetTodoRequest) ProtoMessage()    {}
 func (*GetTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{3}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{3}
 }
 func (m *GetTodoRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetTodoRequest.Unmarshal(m, b)
@@ -437,7 +437,7 @@ func (m *GetTodoResponse) Reset()         { *m = GetTodoResponse{} }
 func (m *GetTodoResponse) String() string { return proto.CompactTextString(m) }
 func (*GetTodoResponse) ProtoMessage()    {}
 func (*GetTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{4}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{4}
 }
 func (m *GetTodoResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetTodoResponse.Unmarshal(m, b)
@@ -477,7 +477,7 @@ func (m *ListTodosRequest) Reset()         { *m = ListTodosRequest{} }
 func (m *ListTodosRequest) String() string { return proto.CompactTextString(m) }
 func (*ListTodosRequest) ProtoMessage()    {}
 func (*ListTodosRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{5}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{5}
 }
 func (m *ListTodosRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ListTodosRequest.Unmarshal(m, b)
@@ -529,7 +529,7 @@ func (m *ListTodosResponse) Reset()         { *m = ListTodosResponse{} }
 func (m *ListTodosResponse) String() string { return proto.CompactTextString(m) }
 func (*ListTodosResponse) ProtoMessage()    {}
 func (*ListTodosResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{6}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{6}
 }
 func (m *ListTodosResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ListTodosResponse.Unmarshal(m, b)
@@ -570,7 +570,7 @@ func (m *UpdateTodoRequest) Reset()         { *m = UpdateTodoRequest{} }
 func (m *UpdateTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateTodoRequest) ProtoMessage()    {}
 func (*UpdateTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{7}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{7}
 }
 func (m *UpdateTodoRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateTodoRequest.Unmarshal(m, b)
@@ -629,7 +629,7 @@ func (m *UpdateTodoResponse) Reset()         { *m = UpdateTodoResponse{} }
 func (m *UpdateTodoResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateTodoResponse) ProtoMessage()    {}
 func (*UpdateTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{8}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{8}
 }
 func (m *UpdateTodoResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateTodoResponse.Unmarshal(m, b)
@@ -668,7 +668,7 @@ func (m *DeleteTodoRequest) Reset()         { *m = DeleteTodoRequest{} }
 func (m *DeleteTodoRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteTodoRequest) ProtoMessage()    {}
 func (*DeleteTodoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{9}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{9}
 }
 func (m *DeleteTodoRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteTodoRequest.Unmarshal(m, b)
@@ -712,7 +712,7 @@ func (m *DeleteTodoResponse) Reset()         { *m = DeleteTodoResponse{} }
 func (m *DeleteTodoResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteTodoResponse) ProtoMessage()    {}
 func (*DeleteTodoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_todos_9319fe881d251a0b, []int{10}
+	return fileDescriptor_todos_69b01112dbc4b4fd, []int{10}
 }
 func (m *DeleteTodoResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteTodoResponse.Unmarshal(m, b)
@@ -954,9 +954,9 @@ var _TodosService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "pb/family/todos/todos.proto",
 }
 
-func init() { proto.RegisterFile("pb/family/todos/todos.proto", fileDescriptor_todos_9319fe881d251a0b) }
+func init() { proto.RegisterFile("pb/family/todos/todos.proto", fileDescriptor_todos_69b01112dbc4b4fd) }
 
-var fileDescriptor_todos_9319fe881d251a0b = []byte{
+var fileDescriptor_todos_69b01112dbc4b4fd = []byte{
 	// 980 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x56, 0xdf, 0x6e, 0xe3, 0xc4,
 	0x17, 0xae, 0x9b, 0x3f, 0x4d, 0x4e, 0xda, 0x74, 0x32, 0x9b, 0xfe, 0xea, 0x4d, 0x7e, 0x74, 0x83,

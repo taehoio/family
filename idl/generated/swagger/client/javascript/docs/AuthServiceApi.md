@@ -21,15 +21,12 @@ var apiInstance = new Api.AuthServiceApi();
 
 var body = new Api.AuthRefreshRequest(); // AuthRefreshRequest | 
 
+apiInstance.refresh(body).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.refresh(body, callback);
 ```
 
 ### Parameters

@@ -27,9 +27,6 @@ func Register(accountsRepo repo.AccountsRepo, crypt crypt.Crypt) RegisterHandler
 		}
 
 		account, err := accountsRepo.GetByEmail(req.Email)
-		if err != nil {
-			return nil, err
-		}
 		if account != nil {
 			return nil, EmailAlreadyExistsError
 		}

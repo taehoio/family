@@ -22,15 +22,12 @@ var apiInstance = new Api.AccountsServiceApi();
 
 var body = new Api.AccountsLogInRequest(); // AccountsLogInRequest | 
 
+apiInstance.logIn(body).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.logIn(body, callback);
 ```
 
 ### Parameters
@@ -66,15 +63,12 @@ var apiInstance = new Api.AccountsServiceApi();
 
 var body = new Api.AccountsRegisterRequest(); // AccountsRegisterRequest | 
 
+apiInstance.register(body).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.register(body, callback);
 ```
 
 ### Parameters

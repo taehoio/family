@@ -44,7 +44,7 @@ func (x AuthType) String() string {
 	return proto.EnumName(AuthType_name, int32(x))
 }
 func (AuthType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_accounts_10b576e654188056, []int{0}
+	return fileDescriptor_accounts_3ef18cf231cdb3d2, []int{0}
 }
 
 type Account struct {
@@ -64,7 +64,7 @@ func (m *Account) Reset()         { *m = Account{} }
 func (m *Account) String() string { return proto.CompactTextString(m) }
 func (*Account) ProtoMessage()    {}
 func (*Account) Descriptor() ([]byte, []int) {
-	return fileDescriptor_accounts_10b576e654188056, []int{0}
+	return fileDescriptor_accounts_3ef18cf231cdb3d2, []int{0}
 }
 func (m *Account) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Account.Unmarshal(m, b)
@@ -147,7 +147,7 @@ func (m *RegisterRequest) Reset()         { *m = RegisterRequest{} }
 func (m *RegisterRequest) String() string { return proto.CompactTextString(m) }
 func (*RegisterRequest) ProtoMessage()    {}
 func (*RegisterRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_accounts_10b576e654188056, []int{1}
+	return fileDescriptor_accounts_3ef18cf231cdb3d2, []int{1}
 }
 func (m *RegisterRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RegisterRequest.Unmarshal(m, b)
@@ -207,7 +207,7 @@ func (m *RegisterResponse) Reset()         { *m = RegisterResponse{} }
 func (m *RegisterResponse) String() string { return proto.CompactTextString(m) }
 func (*RegisterResponse) ProtoMessage()    {}
 func (*RegisterResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_accounts_10b576e654188056, []int{2}
+	return fileDescriptor_accounts_3ef18cf231cdb3d2, []int{2}
 }
 func (m *RegisterResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RegisterResponse.Unmarshal(m, b)
@@ -254,7 +254,7 @@ func (m *LogInRequest) Reset()         { *m = LogInRequest{} }
 func (m *LogInRequest) String() string { return proto.CompactTextString(m) }
 func (*LogInRequest) ProtoMessage()    {}
 func (*LogInRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_accounts_10b576e654188056, []int{3}
+	return fileDescriptor_accounts_3ef18cf231cdb3d2, []int{3}
 }
 func (m *LogInRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LogInRequest.Unmarshal(m, b)
@@ -310,7 +310,7 @@ func (m *LogInResponse) Reset()         { *m = LogInResponse{} }
 func (m *LogInResponse) String() string { return proto.CompactTextString(m) }
 func (*LogInResponse) ProtoMessage()    {}
 func (*LogInResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_accounts_10b576e654188056, []int{4}
+	return fileDescriptor_accounts_3ef18cf231cdb3d2, []int{4}
 }
 func (m *LogInResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LogInResponse.Unmarshal(m, b)
@@ -480,10 +480,10 @@ var _AccountsService_serviceDesc = grpc.ServiceDesc{
 }
 
 func init() {
-	proto.RegisterFile("pb/family/accounts/accounts.proto", fileDescriptor_accounts_10b576e654188056)
+	proto.RegisterFile("pb/family/accounts/accounts.proto", fileDescriptor_accounts_3ef18cf231cdb3d2)
 }
 
-var fileDescriptor_accounts_10b576e654188056 = []byte{
+var fileDescriptor_accounts_3ef18cf231cdb3d2 = []byte{
 	// 557 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x54, 0xcb, 0x6e, 0xd3, 0x40,
 	0x14, 0xc5, 0x4d, 0xd3, 0xda, 0x97, 0x3e, 0xa2, 0x11, 0x08, 0x2b, 0x34, 0x22, 0x71, 0x91, 0x88,

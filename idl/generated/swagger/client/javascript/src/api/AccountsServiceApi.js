@@ -47,20 +47,12 @@
     this.apiClient = apiClient || ApiClient.instance;
 
 
-    /**
-     * Callback function to receive the result of the logIn operation.
-     * @callback module:api/AccountsServiceApi~logInCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AccountsLogInResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * @param {module:model/AccountsLogInRequest} body 
-     * @param {module:api/AccountsServiceApi~logInCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AccountsLogInResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AccountsLogInResponse} and HTTP response
      */
-    this.logIn = function(body, callback) {
+    this.logInWithHttpInfo = function(body) {
       var postBody = body;
 
       // verify the required parameter 'body' is set
@@ -88,24 +80,27 @@
       return this.apiClient.callApi(
         '/v1/accounts/logIn', 'POST',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
     }
 
     /**
-     * Callback function to receive the result of the register operation.
-     * @callback module:api/AccountsServiceApi~registerCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/AccountsRegisterResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {module:model/AccountsLogInRequest} body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AccountsLogInResponse}
      */
+    this.logIn = function(body) {
+      return this.logInWithHttpInfo(body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {module:model/AccountsRegisterRequest} body 
-     * @param {module:api/AccountsServiceApi~registerCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/AccountsRegisterResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/AccountsRegisterResponse} and HTTP response
      */
-    this.register = function(body, callback) {
+    this.registerWithHttpInfo = function(body) {
       var postBody = body;
 
       // verify the required parameter 'body' is set
@@ -133,8 +128,19 @@
       return this.apiClient.callApi(
         '/v1/accounts/register', 'POST',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
+    }
+
+    /**
+     * @param {module:model/AccountsRegisterRequest} body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AccountsRegisterResponse}
+     */
+    this.register = function(body) {
+      return this.registerWithHttpInfo(body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
   };
 

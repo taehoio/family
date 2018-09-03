@@ -25,15 +25,12 @@ var apiInstance = new Api.TodosServiceApi();
 
 var body = new Api.TodosCreateTodoRequest(); // TodosCreateTodoRequest | 
 
+apiInstance.createTodo(body).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.createTodo(body, callback);
 ```
 
 ### Parameters
@@ -72,15 +69,12 @@ var todoId = "todoId_example"; // String |
 var opts = { 
   'accountId': "accountId_example" // String | 
 };
+apiInstance.deleteTodo(todoId, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.deleteTodo(todoId, opts, callback);
 ```
 
 ### Parameters
@@ -120,15 +114,12 @@ var todoId = "todoId_example"; // String |
 var opts = { 
   'accountId': "accountId_example" // String | 
 };
+apiInstance.getTodo(todoId, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getTodo(todoId, opts, callback);
 ```
 
 ### Parameters
@@ -168,15 +159,12 @@ var opts = {
   'parentType': "PARENT_TYPE_TODO_GROUP", // String | 
   'parentId': "parentId_example" // String | 
 };
+apiInstance.listTodos(opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.listTodos(opts, callback);
 ```
 
 ### Parameters
@@ -216,15 +204,12 @@ var todoId = "todoId_example"; // String |
 
 var body = new Api.TodosUpdateTodoRequest(); // TodosUpdateTodoRequest | 
 
+apiInstance.updateTodo(todoId, body).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.updateTodo(todoId, body, callback);
 ```
 
 ### Parameters

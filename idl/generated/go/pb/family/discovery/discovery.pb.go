@@ -44,7 +44,7 @@ func (x Service) String() string {
 	return proto.EnumName(Service_name, int32(x))
 }
 func (Service) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_discovery_fc8bbb6689165215, []int{0}
+	return fileDescriptor_discovery_2dd78e6e45312208, []int{0}
 }
 
 func init() {
@@ -52,10 +52,10 @@ func init() {
 }
 
 func init() {
-	proto.RegisterFile("pb/family/discovery/discovery.proto", fileDescriptor_discovery_fc8bbb6689165215)
+	proto.RegisterFile("pb/family/discovery/discovery.proto", fileDescriptor_discovery_2dd78e6e45312208)
 }
 
-var fileDescriptor_discovery_fc8bbb6689165215 = []byte{
+var fileDescriptor_discovery_2dd78e6e45312208 = []byte{
 	// 174 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x2e, 0x48, 0xd2, 0x4f,
 	0x4b, 0xcc, 0xcd, 0xcc, 0xa9, 0xd4, 0x4f, 0xc9, 0x2c, 0x4e, 0xce, 0x2f, 0x4b, 0x2d, 0x42, 0x62,

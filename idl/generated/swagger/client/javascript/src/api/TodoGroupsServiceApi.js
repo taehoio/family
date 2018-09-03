@@ -47,20 +47,12 @@
     this.apiClient = apiClient || ApiClient.instance;
 
 
-    /**
-     * Callback function to receive the result of the createTodoGroup operation.
-     * @callback module:api/TodoGroupsServiceApi~createTodoGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TodogroupsCreateTodoGroupResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * @param {module:model/TodogroupsCreateTodoGroupRequest} body 
-     * @param {module:api/TodoGroupsServiceApi~createTodoGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TodogroupsCreateTodoGroupResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodogroupsCreateTodoGroupResponse} and HTTP response
      */
-    this.createTodoGroup = function(body, callback) {
+    this.createTodoGroupWithHttpInfo = function(body) {
       var postBody = body;
 
       // verify the required parameter 'body' is set
@@ -88,26 +80,29 @@
       return this.apiClient.callApi(
         '/v1/todo-groups', 'POST',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteTodoGroup operation.
-     * @callback module:api/TodoGroupsServiceApi~deleteTodoGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TodogroupsDeleteTodoGroupResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {module:model/TodogroupsCreateTodoGroupRequest} body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodogroupsCreateTodoGroupResponse}
      */
+    this.createTodoGroup = function(body) {
+      return this.createTodoGroupWithHttpInfo(body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {String} todoGroupId 
      * @param {Object} opts Optional parameters
      * @param {String} opts.accountId 
-     * @param {module:api/TodoGroupsServiceApi~deleteTodoGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TodogroupsDeleteTodoGroupResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodogroupsDeleteTodoGroupResponse} and HTTP response
      */
-    this.deleteTodoGroup = function(todoGroupId, opts, callback) {
+    this.deleteTodoGroupWithHttpInfo = function(todoGroupId, opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -138,26 +133,31 @@
       return this.apiClient.callApi(
         '/v1/todo-groups/{todo_group_id}', 'DELETE',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
     }
-
-    /**
-     * Callback function to receive the result of the getTodoGroup operation.
-     * @callback module:api/TodoGroupsServiceApi~getTodoGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TodogroupsGetTodoGroupResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * @param {String} todoGroupId 
      * @param {Object} opts Optional parameters
      * @param {String} opts.accountId 
-     * @param {module:api/TodoGroupsServiceApi~getTodoGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TodogroupsGetTodoGroupResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodogroupsDeleteTodoGroupResponse}
      */
-    this.getTodoGroup = function(todoGroupId, opts, callback) {
+    this.deleteTodoGroup = function(todoGroupId, opts) {
+      return this.deleteTodoGroupWithHttpInfo(todoGroupId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * @param {String} todoGroupId 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.accountId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodogroupsGetTodoGroupResponse} and HTTP response
+     */
+    this.getTodoGroupWithHttpInfo = function(todoGroupId, opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -188,25 +188,30 @@
       return this.apiClient.callApi(
         '/v1/todo-groups/{todo_group_id}', 'GET',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
     }
 
     /**
-     * Callback function to receive the result of the listTodoGroups operation.
-     * @callback module:api/TodoGroupsServiceApi~listTodoGroupsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TodogroupsListTodoGroupsResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {String} todoGroupId 
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.accountId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodogroupsGetTodoGroupResponse}
      */
+    this.getTodoGroup = function(todoGroupId, opts) {
+      return this.getTodoGroupWithHttpInfo(todoGroupId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {Object} opts Optional parameters
      * @param {String} opts.accountId 
-     * @param {module:api/TodoGroupsServiceApi~listTodoGroupsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TodogroupsListTodoGroupsResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodogroupsListTodoGroupsResponse} and HTTP response
      */
-    this.listTodoGroups = function(opts, callback) {
+    this.listTodoGroupsWithHttpInfo = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -231,25 +236,29 @@
       return this.apiClient.callApi(
         '/v1/todo-groups', 'GET',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
     }
 
     /**
-     * Callback function to receive the result of the updateTodoGroup operation.
-     * @callback module:api/TodoGroupsServiceApi~updateTodoGroupCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/TodogroupsUpdateTodoGroupResponse} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.accountId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodogroupsListTodoGroupsResponse}
      */
+    this.listTodoGroups = function(opts) {
+      return this.listTodoGroupsWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {String} todoGroupId 
      * @param {module:model/TodogroupsUpdateTodoGroupRequest} body 
-     * @param {module:api/TodoGroupsServiceApi~updateTodoGroupCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/TodogroupsUpdateTodoGroupResponse}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodogroupsUpdateTodoGroupResponse} and HTTP response
      */
-    this.updateTodoGroup = function(todoGroupId, body, callback) {
+    this.updateTodoGroupWithHttpInfo = function(todoGroupId, body) {
       var postBody = body;
 
       // verify the required parameter 'todoGroupId' is set
@@ -283,8 +292,20 @@
       return this.apiClient.callApi(
         '/v1/todo-groups/{todo_group_id}', 'PUT',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, callback
+        authNames, contentTypes, accepts, returnType
       );
+    }
+
+    /**
+     * @param {String} todoGroupId 
+     * @param {module:model/TodogroupsUpdateTodoGroupRequest} body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodogroupsUpdateTodoGroupResponse}
+     */
+    this.updateTodoGroup = function(todoGroupId, body) {
+      return this.updateTodoGroupWithHttpInfo(todoGroupId, body)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
   };
 
