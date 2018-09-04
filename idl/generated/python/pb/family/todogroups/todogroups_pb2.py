@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='pb/family/todogroups/todogroups.proto',
   package='pb.family.todogroups',
   syntax='proto3',
-  serialized_pb=_b('\n%pb/family/todogroups/todogroups.proto\x12\x14pb.family.todogroups\x1a\x1cgoogle/api/annotations.proto\"\xc8\x01\n\tTodoGroup\x12\x15\n\rtodo_group_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x12\n\ncreated_by\x18\x04 \x01(\t\x12\x12\n\ncreated_at\x18\x05 \x01(\x03\x12\x12\n\nupdated_at\x18\x06 \x01(\x03\x12\r\n\x05order\x18\x07 \x01(\t\x12\x35\n\x0bpermit_type\x18\x08 \x01(\x0e\x32 .pb.family.todogroups.PermitType\"a\n\x16\x43reateTodoGroupRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x33\n\ntodo_group\x18\x02 \x01(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"N\n\x17\x43reateTodoGroupResponse\x12\x33\n\ntodo_group\x18\x01 \x01(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"+\n\x15ListTodoGroupsRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\"N\n\x16ListTodoGroupsResponse\x12\x34\n\x0btodo_groups\x18\x01 \x03(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"@\n\x13GetTodoGroupRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x15\n\rtodo_group_id\x18\x02 \x01(\t\"K\n\x14GetTodoGroupResponse\x12\x33\n\ntodo_group\x18\x01 \x01(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"x\n\x16UpdateTodoGroupRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x15\n\rtodo_group_id\x18\x02 \x01(\t\x12\x33\n\ntodo_group\x18\x03 \x01(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"N\n\x17UpdateTodoGroupResponse\x12\x33\n\ntodo_group\x18\x01 \x01(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"C\n\x16\x44\x65leteTodoGroupRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x15\n\rtodo_group_id\x18\x02 \x01(\t\"\x19\n\x17\x44\x65leteTodoGroupResponse*S\n\nPermitType\x12\x15\n\x11PERMIT_TYPE_OWNER\x10\x00\x12\x16\n\x12PERMIT_TYPE_EDITOR\x10\x01\x12\x16\n\x12PERMIT_TYPE_VIEWER\x10\x02\x32\xef\x05\n\x11TodoGroupsService\x12\x8a\x01\n\x0f\x43reateTodoGroup\x12,.pb.family.todogroups.CreateTodoGroupRequest\x1a-.pb.family.todogroups.CreateTodoGroupResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\"\x0f/v1/todo-groups:\x01*\x12\x84\x01\n\x0eListTodoGroups\x12+.pb.family.todogroups.ListTodoGroupsRequest\x1a,.pb.family.todogroups.ListTodoGroupsResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/v1/todo-groups\x12\x8e\x01\n\x0cGetTodoGroup\x12).pb.family.todogroups.GetTodoGroupRequest\x1a*.pb.family.todogroups.GetTodoGroupResponse\"\'\x82\xd3\xe4\x93\x02!\x12\x1f/v1/todo-groups/{todo_group_id}\x12\x9a\x01\n\x0fUpdateTodoGroup\x12,.pb.family.todogroups.UpdateTodoGroupRequest\x1a-.pb.family.todogroups.UpdateTodoGroupResponse\"*\x82\xd3\xe4\x93\x02$\x1a\x1f/v1/todo-groups/{todo_group_id}:\x01*\x12\x97\x01\n\x0f\x44\x65leteTodoGroup\x12,.pb.family.todogroups.DeleteTodoGroupRequest\x1a-.pb.family.todogroups.DeleteTodoGroupResponse\"\'\x82\xd3\xe4\x93\x02!*\x1f/v1/todo-groups/{todo_group_id}BMZKgithub.com/taeho-io/family/idl/generated/go/pb/family/todogroups;todogroupsb\x06proto3')
+  serialized_pb=_b('\n%pb/family/todogroups/todogroups.proto\x12\x14pb.family.todogroups\x1a\x1cgoogle/api/annotations.proto\"\xc8\x01\n\tTodoGroup\x12\x15\n\rtodo_group_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x12\n\ncreated_by\x18\x04 \x01(\t\x12\x12\n\ncreated_at\x18\x05 \x01(\x03\x12\x12\n\nupdated_at\x18\x06 \x01(\x03\x12\r\n\x05order\x18\x07 \x01(\t\x12\x35\n\x0bpermit_type\x18\x08 \x01(\x0e\x32 .pb.family.todogroups.PermitType\"M\n\x16\x43reateTodoGroupRequest\x12\x33\n\ntodo_group\x18\x01 \x01(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"N\n\x17\x43reateTodoGroupResponse\x12\x33\n\ntodo_group\x18\x01 \x01(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"\x17\n\x15ListTodoGroupsRequest\"N\n\x16ListTodoGroupsResponse\x12\x34\n\x0btodo_groups\x18\x01 \x03(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\",\n\x13GetTodoGroupRequest\x12\x15\n\rtodo_group_id\x18\x01 \x01(\t\"K\n\x14GetTodoGroupResponse\x12\x33\n\ntodo_group\x18\x01 \x01(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"M\n\x16UpdateTodoGroupRequest\x12\x33\n\ntodo_group\x18\x01 \x01(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"N\n\x17UpdateTodoGroupResponse\x12\x33\n\ntodo_group\x18\x01 \x01(\x0b\x32\x1f.pb.family.todogroups.TodoGroup\"/\n\x16\x44\x65leteTodoGroupRequest\x12\x15\n\rtodo_group_id\x18\x01 \x01(\t\"\x19\n\x17\x44\x65leteTodoGroupResponse*S\n\nPermitType\x12\x15\n\x11PERMIT_TYPE_OWNER\x10\x00\x12\x16\n\x12PERMIT_TYPE_EDITOR\x10\x01\x12\x16\n\x12PERMIT_TYPE_VIEWER\x10\x02\x32\xfa\x05\n\x11TodoGroupsService\x12\x8a\x01\n\x0f\x43reateTodoGroup\x12,.pb.family.todogroups.CreateTodoGroupRequest\x1a-.pb.family.todogroups.CreateTodoGroupResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\"\x0f/v1/todo-groups:\x01*\x12\x84\x01\n\x0eListTodoGroups\x12+.pb.family.todogroups.ListTodoGroupsRequest\x1a,.pb.family.todogroups.ListTodoGroupsResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/v1/todo-groups\x12\x8e\x01\n\x0cGetTodoGroup\x12).pb.family.todogroups.GetTodoGroupRequest\x1a*.pb.family.todogroups.GetTodoGroupResponse\"\'\x82\xd3\xe4\x93\x02!\x12\x1f/v1/todo-groups/{todo_group_id}\x12\xa5\x01\n\x0fUpdateTodoGroup\x12,.pb.family.todogroups.UpdateTodoGroupRequest\x1a-.pb.family.todogroups.UpdateTodoGroupResponse\"5\x82\xd3\xe4\x93\x02/\x1a*/v1/todo-groups/{todo_group.todo_group_id}:\x01*\x12\x97\x01\n\x0f\x44\x65leteTodoGroup\x12,.pb.family.todogroups.DeleteTodoGroupRequest\x1a-.pb.family.todogroups.DeleteTodoGroupResponse\"\'\x82\xd3\xe4\x93\x02!*\x1f/v1/todo-groups/{todo_group_id}BMZKgithub.com/taeho-io/family/idl/generated/go/pb/family/todogroups;todogroupsb\x06proto3')
   ,
   dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -46,8 +46,8 @@ _PERMITTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1041,
-  serialized_end=1124,
+  serialized_start=918,
+  serialized_end=1001,
 )
 _sym_db.RegisterEnumDescriptor(_PERMITTYPE)
 
@@ -146,15 +146,8 @@ _CREATETODOGROUPREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='account_id', full_name='pb.family.todogroups.CreateTodoGroupRequest.account_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='todo_group', full_name='pb.family.todogroups.CreateTodoGroupRequest.todo_group', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='todo_group', full_name='pb.family.todogroups.CreateTodoGroupRequest.todo_group', index=0,
+      number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -172,7 +165,7 @@ _CREATETODOGROUPREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=296,
-  serialized_end=393,
+  serialized_end=373,
 )
 
 
@@ -202,8 +195,8 @@ _CREATETODOGROUPRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=395,
-  serialized_end=473,
+  serialized_start=375,
+  serialized_end=453,
 )
 
 
@@ -214,13 +207,6 @@ _LISTTODOGROUPSREQUEST = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
-    _descriptor.FieldDescriptor(
-      name='account_id', full_name='pb.family.todogroups.ListTodoGroupsRequest.account_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -233,8 +219,8 @@ _LISTTODOGROUPSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=475,
-  serialized_end=518,
+  serialized_start=455,
+  serialized_end=478,
 )
 
 
@@ -264,8 +250,8 @@ _LISTTODOGROUPSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=520,
-  serialized_end=598,
+  serialized_start=480,
+  serialized_end=558,
 )
 
 
@@ -277,15 +263,8 @@ _GETTODOGROUPREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='account_id', full_name='pb.family.todogroups.GetTodoGroupRequest.account_id', index=0,
+      name='todo_group_id', full_name='pb.family.todogroups.GetTodoGroupRequest.todo_group_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='todo_group_id', full_name='pb.family.todogroups.GetTodoGroupRequest.todo_group_id', index=1,
-      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -302,8 +281,8 @@ _GETTODOGROUPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=600,
-  serialized_end=664,
+  serialized_start=560,
+  serialized_end=604,
 )
 
 
@@ -333,8 +312,8 @@ _GETTODOGROUPRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=666,
-  serialized_end=741,
+  serialized_start=606,
+  serialized_end=681,
 )
 
 
@@ -346,22 +325,8 @@ _UPDATETODOGROUPREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='account_id', full_name='pb.family.todogroups.UpdateTodoGroupRequest.account_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='todo_group_id', full_name='pb.family.todogroups.UpdateTodoGroupRequest.todo_group_id', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='todo_group', full_name='pb.family.todogroups.UpdateTodoGroupRequest.todo_group', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='todo_group', full_name='pb.family.todogroups.UpdateTodoGroupRequest.todo_group', index=0,
+      number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -378,8 +343,8 @@ _UPDATETODOGROUPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=743,
-  serialized_end=863,
+  serialized_start=683,
+  serialized_end=760,
 )
 
 
@@ -409,8 +374,8 @@ _UPDATETODOGROUPRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=865,
-  serialized_end=943,
+  serialized_start=762,
+  serialized_end=840,
 )
 
 
@@ -422,15 +387,8 @@ _DELETETODOGROUPREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='account_id', full_name='pb.family.todogroups.DeleteTodoGroupRequest.account_id', index=0,
+      name='todo_group_id', full_name='pb.family.todogroups.DeleteTodoGroupRequest.todo_group_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='todo_group_id', full_name='pb.family.todogroups.DeleteTodoGroupRequest.todo_group_id', index=1,
-      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -447,8 +405,8 @@ _DELETETODOGROUPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=945,
-  serialized_end=1012,
+  serialized_start=842,
+  serialized_end=889,
 )
 
 
@@ -471,8 +429,8 @@ _DELETETODOGROUPRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1014,
-  serialized_end=1039,
+  serialized_start=891,
+  serialized_end=916,
 )
 
 _TODOGROUP.fields_by_name['permit_type'].enum_type = _PERMITTYPE
@@ -583,8 +541,8 @@ _TODOGROUPSSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=1127,
-  serialized_end=1878,
+  serialized_start=1004,
+  serialized_end=1766,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateTodoGroup',
@@ -620,7 +578,7 @@ _TODOGROUPSSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_UPDATETODOGROUPREQUEST,
     output_type=_UPDATETODOGROUPRESPONSE,
-    options=_descriptor._ParseOptions(descriptor_pb2.MethodOptions(), _b('\202\323\344\223\002$\032\037/v1/todo-groups/{todo_group_id}:\001*')),
+    options=_descriptor._ParseOptions(descriptor_pb2.MethodOptions(), _b('\202\323\344\223\002/\032*/v1/todo-groups/{todo_group.todo_group_id}:\001*')),
   ),
   _descriptor.MethodDescriptor(
     name='DeleteTodoGroup',

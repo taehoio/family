@@ -98,12 +98,9 @@
 
     /**
      * @param {String} todoGroupId 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodogroupsDeleteTodoGroupResponse} and HTTP response
      */
-    this.deleteTodoGroupWithHttpInfo = function(todoGroupId, opts) {
-      opts = opts || {};
+    this.deleteTodoGroupWithHttpInfo = function(todoGroupId) {
       var postBody = null;
 
       // verify the required parameter 'todoGroupId' is set
@@ -116,7 +113,6 @@
         'todo_group_id': todoGroupId
       };
       var queryParams = {
-        'account_id': opts['accountId'],
       };
       var collectionQueryParams = {
       };
@@ -139,12 +135,10 @@
 
     /**
      * @param {String} todoGroupId 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodogroupsDeleteTodoGroupResponse}
      */
-    this.deleteTodoGroup = function(todoGroupId, opts) {
-      return this.deleteTodoGroupWithHttpInfo(todoGroupId, opts)
+    this.deleteTodoGroup = function(todoGroupId) {
+      return this.deleteTodoGroupWithHttpInfo(todoGroupId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -153,12 +147,9 @@
 
     /**
      * @param {String} todoGroupId 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodogroupsGetTodoGroupResponse} and HTTP response
      */
-    this.getTodoGroupWithHttpInfo = function(todoGroupId, opts) {
-      opts = opts || {};
+    this.getTodoGroupWithHttpInfo = function(todoGroupId) {
       var postBody = null;
 
       // verify the required parameter 'todoGroupId' is set
@@ -171,7 +162,6 @@
         'todo_group_id': todoGroupId
       };
       var queryParams = {
-        'account_id': opts['accountId'],
       };
       var collectionQueryParams = {
       };
@@ -194,12 +184,10 @@
 
     /**
      * @param {String} todoGroupId 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodogroupsGetTodoGroupResponse}
      */
-    this.getTodoGroup = function(todoGroupId, opts) {
-      return this.getTodoGroupWithHttpInfo(todoGroupId, opts)
+    this.getTodoGroup = function(todoGroupId) {
+      return this.getTodoGroupWithHttpInfo(todoGroupId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -207,19 +195,15 @@
 
 
     /**
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodogroupsListTodoGroupsResponse} and HTTP response
      */
-    this.listTodoGroupsWithHttpInfo = function(opts) {
-      opts = opts || {};
+    this.listTodoGroupsWithHttpInfo = function() {
       var postBody = null;
 
 
       var pathParams = {
       };
       var queryParams = {
-        'account_id': opts['accountId'],
       };
       var collectionQueryParams = {
       };
@@ -241,12 +225,10 @@
     }
 
     /**
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodogroupsListTodoGroupsResponse}
      */
-    this.listTodoGroups = function(opts) {
-      return this.listTodoGroupsWithHttpInfo(opts)
+    this.listTodoGroups = function() {
+      return this.listTodoGroupsWithHttpInfo()
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -254,16 +236,16 @@
 
 
     /**
-     * @param {String} todoGroupId 
+     * @param {String} todoGroupTodoGroupId 
      * @param {module:model/TodogroupsUpdateTodoGroupRequest} body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodogroupsUpdateTodoGroupResponse} and HTTP response
      */
-    this.updateTodoGroupWithHttpInfo = function(todoGroupId, body) {
+    this.updateTodoGroupWithHttpInfo = function(todoGroupTodoGroupId, body) {
       var postBody = body;
 
-      // verify the required parameter 'todoGroupId' is set
-      if (todoGroupId === undefined || todoGroupId === null) {
-        throw new Error("Missing the required parameter 'todoGroupId' when calling updateTodoGroup");
+      // verify the required parameter 'todoGroupTodoGroupId' is set
+      if (todoGroupTodoGroupId === undefined || todoGroupTodoGroupId === null) {
+        throw new Error("Missing the required parameter 'todoGroupTodoGroupId' when calling updateTodoGroup");
       }
 
       // verify the required parameter 'body' is set
@@ -273,7 +255,7 @@
 
 
       var pathParams = {
-        'todo_group_id': todoGroupId
+        'todo_group.todo_group_id': todoGroupTodoGroupId
       };
       var queryParams = {
       };
@@ -290,19 +272,19 @@
       var returnType = TodogroupsUpdateTodoGroupResponse;
 
       return this.apiClient.callApi(
-        '/v1/todo-groups/{todo_group_id}', 'PUT',
+        '/v1/todo-groups/{todo_group.todo_group_id}', 'PUT',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
     }
 
     /**
-     * @param {String} todoGroupId 
+     * @param {String} todoGroupTodoGroupId 
      * @param {module:model/TodogroupsUpdateTodoGroupRequest} body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodogroupsUpdateTodoGroupResponse}
      */
-    this.updateTodoGroup = function(todoGroupId, body) {
-      return this.updateTodoGroupWithHttpInfo(todoGroupId, body)
+    this.updateTodoGroup = function(todoGroupTodoGroupId, body) {
+      return this.updateTodoGroupWithHttpInfo(todoGroupTodoGroupId, body)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

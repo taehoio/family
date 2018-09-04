@@ -16,12 +16,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AccountsAuthType', 'model/AccountsLogInRequest', 'model/AccountsLogInResponse', 'model/AccountsRegisterRequest', 'model/AccountsRegisterResponse', 'model/AuthAuthResponse', 'model/AuthParseResponse', 'model/AuthRefreshRequest', 'model/AuthRefreshResponse', 'model/AuthValidateResponse', 'model/TodogroupsCreateTodoGroupRequest', 'model/TodogroupsCreateTodoGroupResponse', 'model/TodogroupsDeleteTodoGroupResponse', 'model/TodogroupsGetTodoGroupResponse', 'model/TodogroupsListTodoGroupsResponse', 'model/TodogroupsPermitType', 'model/TodogroupsTodoGroup', 'model/TodogroupsUpdateTodoGroupRequest', 'model/TodogroupsUpdateTodoGroupResponse', 'model/TodosCreateTodoRequest', 'model/TodosCreateTodoResponse', 'model/TodosDeleteTodoResponse', 'model/TodosGetTodoResponse', 'model/TodosListTodosResponse', 'model/TodosParentType', 'model/TodosPriority', 'model/TodosStatus', 'model/TodosTodo', 'model/TodosUpdateTodoRequest', 'model/TodosUpdateTodoResponse', 'model/TodosUpdatingField', 'api/AccountsServiceApi', 'api/AuthServiceApi', 'api/TodoGroupsServiceApi', 'api/TodosServiceApi'], factory);
+    define(['ApiClient', 'model/AccountsAuthType', 'model/AccountsLogInRequest', 'model/AccountsLogInResponse', 'model/AccountsRegisterRequest', 'model/AccountsRegisterResponse', 'model/AuthAuthResponse', 'model/AuthParseResponse', 'model/AuthRefreshRequest', 'model/AuthRefreshResponse', 'model/AuthValidateResponse', 'model/NotesCreateNoteRequest', 'model/NotesCreateNoteResponse', 'model/NotesDeleteNoteResponse', 'model/NotesGetNoteResponse', 'model/NotesListNotesResponse', 'model/NotesNote', 'model/NotesShareType', 'model/NotesTextType', 'model/NotesUpdateNoteRequest', 'model/NotesUpdateNoteResponse', 'model/TodogroupsCreateTodoGroupRequest', 'model/TodogroupsCreateTodoGroupResponse', 'model/TodogroupsDeleteTodoGroupResponse', 'model/TodogroupsGetTodoGroupResponse', 'model/TodogroupsListTodoGroupsResponse', 'model/TodogroupsPermitType', 'model/TodogroupsTodoGroup', 'model/TodogroupsUpdateTodoGroupRequest', 'model/TodogroupsUpdateTodoGroupResponse', 'model/TodosCreateTodoRequest', 'model/TodosCreateTodoResponse', 'model/TodosDeleteTodoResponse', 'model/TodosGetTodoResponse', 'model/TodosListTodosResponse', 'model/TodosParentType', 'model/TodosPriority', 'model/TodosStatus', 'model/TodosTodo', 'model/TodosUpdateTodoRequest', 'model/TodosUpdateTodoResponse', 'model/TodosUpdatingField', 'api/AccountsServiceApi', 'api/AuthServiceApi', 'api/NotesServiceApi', 'api/TodoGroupsServiceApi', 'api/TodosServiceApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/AccountsAuthType'), require('./model/AccountsLogInRequest'), require('./model/AccountsLogInResponse'), require('./model/AccountsRegisterRequest'), require('./model/AccountsRegisterResponse'), require('./model/AuthAuthResponse'), require('./model/AuthParseResponse'), require('./model/AuthRefreshRequest'), require('./model/AuthRefreshResponse'), require('./model/AuthValidateResponse'), require('./model/TodogroupsCreateTodoGroupRequest'), require('./model/TodogroupsCreateTodoGroupResponse'), require('./model/TodogroupsDeleteTodoGroupResponse'), require('./model/TodogroupsGetTodoGroupResponse'), require('./model/TodogroupsListTodoGroupsResponse'), require('./model/TodogroupsPermitType'), require('./model/TodogroupsTodoGroup'), require('./model/TodogroupsUpdateTodoGroupRequest'), require('./model/TodogroupsUpdateTodoGroupResponse'), require('./model/TodosCreateTodoRequest'), require('./model/TodosCreateTodoResponse'), require('./model/TodosDeleteTodoResponse'), require('./model/TodosGetTodoResponse'), require('./model/TodosListTodosResponse'), require('./model/TodosParentType'), require('./model/TodosPriority'), require('./model/TodosStatus'), require('./model/TodosTodo'), require('./model/TodosUpdateTodoRequest'), require('./model/TodosUpdateTodoResponse'), require('./model/TodosUpdatingField'), require('./api/AccountsServiceApi'), require('./api/AuthServiceApi'), require('./api/TodoGroupsServiceApi'), require('./api/TodosServiceApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/AccountsAuthType'), require('./model/AccountsLogInRequest'), require('./model/AccountsLogInResponse'), require('./model/AccountsRegisterRequest'), require('./model/AccountsRegisterResponse'), require('./model/AuthAuthResponse'), require('./model/AuthParseResponse'), require('./model/AuthRefreshRequest'), require('./model/AuthRefreshResponse'), require('./model/AuthValidateResponse'), require('./model/NotesCreateNoteRequest'), require('./model/NotesCreateNoteResponse'), require('./model/NotesDeleteNoteResponse'), require('./model/NotesGetNoteResponse'), require('./model/NotesListNotesResponse'), require('./model/NotesNote'), require('./model/NotesShareType'), require('./model/NotesTextType'), require('./model/NotesUpdateNoteRequest'), require('./model/NotesUpdateNoteResponse'), require('./model/TodogroupsCreateTodoGroupRequest'), require('./model/TodogroupsCreateTodoGroupResponse'), require('./model/TodogroupsDeleteTodoGroupResponse'), require('./model/TodogroupsGetTodoGroupResponse'), require('./model/TodogroupsListTodoGroupsResponse'), require('./model/TodogroupsPermitType'), require('./model/TodogroupsTodoGroup'), require('./model/TodogroupsUpdateTodoGroupRequest'), require('./model/TodogroupsUpdateTodoGroupResponse'), require('./model/TodosCreateTodoRequest'), require('./model/TodosCreateTodoResponse'), require('./model/TodosDeleteTodoResponse'), require('./model/TodosGetTodoResponse'), require('./model/TodosListTodosResponse'), require('./model/TodosParentType'), require('./model/TodosPriority'), require('./model/TodosStatus'), require('./model/TodosTodo'), require('./model/TodosUpdateTodoRequest'), require('./model/TodosUpdateTodoResponse'), require('./model/TodosUpdatingField'), require('./api/AccountsServiceApi'), require('./api/AuthServiceApi'), require('./api/NotesServiceApi'), require('./api/TodoGroupsServiceApi'), require('./api/TodosServiceApi'));
   }
-}(function(ApiClient, AccountsAuthType, AccountsLogInRequest, AccountsLogInResponse, AccountsRegisterRequest, AccountsRegisterResponse, AuthAuthResponse, AuthParseResponse, AuthRefreshRequest, AuthRefreshResponse, AuthValidateResponse, TodogroupsCreateTodoGroupRequest, TodogroupsCreateTodoGroupResponse, TodogroupsDeleteTodoGroupResponse, TodogroupsGetTodoGroupResponse, TodogroupsListTodoGroupsResponse, TodogroupsPermitType, TodogroupsTodoGroup, TodogroupsUpdateTodoGroupRequest, TodogroupsUpdateTodoGroupResponse, TodosCreateTodoRequest, TodosCreateTodoResponse, TodosDeleteTodoResponse, TodosGetTodoResponse, TodosListTodosResponse, TodosParentType, TodosPriority, TodosStatus, TodosTodo, TodosUpdateTodoRequest, TodosUpdateTodoResponse, TodosUpdatingField, AccountsServiceApi, AuthServiceApi, TodoGroupsServiceApi, TodosServiceApi) {
+}(function(ApiClient, AccountsAuthType, AccountsLogInRequest, AccountsLogInResponse, AccountsRegisterRequest, AccountsRegisterResponse, AuthAuthResponse, AuthParseResponse, AuthRefreshRequest, AuthRefreshResponse, AuthValidateResponse, NotesCreateNoteRequest, NotesCreateNoteResponse, NotesDeleteNoteResponse, NotesGetNoteResponse, NotesListNotesResponse, NotesNote, NotesShareType, NotesTextType, NotesUpdateNoteRequest, NotesUpdateNoteResponse, TodogroupsCreateTodoGroupRequest, TodogroupsCreateTodoGroupResponse, TodogroupsDeleteTodoGroupResponse, TodogroupsGetTodoGroupResponse, TodogroupsListTodoGroupsResponse, TodogroupsPermitType, TodogroupsTodoGroup, TodogroupsUpdateTodoGroupRequest, TodogroupsUpdateTodoGroupResponse, TodosCreateTodoRequest, TodosCreateTodoResponse, TodosDeleteTodoResponse, TodosGetTodoResponse, TodosListTodosResponse, TodosParentType, TodosPriority, TodosStatus, TodosTodo, TodosUpdateTodoRequest, TodosUpdateTodoResponse, TodosUpdatingField, AccountsServiceApi, AuthServiceApi, NotesServiceApi, TodoGroupsServiceApi, TodosServiceApi) {
   'use strict';
 
   /**
@@ -111,6 +111,56 @@
      * @property {module:model/AuthValidateResponse}
      */
     AuthValidateResponse: AuthValidateResponse,
+    /**
+     * The NotesCreateNoteRequest model constructor.
+     * @property {module:model/NotesCreateNoteRequest}
+     */
+    NotesCreateNoteRequest: NotesCreateNoteRequest,
+    /**
+     * The NotesCreateNoteResponse model constructor.
+     * @property {module:model/NotesCreateNoteResponse}
+     */
+    NotesCreateNoteResponse: NotesCreateNoteResponse,
+    /**
+     * The NotesDeleteNoteResponse model constructor.
+     * @property {module:model/NotesDeleteNoteResponse}
+     */
+    NotesDeleteNoteResponse: NotesDeleteNoteResponse,
+    /**
+     * The NotesGetNoteResponse model constructor.
+     * @property {module:model/NotesGetNoteResponse}
+     */
+    NotesGetNoteResponse: NotesGetNoteResponse,
+    /**
+     * The NotesListNotesResponse model constructor.
+     * @property {module:model/NotesListNotesResponse}
+     */
+    NotesListNotesResponse: NotesListNotesResponse,
+    /**
+     * The NotesNote model constructor.
+     * @property {module:model/NotesNote}
+     */
+    NotesNote: NotesNote,
+    /**
+     * The NotesShareType model constructor.
+     * @property {module:model/NotesShareType}
+     */
+    NotesShareType: NotesShareType,
+    /**
+     * The NotesTextType model constructor.
+     * @property {module:model/NotesTextType}
+     */
+    NotesTextType: NotesTextType,
+    /**
+     * The NotesUpdateNoteRequest model constructor.
+     * @property {module:model/NotesUpdateNoteRequest}
+     */
+    NotesUpdateNoteRequest: NotesUpdateNoteRequest,
+    /**
+     * The NotesUpdateNoteResponse model constructor.
+     * @property {module:model/NotesUpdateNoteResponse}
+     */
+    NotesUpdateNoteResponse: NotesUpdateNoteResponse,
     /**
      * The TodogroupsCreateTodoGroupRequest model constructor.
      * @property {module:model/TodogroupsCreateTodoGroupRequest}
@@ -226,6 +276,11 @@
      * @property {module:api/AuthServiceApi}
      */
     AuthServiceApi: AuthServiceApi,
+    /**
+     * The NotesServiceApi service constructor.
+     * @property {module:api/NotesServiceApi}
+     */
+    NotesServiceApi: NotesServiceApi,
     /**
      * The TodoGroupsServiceApi service constructor.
      * @property {module:api/TodoGroupsServiceApi}

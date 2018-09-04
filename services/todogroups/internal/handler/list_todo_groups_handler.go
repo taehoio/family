@@ -21,7 +21,6 @@ type ListTodoGroupsFunc func(
 func ListTodoGroups(
 	todoGroupsRepo repo.GroupsRepo,
 	todoGroupPermitsRepo repo.PermitsRepo,
-	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) ListTodoGroupsFunc {
 	return func(
 		ctx context.Context,
@@ -30,17 +29,18 @@ func ListTodoGroups(
 		*todogroups.ListTodoGroupsResponse,
 		error,
 	) {
-		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
+		accountID := base.GetAccountIDFromContext(ctx)
+		if err := base.HasPermissionByAccountID(ctx, accountID); err != nil {
 			return nil, err
 		}
 
 		logger := ctxlogrus.Extract(ctx)
 
-		todoGroupPermits, err := todoGroupPermitsRepo.ListByAccountID(req.AccountId)
+		todoGroupPermits, err := todoGroupPermitsRepo.ListByAccountID(accountID)
 		if err != nil {
 			logger.WithFields(logrus.Fields{
 				"what":      "todoGroupPermitsRepo.ListByAccountID",
-				"accountId": req.AccountId,
+				"accountId": accountID,
 			}).Error(err)
 
 			return nil, err

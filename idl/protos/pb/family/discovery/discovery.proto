@@ -9,4 +9,5 @@ enum Service {
     ACCOUNTS = 1;
     TODOGROUPS = 2;
     TODOS = 3;
+    NOTES = 4;
 }

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**deleteTodo**](TodosServiceApi.md#deleteTodo) | **DELETE** /v1/todos/{todo_id} | 
 [**getTodo**](TodosServiceApi.md#getTodo) | **GET** /v1/todos/{todo_id} | 
 [**listTodos**](TodosServiceApi.md#listTodos) | **GET** /v1/todos | 
-[**updateTodo**](TodosServiceApi.md#updateTodo) | **PUT** /v1/todos/{todo_id} | 
+[**updateTodo**](TodosServiceApi.md#updateTodo) | **PUT** /v1/todos/{todo.todo_id} | 
 
 
 <a name="createTodo"></a>
@@ -54,7 +54,7 @@ No authorization required
 
 <a name="deleteTodo"></a>
 # **deleteTodo**
-> TodosDeleteTodoResponse deleteTodo(todoId, opts)
+> TodosDeleteTodoResponse deleteTodo(todoId)
 
 
 
@@ -66,10 +66,7 @@ var apiInstance = new Api.TodosServiceApi();
 
 var todoId = "todoId_example"; // String | 
 
-var opts = { 
-  'accountId': "accountId_example" // String | 
-};
-apiInstance.deleteTodo(todoId, opts).then(function(data) {
+apiInstance.deleteTodo(todoId).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -82,7 +79,6 @@ apiInstance.deleteTodo(todoId, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **todoId** | **String**|  | 
- **accountId** | **String**|  | [optional] 
 
 ### Return type
 
@@ -99,7 +95,7 @@ No authorization required
 
 <a name="getTodo"></a>
 # **getTodo**
-> TodosGetTodoResponse getTodo(todoId, opts)
+> TodosGetTodoResponse getTodo(todoId)
 
 
 
@@ -111,10 +107,7 @@ var apiInstance = new Api.TodosServiceApi();
 
 var todoId = "todoId_example"; // String | 
 
-var opts = { 
-  'accountId': "accountId_example" // String | 
-};
-apiInstance.getTodo(todoId, opts).then(function(data) {
+apiInstance.getTodo(todoId).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -127,7 +120,6 @@ apiInstance.getTodo(todoId, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **todoId** | **String**|  | 
- **accountId** | **String**|  | [optional] 
 
 ### Return type
 
@@ -155,7 +147,6 @@ var Api = require('api');
 var apiInstance = new Api.TodosServiceApi();
 
 var opts = { 
-  'accountId': "accountId_example", // String | 
   'parentType': "PARENT_TYPE_TODO_GROUP", // String | 
   'parentId': "parentId_example" // String | 
 };
@@ -171,7 +162,6 @@ apiInstance.listTodos(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**|  | [optional] 
  **parentType** | **String**|  | [optional] [default to PARENT_TYPE_TODO_GROUP]
  **parentId** | **String**|  | [optional] 
 
@@ -190,7 +180,7 @@ No authorization required
 
 <a name="updateTodo"></a>
 # **updateTodo**
-> TodosUpdateTodoResponse updateTodo(todoId, body)
+> TodosUpdateTodoResponse updateTodo(todoTodoId, body)
 
 
 
@@ -200,11 +190,11 @@ var Api = require('api');
 
 var apiInstance = new Api.TodosServiceApi();
 
-var todoId = "todoId_example"; // String | 
+var todoTodoId = "todoTodoId_example"; // String | 
 
 var body = new Api.TodosUpdateTodoRequest(); // TodosUpdateTodoRequest | 
 
-apiInstance.updateTodo(todoId, body).then(function(data) {
+apiInstance.updateTodo(todoTodoId, body).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -216,7 +206,7 @@ apiInstance.updateTodo(todoId, body).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **todoId** | **String**|  | 
+ **todoTodoId** | **String**|  | 
  **body** | [**TodosUpdateTodoRequest**](TodosUpdateTodoRequest.md)|  | 
 
 ### Return type

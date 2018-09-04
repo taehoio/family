@@ -117,16 +117,21 @@ Class | Method | HTTP request | Description
 *Api.AccountsServiceApi* | [**logIn**](docs/AccountsServiceApi.md#logIn) | **POST** /v1/accounts/logIn | 
 *Api.AccountsServiceApi* | [**register**](docs/AccountsServiceApi.md#register) | **POST** /v1/accounts/register | 
 *Api.AuthServiceApi* | [**refresh**](docs/AuthServiceApi.md#refresh) | **POST** /v1/auth/refreshToken | 
+*Api.NotesServiceApi* | [**createNote**](docs/NotesServiceApi.md#createNote) | **POST** /v1/notes | 
+*Api.NotesServiceApi* | [**deleteNote**](docs/NotesServiceApi.md#deleteNote) | **DELETE** /v1/notes/{note_id} | 
+*Api.NotesServiceApi* | [**getNote**](docs/NotesServiceApi.md#getNote) | **GET** /v1/notes/{note_id} | 
+*Api.NotesServiceApi* | [**listNotes**](docs/NotesServiceApi.md#listNotes) | **GET** /v1/notes | 
+*Api.NotesServiceApi* | [**updateNote**](docs/NotesServiceApi.md#updateNote) | **PUT** /v1/notes/{note.note_id} | 
 *Api.TodoGroupsServiceApi* | [**createTodoGroup**](docs/TodoGroupsServiceApi.md#createTodoGroup) | **POST** /v1/todo-groups | 
 *Api.TodoGroupsServiceApi* | [**deleteTodoGroup**](docs/TodoGroupsServiceApi.md#deleteTodoGroup) | **DELETE** /v1/todo-groups/{todo_group_id} | 
 *Api.TodoGroupsServiceApi* | [**getTodoGroup**](docs/TodoGroupsServiceApi.md#getTodoGroup) | **GET** /v1/todo-groups/{todo_group_id} | 
 *Api.TodoGroupsServiceApi* | [**listTodoGroups**](docs/TodoGroupsServiceApi.md#listTodoGroups) | **GET** /v1/todo-groups | 
-*Api.TodoGroupsServiceApi* | [**updateTodoGroup**](docs/TodoGroupsServiceApi.md#updateTodoGroup) | **PUT** /v1/todo-groups/{todo_group_id} | 
+*Api.TodoGroupsServiceApi* | [**updateTodoGroup**](docs/TodoGroupsServiceApi.md#updateTodoGroup) | **PUT** /v1/todo-groups/{todo_group.todo_group_id} | 
 *Api.TodosServiceApi* | [**createTodo**](docs/TodosServiceApi.md#createTodo) | **POST** /v1/todos | 
 *Api.TodosServiceApi* | [**deleteTodo**](docs/TodosServiceApi.md#deleteTodo) | **DELETE** /v1/todos/{todo_id} | 
 *Api.TodosServiceApi* | [**getTodo**](docs/TodosServiceApi.md#getTodo) | **GET** /v1/todos/{todo_id} | 
 *Api.TodosServiceApi* | [**listTodos**](docs/TodosServiceApi.md#listTodos) | **GET** /v1/todos | 
-*Api.TodosServiceApi* | [**updateTodo**](docs/TodosServiceApi.md#updateTodo) | **PUT** /v1/todos/{todo_id} | 
+*Api.TodosServiceApi* | [**updateTodo**](docs/TodosServiceApi.md#updateTodo) | **PUT** /v1/todos/{todo.todo_id} | 
 
 
 ## Documentation for Models
@@ -141,6 +146,16 @@ Class | Method | HTTP request | Description
  - [Api.AuthRefreshRequest](docs/AuthRefreshRequest.md)
  - [Api.AuthRefreshResponse](docs/AuthRefreshResponse.md)
  - [Api.AuthValidateResponse](docs/AuthValidateResponse.md)
+ - [Api.NotesCreateNoteRequest](docs/NotesCreateNoteRequest.md)
+ - [Api.NotesCreateNoteResponse](docs/NotesCreateNoteResponse.md)
+ - [Api.NotesDeleteNoteResponse](docs/NotesDeleteNoteResponse.md)
+ - [Api.NotesGetNoteResponse](docs/NotesGetNoteResponse.md)
+ - [Api.NotesListNotesResponse](docs/NotesListNotesResponse.md)
+ - [Api.NotesNote](docs/NotesNote.md)
+ - [Api.NotesShareType](docs/NotesShareType.md)
+ - [Api.NotesTextType](docs/NotesTextType.md)
+ - [Api.NotesUpdateNoteRequest](docs/NotesUpdateNoteRequest.md)
+ - [Api.NotesUpdateNoteResponse](docs/NotesUpdateNoteResponse.md)
  - [Api.TodogroupsCreateTodoGroupRequest](docs/TodogroupsCreateTodoGroupRequest.md)
  - [Api.TodogroupsCreateTodoGroupResponse](docs/TodogroupsCreateTodoGroupResponse.md)
  - [Api.TodogroupsDeleteTodoGroupResponse](docs/TodogroupsDeleteTodoGroupResponse.md)

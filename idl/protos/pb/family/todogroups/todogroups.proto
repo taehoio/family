@@ -25,7 +25,7 @@ service TodoGroupsService {
     }
     rpc UpdateTodoGroup (UpdateTodoGroupRequest) returns (UpdateTodoGroupResponse) {
         option (google.api.http) = {
-            put: "/v1/todo-groups/{todo_group_id}"
+            put: "/v1/todo-groups/{todo_group.todo_group_id}"
             body: "*"
         };
     }
@@ -54,8 +54,7 @@ message TodoGroup {
 }
 
 message CreateTodoGroupRequest {
-    string account_id = 1;
-    TodoGroup todo_group = 2;
+    TodoGroup todo_group = 1;
 }
 
 message CreateTodoGroupResponse {
@@ -63,7 +62,6 @@ message CreateTodoGroupResponse {
 }
 
 message ListTodoGroupsRequest {
-    string account_id = 1;
 }
 
 message ListTodoGroupsResponse {
@@ -71,8 +69,7 @@ message ListTodoGroupsResponse {
 }
 
 message GetTodoGroupRequest {
-    string account_id = 1;
-    string todo_group_id = 2;
+    string todo_group_id = 1;
 }
 
 message GetTodoGroupResponse {
@@ -80,9 +77,7 @@ message GetTodoGroupResponse {
 }
 
 message UpdateTodoGroupRequest {
-    string account_id = 1;
-    string todo_group_id = 2;
-    TodoGroup todo_group = 3;
+    TodoGroup todo_group = 1;
 }
 
 message UpdateTodoGroupResponse {
@@ -90,8 +85,7 @@ message UpdateTodoGroupResponse {
 }
 
 message DeleteTodoGroupRequest {
-    string account_id = 1;
-    string todo_group_id = 2;
+    string todo_group_id = 1;
 }
 
 message DeleteTodoGroupResponse {

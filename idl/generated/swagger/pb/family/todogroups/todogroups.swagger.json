@@ -26,14 +26,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "account_id",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "tags": [
           "TodoGroupsService"
         ]
@@ -63,6 +55,38 @@
         ]
       }
     },
+    "/v1/todo-groups/{todo_group.todo_group_id}": {
+      "put": {
+        "operationId": "UpdateTodoGroup",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todogroupsUpdateTodoGroupResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo_group.todo_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todogroupsUpdateTodoGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TodoGroupsService"
+        ]
+      }
+    },
     "/v1/todo-groups/{todo_group_id}": {
       "get": {
         "operationId": "GetTodoGroup",
@@ -79,12 +103,6 @@
             "name": "todo_group_id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "account_id",
-            "in": "query",
-            "required": false,
             "type": "string"
           }
         ],
@@ -108,42 +126,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "account_id",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "TodoGroupsService"
-        ]
-      },
-      "put": {
-        "operationId": "UpdateTodoGroup",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/todogroupsUpdateTodoGroupResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "todo_group_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/todogroupsUpdateTodoGroupRequest"
-            }
           }
         ],
         "tags": [
@@ -156,9 +138,6 @@
     "todogroupsCreateTodoGroupRequest": {
       "type": "object",
       "properties": {
-        "account_id": {
-          "type": "string"
-        },
         "todo_group": {
           "$ref": "#/definitions/todogroupsTodoGroup"
         }
@@ -237,12 +216,6 @@
     "todogroupsUpdateTodoGroupRequest": {
       "type": "object",
       "properties": {
-        "account_id": {
-          "type": "string"
-        },
-        "todo_group_id": {
-          "type": "string"
-        },
         "todo_group": {
           "$ref": "#/definitions/todogroupsTodoGroup"
         }

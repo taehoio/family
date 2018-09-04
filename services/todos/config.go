@@ -24,10 +24,7 @@ func NewConfig(settings Settings) Config {
 }
 
 func NewMockConfig() Config {
-	return &defaultConfig{
-		Config:   base.NewConfig(serviceName),
-		settings: NewMockSettings(),
-	}
+	return &defaultConfig{}
 }
 
 func (t *defaultConfig) Settings() Settings {

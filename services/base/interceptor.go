@@ -8,14 +8,11 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/rs/xid"
 	"github.com/sirupsen/logrus"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/metadata"
-	"google.golang.org/grpc/status"
-
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/services/discovery"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 )
 
 const (
@@ -152,17 +149,22 @@ type GetAccountIDFromContextFunc func(context.Context) string
 type HasPermissionByAccountIDFunc func(context.Context, string) error
 
 func GetAccountIDFromContext(ctx context.Context) string {
-	return ctx.Value(AccountIDKey).(string)
+	switch accountID := ctx.Value(AccountIDKey).(type) {
+	case string:
+		return accountID
+	default:
+		return ""
+	}
 }
 
 func HasPermissionByAccountID(ctx context.Context, accountID string) error {
 	if accountID == "" {
-		return InvalidAccountIDError
+		return PermissionDeniedError
 	}
 
 	accountIDFromCtx := ctx.Value(AccountIDKey)
 	if accountIDFromCtx != accountID {
-		return status.Error(codes.PermissionDenied, "Forbidden")
+		return PermissionDeniedError
 	}
 
 	return nil

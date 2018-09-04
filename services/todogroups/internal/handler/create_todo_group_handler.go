@@ -23,7 +23,6 @@ type CreateTodoGroupFunc func(
 func CreateTodoGroup(
 	todoGroupsRepo repo.GroupsRepo,
 	todoGroupPermitsRepo repo.PermitsRepo,
-	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) CreateTodoGroupFunc {
 	return func(
 		ctx context.Context,
@@ -32,11 +31,12 @@ func CreateTodoGroup(
 		*todogroups.CreateTodoGroupResponse,
 		error,
 	) {
-		if err := validateTodoGroupInput(req); err != nil {
+		accountID := base.GetAccountIDFromContext(ctx)
+		if err := base.HasPermissionByAccountID(ctx, accountID); err != nil {
 			return nil, err
 		}
 
-		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
+		if err := validateTodoGroupInput(req); err != nil {
 			return nil, err
 		}
 
@@ -44,7 +44,7 @@ func CreateTodoGroup(
 
 		todoGroup := model.NewTodoGroupFromProto(req.TodoGroup)
 		todoGroup.TodoGroupID = xid.New().String()
-		todoGroup.CreatedBy = req.AccountId
+		todoGroup.CreatedBy = accountID
 		if err := todoGroupsRepo.Put(todoGroup); err != nil {
 			logger.WithFields(logrus.Fields{
 				"what":      "todoGroupsRepo.Put",
@@ -55,7 +55,7 @@ func CreateTodoGroup(
 		}
 
 		todoGroupPermit := &model.TodoGroupPermit{
-			AccountID:   req.AccountId,
+			AccountID:   accountID,
 			TodoGroupID: todoGroup.TodoGroupID,
 			PermitType:  todogroups.PermitType_PERMIT_TYPE_OWNER,
 		}
@@ -75,9 +75,6 @@ func CreateTodoGroup(
 }
 
 func validateTodoGroupInput(req *todogroups.CreateTodoGroupRequest) error {
-	if req.AccountId == "" {
-		return base.InvalidAccountIDError
-	}
 	if req.TodoGroup.Title == "" {
 		return InvalidTitleError
 	}

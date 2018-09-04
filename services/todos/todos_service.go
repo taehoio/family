@@ -33,7 +33,7 @@ type defaultService struct {
 	todoGroupsServiceClient todogroups.TodoGroupsServiceClient
 }
 
-func New(cfg Config) (*defaultService, error) {
+func New(cfg Config) (Service, error) {
 	dynamodbSvc, err := base.NewDynamodbService(cfg)
 	if err != nil {
 		return nil, err
@@ -62,7 +62,7 @@ func New(cfg Config) (*defaultService, error) {
 	}, nil
 }
 
-func NewMock() (*defaultService, error) {
+func NewMock() (Service, error) {
 	return New(NewMockConfig())
 }
 
@@ -79,14 +79,12 @@ func (s *defaultService) TodoGroupsServiceClient() todogroups.TodoGroupsServiceC
 }
 
 func (s *defaultService) CreateTodo(ctx context.Context, req *todos.CreateTodoRequest) (*todos.CreateTodoResponse, error) {
-	return handler.CreateTodo(s.TodosRepo(), base.HasPermissionByAccountID)(ctx, req)
+	return handler.CreateTodo(s.TodosRepo())(ctx, req)
 }
 
 func (s *defaultService) GetTodo(ctx context.Context, req *todos.GetTodoRequest) (*todos.GetTodoResponse, error) {
 	return handler.GetTodo(
 		s.TodosRepo(),
-		base.GetAccountIDFromContext,
-		base.HasPermissionByAccountID,
 		s.TodoGroupsServiceClient(),
 	)(ctx, req)
 }
@@ -94,8 +92,6 @@ func (s *defaultService) GetTodo(ctx context.Context, req *todos.GetTodoRequest)
 func (s *defaultService) ListTodos(ctx context.Context, req *todos.ListTodosRequest) (*todos.ListTodosResponse, error) {
 	return handler.ListTodos(
 		s.TodosRepo(),
-		base.GetAccountIDFromContext,
-		base.HasPermissionByAccountID,
 		s.TodoGroupsServiceClient(),
 	)(ctx, req)
 }
@@ -103,8 +99,6 @@ func (s *defaultService) ListTodos(ctx context.Context, req *todos.ListTodosRequ
 func (s *defaultService) UpdateTodo(ctx context.Context, req *todos.UpdateTodoRequest) (*todos.UpdateTodoResponse, error) {
 	return handler.UpdateTodo(
 		s.TodosRepo(),
-		base.GetAccountIDFromContext,
-		base.HasPermissionByAccountID,
 		s.TodoGroupsServiceClient(),
 	)(ctx, req)
 }
@@ -112,8 +106,6 @@ func (s *defaultService) UpdateTodo(ctx context.Context, req *todos.UpdateTodoRe
 func (s *defaultService) DeleteTodo(ctx context.Context, req *todos.DeleteTodoRequest) (*todos.DeleteTodoResponse, error) {
 	return handler.DeleteTodo(
 		s.TodosRepo(),
-		base.GetAccountIDFromContext,
-		base.HasPermissionByAccountID,
 		s.TodoGroupsServiceClient(),
 	)(ctx, req)
 }

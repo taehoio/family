@@ -25,7 +25,7 @@ service TodosService {
     }
     rpc UpdateTodo (UpdateTodoRequest) returns (UpdateTodoResponse) {
         option (google.api.http) = {
-            put: "/v1/todos/{todo_id}"
+            put: "/v1/todos/{todo.todo_id}"
             body: "*"
         };
     }
@@ -73,9 +73,7 @@ message Todo {
 }
 
 message CreateTodoRequest {
-    string account_id = 1;
-    string todo_id = 2;
-    Todo todo = 3;
+    Todo todo = 1;
 }
 
 message CreateTodoResponse {
@@ -83,8 +81,7 @@ message CreateTodoResponse {
 }
 
 message GetTodoRequest {
-    string account_id = 1;
-    string todo_id = 2;
+    string todo_id = 1;
 }
 
 message GetTodoResponse {
@@ -92,9 +89,8 @@ message GetTodoResponse {
 }
 
 message ListTodosRequest {
-    string account_id = 1;
-    ParentType parent_type = 2;
-    string parent_id = 3;
+    ParentType parent_type = 1;
+    string parent_id = 2;
 }
 
 message ListTodosResponse {
@@ -113,10 +109,8 @@ enum UpdatingField {
 }
 
 message UpdateTodoRequest {
-    string account_id = 1;
-    string todo_id = 2;
-    repeated UpdatingField fields = 3;
-    Todo todo = 4;
+    repeated UpdatingField fields = 1;
+    Todo todo = 2;
 }
 
 message UpdateTodoResponse {
@@ -124,8 +118,7 @@ message UpdateTodoResponse {
 }
 
 message DeleteTodoRequest {
-    string account_id = 1;
-    string todo_id = 2;
+    string todo_id = 1;
 }
 
 message DeleteTodoResponse {

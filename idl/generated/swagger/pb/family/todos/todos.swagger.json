@@ -28,12 +28,6 @@
         },
         "parameters": [
           {
-            "name": "account_id",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
             "name": "parent_type",
             "in": "query",
             "required": false,
@@ -80,6 +74,38 @@
         ]
       }
     },
+    "/v1/todos/{todo.todo_id}": {
+      "put": {
+        "operationId": "UpdateTodo",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/todosUpdateTodoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "todo.todo_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todosUpdateTodoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "TodosService"
+        ]
+      }
+    },
     "/v1/todos/{todo_id}": {
       "get": {
         "operationId": "GetTodo",
@@ -96,12 +122,6 @@
             "name": "todo_id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "account_id",
-            "in": "query",
-            "required": false,
             "type": "string"
           }
         ],
@@ -125,42 +145,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "account_id",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "TodosService"
-        ]
-      },
-      "put": {
-        "operationId": "UpdateTodo",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/todosUpdateTodoResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "todo_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/todosUpdateTodoRequest"
-            }
           }
         ],
         "tags": [
@@ -173,12 +157,6 @@
     "todosCreateTodoRequest": {
       "type": "object",
       "properties": {
-        "account_id": {
-          "type": "string"
-        },
-        "todo_id": {
-          "type": "string"
-        },
         "todo": {
           "$ref": "#/definitions/todosTodo"
         }
@@ -299,12 +277,6 @@
     "todosUpdateTodoRequest": {
       "type": "object",
       "properties": {
-        "account_id": {
-          "type": "string"
-        },
-        "todo_id": {
-          "type": "string"
-        },
         "fields": {
           "type": "array",
           "items": {

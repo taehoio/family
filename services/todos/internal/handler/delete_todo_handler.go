@@ -3,25 +3,23 @@ package handler
 import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/sirupsen/logrus"
-	"github.com/taeho-io/family/services/base"
-	"github.com/taeho-io/family/services/todos/internal/repo"
 	"golang.org/x/net/context"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todogroups"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
+	"github.com/taeho-io/family/services/base"
+	"github.com/taeho-io/family/services/todos/internal/repo"
 )
 
 type DeleteTodoFunc func(ctx context.Context, req *todos.DeleteTodoRequest) (*todos.DeleteTodoResponse, error)
 
 func DeleteTodo(
 	todosRepo repo.TodosRepo,
-	getAccountIDFromContext base.GetAccountIDFromContextFunc,
-	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 	todoGroupsServiceClient todogroups.TodoGroupsServiceClient,
 ) DeleteTodoFunc {
 	return func(ctx context.Context, req *todos.DeleteTodoRequest) (*todos.DeleteTodoResponse, error) {
-		req.AccountId = getAccountIDFromContext(ctx)
-		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
+		accountID := base.GetAccountIDFromContext(ctx)
+		if err := base.HasPermissionByAccountID(ctx, accountID); err != nil {
 			return nil, err
 		}
 
@@ -41,7 +39,6 @@ func DeleteTodo(
 		}
 
 		getTogoGroupReq := &todogroups.GetTodoGroupRequest{
-			AccountId:   req.AccountId,
 			TodoGroupId: todo.ParentID,
 		}
 		todoGroupRes, err := todoGroupsServiceClient.GetTodoGroup(ctx, getTogoGroupReq)

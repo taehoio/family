@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
+	"github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todogroups"
@@ -14,29 +16,39 @@ type UpdateTodoGroupFunc func(
 
 func UpdateTodoGroup(
 	todoGroupsRepo repo.GroupsRepo,
-	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) UpdateTodoGroupFunc {
 	return func(
 		ctx context.Context,
 		req *todogroups.UpdateTodoGroupRequest,
 	) (*todogroups.UpdateTodoGroupResponse, error) {
-		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
+		accountID := base.GetAccountIDFromContext(ctx)
+		if err := base.HasPermissionByAccountID(ctx, accountID); err != nil {
 			return nil, err
 		}
 
+		logger := ctxlogrus.Extract(ctx).WithField("req", req)
+
 		_, err := todoGroupsRepo.UpdateTitle(
-			req.GetTodoGroupId(),
-			req.GetTodoGroup().GetTitle(),
+			req.TodoGroup.TodoGroupId,
+			req.TodoGroup.Title,
 		)
 		if err != nil {
+			logger.WithFields(logrus.Fields{
+				"what": "todoGroupsRepo.UpdateTitle",
+			}).Error(err)
+
 			return nil, err
 		}
 
 		todoGroup, err := todoGroupsRepo.UpdateDescription(
-			req.GetTodoGroupId(),
-			req.GetTodoGroup().GetDescription(),
+			req.TodoGroup.TodoGroupId,
+			req.TodoGroup.Description,
 		)
 		if err != nil {
+			logger.WithFields(logrus.Fields{
+				"what": "todoGroupsRepo.UpdateDescription",
+			}).Error(err)
+
 			return nil, err
 		}
 

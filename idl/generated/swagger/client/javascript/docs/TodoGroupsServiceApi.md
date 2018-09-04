@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**deleteTodoGroup**](TodoGroupsServiceApi.md#deleteTodoGroup) | **DELETE** /v1/todo-groups/{todo_group_id} | 
 [**getTodoGroup**](TodoGroupsServiceApi.md#getTodoGroup) | **GET** /v1/todo-groups/{todo_group_id} | 
 [**listTodoGroups**](TodoGroupsServiceApi.md#listTodoGroups) | **GET** /v1/todo-groups | 
-[**updateTodoGroup**](TodoGroupsServiceApi.md#updateTodoGroup) | **PUT** /v1/todo-groups/{todo_group_id} | 
+[**updateTodoGroup**](TodoGroupsServiceApi.md#updateTodoGroup) | **PUT** /v1/todo-groups/{todo_group.todo_group_id} | 
 
 
 <a name="createTodoGroup"></a>
@@ -54,7 +54,7 @@ No authorization required
 
 <a name="deleteTodoGroup"></a>
 # **deleteTodoGroup**
-> TodogroupsDeleteTodoGroupResponse deleteTodoGroup(todoGroupId, opts)
+> TodogroupsDeleteTodoGroupResponse deleteTodoGroup(todoGroupId)
 
 
 
@@ -66,10 +66,7 @@ var apiInstance = new Api.TodoGroupsServiceApi();
 
 var todoGroupId = "todoGroupId_example"; // String | 
 
-var opts = { 
-  'accountId': "accountId_example" // String | 
-};
-apiInstance.deleteTodoGroup(todoGroupId, opts).then(function(data) {
+apiInstance.deleteTodoGroup(todoGroupId).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -82,7 +79,6 @@ apiInstance.deleteTodoGroup(todoGroupId, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **todoGroupId** | **String**|  | 
- **accountId** | **String**|  | [optional] 
 
 ### Return type
 
@@ -99,7 +95,7 @@ No authorization required
 
 <a name="getTodoGroup"></a>
 # **getTodoGroup**
-> TodogroupsGetTodoGroupResponse getTodoGroup(todoGroupId, opts)
+> TodogroupsGetTodoGroupResponse getTodoGroup(todoGroupId)
 
 
 
@@ -111,10 +107,7 @@ var apiInstance = new Api.TodoGroupsServiceApi();
 
 var todoGroupId = "todoGroupId_example"; // String | 
 
-var opts = { 
-  'accountId': "accountId_example" // String | 
-};
-apiInstance.getTodoGroup(todoGroupId, opts).then(function(data) {
+apiInstance.getTodoGroup(todoGroupId).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -127,7 +120,6 @@ apiInstance.getTodoGroup(todoGroupId, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **todoGroupId** | **String**|  | 
- **accountId** | **String**|  | [optional] 
 
 ### Return type
 
@@ -144,7 +136,7 @@ No authorization required
 
 <a name="listTodoGroups"></a>
 # **listTodoGroups**
-> TodogroupsListTodoGroupsResponse listTodoGroups(opts)
+> TodogroupsListTodoGroupsResponse listTodoGroups()
 
 
 
@@ -153,11 +145,7 @@ No authorization required
 var Api = require('api');
 
 var apiInstance = new Api.TodoGroupsServiceApi();
-
-var opts = { 
-  'accountId': "accountId_example" // String | 
-};
-apiInstance.listTodoGroups(opts).then(function(data) {
+apiInstance.listTodoGroups().then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -166,10 +154,7 @@ apiInstance.listTodoGroups(opts).then(function(data) {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountId** | **String**|  | [optional] 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -186,7 +171,7 @@ No authorization required
 
 <a name="updateTodoGroup"></a>
 # **updateTodoGroup**
-> TodogroupsUpdateTodoGroupResponse updateTodoGroup(todoGroupId, body)
+> TodogroupsUpdateTodoGroupResponse updateTodoGroup(todoGroupTodoGroupId, body)
 
 
 
@@ -196,11 +181,11 @@ var Api = require('api');
 
 var apiInstance = new Api.TodoGroupsServiceApi();
 
-var todoGroupId = "todoGroupId_example"; // String | 
+var todoGroupTodoGroupId = "todoGroupTodoGroupId_example"; // String | 
 
 var body = new Api.TodogroupsUpdateTodoGroupRequest(); // TodogroupsUpdateTodoGroupRequest | 
 
-apiInstance.updateTodoGroup(todoGroupId, body).then(function(data) {
+apiInstance.updateTodoGroup(todoGroupTodoGroupId, body).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -212,7 +197,7 @@ apiInstance.updateTodoGroup(todoGroupId, body).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **todoGroupId** | **String**|  | 
+ **todoGroupTodoGroupId** | **String**|  | 
  **body** | [**TodogroupsUpdateTodoGroupRequest**](TodogroupsUpdateTodoGroupRequest.md)|  | 
 
 ### Return type

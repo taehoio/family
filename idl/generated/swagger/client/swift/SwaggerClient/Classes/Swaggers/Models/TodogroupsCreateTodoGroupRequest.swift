@@ -11,13 +11,11 @@ import Foundation
 
 open class TodogroupsCreateTodoGroupRequest: Codable {
 
-    public var accountId: String?
     public var todoGroup: TodogroupsTodoGroup?
 
 
     
-    public init(accountId: String?, todoGroup: TodogroupsTodoGroup?) {
-        self.accountId = accountId
+    public init(todoGroup: TodogroupsTodoGroup?) {
         self.todoGroup = todoGroup
     }
     
@@ -28,7 +26,6 @@ open class TodogroupsCreateTodoGroupRequest: Codable {
 
         var container = encoder.container(keyedBy: String.self)
 
-        try container.encodeIfPresent(accountId, forKey: "account_id")
         try container.encodeIfPresent(todoGroup, forKey: "todo_group")
     }
 
@@ -37,7 +34,6 @@ open class TodogroupsCreateTodoGroupRequest: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: String.self)
 
-        accountId = try container.decodeIfPresent(String.self, forKey: "account_id")
         todoGroup = try container.decodeIfPresent(TodogroupsTodoGroup.self, forKey: "todo_group")
     }
 }

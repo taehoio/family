@@ -86,7 +86,6 @@ func (s *DefaultService) CreateTodoGroup(
 	return handler.CreateTodoGroup(
 		s.TodoGroupsRepo(),
 		s.TodoGroupPermitsRepo(),
-		base.HasPermissionByAccountID,
 	)(ctx, req)
 }
 
@@ -100,8 +99,6 @@ func (s *DefaultService) GetTodoGroup(
 	return handler.GetTodoGroup(
 		s.TodoGroupsRepo(),
 		s.TodoGroupPermitsRepo(),
-		base.GetAccountIDFromContext,
-		base.HasPermissionByAccountID,
 	)(ctx, req)
 }
 
@@ -115,7 +112,6 @@ func (s *DefaultService) ListTodoGroups(
 	return handler.ListTodoGroups(
 		s.TodoGroupsRepo(),
 		s.TodoGroupPermitsRepo(),
-		base.HasPermissionByAccountID,
 	)(ctx, req)
 }
 
@@ -128,7 +124,6 @@ func (s *DefaultService) UpdateTodoGroup(
 ) {
 	return handler.UpdateTodoGroup(
 		s.TodoGroupsRepo(),
-		base.HasPermissionByAccountID,
 	)(ctx, req)
 }
 
@@ -142,7 +137,6 @@ func (s *DefaultService) DeleteTodoGroup(
 	return handler.DeleteTodoGroup(
 		s.TodoGroupsRepo(),
 		s.TodoGroupPermitsRepo(),
-		base.HasPermissionByAccountID,
 	)(ctx, req)
 }
 

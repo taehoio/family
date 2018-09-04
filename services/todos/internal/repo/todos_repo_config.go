@@ -6,14 +6,14 @@ type TodosRepoConfig interface {
 	base.DynamodbRepoConfig
 }
 
-type DefaultTogosRepoConfig struct {
+type defaultTodosRepoConfig struct {
 	TodosRepoConfig
 
 	fullTableName string
 }
 
 func NewTodosRepoConfig(fullTableName string) TodosRepoConfig {
-	return &DefaultTogosRepoConfig{
+	return &defaultTodosRepoConfig{
 		fullTableName: fullTableName,
 	}
 }
@@ -22,6 +22,6 @@ func NewMockTodosRepoConfig() TodosRepoConfig {
 	return NewTodosRepoConfig("family-development-todos-todos")
 }
 
-func (c *DefaultTogosRepoConfig) FullTableName() string {
+func (c *defaultTodosRepoConfig) FullTableName() string {
 	return c.fullTableName
 }

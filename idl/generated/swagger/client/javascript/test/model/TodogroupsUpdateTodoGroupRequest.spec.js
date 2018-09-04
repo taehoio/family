@@ -56,20 +56,8 @@
       //expect(instance).to.be.a(Api.TodogroupsUpdateTodoGroupRequest);
     });
 
-    it('should have the property accountId (base name: "account_id")', function() {
-      // uncomment below and update the code to test the property accountId
-      //var instane = new Api.TodogroupsUpdateTodoGroupRequest();
-      //expect(instance).to.be();
-    });
-
     it('should have the property todoGroup (base name: "todo_group")', function() {
       // uncomment below and update the code to test the property todoGroup
-      //var instane = new Api.TodogroupsUpdateTodoGroupRequest();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property todoGroupId (base name: "todo_group_id")', function() {
-      // uncomment below and update the code to test the property todoGroupId
       //var instane = new Api.TodogroupsUpdateTodoGroupRequest();
       //expect(instance).to.be();
     });

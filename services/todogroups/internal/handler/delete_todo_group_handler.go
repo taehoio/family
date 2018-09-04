@@ -18,13 +18,13 @@ type DeleteTodoGroupFunc func(
 func DeleteTodoGroup(
 	todoGroupsRepo repo.GroupsRepo,
 	todoGroupPermitsRepo repo.PermitsRepo,
-	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) DeleteTodoGroupFunc {
 	return func(
 		ctx context.Context,
 		req *todogroups.DeleteTodoGroupRequest,
 	) (*todogroups.DeleteTodoGroupResponse, error) {
-		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
+		accountID := base.GetAccountIDFromContext(ctx)
+		if err := base.HasPermissionByAccountID(ctx, accountID); err != nil {
 			return nil, err
 		}
 
@@ -39,7 +39,7 @@ func DeleteTodoGroup(
 			return nil, err
 		}
 
-		if err := todoGroupPermitsRepo.Delete(req.AccountId, req.TodoGroupId); err != nil {
+		if err := todoGroupPermitsRepo.Delete(accountID, req.TodoGroupId); err != nil {
 			logger.WithFields(logrus.Fields{
 				"what": "todoGroupPermitsRepo.Delete",
 				"req":  req,

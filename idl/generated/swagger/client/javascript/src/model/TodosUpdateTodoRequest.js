@@ -49,8 +49,6 @@
 
 
 
-
-
   };
 
   /**
@@ -64,26 +62,16 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('account_id')) {
-        obj['account_id'] = ApiClient.convertToType(data['account_id'], 'String');
-      }
       if (data.hasOwnProperty('fields')) {
         obj['fields'] = ApiClient.convertToType(data['fields'], [TodosUpdatingField]);
       }
       if (data.hasOwnProperty('todo')) {
         obj['todo'] = TodosTodo.constructFromObject(data['todo']);
       }
-      if (data.hasOwnProperty('todo_id')) {
-        obj['todo_id'] = ApiClient.convertToType(data['todo_id'], 'String');
-      }
     }
     return obj;
   }
 
-  /**
-   * @member {String} account_id
-   */
-  exports.prototype['account_id'] = undefined;
   /**
    * @member {Array.<module:model/TodosUpdatingField>} fields
    */
@@ -92,10 +80,6 @@
    * @member {module:model/TodosTodo} todo
    */
   exports.prototype['todo'] = undefined;
-  /**
-   * @member {String} todo_id
-   */
-  exports.prototype['todo_id'] = undefined;
 
 
 

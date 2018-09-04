@@ -1,44 +1,123 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+    ActivityIndicator,
+    Button,
+    StatusBar,
+    StyleSheet,
+    View,
+} from 'react-native';
+import { SecureStore } from 'expo';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
-import Api, { logIn, isLoggedIn } from './api';
-logIn('taeho@taeho.io', '1234')
-    .then(console.log)
-    .catch(console.log);
+const userTokenKey = 'userToken';
 
-console.log(isLoggedIn());
-setTimeout(() => {
-    console.log(isLoggedIn());
+class SignInScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Please sign in',
+    };
 
-    const api = new Api.TodoGroupsServiceApi();
-    const body = Api.TodogroupsCreateTodoGroupRequest.constructFromObject({
-        account_id: 'be35al3oo3solaig0nb0',
-        todo_group: Api.TodogroupsTodoGroup.constructFromObject({
-            title: 'test_title',
-        }),
-    });
+    render() {
+        return (
+            <View style={styles.container}>
+                <Button title="Sign in!" onPress={this._signInAsync} />
+            </View>
+        );
+    }
 
-    api.createTodoGroup(body)
+    _signInAsync = async () => {
+        await SecureStore.setItemAsync(userTokenKey, 'abc');
+        this.props.navigation.navigate('App');
+    };
+}
 
+class HomeScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Welcome to the app!',
+    };
 
-}, 5000);
+    render() {
+        return (
+            <View style={styles.container}>
+                <Button title="Show me more of the app" onPress={this._showMoreApp} />
+                <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
+            </View>
+        );
+    }
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Yamma! Yo!</Text>
-      </View>
-    );
-  }
+    _showMoreApp = () => {
+        this.props.navigation.navigate('Other');
+    };
+
+    _signOutAsync = async () => {
+        await SecureStore.deleteItemAsync(userTokenKey);
+        this.props.navigation.navigate('Auth');
+    };
+}
+
+class OtherScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Lots of features here',
+    };
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Button title="I'm done, sign me out" onPress={this._signOutAsync} />
+                <StatusBar barStyle="default" />
+            </View>
+        );
+    }
+
+    _signOutAsync = async () => {
+        await SecureStore.deleteItemAsync(userTokenKey);
+        this.props.navigation.navigate('Auth');
+    };
+}
+
+class AuthLoadingScreen extends React.Component {
+    constructor() {
+        super();
+        this._bootstrapAsync();
+    }
+
+    // Fetch the token from storage then navigate to our appropriate place
+    _bootstrapAsync = async () => {
+        const userToken = await SecureStore.getItemAsync(userTokenKey);
+
+        // This will switch to the App screen or Auth screen and this loading
+        // screen will be unmounted and thrown away.
+        this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    };
+
+    // Render any loading content that you like here
+    render() {
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator />
+                <StatusBar barStyle="default" />
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
+
+const AppStack = createStackNavigator({ Home: HomeScreen, Other: OtherScreen });
+const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+
+export default createSwitchNavigator(
+    {
+        AuthLoading: AuthLoadingScreen,
+        App: AppStack,
+        Auth: AuthStack,
+    },
+    {
+        initialRouteName: 'AuthLoading',
+    }
+);

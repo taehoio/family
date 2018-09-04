@@ -14,16 +14,14 @@ import (
 
 type CreateTodoFunc func(ctx context.Context, req *todos.CreateTodoRequest) (*todos.CreateTodoResponse, error)
 
-func CreateTodo(
-	todosRepo repo.TodosRepo,
-	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
-) CreateTodoFunc {
+func CreateTodo(todosRepo repo.TodosRepo) CreateTodoFunc {
 	return func(ctx context.Context, req *todos.CreateTodoRequest) (*todos.CreateTodoResponse, error) {
 		if err := validateTodoInput(req); err != nil {
 			return nil, err
 		}
 
-		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
+		accountID := base.GetAccountIDFromContext(ctx)
+		if err := base.HasPermissionByAccountID(ctx, accountID); err != nil {
 			return nil, err
 		}
 

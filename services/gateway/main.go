@@ -16,11 +16,13 @@ import (
 	"github.com/taeho-io/family/idl/generated/go/pb/family/accounts"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/auth"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/discovery"
+	"github.com/taeho-io/family/idl/generated/go/pb/family/notes"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todogroups"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
 	accountsService "github.com/taeho-io/family/services/accounts"
 	authService "github.com/taeho-io/family/services/auth"
 	discoveryService "github.com/taeho-io/family/services/discovery"
+	notesService "github.com/taeho-io/family/services/notes"
 	todogroupsService "github.com/taeho-io/family/services/todogroups"
 	todosService "github.com/taeho-io/family/services/todos"
 )
@@ -48,6 +50,11 @@ var (
 		"todos_server_endpoint",
 		discoveryService.ServiceAddrMap[discovery.Service_TODOS],
 		"endpoint of TodosServer",
+	)
+	notesServerEndpoint = flag.String(
+		"notes_server_endpoint",
+		discoveryService.ServiceAddrMap[discovery.Service_NOTES],
+		"endpoint of NotesServer",
 	)
 )
 
@@ -103,6 +110,15 @@ func serveGateway() error {
 		return err
 	}
 
+	if err := notes.RegisterNotesServiceHandlerFromEndpoint(
+		ctx,
+		mux,
+		*notesServerEndpoint,
+		opts,
+	); err != nil {
+		return err
+	}
+
 	return http.ListenAndServe(gatewayAddr, mux)
 }
 
@@ -116,6 +132,7 @@ func startGRPCServices() error {
 		accountsService.Serve,
 		todogroupsService.Serve,
 		todosService.Serve,
+		notesService.Serve,
 	}
 
 	for _, serve := range serveFuncs {

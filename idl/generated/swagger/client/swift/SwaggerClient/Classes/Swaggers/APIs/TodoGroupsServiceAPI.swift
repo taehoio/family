@@ -77,11 +77,10 @@ open class TodoGroupsServiceAPI {
     /**
 
      - parameter todoGroupId: (path)  
-     - parameter accountId: (query)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteTodoGroup(todoGroupId: String, accountId: String? = nil, completion: @escaping ((_ data: TodogroupsDeleteTodoGroupResponse?,_ error: Error?) -> Void)) {
-        deleteTodoGroupWithRequestBuilder(todoGroupId: todoGroupId, accountId: accountId).execute { (response, error) -> Void in
+    open class func deleteTodoGroup(todoGroupId: String, completion: @escaping ((_ data: TodogroupsDeleteTodoGroupResponse?,_ error: Error?) -> Void)) {
+        deleteTodoGroupWithRequestBuilder(todoGroupId: todoGroupId).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
@@ -89,12 +88,11 @@ open class TodoGroupsServiceAPI {
     /**
 
      - parameter todoGroupId: (path)  
-     - parameter accountId: (query)  (optional)
      - returns: Observable<TodogroupsDeleteTodoGroupResponse>
      */
-    open class func deleteTodoGroup(todoGroupId: String, accountId: String? = nil) -> Observable<TodogroupsDeleteTodoGroupResponse> {
+    open class func deleteTodoGroup(todoGroupId: String) -> Observable<TodogroupsDeleteTodoGroupResponse> {
         return Observable.create { observer -> Disposable in
-            deleteTodoGroup(todoGroupId: todoGroupId, accountId: accountId) { data, error in
+            deleteTodoGroup(todoGroupId: todoGroupId) { data, error in
                 if let error = error {
                     observer.on(.error(error))
                 } else {
@@ -111,21 +109,17 @@ open class TodoGroupsServiceAPI {
      - examples: [{contentType=application/json, example={ }}]
      
      - parameter todoGroupId: (path)  
-     - parameter accountId: (query)  (optional)
 
      - returns: RequestBuilder<TodogroupsDeleteTodoGroupResponse> 
      */
-    open class func deleteTodoGroupWithRequestBuilder(todoGroupId: String, accountId: String? = nil) -> RequestBuilder<TodogroupsDeleteTodoGroupResponse> {
+    open class func deleteTodoGroupWithRequestBuilder(todoGroupId: String) -> RequestBuilder<TodogroupsDeleteTodoGroupResponse> {
         var path = "/v1/todo-groups/{todo_group_id}"
         path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
-            "account_id": accountId
-        ])
-        
+
 
         let requestBuilder: RequestBuilder<TodogroupsDeleteTodoGroupResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
@@ -135,11 +129,10 @@ open class TodoGroupsServiceAPI {
     /**
 
      - parameter todoGroupId: (path)  
-     - parameter accountId: (query)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getTodoGroup(todoGroupId: String, accountId: String? = nil, completion: @escaping ((_ data: TodogroupsGetTodoGroupResponse?,_ error: Error?) -> Void)) {
-        getTodoGroupWithRequestBuilder(todoGroupId: todoGroupId, accountId: accountId).execute { (response, error) -> Void in
+    open class func getTodoGroup(todoGroupId: String, completion: @escaping ((_ data: TodogroupsGetTodoGroupResponse?,_ error: Error?) -> Void)) {
+        getTodoGroupWithRequestBuilder(todoGroupId: todoGroupId).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
@@ -147,12 +140,11 @@ open class TodoGroupsServiceAPI {
     /**
 
      - parameter todoGroupId: (path)  
-     - parameter accountId: (query)  (optional)
      - returns: Observable<TodogroupsGetTodoGroupResponse>
      */
-    open class func getTodoGroup(todoGroupId: String, accountId: String? = nil) -> Observable<TodogroupsGetTodoGroupResponse> {
+    open class func getTodoGroup(todoGroupId: String) -> Observable<TodogroupsGetTodoGroupResponse> {
         return Observable.create { observer -> Disposable in
-            getTodoGroup(todoGroupId: todoGroupId, accountId: accountId) { data, error in
+            getTodoGroup(todoGroupId: todoGroupId) { data, error in
                 if let error = error {
                     observer.on(.error(error))
                 } else {
@@ -180,21 +172,17 @@ open class TodoGroupsServiceAPI {
 }}]
      
      - parameter todoGroupId: (path)  
-     - parameter accountId: (query)  (optional)
 
      - returns: RequestBuilder<TodogroupsGetTodoGroupResponse> 
      */
-    open class func getTodoGroupWithRequestBuilder(todoGroupId: String, accountId: String? = nil) -> RequestBuilder<TodogroupsGetTodoGroupResponse> {
+    open class func getTodoGroupWithRequestBuilder(todoGroupId: String) -> RequestBuilder<TodogroupsGetTodoGroupResponse> {
         var path = "/v1/todo-groups/{todo_group_id}"
         path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
-            "account_id": accountId
-        ])
-        
+
 
         let requestBuilder: RequestBuilder<TodogroupsGetTodoGroupResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
@@ -203,23 +191,21 @@ open class TodoGroupsServiceAPI {
 
     /**
 
-     - parameter accountId: (query)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func listTodoGroups(accountId: String? = nil, completion: @escaping ((_ data: TodogroupsListTodoGroupsResponse?,_ error: Error?) -> Void)) {
-        listTodoGroupsWithRequestBuilder(accountId: accountId).execute { (response, error) -> Void in
+    open class func listTodoGroups(completion: @escaping ((_ data: TodogroupsListTodoGroupsResponse?,_ error: Error?) -> Void)) {
+        listTodoGroupsWithRequestBuilder().execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
 
     /**
 
-     - parameter accountId: (query)  (optional)
      - returns: Observable<TodogroupsListTodoGroupsResponse>
      */
-    open class func listTodoGroups(accountId: String? = nil) -> Observable<TodogroupsListTodoGroupsResponse> {
+    open class func listTodoGroups() -> Observable<TodogroupsListTodoGroupsResponse> {
         return Observable.create { observer -> Disposable in
-            listTodoGroups(accountId: accountId) { data, error in
+            listTodoGroups() { data, error in
                 if let error = error {
                     observer.on(.error(error))
                 } else {
@@ -254,21 +240,16 @@ open class TodoGroupsServiceAPI {
     "order" : "order"
   } ]
 }}]
-     
-     - parameter accountId: (query)  (optional)
 
      - returns: RequestBuilder<TodogroupsListTodoGroupsResponse> 
      */
-    open class func listTodoGroupsWithRequestBuilder(accountId: String? = nil) -> RequestBuilder<TodogroupsListTodoGroupsResponse> {
+    open class func listTodoGroupsWithRequestBuilder() -> RequestBuilder<TodogroupsListTodoGroupsResponse> {
         let path = "/v1/todo-groups"
         let URLString = SwaggerClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
-            "account_id": accountId
-        ])
-        
+
 
         let requestBuilder: RequestBuilder<TodogroupsListTodoGroupsResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
 
@@ -277,25 +258,25 @@ open class TodoGroupsServiceAPI {
 
     /**
 
-     - parameter todoGroupId: (path)  
+     - parameter todoGroupTodoGroupId: (path)  
      - parameter body: (body)  
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func updateTodoGroup(todoGroupId: String, body: TodogroupsUpdateTodoGroupRequest, completion: @escaping ((_ data: TodogroupsUpdateTodoGroupResponse?,_ error: Error?) -> Void)) {
-        updateTodoGroupWithRequestBuilder(todoGroupId: todoGroupId, body: body).execute { (response, error) -> Void in
+    open class func updateTodoGroup(todoGroupTodoGroupId: String, body: TodogroupsUpdateTodoGroupRequest, completion: @escaping ((_ data: TodogroupsUpdateTodoGroupResponse?,_ error: Error?) -> Void)) {
+        updateTodoGroupWithRequestBuilder(todoGroupTodoGroupId: todoGroupTodoGroupId, body: body).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
 
     /**
 
-     - parameter todoGroupId: (path)  
+     - parameter todoGroupTodoGroupId: (path)  
      - parameter body: (body)  
      - returns: Observable<TodogroupsUpdateTodoGroupResponse>
      */
-    open class func updateTodoGroup(todoGroupId: String, body: TodogroupsUpdateTodoGroupRequest) -> Observable<TodogroupsUpdateTodoGroupResponse> {
+    open class func updateTodoGroup(todoGroupTodoGroupId: String, body: TodogroupsUpdateTodoGroupRequest) -> Observable<TodogroupsUpdateTodoGroupResponse> {
         return Observable.create { observer -> Disposable in
-            updateTodoGroup(todoGroupId: todoGroupId, body: body) { data, error in
+            updateTodoGroup(todoGroupTodoGroupId: todoGroupTodoGroupId, body: body) { data, error in
                 if let error = error {
                     observer.on(.error(error))
                 } else {
@@ -308,7 +289,7 @@ open class TodoGroupsServiceAPI {
     }
 
     /**
-     - PUT /v1/todo-groups/{todo_group_id}
+     - PUT /v1/todo-groups/{todo_group.todo_group_id}
      - examples: [{contentType=application/json, example={
   "todo_group" : {
     "todo_group_id" : "todo_group_id",
@@ -322,14 +303,14 @@ open class TodoGroupsServiceAPI {
   }
 }}]
      
-     - parameter todoGroupId: (path)  
+     - parameter todoGroupTodoGroupId: (path)  
      - parameter body: (body)  
 
      - returns: RequestBuilder<TodogroupsUpdateTodoGroupResponse> 
      */
-    open class func updateTodoGroupWithRequestBuilder(todoGroupId: String, body: TodogroupsUpdateTodoGroupRequest) -> RequestBuilder<TodogroupsUpdateTodoGroupResponse> {
-        var path = "/v1/todo-groups/{todo_group_id}"
-        path = path.replacingOccurrences(of: "{todo_group_id}", with: "\(todoGroupId)", options: .literal, range: nil)
+    open class func updateTodoGroupWithRequestBuilder(todoGroupTodoGroupId: String, body: TodogroupsUpdateTodoGroupRequest) -> RequestBuilder<TodogroupsUpdateTodoGroupResponse> {
+        var path = "/v1/todo-groups/{todo_group.todo_group_id}"
+        path = path.replacingOccurrences(of: "{todo_group.todo_group_id}", with: "\(todoGroupTodoGroupId)", options: .literal, range: nil)
         let URLString = SwaggerClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 

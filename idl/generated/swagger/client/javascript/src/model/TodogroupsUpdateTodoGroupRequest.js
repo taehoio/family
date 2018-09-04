@@ -48,8 +48,6 @@
     var _this = this;
 
 
-
-
   };
 
   /**
@@ -63,31 +61,17 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('account_id')) {
-        obj['account_id'] = ApiClient.convertToType(data['account_id'], 'String');
-      }
       if (data.hasOwnProperty('todo_group')) {
         obj['todo_group'] = TodogroupsTodoGroup.constructFromObject(data['todo_group']);
-      }
-      if (data.hasOwnProperty('todo_group_id')) {
-        obj['todo_group_id'] = ApiClient.convertToType(data['todo_group_id'], 'String');
       }
     }
     return obj;
   }
 
   /**
-   * @member {String} account_id
-   */
-  exports.prototype['account_id'] = undefined;
-  /**
    * @member {module:model/TodogroupsTodoGroup} todo_group
    */
   exports.prototype['todo_group'] = undefined;
-  /**
-   * @member {String} todo_group_id
-   */
-  exports.prototype['todo_group_id'] = undefined;
 
 
 

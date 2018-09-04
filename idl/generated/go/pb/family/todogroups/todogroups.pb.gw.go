@@ -41,26 +41,14 @@ func request_TodoGroupsService_CreateTodoGroup_0(ctx context.Context, marshaler 
 
 }
 
-var (
-	filter_TodoGroupsService_ListTodoGroups_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
 func request_TodoGroupsService_ListTodoGroups_0(ctx context.Context, marshaler runtime.Marshaler, client TodoGroupsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ListTodoGroupsRequest
 	var metadata runtime.ServerMetadata
-
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_TodoGroupsService_ListTodoGroups_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	msg, err := client.ListTodoGroups(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
-
-var (
-	filter_TodoGroupsService_GetTodoGroup_0 = &utilities.DoubleArray{Encoding: map[string]int{"todo_group_id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
 
 func request_TodoGroupsService_GetTodoGroup_0(ctx context.Context, marshaler runtime.Marshaler, client TodoGroupsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetTodoGroupRequest
@@ -84,10 +72,6 @@ func request_TodoGroupsService_GetTodoGroup_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "todo_group_id", err)
 	}
 
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_TodoGroupsService_GetTodoGroup_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := client.GetTodoGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -108,25 +92,21 @@ func request_TodoGroupsService_UpdateTodoGroup_0(ctx context.Context, marshaler 
 		_   = err
 	)
 
-	val, ok = pathParams["todo_group_id"]
+	val, ok = pathParams["todo_group.todo_group_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "todo_group_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "todo_group.todo_group_id")
 	}
 
-	protoReq.TodoGroupId, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "todo_group.todo_group_id", val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "todo_group_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "todo_group.todo_group_id", err)
 	}
 
 	msg, err := client.UpdateTodoGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
-
-var (
-	filter_TodoGroupsService_DeleteTodoGroup_0 = &utilities.DoubleArray{Encoding: map[string]int{"todo_group_id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
 
 func request_TodoGroupsService_DeleteTodoGroup_0(ctx context.Context, marshaler runtime.Marshaler, client TodoGroupsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteTodoGroupRequest
@@ -148,10 +128,6 @@ func request_TodoGroupsService_DeleteTodoGroup_0(ctx context.Context, marshaler 
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "todo_group_id", err)
-	}
-
-	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_TodoGroupsService_DeleteTodoGroup_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.DeleteTodoGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -352,7 +328,7 @@ var (
 
 	pattern_TodoGroupsService_GetTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "todo-groups", "todo_group_id"}, ""))
 
-	pattern_TodoGroupsService_UpdateTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "todo-groups", "todo_group_id"}, ""))
+	pattern_TodoGroupsService_UpdateTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "todo-groups", "todo_group.todo_group_id"}, ""))
 
 	pattern_TodoGroupsService_DeleteTodoGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "todo-groups", "todo_group_id"}, ""))
 )

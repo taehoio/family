@@ -1,0 +1,238 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/family/notes/notes.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/notes": {
+      "get": {
+        "operationId": "ListNotes",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/notesListNotesResponse"
+            }
+          }
+        },
+        "tags": [
+          "NotesService"
+        ]
+      },
+      "post": {
+        "operationId": "CreateNote",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/notesCreateNoteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/notesCreateNoteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "NotesService"
+        ]
+      }
+    },
+    "/v1/notes/{note.note_id}": {
+      "put": {
+        "operationId": "UpdateNote",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/notesUpdateNoteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "note.note_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/notesUpdateNoteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "NotesService"
+        ]
+      }
+    },
+    "/v1/notes/{note_id}": {
+      "get": {
+        "operationId": "GetNote",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/notesGetNoteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "note_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "NotesService"
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteNote",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/notesDeleteNoteResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "note_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "NotesService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "notesCreateNoteRequest": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/notesNote"
+        }
+      }
+    },
+    "notesCreateNoteResponse": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/notesNote"
+        }
+      }
+    },
+    "notesDeleteNoteResponse": {
+      "type": "object"
+    },
+    "notesGetNoteResponse": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/notesNote"
+        }
+      }
+    },
+    "notesListNotesResponse": {
+      "type": "object",
+      "properties": {
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/notesNote"
+          }
+        }
+      }
+    },
+    "notesNote": {
+      "type": "object",
+      "properties": {
+        "note_id": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "int64"
+        },
+        "share_type": {
+          "$ref": "#/definitions/notesShareType"
+        },
+        "text_type": {
+          "$ref": "#/definitions/notesTextType"
+        }
+      }
+    },
+    "notesShareType": {
+      "type": "string",
+      "enum": [
+        "PRIVATE",
+        "PUBLIC"
+      ],
+      "default": "PRIVATE"
+    },
+    "notesTextType": {
+      "type": "string",
+      "enum": [
+        "TEXT",
+        "MARKDOWN",
+        "HTML"
+      ],
+      "default": "TEXT"
+    },
+    "notesUpdateNoteRequest": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/notesNote"
+        }
+      }
+    },
+    "notesUpdateNoteResponse": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/notesNote"
+        }
+      }
+    }
+  }
+}

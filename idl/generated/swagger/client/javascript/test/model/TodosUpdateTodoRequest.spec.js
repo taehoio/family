@@ -56,12 +56,6 @@
       //expect(instance).to.be.a(Api.TodosUpdateTodoRequest);
     });
 
-    it('should have the property accountId (base name: "account_id")', function() {
-      // uncomment below and update the code to test the property accountId
-      //var instane = new Api.TodosUpdateTodoRequest();
-      //expect(instance).to.be();
-    });
-
     it('should have the property fields (base name: "fields")', function() {
       // uncomment below and update the code to test the property fields
       //var instane = new Api.TodosUpdateTodoRequest();
@@ -70,12 +64,6 @@
 
     it('should have the property todo (base name: "todo")', function() {
       // uncomment below and update the code to test the property todo
-      //var instane = new Api.TodosUpdateTodoRequest();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property todoId (base name: "todo_id")', function() {
-      // uncomment below and update the code to test the property todoId
       //var instane = new Api.TodosUpdateTodoRequest();
       //expect(instance).to.be();
     });

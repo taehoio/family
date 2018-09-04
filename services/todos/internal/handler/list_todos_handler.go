@@ -15,13 +15,11 @@ type ListTodosFunc func(ctx context.Context, req *todos.ListTodosRequest) (*todo
 
 func ListTodos(
 	todosRepo repo.TodosRepo,
-	getAccountIDFromContext base.GetAccountIDFromContextFunc,
-	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 	todoGroupsServiceClient todogroups.TodoGroupsServiceClient,
 ) ListTodosFunc {
 	return func(ctx context.Context, req *todos.ListTodosRequest) (*todos.ListTodosResponse, error) {
-		req.AccountId = getAccountIDFromContext(ctx)
-		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
+		accountID := base.GetAccountIDFromContext(ctx)
+		if err := base.HasPermissionByAccountID(ctx, accountID); err != nil {
 			return nil, err
 		}
 
@@ -32,7 +30,6 @@ func ListTodos(
 		}
 
 		getTogoGroupReq := &todogroups.GetTodoGroupRequest{
-			AccountId:   req.AccountId,
 			TodoGroupId: req.ParentId,
 		}
 		todoGroupRes, err := todoGroupsServiceClient.GetTodoGroup(ctx, getTogoGroupReq)

@@ -1,10 +1,9 @@
 package handler
 
 import (
-	"golang.org/x/net/context"
-
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/sirupsen/logrus"
+	"golang.org/x/net/context"
 
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todogroups"
 	"github.com/taeho-io/family/idl/generated/go/pb/family/todos"
@@ -16,13 +15,11 @@ type GetTodoFunc func(ctx context.Context, req *todos.GetTodoRequest) (*todos.Ge
 
 func GetTodo(
 	todosRepo repo.TodosRepo,
-	getAccountIDFromContext base.GetAccountIDFromContextFunc,
-	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 	todoGroupsServiceClient todogroups.TodoGroupsServiceClient,
 ) GetTodoFunc {
 	return func(ctx context.Context, req *todos.GetTodoRequest) (*todos.GetTodoResponse, error) {
-		req.AccountId = getAccountIDFromContext(ctx)
-		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
+		accountID := base.GetAccountIDFromContext(ctx)
+		if err := base.HasPermissionByAccountID(ctx, accountID); err != nil {
 			return nil, err
 		}
 
@@ -42,7 +39,6 @@ func GetTodo(
 		}
 
 		getTogoGroupReq := &todogroups.GetTodoGroupRequest{
-			AccountId:   req.AccountId,
 			TodoGroupId: todo.ParentID,
 		}
 		todoGroupRes, err := todoGroupsServiceClient.GetTodoGroup(ctx, getTogoGroupReq)

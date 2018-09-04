@@ -22,8 +22,6 @@ type GetTodoGroupFunc func(
 func GetTodoGroup(
 	todoGroupsRepo repo.GroupsRepo,
 	todoGroupPermitsRepo repo.PermitsRepo,
-	getAccountIDFromContext base.GetAccountIDFromContextFunc,
-	hasPermissionByAccountID base.HasPermissionByAccountIDFunc,
 ) GetTodoGroupFunc {
 	return func(
 		ctx context.Context,
@@ -32,21 +30,18 @@ func GetTodoGroup(
 		*todogroups.GetTodoGroupResponse,
 		error,
 	) {
-		req.AccountId = getAccountIDFromContext(ctx)
-		if err := hasPermissionByAccountID(ctx, req.AccountId); err != nil {
+		accountID := base.GetAccountIDFromContext(ctx)
+		if err := base.HasPermissionByAccountID(ctx, accountID); err != nil {
 			return nil, err
 		}
 
-		if req.AccountId == "" {
-			return nil, base.InvalidAccountIDError
-		}
 		if req.TodoGroupId == "" {
 			return nil, InvalidTodoGroupIDError
 		}
 
 		logger := ctxlogrus.Extract(ctx).WithField("req", req)
 
-		togoGroupPermit, err := todoGroupPermitsRepo.Get(req.AccountId, req.TodoGroupId)
+		togoGroupPermit, err := todoGroupPermitsRepo.Get(accountID, req.TodoGroupId)
 		if err == dynamo.ErrNotFound {
 			logger.WithFields(logrus.Fields{
 				"what": "todoGroupPermitsRepo.Get",

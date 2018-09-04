@@ -98,12 +98,9 @@
 
     /**
      * @param {String} todoId 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodosDeleteTodoResponse} and HTTP response
      */
-    this.deleteTodoWithHttpInfo = function(todoId, opts) {
-      opts = opts || {};
+    this.deleteTodoWithHttpInfo = function(todoId) {
       var postBody = null;
 
       // verify the required parameter 'todoId' is set
@@ -116,7 +113,6 @@
         'todo_id': todoId
       };
       var queryParams = {
-        'account_id': opts['accountId'],
       };
       var collectionQueryParams = {
       };
@@ -139,12 +135,10 @@
 
     /**
      * @param {String} todoId 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodosDeleteTodoResponse}
      */
-    this.deleteTodo = function(todoId, opts) {
-      return this.deleteTodoWithHttpInfo(todoId, opts)
+    this.deleteTodo = function(todoId) {
+      return this.deleteTodoWithHttpInfo(todoId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -153,12 +147,9 @@
 
     /**
      * @param {String} todoId 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodosGetTodoResponse} and HTTP response
      */
-    this.getTodoWithHttpInfo = function(todoId, opts) {
-      opts = opts || {};
+    this.getTodoWithHttpInfo = function(todoId) {
       var postBody = null;
 
       // verify the required parameter 'todoId' is set
@@ -171,7 +162,6 @@
         'todo_id': todoId
       };
       var queryParams = {
-        'account_id': opts['accountId'],
       };
       var collectionQueryParams = {
       };
@@ -194,12 +184,10 @@
 
     /**
      * @param {String} todoId 
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodosGetTodoResponse}
      */
-    this.getTodo = function(todoId, opts) {
-      return this.getTodoWithHttpInfo(todoId, opts)
+    this.getTodo = function(todoId) {
+      return this.getTodoWithHttpInfo(todoId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -208,7 +196,6 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @param {module:model/String} opts.parentType  (default to PARENT_TYPE_TODO_GROUP)
      * @param {String} opts.parentId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodosListTodosResponse} and HTTP response
@@ -221,7 +208,6 @@
       var pathParams = {
       };
       var queryParams = {
-        'account_id': opts['accountId'],
         'parent_type': opts['parentType'],
         'parent_id': opts['parentId'],
       };
@@ -246,7 +232,6 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.accountId 
      * @param {module:model/String} opts.parentType  (default to PARENT_TYPE_TODO_GROUP)
      * @param {String} opts.parentId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodosListTodosResponse}
@@ -260,16 +245,16 @@
 
 
     /**
-     * @param {String} todoId 
+     * @param {String} todoTodoId 
      * @param {module:model/TodosUpdateTodoRequest} body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/TodosUpdateTodoResponse} and HTTP response
      */
-    this.updateTodoWithHttpInfo = function(todoId, body) {
+    this.updateTodoWithHttpInfo = function(todoTodoId, body) {
       var postBody = body;
 
-      // verify the required parameter 'todoId' is set
-      if (todoId === undefined || todoId === null) {
-        throw new Error("Missing the required parameter 'todoId' when calling updateTodo");
+      // verify the required parameter 'todoTodoId' is set
+      if (todoTodoId === undefined || todoTodoId === null) {
+        throw new Error("Missing the required parameter 'todoTodoId' when calling updateTodo");
       }
 
       // verify the required parameter 'body' is set
@@ -279,7 +264,7 @@
 
 
       var pathParams = {
-        'todo_id': todoId
+        'todo.todo_id': todoTodoId
       };
       var queryParams = {
       };
@@ -296,19 +281,19 @@
       var returnType = TodosUpdateTodoResponse;
 
       return this.apiClient.callApi(
-        '/v1/todos/{todo_id}', 'PUT',
+        '/v1/todos/{todo.todo_id}', 'PUT',
         pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
     }
 
     /**
-     * @param {String} todoId 
+     * @param {String} todoTodoId 
      * @param {module:model/TodosUpdateTodoRequest} body 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/TodosUpdateTodoResponse}
      */
-    this.updateTodo = function(todoId, body) {
-      return this.updateTodoWithHttpInfo(todoId, body)
+    this.updateTodo = function(todoTodoId, body) {
+      return this.updateTodoWithHttpInfo(todoTodoId, body)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

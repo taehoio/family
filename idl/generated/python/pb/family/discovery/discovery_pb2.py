@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='pb/family/discovery/discovery.proto',
   package='pb.family.discovery',
   syntax='proto3',
-  serialized_pb=_b('\n#pb/family/discovery/discovery.proto\x12\x13pb.family.discovery*<\n\x07Service\x12\x08\n\x04\x41UTH\x10\x00\x12\x0c\n\x08\x41\x43\x43OUNTS\x10\x01\x12\x0e\n\nTODOGROUPS\x10\x02\x12\t\n\x05TODOS\x10\x03\x42KZIgithub.com/taeho-io/family/idl/generated/go/pb/family/discovery;discoveryb\x06proto3')
+  serialized_pb=_b('\n#pb/family/discovery/discovery.proto\x12\x13pb.family.discovery*G\n\x07Service\x12\x08\n\x04\x41UTH\x10\x00\x12\x0c\n\x08\x41\x43\x43OUNTS\x10\x01\x12\x0e\n\nTODOGROUPS\x10\x02\x12\t\n\x05TODOS\x10\x03\x12\t\n\x05NOTES\x10\x04\x42KZIgithub.com/taeho-io/family/idl/generated/go/pb/family/discovery;discoveryb\x06proto3')
 )
 
 _SERVICE = _descriptor.EnumDescriptor(
@@ -45,11 +45,15 @@ _SERVICE = _descriptor.EnumDescriptor(
       name='TODOS', index=3, number=3,
       options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='NOTES', index=4, number=4,
+      options=None,
+      type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=60,
-  serialized_end=120,
+  serialized_end=131,
 )
 _sym_db.RegisterEnumDescriptor(_SERVICE)
 
@@ -58,6 +62,7 @@ AUTH = 0
 ACCOUNTS = 1
 TODOGROUPS = 2
 TODOS = 3
+NOTES = 4
 
 
 DESCRIPTOR.enum_types_by_name['Service'] = _SERVICE
