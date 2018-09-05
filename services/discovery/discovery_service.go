@@ -61,6 +61,5 @@ func NewNotesServiceClient() (notes.NotesServiceClient, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return notes.NewNotesServiceClient(clientConn), nil
 }
