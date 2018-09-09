@@ -122,7 +122,7 @@ func serveGateway() error {
 	return http.ListenAndServe(gatewayAddr, mux)
 }
 
-func startGRPCServices() error {
+func startGrpcServices() error {
 	errs := make(chan error, 1)
 
 	type serveFunc func() error
@@ -159,7 +159,7 @@ func main() {
 	go func() {
 		log.WithField("server_type", "grpc").Info("initializing")
 
-		err := startGRPCServices()
+		err := startGrpcServices()
 		if err != nil {
 			log.WithField("server_type", "grpc").WithError(err).Fatal("failed to listen")
 			return

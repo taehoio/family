@@ -1,7 +1,7 @@
 {
   "name": "family-app",
   "hooks": {
-    "prebuild": "cp ../../idl/generated/swagger/swagger.json ./public"
+    "prebuild": "cp ../../../idl/generated/swagger/swagger.json ../public"
   },
   "static": {
     "dir": "public"
