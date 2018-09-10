@@ -6,7 +6,12 @@ import {
     View,
 } from 'react-native';
 
-import { getUserTokenAsync, startRefreshAuthTokenInterval } from "../lib/auth";
+import {
+    getUserTokenAsync,
+    refreshAuthToken,
+    getRefreshTokenAsync,
+    startRefreshAuthTokenInterval,
+} from "../lib/auth";
 
 
 export default class AuthLoadingScreen extends React.Component {
@@ -19,10 +24,18 @@ export default class AuthLoadingScreen extends React.Component {
     _bootstrapAsync = async () => {
         const accountId = await getUserTokenAsync();
         if (accountId) {
+            try {
+                await refreshAuthToken(await getRefreshTokenAsync());
+            } catch (err) {
+                this.props.navigation.navigate('Auth');
+                return;
+            }
+
             this.props.navigation.navigate('App');
             startRefreshAuthTokenInterval();
             return;
         }
+
         this.props.navigation.navigate('Auth');
     };
 

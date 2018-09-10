@@ -39,23 +39,35 @@ function clearRefreshAuthTokenInterval() {
     }
 }
 
-function refreshAuthToken() {
+export function refreshAuthToken(refreshToken) {
+    if (refreshToken) {
+        loggedInAccount.refresh_token = refreshToken;
+    } else {
+        refreshToken = loggedInAccount.refresh_token;
+    }
+
     const api = new Api.AuthServiceApi();
     const body = Api.AuthRefreshRequest.constructFromObject({
-        refresh_token: loggedInAccount.refresh_token,
+        refresh_token: refreshToken,
     });
 
-    api.refresh(body)
-        .then(res => {
-            loggedInAccount.access_token = res.access_token;
-            loggedInAccount.expires_in = res.expires_in;
-            updateAuthentication();
-        })
-        .catch(err => {
-            clearRefreshAuthTokenInterval();
+    return new Promise((resolve, reject) => {
+        api.refresh(body)
+            .then(res => {
+                loggedInAccount.access_token = res.access_token;
+                loggedInAccount.expires_in = res.expires_in;
+                updateAuthentication();
 
-            loggedInAccount = new Api.AccountsLogInResponse();
-        });
+                resolve();
+            })
+            .catch(err => {
+                clearRefreshAuthTokenInterval();
+
+                loggedInAccount = new Api.AccountsLogInResponse();
+
+                reject(err);
+            });
+    });
 }
 
 export function signIn(email, password) {
