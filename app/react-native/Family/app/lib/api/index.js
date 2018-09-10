@@ -1,7 +1,6 @@
 const Api = require("api");
 
 
-
 let basePath = 'http://localhost:3000';
 if (process.env.NODE_ENV === 'staging') {
     basePath = 'https://family-staging.taeho.io'
@@ -29,12 +28,15 @@ export function isLoggedIn() {
 }
 
 let refreshAuthTokenIntervalId = null;
-function startRefreshAuthTokenInterval() {
+export function startRefreshAuthTokenInterval() {
    refreshAuthTokenIntervalId = setInterval(refreshAuthToken, 10000);
 }
 
 function clearRefreshAuthTokenInterval() {
-    clearInterval(refreshAuthTokenIntervalId);
+    if (refreshAuthTokenIntervalId) {
+        clearInterval(refreshAuthTokenIntervalId);
+        refreshAuthTokenIntervalId = null;
+    }
 }
 
 function refreshAuthToken() {
@@ -48,26 +50,15 @@ function refreshAuthToken() {
             loggedInAccount.access_token = res.access_token;
             loggedInAccount.expires_in = res.expires_in;
             updateAuthentication();
-
-            console.log(refreshAuthTokenIntervalId);
-            console.log(res);
-            console.log(loggedInAccount);
         })
         .catch(err => {
-            //if (refreshAuthTokenIntervalId !== null) {
-            //    clearRefreshAuthTokenInterval();
-            //    refreshAuthTokenIntervalId = null;
-            //}
+            clearRefreshAuthTokenInterval();
 
             loggedInAccount = new Api.AccountsLogInResponse();
-
-            console.log(refreshAuthTokenIntervalId);
-            console.log(err);
-            console.log(loggedInAccount);
         });
 }
 
-export function logIn(email, password) {
+export function signIn(email, password) {
     const api = new Api.AccountsServiceApi();
     const body = Api.AccountsLogInRequest.constructFromObject({
         auth_type: Api.AccountsAuthType.EMAIL,
@@ -89,4 +80,10 @@ export function logIn(email, password) {
                 reject(err);
             });
     });
+}
+
+export function signOut() {
+    if (isLoggedIn()) {
+        clearRefreshAuthTokenInterval();
+    }
 }
